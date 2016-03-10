@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+
+
+	<div class="container-fluid"><br><br>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="col-md-12" style="padding-bottom:20px;">
+					<div class="col-md-2"></div>
+					<div class="col-md-8">
+						<p>UserName</p>
+						<p>Role Sopes Admin</p>
+					</div>
+					<div class="col-md-2"></div>
+
+				</div>
+				<br>
+				<ul class="nav nav-tabs nav-stacked">
+					<a href="#" data-toggle="modal" data-target="#createorg"><li >Create Organization</li></a>
+					<a href="#" data-toggle="modal" data-target="#createorgunit"><li>Create Organization Unit</li></a>
+					<a href="#" data-toggle="modal" data-target="#createrole">	<li>Create Roles</li></a>
+					<a href="#" data-toggle="modal" data-target="#createuser">	<li>Create Users</li></a>
+					<li>Create Tabs Strips</li>
+					<li>Create Tabs template</li>
+					<li>Edit Profiles</li>
+
+				</ul>
+
+			</div>
+			<div class="col-md-8">
+				<div class="col-md-12" style="padding-top:55px">
+					<table width="100%">
+						<tr>
+							<td><h4>ORGANIZATION UNITS</h4></td>
+							<td align="right">
+								<form class="form-horizontal" method="post">
+										<input type="text" name="org" id="org" style="width:60%;padding-left:5px; padding-right:5px"
+										placeholder="Search an organisation unit by name">
+										<button type="submit" class="btn btn-default" id="search_org_unit">Search </button>
+										<center><label id="find_org_unit_msg"></label></center>
+								</form>
+							</td>
+						</tr>
+					</table>
+						
+					<div class="col-md-3">
+						<div class="col-md-12 borderbox">
+							
+						</div>
+						<label class="orgname">Apollo-BLR</label>
+
+					</div>
+					<div class="col-md-3">
+						<div class="col-md-12 borderbox">
+							
+						</div>
+						<label class="orgname">Apollo-CHE</label>
+
+					</div><div class="col-md-3">
+					<div class="col-md-12 borderbox">
+						
+					</div>
+					<label class="orgname">MOIT-CHE</label>
+
+				</div><div class="col-md-3">
+				<div class="col-md-12 borderbox">
+					
+				</div>
+				<label class="orgname">LL-BLR</label>
+
+			</div>
+			<!-- other row start ---->
+			<div class="col-md-3">
+				<div class="col-md-12 borderbox">
+					
+				</div>
+				<label class="orgname">LL-CHE</label>
+
+			</div>
+			<div class="col-md-3">
+				<div class="col-md-12 borderbox">
+					
+				</div>
+				<label class="orgname">LL-HYD</label>
+
+			</div>
+			<div class="col-md-3">
+				<div class="col-md-12 borderbox">
+					
+				</div>
+				<label class="orgname">Apollo-BLR</label>
+
+			</div>
+			<div class="col-md-3">
+				<div class="col-md-12 borderbox">
+					
+				</div>
+				<label class="orgname">Apollo-IND</label>
+
+			</div>
+			
+			<a href="#" style="float:right" class="viewall">VIEW ALL</a>
+		</div>
+		<div class="col-md-12">
+		<br/>
+			<table width="100%">
+				<tr>
+					<td><h4>ORGANIZATION</h4></td>
+					<td align="right">
+						<form class="form-horizontal" method="post">
+							<input type="text" name="org_name" id="org_name" style="width:60%;padding-left:5px; padding-right:5px"
+								placeholder="Search an organisation by name">
+							<button type="submit" class="btn btn-default" id="search_org">Search </button><br/>
+							<label id="find_org_msg"></label>
+						</form>
+					</td>
+				</tr>
+			</table>
+				
+			<div class="col-md-3">
+				<div class="col-md-12 borderbox">
+					
+				</div>
+				<label class="orgname">Apollo</label>
+
+			</div>
+			<div class="col-md-3">
+				<div class="col-md-12 borderbox">
+					
+				</div>
+				<label class="orgname">MOIT</label>
+
+			</div><div class="col-md-3">
+			<div class="col-md-12 borderbox">
+				
+			</div>
+			<label class="orgname">LL</label>
+
+		</div><div class="col-md-3">
+		<div class="col-md-12 borderbox">
+			
+		</div>
+		<label class="orgname">BATRA</label>
+
+	</div>
+	<!-- other row start ---->
+	<div class="col-md-3">
+		<div class="col-md-12 borderbox">
+			
+		</div>
+		<label class="orgname">FORIS</label>
+
+	</div>
+	<div class="col-md-3">
+		<div class="col-md-12 borderbox">
+			
+		</div>
+		<label class="orgname">MANIPAL</label>
+
+	</div>
+	<div class="col-md-3">
+		<div class="col-md-12 borderbox">
+			
+		</div>
+		<label class="orgname">VICORIA</label>
+
+	</div>
+	<div class="col-md-3">
+		<div class="col-md-12 borderbox">
+			
+		</div>
+		<label class="orgname">DR. AGRAWAL</label>
+
+	</div>
+	<a href="#" style="float:right" class="viewall">VIEW ALL</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!--- popup start for each one -->
+<!-- Modal for create Organization -->
+<div class="modal fade" id="createorg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Create Organization</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" method="post" action="createorg.php">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-4  control-label">Organization Name</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" value="" name="orgname" id="orgname"placeholder="Organization name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-4  control-label">Email</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" value="" name="email" id="email" placeholder="Email">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-offset-2 col-sm-5">
+							<button type="submit" class="btn btn-default" style="width:70%" id="submit">Create </button>
+						</div>
+						<div class="col-sm-4"></div>
+					</div>
+					<center><label id="error1" align="center"></label></center>
+				</form>
+			</div>	
+		</div>
+	</div>
+</div>
+<!-- 
+
+
+
+<!-- Modal for create Organization Unit-->
+<div class="modal fade" id="createorgunit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Create Organization Unit</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" method="post">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-4  control-label">Organization Unit Name</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" value="" id="orgunit" name="orgunit" placeholder="Organization name" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-4  control-label">Display Name</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" value="" id="displaynameunit"  placeholder="Display Name" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4  control-label">Organization</label>
+						<div class="col-sm-8">
+							<select class="form-control " name="orgnamesel" id="orgnamesel">
+								<option>Apollo</option>
+								<option>MIOT</option>
+								<option>Batra</option>
+								<option>Dr. Agrwal</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-offset-2 col-sm-5">
+							<button type="submit" class="btn btn-default" style="width:70%" id="createorgunitbtn">Create </button>
+						</div>
+						<div class="col-sm-4"></div>
+					</div>
+				</form>
+
+
+
+			</div>
+			<center><label id="error2" align="center"></label></center>
+			
+		</div>
+	</div>
+</div>
+
+<!-- Modal for create role -->
+<div class="modal fade" id="createrole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Create Role</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" method="post">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-4  control-label">Role Name</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="rolaname" id="rolaname" placeholder="Role name">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4  control-label">Organization Unit</label>
+						<div class="col-sm-8">
+							<select class="form-control " id="ousel" name="ousel">
+								<option>Apollo-BLR</option>
+								<option>Apollo-CHR</option>
+								<option>Apllo-MOIT</option>
+								<option>Apollo-CHE</option>
+							</select>
+						</div>
+					</div> 
+					<div class="form-group">
+						<label class="col-sm-4  control-label">Can Allow Offer</label>
+						<div class="col-sm-8">
+							<label class="radio-inline"><input type="radio" name="optradio" id="access" value="true">Yes</label>
+							<label class="radio-inline"><input type="radio" name="optradio" id="access" value="false">No</label>
+						</div>
+					</div>
+	
+					<div class="form-group">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-offset-2 col-sm-5">
+							<button type="submit" class="btn btn-default" style="width:70%" id="btnrole">Create </button>
+						</div>
+						<div class="col-sm-4"></div>
+					</div>
+				</form>
+			<center><label id="error3"></label></center>
+
+
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<!-- Modal for create user -->
+<div class="modal fade" id="createuser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Create User</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-4  control-label">User Name</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control"  placeholder="Username" id="username">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-4  control-label">Password</label>
+						<div class="col-sm-8">
+							<input type="password" class="form-control"  placeholder="Password" id="password">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-4  control-label">Conform Password</label>
+						<div class="col-sm-8">
+							<input type="password" class="form-control"  placeholder="Conform Password" id="conf_pwd">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-4  control-label">Email</label>
+						<div class="col-sm-8">
+							<input type="email" class="form-control"  placeholder="Email" id="email">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4  control-label">Organization Unit</label>
+						<div class="col-sm-8">
+							<select class="form-control " id="OrgUnit">
+								<option>Apollo-BLR</option>
+								<option>Apollo-CHR</option>
+								<option>Apllo-MOIT</option>
+								<option>Apollo-CHE</option>
+							</select>
+						</div>
+					</div> 
+
+					<div class="form-group">
+						<label class="col-sm-4  control-label">Role</label>
+						<div class="col-sm-8">
+							<select class="form-control " id="UserRole">
+								<option>Doctor</option>
+								
+							</select>
+						</div>
+					</div> 
+					<div class="form-group">
+						<label class="col-sm-4  control-label">Can Allow Offer</label>
+						<div class="col-sm-8">
+							<label class="radio-inline"><input type="radio" name="optradio">Yes</label>
+							<label class="radio-inline"><input type="radio" name="optradio">No</label>
+						</div>
+					</div>
+
+
+
+					
+					<div class="form-group">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-offset-2 col-sm-5">
+							<button type="submit" class="btn btn-default" style="width:70%" id="CreateUser">Create </button>
+						</div>
+						<div class="col-sm-4"></div>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+/* script for creating organisation*/
+            $(document).ready(function (){
+			
+                $('#submit').click(function() {
+ 
+                    var orgname=$("#orgname").val();
+					var email =$("#email").val();
+                     
+                    $.ajax({
+                   
+                        type: "POST",
+                        url: "createorg.php",
+                        data: "orgname="+orgname+"&email="+email,
+                    
+                        success: function(s){  
+							//alert(s);						  
+                            if(s.trim()=="true")
+                            {
+								$("#error1").css('color', 'green');
+								$("#error1").text("Organization Created ");
+                                
+                            }else if(s.trim()=="false"){
+								$("#error1").css('color', 'red');
+								$("#error1").text("Oops Some Goes Wrong Please Try Agian");
+							} 
+							else{
+								$("#error1").css('color', 'red');
+								$("#error1").text(s);
+							}
+                        }
+                    });				
+                    return false;
+                });
+        
+            });
+</script>
+
+<script type="text/javascript">
+/*JavaScript for creating organisation unit*/
+        $(document).ready(function (){
+                $('#createorgunitbtn').click(function() {
+				//alert('hh');
+ 
+                    var orgunit=$("#orgunit").val();
+					var displaynameunit =$("#displaynameunit").val();
+					var orgnamesel =$("#orgnamesel").val();
+    
+                    $.ajax({
+                   
+                        type: "POST",
+                        url: "createorgunit.php",
+                        data: "orgnamesel="+orgnamesel+"&displaynameunit="+displaynameunit+"&orgunit="+orgunit,
+                    
+                        success: function(e){  
+						//alert(e);
+                           
+                            if(e.trim()=="true")
+                            {
+								$("#error2").css('color', 'green');
+								$("#error2").text("Organization Unit Created ");
+                                
+                            }else if(e.trim()=="false"){
+								$("#error2").css('color', 'red');
+								$("#error2").text("Oops Some Goes Wrong Please Try Agian");
+							}
+							else{
+								$("#error2").css('color', 'red');
+								$("#error2").text(e);
+							}
+                        }
+                    });
+				
+                    return false;
+                });
+			$('#createorgunit').on('hidden.bs.modal', function () {
+				$("#error2").text("");
+			});
+        });
+</script>
+
+<script type="text/javascript">
+/* Javascript for creating roles*/
+    $(document).ready(function (){
+		$('#createrole').on('hidden.bs.modal', function () {
+			$("#error3").text("");
+		});
+        $('#btnrole').click(function() {
+			var rolaname=$("#rolaname").val();
+			var ousel =$("#ousel").val();
+			var access =$("#access").val();
+    
+			$.ajax({
+                type: "POST",
+                url: "createrole.php",
+                data: "rolaname="+rolaname+"&ousel="+ousel+"&access="+access,    
+                success: function(e){  
+					if(e.trim()=="true")
+                    {
+						$("#error3").css('color','green');
+						$("#error3").text("Role Created ");
+                                
+                    }else if(e.trim()=="false"){
+						$("#error3").css('color','red');
+						$("#error3").text("Oops Some Goes Wrong Please Try Agian");
+					}
+					else{
+						$("#error3").css('color','red');
+						$("#error3").text(e);
+					}
+                }
+            });
+            return false;
+        });
+	});
+</script>
+<script type="text/javascript">
+/*JavaScript for creating users*/
+	$(document).ready(function(){
+		$('#CreateUser').click(function(){
+			var username = $("#username").val();
+			var password = $("#password").val();
+			var conf_pwd = $("#conf_pwd").val();
+			var email = $("#email").val();
+			var org_unit = $("#OrgUnit").val();
+			var user_role = $("#UserRole").val();
+		});
+	
+	});
+
+</script>	
+<!-- JavaScript for finding organisation -->		
+<script type="text/JavaScript">
+	$(document).ready(function(){
+		$("#search_org").click(function(){
+			var org_name = $('#org_name').val();
+			$("#find_org_msg").text("Wait please...");
+			$.ajax({
+				type:"POST",
+				url: "find_org.php",
+				data: "name="+org_name,
+				success: function(e){
+						$("#find_org_msg").text(e);
+				}
+			});
+			return false;
+		});
+	});
+</script>			
+
+
+</body>
+</html>

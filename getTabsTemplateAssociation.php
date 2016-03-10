@@ -1,0 +1,37 @@
+<?php
+include('connect_db.php'); 
+if(!empty($_GET)){
+	
+	$orgUnit = $_GET['orgunit'];
+	$role = $_GET['role'];
+	if($conn){
+		//echo "Database Connection Successful";
+		if($role=="All"){
+			$query="select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
+					and Role.OrganisationUnit='$orgUnit' and Tab.RoleId=Role.Id order by Tab_Name";
+		}
+		else{
+			$query="select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
+					and Role.OrganisationUnit='$orgUnit' and Role.RoleName='$role' and Tab.RoleId=Role.Id order by Tab_Name";
+		}
+		$res=$conn->query($query);
+		$count=0;
+		while($row=$res->fetch(PDO::FETCH_ASSOC)){
+			$my_array = array("RoleName"=>$row['RoleName'],"Tab_Name"=>$row['Tab_Name'],"Template_Name"=>getTemplateName($conn,$row['Template_ID']));
+			$output[]=$my_array;
+			$count++;
+		}
+		if($count>0) 
+			echo json_encode($output);
+		else 
+			echo "false";
+	}
+}
+else echo "Invalid request";
+function getTemplateName($conn,$template_id){
+	//include('connect_db.php');
+	$query_res = $conn->query("select TabTemplate.Name as Template_Name from TabTemplate where id='$template_id'");
+	$result_row=$query_res->fetch(PDO::FETCH_ASSOC);
+	return($result_row['Template_Name']);
+}
+?>

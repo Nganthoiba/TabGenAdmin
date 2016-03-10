@@ -1,0 +1,15 @@
+<script type="text/javascript">
+function validate()
+{
+var regexp1=new RegExp("[^a-z]");
+if(regexp1.test(document.getElementById("txt").value))
+{
+alert("Only alphabets from a-z are allowed");
+return false;
+}
+}
+</script>
+<form action="" method="post" onsubmit="return validate()">
+<input type="text" id="txt" name="txt">
+<input type="submit" value="submit">
+</form>

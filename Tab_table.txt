@@ -1,0 +1,15 @@
+CREATE TABLE `Tab` (                                
+          `Id` varchar(26) NOT NULL,                        
+          `CreateAt` bigint(20) DEFAULT NULL,               
+          `UpdateAt` bigint(20) DEFAULT NULL,               
+          `DeleteAt` bigint(20) DEFAULT NULL,               
+          `Name` varchar(64) DEFAULT NULL,                  
+          `RoleName` varchar(256) DEFAULT NULL,             
+          `CreatedBy` varchar(128) DEFAULT NULL,            
+          `TabTemplate` varchar(256) DEFAULT NULL,          
+          `RoleId` varchar(26) DEFAULT NULL,                
+          `OUId` varchar(26) DEFAULT NULL,                  
+          PRIMARY KEY (`Id`),                               
+          UNIQUE KEY `Name` (`Name`),                       
+          UNIQUE KEY `RoleName` (`RoleName`,`TabTemplate`)  
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4             
