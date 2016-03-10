@@ -91,7 +91,9 @@
 								});					
 							</script>	
 					</table>
-					<Button type="button" id="viewAllOrgUnitLists" style="float:left" class="btn btn-success">VIEW ALL</Button>
+					</div>
+					<Button type="button" id="viewAllOrgUnitLists" style="float:right" class="btn btn-success">VIEW ALL</Button>
+				</div>
 				<div class="col-md-12">	<br/><br/>
 					<h3>Organisation</h3>
 					<br/>
@@ -105,7 +107,7 @@
 							</script>	
 						</table>
 					</div>
-					<Button type="button" id="viewAllOrgLists" style="float:left" class="btn btn-success">VIEW ALL</Button>
+					<Button type="button" id="viewAllOrgLists" style="float:right" class="btn btn-success">VIEW ALL</Button>
 				</div>
 			</div>
 		</div>
@@ -313,8 +315,8 @@
 					<div class="form-group">
 						<label class="col-sm-4  control-label">Can Allow Offer</label>
 						<div class="col-sm-8">
-							<label class="radio-inline"><input type="radio" name="optradio" id="type" value="Yes">Yes</label>
-							<label class="radio-inline"><input type="radio" name="optradio" id="type" value="No">No</label>
+							<label class="radio-inline"><input type="radio" name="optradio" id="user_allow_offer">Yes</label>
+							<label class="radio-inline"><input type="radio" name="optradio" id="user_not_allow_offer">No</label>
 						</div>
 					</div>
 

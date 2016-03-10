@@ -358,7 +358,7 @@ $(document).ready(function (){
 					var limit=0;				
 					if(data.trim()=="error"){
 						view=" ";
-						alert("Oops! an unknown error occurs. Try again later.");
+						document.getElementById(id).innerHTML="<tr><td>We are very sorry that an error occurs, please try again after sometime</td></tr>";
 					}
 					else{
 						var json_arr = JSON.parse(data);
@@ -436,7 +436,7 @@ $(document).ready(function (){
 					var limit=0;				
 					if(data.trim()=="error"){
 						view=" ";
-						alert("Oops! an unknown error occurs. Try again later.");
+						document.getElementById(id).innerHTML="<tr><td>We are very sorry that an error occurs, please try again after sometime.</td></tr>";
 					}
 					else{
 						var json_arr = JSON.parse(data);
