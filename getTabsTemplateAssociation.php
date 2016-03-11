@@ -1,5 +1,6 @@
 <?php
-include('connect_db.php'); 
+include('connect_db.php');
+include('tabgen_php_functions.php'); 
 if(!empty($_GET)){
 	
 	$orgUnit = $_GET['orgunit'];
@@ -11,7 +12,12 @@ if(!empty($_GET)){
 					and Role.OrganisationUnit='$orgUnit' and Tab.RoleId=Role.Id order by Tab_Name";
 		}
 		else{
-			$query="select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
+			if(isUniversalRole($conn,$role)){
+				$query = "select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
+				and Tab.RoleId=Role.Id order by Tab_Name";
+			}
+			else
+				$query="select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
 					and Role.OrganisationUnit='$orgUnit' and Role.RoleName='$role' and Tab.RoleId=Role.Id order by Tab_Name";
 		}
 		$res=$conn->query($query);
@@ -28,10 +34,5 @@ if(!empty($_GET)){
 	}
 }
 else echo "Invalid request";
-function getTemplateName($conn,$template_id){
-	//include('connect_db.php');
-	$query_res = $conn->query("select TabTemplate.Name as Template_Name from TabTemplate where id='$template_id'");
-	$result_row=$query_res->fetch(PDO::FETCH_ASSOC);
-	return($result_row['Template_Name']);
-}
+
 ?>

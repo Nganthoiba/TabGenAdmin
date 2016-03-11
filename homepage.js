@@ -275,8 +275,8 @@ $(document).ready(function (){
 			var email = $("#email").val();
 			var org_unit = $("#OrgUnitList").val();
 			var user_role = $("#UserRole").val();
-			//var type = $("#user_allow_offer").val();
-			var type = document.getElementById("user_allow_offer").checked;
+			//var type = $("#user_allow_offer").val();document.getElementById("user_allow_offer").checked;
+			var type = true;
 			if(username.length==0){
 				document.getElementById("error4").innerHTML="Username is blank";
 				document.getElementById("error4").style.color="green";

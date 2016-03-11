@@ -32,9 +32,9 @@ if(validateUserDetails()==true){
 					"email" => $_POST['email'],
 					"username" => $_POST['username'], 
 					"password" => $_POST['password'],
-					"name" => $_POST['org_unit'],
-					"type" => $_POST['type']
+					"name" => $_POST['org_unit']	
 				);
+				//"type" => $_POST['type']
 				$url_send ="http://".IP.":8065/api/v1/users/create";
 				$str_data = json_encode($data);
 

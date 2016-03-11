@@ -304,13 +304,13 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
+					<!--<div class="form-group">
 						<label class="col-sm-4  control-label">Can Allow Offer</label>
 						<div class="col-sm-8">
 							<label class="radio-inline"><input type="radio" name="optradio" id="user_allow_offer">Yes</label>
 							<label class="radio-inline"><input type="radio" name="optradio" id="user_not_allow_offer">No</label>
 						</div>
-					</div>
+					</div>-->
 
 					<div class="form-group">
 						<div class="col-sm-3"></div>
@@ -367,13 +367,43 @@ Tabs are created in this section-->
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Associate Role to Tab</h4>
 			</div>
-			<div class="modal-body">	
-				<ul class="nav nav-tabs">
+			<div class="modal-body">
+				<form class="form-horizontal">	
+					<table border="0" align="center" class="table table-hover">
+						<tr>
+							<td>
+								<label>Organisation Unit</label>
+								<select class="form-control" id="sel_org_unit_role_tab">
+									<script type="text/JavaScript">
+										$(document).ready(function(){
+											viewOrgUnits("dropdown","sel_org_unit_role_tab","all");/*displaying dropdown list of organisation unit*/
+										});
+									</script>
+								</select>
+							</td>
+							<td><label>Roles</label>
+								<select class="form-control" id="sel_roles">
+								</select>	
+							</td>
+							<td><label>Number of Tabs</label>
+								<select class="form-control" id="no_of_tabs" >
+									<option>1</option><option>2</option><option>3</option><option>4</option>
+								</select>
+							</td>								
+						</tr>
+						<tr>
+							<td colspan="2"><span id="saveAsscRole2TabResponse"></span></td>
+							<td align="right">
+								<Button class="btn btn-default" id="saveAsscRole2Tab" style="width:60px">Save</Button>
+							</td>
+						</tr>
+					</table>
+				</form>
+				<!--<ul class="nav nav-tabs">
 					<li class="active"><a data-toggle="tab" href="#role_specific_tab_layout">Create Role specific Tab</a></li>
 					<li><a data-toggle="tab" href="#global_tab_layout">Create Global Tab</a></li>
 				</ul>
-				<div class="tab-content">
-								
+				<div class="tab-content">				
 					<div id="global_tab_layout" class="tab-pane fade">
 						<form class="form-horizontal">
 						<p>This tab is globally visible to all users in an organisation unit irrespective of their roles.<p>
@@ -405,40 +435,9 @@ Tabs are created in this section-->
 						</form>
 					</div>
 					<div id="role_specific_tab_layout" class="tab-pane fade in active">
-						<form class="form-horizontal">	
-							<p>This tab is only visible to users that belongs to a particular role in an organisation unit.<p>
-							<table border="0" align="center" class="table table-hover">
-								<tr>
-									<td>
-										<label>Organisation Unit</label>
-										<select class="form-control" id="sel_org_unit_role_tab">
-											<script type="text/JavaScript">
-												$(document).ready(function(){
-													viewOrgUnits("dropdown","sel_org_unit_role_tab","all");/*displaying dropdown list of organisation unit*/
-												});
-											</script>
-										</select>
-									</td>
-									<td><label>Roles</label>
-										<select class="form-control" id="sel_roles">
-										</select>	
-									</td>
-									<td><label>Number of Tabs</label>
-										<select class="form-control" id="no_of_tabs" >
-											<option>1</option><option>2</option><option>3</option><option>4</option>
-										</select>
-									</td>								
-								</tr>
-								<tr>
-									<td colspan="2"><span id="saveAsscRole2TabResponse"></span></td>
-									<td align="right">
-										<Button class="btn btn-default" id="saveAsscRole2Tab" style="width:60px">Save</Button>
-									</td>
-								</tr>
-							</table>
-						</form>	
+							
 					</div>
-				</div>
+				</div>-->
 			</div>	
 		</div>
 	</div>
