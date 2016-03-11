@@ -577,7 +577,7 @@ $(document).ready(function(){
 				},
 				error: function(x,y,z){
 					document.getElementById(id).innerHTML="<option></option>";
-					alert("Error in connecting server. Try again later.");
+					//alert("Error in connecting server. Try again later.");
 				}
 			});
 			//alert("Hi fff"+orgunit);
