@@ -14,6 +14,7 @@
 include('ConnectAPI.php');
 //include('server_IP.php');
 include('connect_db.php');
+include('tabgen_php_functions.php');
 if(validateUserDetails()==true){
 	$id=null;
 	$org_unit_name = $_POST['org_unit'];
@@ -63,14 +64,6 @@ if(validateUserDetails()==true){
 		echo $e->getMessage();
 	}
 	
-}
-function updateUserRole($userId,$con){
-	$role=$_POST['Role'];
-	$query="UPDATE Users SET Roles='$role' WHERE Id='$userId'";
-	if($con->query($query)){
-		echo "true";
-	}
-	else echo "Role ".$role." could not be updated";;
 }
 
 function validateUserDetails(){

@@ -6,8 +6,10 @@
 	</head>
 	<body>
 
-	<?php include('ConnectAPI.php'); 
-		include('server_IP.php');
+	<?php 
+		include('ConnectAPI.php'); 
+		include('connect_db.php');
+		include('tabgen_php_functions.php');
   	?>
 	<?php
 	if(!empty($_POST)){
@@ -15,23 +17,34 @@
 		$password = $_POST['password'];
 		if($username!='' && $password!=''){
 			try{
-				$data = array("name"=>"myteam","username"=>$username,"password"=>$password);
-				$url_send ="http://".IP.":8065/api/v1/users/login";
-				$str_data = json_encode($data);
-				$conn = new ConnectAPI();
-				$responseJsonData = $conn->sendPostData($url_send,$str_data);
-				if($responseJsonData!=null){
-					$data = json_decode($responseJsonData);	
-					if($conn->httpResponseCode==200){
-						session_start();
-						$_SESSION['user_details'] = $responseJsonData;
-						header('Location:home.php');
+				if($conn){
+					$team_id = getTeamIdByUsername($conn,$username);
+					if($team_id!=null){
+						$team_name = getTeamName($conn,$team_id);
+						if($team_name!=null){
+							echo json_encode(array("state"=>true,"team_name"=>$team_name));
+							$data = array("name"=>$team_name,"username"=>$username,"password"=>$password);
+							$url_send ="http://".IP.":8065/api/v1/users/login";
+							$str_data = json_encode($data);
+							$conn = new ConnectAPI();
+							$responseJsonData = $conn->sendPostData($url_send,$str_data);
+							if($responseJsonData!=null){
+								$data = json_decode($responseJsonData);	
+								if($conn->httpResponseCode==200){
+									session_start();
+									$_SESSION['user_details'] = $responseJsonData;
+									header('Location:home.php');
+								}
+								else echo "<br/>".$data->message." <a href='index.html'>Login Again</a>";
+							}
+							else echo "<p align='center'>Unable to connect API, or API is down... 
+							Please contact the concerned developer</p>";		
+						}
+						else echo "Team does not exist";
 					}
-					else echo "<br/>".$data->message." <a href='index.html'>Login Again</a>";
+					else echo "This account does not refer to any Team";
 				}
-				else echo "<p align='center'>Unable to connect API, or API is down... 
-				Please contact the concerned developer</p>";
-				//echo $str_data;
+				else echo "Unable to connect database.!";
 			}catch(Exception $e){
 				echo "\n An exception occurs: ".$e->getMessage();
 			}

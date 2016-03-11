@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('connect_db.php');
+include('tabgen_php_functions.php');
 //include('server_IP.php');
 	$index = $_POST['index'];
 	if(!empty($_POST)){
@@ -63,31 +64,6 @@ include('connect_db.php');
 		echo json_encode($response);
 	}
 
-function findOUId($conn,$org_unit){
-	$query_result = $conn->query("select Id from OrganisationUnit where OrganisationUnit='$org_unit'");
-	$row_data = $query_result->fetch(PDO::FETCH_ASSOC);
-	$ou_id = $row_data['Id'];
-	if(isset($ou_id))
-		return $ou_id;
-	else return null;
-}
 
-function findRoleId($conn,$org_unit,$role_name){
-	$query_result = $conn->query("select Id from Role where OrganisationUnit='$org_unit' and RoleName='$role_name'");
-	$row_data = $query_result->fetch(PDO::FETCH_ASSOC);
-	$role_id = $row_data['Id'];
-	if(isset($role_id))
-		return $role_id;
-	else return null;
-}
-
-function findTemplateId($conn,$template_name){
-	$query_result = $conn->query("SELECT Id,Name FROM TabTemplate where Name='$template_name'");
-	$curr_row = $query_result->fetch(PDO::FETCH_ASSOC);
-	$template_id = $curr_row['Id'];
-	if(isset($template_id))
-		return $template_id;
-	else return null;
-}
 
 ?>
