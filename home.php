@@ -367,13 +367,39 @@ Tabs are created in this section-->
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Associate Role to Tab</h4>
 			</div>
-			<div class="modal-body">
-				<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#demo">Create Global Tab</button>	
+			<div class="modal-body">	
 				<form class="form-horizontal">
-					<div id="demo" class="collapse"><p>Global Tab goes here...<p></div>
+					<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#demo">Create Global Tab</button>
+					<div id="demo" class="collapse"><p>This tab is globally visible to all users in an organisation unit irrespective of their roles.<p>
+						<table border="0" align="center" class="table table-hover" width="100%">
+							<tr>
+								<td>
+									<label>Organisation Unit</label>
+									<select class="form-control" id="sel_org_unit_global_tab">
+										<script type="text/JavaScript">
+											$(document).ready(function(){
+												viewOrgUnits("dropdown","sel_org_unit_global_tab","all");/*displaying dropdown list of organisation unit*/
+											});
+										</script>
+									</select>
+								</td>
+								<td><label>Number of Tabs</label> 
+									<select class="form-control" id="no_of_global_tabs">
+										<option>1</option><option>2</option><option>3</option><option>4</option>
+									</select>
+								</td>
+								<td align="right">
+									<label><br/></label><br/><Button class="btn btn-default" id="saveGlobalTab" style="width:60px">Save</Button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan='3'><span id="saveGlobalTabResponse"></span></td>		
+							</tr>
+						</table>
+					</div>
 				</form>
 				<form class="form-horizontal">
-					<div class="form-group">
+					<div>
 						<table border="0" align="center" class="table table-hover">
 							<tr>
 								<td>

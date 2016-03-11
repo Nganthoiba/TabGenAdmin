@@ -1,7 +1,7 @@
 /*Javascript code to associate role to a to a tab
 Creating Tabs here*/
 $(document).ready(function(){	
-
+	//for creating local tabs
 	$("#saveAsscRole2Tab").click(function(){
 		$("#saveAsscRole2TabResponse").text("Wait Please...");
 		var orgunit = $("#sel_org_unit_role_tab").val();
@@ -17,6 +17,11 @@ $(document).ready(function(){
 			});
 		return false;
 	});	
+	//for creating global tabs
+	$("#saveGlobalTab").click(function(){
+		document.getElementById("saveGlobalTabResponse").innerHTML="<p>Under development...</p>";
+		return false;
+	});
 });
 
 /*JavaScript function for getting Tabs and corresponding Templates assigned for respectives roles of a particular organisation*/
@@ -199,7 +204,9 @@ $(document).ready(function (){
 									viewOrgUnits("dropdown","ousel","all");/*this will display drop down list of 
 									organisation units at the popup dialog for creating role*/
 									viewOrgUnits("dropdown","OrgUnitList","all");/*this will display drop down list of 
-									organisation units at the popup dialog for creating users*/     
+									organisation units at the popup dialog for creating users*/  
+									viewOrgUnits("dropdown","sel_org_unit_global_tab","all");//displaying for creating global tab
+									viewOrgUnits("dropdown","sel_org_unit_role_tab","all");//displaying for creating role tab
 								}else if(e.trim()=="false"){
 									$("#error2").css('color', 'red');
 									$("#error2").text("Oops Some Goes Wrong Please Try Agian");
