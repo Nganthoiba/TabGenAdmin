@@ -70,15 +70,7 @@
 				</ul>
 			</div>
 			<div class="col-md-8"><!--class="col-md-8"-->
-				<!--<div class="container">
-				  <h2>Simple Collapsible</h2>
-				  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-				  <div id="demo" class="collapse">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-					sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				  </div>
-				</div>-->
+				
 				<div class="col-md-12" style="padding-top:0px">
 					<h3>Organisation Units</h3>
 					<br/>	
@@ -376,11 +368,15 @@ Tabs are created in this section-->
 				<h4 class="modal-title" id="myModalLabel">Associate Role to Tab</h4>
 			</div>
 			<div class="modal-body">
+				<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#demo">Create Global Tab</button>	
+				<form class="form-horizontal">
+					<div id="demo" class="collapse"><p>Global Tab goes here...<p></div>
+				</form>
 				<form class="form-horizontal">
 					<div class="form-group">
 						<table border="0" align="center" class="table table-hover">
 							<tr>
-								<th>
+								<td>
 									<label>Organisation Unit</label>
 									<select class="form-control" id="sel_org_unit_role_tab">
 										<script type="text/JavaScript">
@@ -389,16 +385,16 @@ Tabs are created in this section-->
 											});
 										</script>
 									</select>
-								</th>
-								<th><label>Roles</label>
+								</td>
+								<td><label>Roles</label>
 									<select class="form-control" id="sel_roles">
 									</select>	
-								</th>
-								<th><label>Number of Tabs</label>
+								</td>
+								<td><label>Number of Tabs</label>
 									<select class="form-control" id="no_of_tabs" >
 										<option>1</option><option>2</option><option>3</option><option>4</option>
 									</select>
-								</th>								
+								</td>								
 							</tr>
 							<tr>
 								<td colspan="2"><span id="saveAsscRole2TabResponse"></span></td>
@@ -408,7 +404,7 @@ Tabs are created in this section-->
 							</tr>
 						</table>
 					</div>
-				</form>
+				</form>				
 			</div>	
 		</div>
 	</div>
@@ -441,10 +437,9 @@ Tabs are created in this section-->
 					</tr>
 					</table></center>
 				</form>
+				<form><div id="tabs_template_result"></div>
+				</form>
 			</div>
-			<form><div id="tabs_template_result"></div>
-			<!--<Button type='submit' class='btn btn-default' id='SaveRolesAndTemplates' onclick='test();return false;'>Update All</Button>-->
-			</form>
 		</div>
 	</div>
 </div>

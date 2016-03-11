@@ -1,6 +1,7 @@
 .my_body {
 	background: #eee !important;	
 }
+label {color:#848484; font-weight:normal}
 .form-signin
 {
     max-width: 330px;

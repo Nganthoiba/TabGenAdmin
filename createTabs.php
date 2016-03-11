@@ -34,7 +34,7 @@ if(isset($_SESSION['user_details'])){
 					echo "Failed to save: ".$e->getMessage();
 				}
 			}
-			else echo "Role ".$role_name." does not exist for ".$org_unit.". Create it first.<br/>";
+			else echo "Role <b>".$role_name."</b> does not exist for <b>".$org_unit."</b>. Create it first.<br/>";
 		}else echo "Organisation Unit named ".$org_unit." does not exist, create it first.<br/>";
 	}
 	else{
