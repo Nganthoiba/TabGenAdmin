@@ -7,7 +7,7 @@
 			
 	if($conn){
 		if(isUniversalRole($conn,$role,$org_unit)){
-			$temporaryQuery="select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit 
+			$temporaryQuery="select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName
 					from TabTemplate,Tab
 					where Tab.TabTemplate=TabTemplate.Id 
 					order by Tab.Name";
