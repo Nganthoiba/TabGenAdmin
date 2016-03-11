@@ -368,69 +368,77 @@ Tabs are created in this section-->
 				<h4 class="modal-title" id="myModalLabel">Associate Role to Tab</h4>
 			</div>
 			<div class="modal-body">	
-				<form class="form-horizontal">
-					<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#demo">Create Global Tab</button>
-					<div id="demo" class="collapse"><p>This tab is globally visible to all users in an organisation unit irrespective of their roles.<p>
-						<table border="0" align="center" class="table table-hover" width="100%">
-							<tr>
-								<td>
-									<label>Organisation Unit</label>
-									<select class="form-control" id="sel_org_unit_global_tab">
-										<script type="text/JavaScript">
-											$(document).ready(function(){
-												viewOrgUnits("dropdown","sel_org_unit_global_tab","all");/*displaying dropdown list of organisation unit*/
-											});
-										</script>
-									</select>
-								</td>
-								<td><label>Number of Tabs</label> 
-									<select class="form-control" id="no_of_global_tabs">
-										<option>1</option><option>2</option><option>3</option><option>4</option>
-									</select>
-								</td>
-								<td align="right">
-									<label><br/></label><br/><Button class="btn btn-default" id="saveGlobalTab" style="width:60px">Save</Button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan='3'><span id="saveGlobalTabResponse"></span></td>		
-							</tr>
-						</table>
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#role_specific_tab_layout">Create Role specific Tab</a></li>
+					<li><a data-toggle="tab" href="#global_tab_layout">Create Global Tab</a></li>
+				</ul>
+				<div class="tab-content">
+								
+					<div id="global_tab_layout" class="tab-pane fade">
+						<form class="form-horizontal">
+						<p>This tab is globally visible to all users in an organisation unit irrespective of their roles.<p>
+							<table border="0" align="center" class="table table-hover" width="100%">
+								<tr>
+									<td>
+										<label>Organisation Unit</label>
+										<select class="form-control" id="sel_org_unit_global_tab">
+											<script type="text/JavaScript">
+												$(document).ready(function(){
+													viewOrgUnits("dropdown","sel_org_unit_global_tab","all");/*displaying dropdown list of organisation unit*/
+												});
+											</script>
+										</select>
+									</td>
+									<td><label>Number of Tabs</label> 
+										<select class="form-control" id="no_of_global_tabs">
+											<option>1</option><option>2</option><option>3</option><option>4</option>
+										</select>
+									</td>
+									<td align="right">
+										<label><br/></label><br/><Button class="btn btn-default" id="saveGlobalTab" style="width:60px">Save</Button>
+									</td>
+								</tr>
+								<tr>
+									<td colspan='3'><span id="saveGlobalTabResponse"></span></td>		
+								</tr>
+							</table>
+						</form>
 					</div>
-				</form>
-				<form class="form-horizontal">
-					<div>
-						<table border="0" align="center" class="table table-hover">
-							<tr>
-								<td>
-									<label>Organisation Unit</label>
-									<select class="form-control" id="sel_org_unit_role_tab">
-										<script type="text/JavaScript">
-											$(document).ready(function(){
-												viewOrgUnits("dropdown","sel_org_unit_role_tab","all");/*displaying dropdown list of organisation unit*/
-											});
-										</script>
-									</select>
-								</td>
-								<td><label>Roles</label>
-									<select class="form-control" id="sel_roles">
-									</select>	
-								</td>
-								<td><label>Number of Tabs</label>
-									<select class="form-control" id="no_of_tabs" >
-										<option>1</option><option>2</option><option>3</option><option>4</option>
-									</select>
-								</td>								
-							</tr>
-							<tr>
-								<td colspan="2"><span id="saveAsscRole2TabResponse"></span></td>
-								<td align="right">
-									<Button class="btn btn-default" id="saveAsscRole2Tab" style="width:60px">Save</Button>
-								</td>
-							</tr>
-						</table>
+					<div id="role_specific_tab_layout" class="tab-pane fade in active">
+						<form class="form-horizontal">	
+							<p>This tab is only visible to users that belongs to a particular role in an organisation unit.<p>
+							<table border="0" align="center" class="table table-hover">
+								<tr>
+									<td>
+										<label>Organisation Unit</label>
+										<select class="form-control" id="sel_org_unit_role_tab">
+											<script type="text/JavaScript">
+												$(document).ready(function(){
+													viewOrgUnits("dropdown","sel_org_unit_role_tab","all");/*displaying dropdown list of organisation unit*/
+												});
+											</script>
+										</select>
+									</td>
+									<td><label>Roles</label>
+										<select class="form-control" id="sel_roles">
+										</select>	
+									</td>
+									<td><label>Number of Tabs</label>
+										<select class="form-control" id="no_of_tabs" >
+											<option>1</option><option>2</option><option>3</option><option>4</option>
+										</select>
+									</td>								
+								</tr>
+								<tr>
+									<td colspan="2"><span id="saveAsscRole2TabResponse"></span></td>
+									<td align="right">
+										<Button class="btn btn-default" id="saveAsscRole2Tab" style="width:60px">Save</Button>
+									</td>
+								</tr>
+							</table>
+						</form>	
 					</div>
-				</form>				
+				</div>
 			</div>	
 		</div>
 	</div>
