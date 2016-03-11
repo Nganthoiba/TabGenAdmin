@@ -7,8 +7,8 @@ function getTemplateName($conn,$template_id){
 	return($result_row['Template_Name']);
 }
 
-function isUniversalRole($conn,$role_name){
-		$resp = $conn->query("select * from Role where RoleName='$role_name'");
+function isUniversalRole($conn,$role_name,$orgunit){
+		$resp = $conn->query("select * from Role where RoleName='$role_name' and OrganisationUnit='$orgunit'");
 		if($resp){
 			$row = $resp->fetch(PDO::FETCH_ASSOC);
 			$universal_role = $row['UniversalRole'];

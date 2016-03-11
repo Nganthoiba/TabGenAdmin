@@ -6,7 +6,7 @@
 	//$query="select TabTemplate.Name as Template_Name,TABS.Name as Tab_Name,RoleName from TabTemplate,TABS where RoleName='$role' AND Tab.TabTemplate=TabTemplate.Id";
 			
 	if($conn){
-		if(isUniversalRole($conn,$role)){
+		if(isUniversalRole($conn,$role,$org_unit)){
 			$temporaryQuery="select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit 
 					from TabTemplate,Tab,OrganisationUnit 
 					where Tab.TabTemplate=TabTemplate.Id 

@@ -12,7 +12,7 @@ if(!empty($_GET)){
 					and Role.OrganisationUnit='$orgUnit' and Tab.RoleId=Role.Id order by Tab_Name";
 		}
 		else{
-			if(isUniversalRole($conn,$role)==true){
+			if(isUniversalRole($conn,$role,$orgUnit)==true){
 				$query = "select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
 				and Tab.RoleId=Role.Id order by Tab_Name";
 			}
