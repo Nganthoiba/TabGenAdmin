@@ -3,7 +3,7 @@ Creating Tabs here*/
 $(document).ready(function(){	
 	//for creating local tabs
 	$("#saveAsscRole2Tab").click(function(){
-		$("#saveAsscRole2TabResponse").text("Wait Please...");
+		$("#saveAsscRole2TabResponse").html("<img src='img/loading.gif'/> Wait Please...");
 		var orgunit = $("#sel_org_unit_role_tab").val();
 		var role = $("#sel_roles").val();
 		var tabs = parseInt($("#no_of_tabs").val()); 
@@ -75,7 +75,7 @@ function setTabTemplateLayout(){
 						var tab_name = arr[j].Tab_Name;
 						var template_name = $("#template_name"+j).val();
 						var role_name = arr[j].RoleName;
-						document.getElementById("update_status"+j).innerHTML="Updating...";
+						document.getElementById("update_status"+j).innerHTML="<img src='img/update_icon.gif'></img> Updating...";
 						$.ajax({
 							type: "POST",
 							url: "updateTabs.php",
@@ -130,7 +130,7 @@ $(document).ready(function (){
                     var orgname=$("#orgname").val();
 					var display_name =$("#display_name").val();
 					$("#error1").css('color', 'black');
-                    $("#error1").text("Wait a moment please...");
+                    $("#error1").text("<div><img src='img/loading.gif'/></div> Wait a moment please...");
                     $.ajax({
                    
                         type: "POST",
@@ -180,7 +180,7 @@ $(document).ready(function (){
 				//alert('hh');	
             var orgunit=$("#orgunit").val();
 			if(validate_ou_name(orgunit)==true){
-				$("#error2").text("Wait Please...");
+				$("#error2").html("<div><img src='img/loading.gif'/></div> Wait Please...");
 				$("#error2").css('color', 'black');
 				var displaynameunit =$("#displaynameunit").val();
 				var orgnamesel =$("#orgnamesel").val();
@@ -236,7 +236,7 @@ $(document).ready(function (){
 			var ousel =$("#ousel").val();
 			var access =document.getElementById("access_yes").checked;
 			//var access =$("#access_yes").val();
-			$("#error3").text("Wait Please...");
+			$("#error3").html("<div><img src='img/loading.gif'/></div> Wait Please...");
 			$("#error3").css('color','black');
 			$.ajax({
                 type: "POST",
@@ -303,7 +303,7 @@ $(document).ready(function (){
 				return false;
 			}
 			else{
-				document.getElementById("error4").innerHTML="Wait Please....";
+				document.getElementById("error4").innerHTML="<div><img src='img/loading.gif'/></div> Wait Please....";
 				document.getElementById("error4").style.color="green";
 				$.ajax({
 					type: "POST",
@@ -400,7 +400,7 @@ $(document).ready(function (){
 	}
 	$(document).ready(function(){
 		$("#viewAllOrgUnitLists").click(function(){
-			document.getElementById("showOrgUnits").innerHTML="Wait Please....";
+			document.getElementById("showOrgUnits").innerHTML="<img src='img/loading.gif'/> Wait Please....";
 			viewOrgUnits("list","showOrgUnits","all");
 		});
 	});
@@ -478,7 +478,7 @@ $(document).ready(function (){
 	}
 	$(document).ready(function(){
 		$("#viewAllOrgLists").click(function(){
-			document.getElementById("showOrgsList").innerHTML="Wait Please....";
+			document.getElementById("showOrgsList").innerHTML="<div><img src='img/loading.gif'/></div> Wait Please....";
 			viewOrgs("list","showOrgsList","all");
 		});
 	});
