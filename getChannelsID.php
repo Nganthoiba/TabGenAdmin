@@ -16,5 +16,5 @@ if(!empty($_POST['user_id'])){
              echo json_encode($output);
         }
 	}
-//}
+}
 ?>
