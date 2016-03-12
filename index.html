@@ -4,6 +4,8 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 	<title></title>
 	<script type="text/JavaScript">
 		function SubmitFrm(){   
@@ -11,6 +13,7 @@
 		}
 	</script>
 	<script type="text/JavaScript">
+		
 		var login_email;
 		var login_password;
 		function validate(){
@@ -31,19 +34,39 @@
 			}
 			return state;
 		}
-		function login(){
-		
-			login_email = document.getElementById("email").value;
-			login_password = document.getElementById("password").value;
+		function login(){	
+			login_email = document.getElementById("uname").value;
+			login_password = document.getElementById("password").value;	
 			if(validate()==true){
-				document.forms.submit();
+				document.getElementById("login_response").innerHTML="<p align='center'><img src='img/loader_img.gif'/> Wait please...</P>";
+				//document.forms.submit();
+				$.ajax({
+					type: "POST",
+					url: "authenticate.php",
+					data: "username="+login_email+"&password="+login_password,
+					success: function(resp){
+						var jarr = jQuery.parseJSON(resp);		
+						if(jarr.state=="true"){
+							window.location.assign(""+jarr.location);
+						}
+						else{
+							document.getElementById("login_response").innerHTML="<p align='center' style='color:red'>"+jarr.message+"</P>";
+						}
+					},
+					error: function(x,y,z){
+						document.getElementById("login_response").innerHTML="<p align='center' style='color:red'>Oops! An unknown problem occurs, try again later</P>";
+					}
+				});
 			}
 		}
+	
 		function redirect(url)
 		{
 			window.location.assign(url);
 		}
-		</script>
+	//});
+	</script>
+	
 
 </head>
 <body class="my_body">
@@ -53,10 +76,10 @@
 				<div class="account-wall">
 					<img src="img/logo_h_circle.png" class="profile-img"/>
 					<!--h2 class="sitename"><font color="#2E9AFE">H-Circle</font></h2-->
-					<form name="forms" action="authenticate.php" method="POST" class="form-signin"><!-- class="form-horizontal formlogin"-->
+					<form name="forms" action="authenticate.php"  method="POST" class="form-signin"><!-- class="form-horizontal formlogin"-->
 						<div class="form-group">
 							<label for="inputEmail3">Username</label>
-							<input type="text" name="username" id="email" class="form-control">
+							<input type="text" name="username" id="uname" class="form-control">
 							<center><span id="emailErrorMsg"></span></center>
 						</div>
 						<div class="form-group">
@@ -71,6 +94,7 @@
 							<a href="#" class="text-center new-account">Need help signing in?</a>
 						</div>
 					</form>
+					<div class="response_body" id="login_response"></div>
 				</div>
 			</div>
 		</div>

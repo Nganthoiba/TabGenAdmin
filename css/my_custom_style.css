@@ -1,6 +1,12 @@
 .my_body {
 	background: #eee !important;	
 }
+.response_body{
+	padding-left:15px;
+	padding-bottom:5px;
+	padding-top:5px;
+	padding-right:15px
+}
 label {color:#848484; font-weight:normal}
 .form-signin
 {

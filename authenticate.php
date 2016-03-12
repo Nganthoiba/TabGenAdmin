@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-	</head>
-	<body>
-
 	<?php 
 		include('ConnectAPI.php'); 
 		include('connect_db.php');
@@ -34,30 +26,32 @@
 									session_start();
 									$_SESSION['user_details'] = $responseJsonData;
 									if($data->roles =="system_admin")
-										header('Location:home.php');
+										//header('Location:home.php');
+										echo json_encode(array("state"=>"true","location"=>"home.php"));
 									else 
-										echo "You are not authorised";
+										echo json_encode(array("state"=>"false","message"=>"You are not authorised"));
 								}
-								else echo "<br/>".$data->message." <a href='index.html'>Login Again</a>";
+								else 
+									echo json_encode(array("state"=>"false","message"=>$data->message));
 							}
-							else echo "<p align='center'>Unable to connect API, or API is down... 
-							Please contact the concerned developer</p>";		
+							else echo json_encode(array("state"=>"false","message"=>"Unable to connect API, or API is down... 
+							Please contact the concerned developer."));		
 						}
-						else echo "Team does not exist";
+						else 
+							echo json_encode(array("state"=>"false","message"=>"Team does not exist"));
 					}
-					else echo "This account does not refer to any Team";
+					else echo json_encode(array("state"=>"false","message"=>"This account does not belong to any team")); 
 				}
-				else echo "Unable to connect database.!";
+				else json_encode(array("state"=>"false","message"=>"Unable to connect database!")); 
 			}catch(Exception $e){
-				echo "\n An exception occurs: ".$e->getMessage();
+				echo json_encode(array("state"=>"false","message"=>$e->getMessage()));
 			}
 		}
 		else{
-			echo "<p align='center'>Authentication Failed! "."<a href='index.html'>Login Again</a> with proper username and password.</p>";
+			echo json_encode(array("state"=>"false","message"=>"Authentication Failed! Login again with proper username and password."));
 		}
 	}
 	else {
 		echo "Invalid Request "."<a href='index.html'>Login Again</a>";
 	}?>
-	</body>
-</html>
+
