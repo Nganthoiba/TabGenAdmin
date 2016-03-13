@@ -40,7 +40,7 @@
 						else 
 							echo json_encode(array("state"=>"false","message"=>"Team does not exist"));
 					}
-					else echo json_encode(array("state"=>"false","message"=>"This account does not belong to any team")); 
+					else echo json_encode(array("state"=>"false","message"=>"Username does not exist.")); 
 				}
 				else json_encode(array("state"=>"false","message"=>"Unable to connect database!")); 
 			}catch(Exception $e){

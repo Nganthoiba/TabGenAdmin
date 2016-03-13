@@ -44,62 +44,60 @@ function setTabTemplateLayout(){
 				var layout="<table class='table table-hover' align='center'>"+
 				"<tr><th></th><th>Tabs</th><th>Tab Templates</th><th style='min-width:80px'></th></tr>";
 				var role_name="<td></td>";
-				for(var i=0;i<arr.length;i++){	
-					if(i==0){
-						role_name="<td>"+arr[i].RoleName+"</td>";
-					}
-					else{
-						if(arr[i].RoleName!=arr[i-1].RoleName)
-							role_name="<td>"+arr[i].RoleName+"</td>";
-						else
-							role_name="<td></td>";
-					}
-					layout+="<tr>"+role_name+"<td><span id='tab_name"+i+"'>"+arr[i].Tab_Name+"</span></td>"+
-										"<td><select class='form-control' id='template_name"+i+"'><option>"+arr[i].Template_Name+"</option>"+
-										"<option>CME Template</option>"+
-										"<option>Reference Template</option>"+
-										"<option>Latest News Template</option>"+
-										"<option>Chat Template</option>"+
-										"</select></td>"+
-									"<td><span id='update_status"+i+"' style='min-width:60px'></span></td></tr>";
-				}
-				layout+="<tr><td align='center' colspan='4'>"+
-								"<Button type='submit' class='btn btn-default' id='updateAll'>Update All</Button>"+
-							"</td></tr></table>";
-				document.getElementById("tabs_template_result").innerHTML="<center>"+layout+"</center>";
-										
-				$("#updateAll").click(function(){
-					/*javascrip code for updating tab templates*/
-					var j;
-					for(j=0;j<arr.length;j++){
-						var tab_name = arr[j].Tab_Name;
-						var template_name = $("#template_name"+j).val();
-						var role_name = arr[j].RoleName;
-						document.getElementById("update_status"+j).innerHTML="<img src='img/update_icon.gif'></img> Updating...";
-						$.ajax({
-							type: "POST",
-							url: "updateTabs.php",
-							data: "role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name+"&org_unit="+orgunit+"&index="+j,
-							success: function(result){
-								var result_data = JSON.parse(result);
-								document.getElementById("update_status"+result_data.index).innerHTML=result_data.response;
-								//alert("value of j: "+j);								
+				var templateList=" ";
+				/*getting list of templates created by the admin*/
+				$.ajax({
+					url: "TemplateList.php",
+					success: function(list){
+						if(list!="error" || list!="false"){
+							var json_arr = jQuery.parseJSON(list);
+							for(var i=0;i<json_arr.length;i++){
+								templateList+="<option>"+json_arr[i].name+"</option>";
 							}
-						});
+							for(var i=0;i<arr.length;i++){	
+								if(i==0){
+									role_name="<td>"+arr[i].RoleName+"</td>";
+								}
+								else{
+									if(arr[i].RoleName!=arr[i-1].RoleName)
+										role_name="<td>"+arr[i].RoleName+"</td>";
+									else
+										role_name="<td></td>";
+								}
+								layout+="<tr>"+role_name+"<td><span id='tab_name"+i+"'>"+arr[i].Tab_Name+"</span></td>"+
+													"<td><select class='form-control' id='template_name"+i+"'><option>"+arr[i].Template_Name+"</option>"+
+													templateList+
+													"</select></td>"+
+												"<td><span id='update_status"+i+"' style='min-width:60px'></span></td></tr>";
+							}
+							layout+="<tr><td align='center' colspan='4'>"+
+											"<Button type='submit' class='btn btn-default' id='updateAll'>Update All</Button>"+
+										"</td></tr></table>";
+							document.getElementById("tabs_template_result").innerHTML="<center>"+layout+"</center>";
+							
+							$("#updateAll").click(function(){
+								/*javascrip code for updating tab templates*/
+								var j;
+								for(j=0;j<arr.length;j++){
+									var tab_name = arr[j].Tab_Name;
+									var template_name = $("#template_name"+j).val();
+									var role_name = arr[j].RoleName;
+									document.getElementById("update_status"+j).innerHTML="<img src='img/update_icon.gif'></img> Updating...";
+									$.ajax({
+										type: "POST",
+										url: "updateTabs.php",
+										data: "role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name+"&org_unit="+orgunit+"&index="+j,
+										success: function(result){
+											var result_data = JSON.parse(result);
+											document.getElementById("update_status"+result_data.index).innerHTML=result_data.response;							
+										}
+									});
+								}
+								return false;
+							});
+						}
 					}
-					return false;
-				});	
-				/*Action on change of any template in the Associate Tab to Template Layout*/
-				for(var k=0;k<arr.length;k++){
-					$("#template_name"+k).change(function(){
-						var tab_name = arr[k].Tab_Name;
-						var template_name = $("#template_name"+k).val();
-						var role_name = arr[k].RoleName;
-						document.getElementById("update_status"+k).innerHTML="  ";
-						return false;
-					});
-				}
-									
+				});									
 			}
 		},
 		error: function( xhr, status, errorThrown ) {
@@ -107,6 +105,7 @@ function setTabTemplateLayout(){
 		}
 	});	
 }
+
 $(document).ready(function (){
 	$('#getTabsTemplate').click(function() {
 		setTabTemplateLayout();
