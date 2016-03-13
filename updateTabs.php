@@ -26,41 +26,41 @@ include('tabgen_php_functions.php');
 							try{
 								$result = $conn->query($query2);
 								if($result){
-									$response = array("index"=>"".$index,"response"=>"<font color='#198D24'>Updated</font>");
+									$response = array("index"=>"".$index,"response"=>"<font color='#198D24'>Updated</font>","state"=>true);
 									echo json_encode($response);
 								}
 								else {
-									$response = array("index"=>"".$index,"response"=>"<font color='#C52039'>Update Failed</font>");
+									$response = array("index"=>"".$index,"response"=>"<font color='#C52039'>Update Failed</font>","state"=>false);
 									echo json_encode($response);
 								}
 							}
 							catch(Exception $e){
-								$response = array("index"=>"".$index,"response"=>"Failed to save data: ".$e->getMessage());
+								$response = array("index"=>"".$index,"response"=>"Failed to save data: ".$e->getMessage(),"state"=>false);
 								echo json_encode($response);
 							}
 						}
 						else{
-							$response = array("index"=>"".$index,"response"=>"Role Not Exist");
+							$response = array("index"=>"".$index,"response"=>"Role Not Exist","state"=>false);
 							echo json_encode($response);
 						}
 					}
 					else{ 
-						$response = array("index"=>"".$index,"response"=>"Organisation Unit does not exist");
+						$response = array("index"=>"".$index,"response"=>"Organisation Unit does not exist","state"=>false);
 						echo json_encode($response);
 					}
 				}
 				else{ 
-					$response = array("index"=>"".$index,"response"=>"Failed to get Template ID");
+					$response = array("index"=>"".$index,"response"=>"Template dosn't exist","state"=>false);
 					echo json_encode($response);
 				}							
 			}
 		}catch(PDOException $e){
-			$response = array("index"=>"".$index,"response"=>"Failed to save data: ".$e->getMessage());
+			$response = array("index"=>"".$index,"response"=>"Failed to save data: ".$e->getMessage(),"state"=>false);
 			echo json_encode($response);
 		}		
 	}
 	else{
-		$response = array("index"=>"".$index,"response"=>"No perameter passed..!");
+		$response = array("index"=>"".$index,"response"=>"No perameter passed..!","state"=>false);
 		echo json_encode($response);
 	}
 

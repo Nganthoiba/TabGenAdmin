@@ -26,7 +26,8 @@ $(document).ready(function(){
 
 /*JavaScript function for getting Tabs and corresponding Templates assigned for respectives roles of a particular organisation*/
 function setTabTemplateLayout(){
-	document.getElementById("tabs_template_result").innerHTML="<center><p>Wait please...</p></center>";
+	document.getElementById("tabs_template_result").innerHTML="<center><img src='img/loading_data.gif'/></center>";
+	getRoles("roleSelect",$("#orgUnitSelect").val());//getRoles(id,orgunit)
 	var orgunit = $("#orgUnitSelect").val();
 	var user_role = $("#roleSelect").val();
 	$.ajax({
@@ -50,7 +51,7 @@ function setTabTemplateLayout(){
 					success: function(list){
 						var templateList=" ";
 						if(list!="error" || list!="false"){
-							var json_arr = jQuery.parseJSON(list);
+							var json_arr = jQuery.parseJSON(list);//parsing template json array
 							for(var i=0;i<json_arr.length;i++){
 								templateList+="<option>"+json_arr[i].name+"</option>";
 							}
@@ -65,10 +66,11 @@ function setTabTemplateLayout(){
 										role_name="<td></td>";
 								}
 								layout+="<tr>"+role_name+"<td><span id='tab_name"+i+"'>"+arr[i].Tab_Name+"</span></td>"+
-													"<td><select class='form-control' id='template_name"+i+"'><option>"+arr[i].Template_Name+"</option>"+
-													templateList+
-													"</select></td>"+
-												"<td><span id='update_status"+i+"' style='min-width:60px'></span></td></tr>";
+										"<td><select class='form-control'  onchange='clear();'id='template_name"+i+"'><option>"+arr[i].Template_Name+"</option>"+
+										templateList+"</select></td>"+
+										"<td><Button class='btn btn-default'"+
+											" onclick='updateTemplate(\""+i+"\",\""+arr[i].Tab_Name+"\",\""+arr[i].RoleName+"\",\""+orgunit+"\"); return false;'>Update</Button></td>"+
+										"<td><span id='update_status"+i+"' style='min-width:30px'></span></td></tr>";
 							}
 							layout+="<tr><td align='center' colspan='4'>"+
 											"<Button type='submit' class='btn btn-default' id='updateAll'>Update All</Button>"+
@@ -80,18 +82,8 @@ function setTabTemplateLayout(){
 								var j;
 								for(j=0;j<arr.length;j++){
 									var tab_name = arr[j].Tab_Name;
-									var template_name = $("#template_name"+j).val();
 									var role_name = arr[j].RoleName;
-									document.getElementById("update_status"+j).innerHTML="<img src='img/update_icon.gif'></img> Updating...";
-									$.ajax({
-										type: "POST",
-										url: "updateTabs.php",
-										data: "role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name+"&org_unit="+orgunit+"&index="+j,
-										success: function(result){
-											var result_data = JSON.parse(result);
-											document.getElementById("update_status"+result_data.index).innerHTML=result_data.response;							
-										}
-									});
+									updateTemplate(j,tab_name,role_name,orgunit);//updating template
 								}
 								return false;
 							});
@@ -105,6 +97,30 @@ function setTabTemplateLayout(){
 		}
 	});	
 }
+//function for updating template
+function updateTemplate(i,tab_name,role_name,orgunit){
+	var template_name = $("#template_name"+i).val();
+	//alert("Role Name: "+role_name+"Tab Name: "+tab_name+"Template Name: "+template_name);
+	document.getElementById("update_status"+i).innerHTML="<img src='img/update_icon.gif'></img>";
+	$.ajax({
+		type: "POST",
+		url: "updateTabs.php",
+		data: "role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name+"&org_unit="+orgunit+"&index="+i,
+		success: function(result){
+			var result_data = JSON.parse(result);
+			if(result_data.state==true)
+				document.getElementById("update_status"+result_data.index).innerHTML="<img src='img/positive.png'/>";	
+			else
+				document.getElementById("update_status"+result_data.index).innerHTML=result_data.response;
+		}
+	});
+}
+// clean up update response field
+function clear(){
+	//document.getElementById("update_status"+i).innerHTML=" ";
+	alert("You have changed ");
+}
+
 
 $(document).ready(function (){
 	$('#getTabsTemplate').click(function() {
@@ -112,7 +128,6 @@ $(document).ready(function (){
 		return false;
 	});
 	$('#orgUnitSelect').change(function(){
-		getRoles("roleSelect",$("#orgUnitSelect").val());//getRoles(id,orgunit)
 		setTabTemplateLayout();	
 		return false;
 	});
@@ -399,7 +414,7 @@ $(document).ready(function (){
 	}
 	$(document).ready(function(){
 		$("#viewAllOrgUnitLists").click(function(){
-			document.getElementById("showOrgUnits").innerHTML="<img src='img/loading.gif'/> Wait Please....";
+			document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
 			viewOrgUnits("list","showOrgUnits","all");
 		});
 	});
@@ -477,7 +492,7 @@ $(document).ready(function (){
 	}
 	$(document).ready(function(){
 		$("#viewAllOrgLists").click(function(){
-			document.getElementById("showOrgsList").innerHTML="<div><img src='img/loading.gif'/></div> Wait Please....";
+			document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
 			viewOrgs("list","showOrgsList","all");
 		});
 	});
@@ -507,7 +522,7 @@ $(document).ready(function (){
 /*Javascript for creating templates*/
 $(document).ready(function(){
 		$("#createTemplate").click(function(){
-			$("#createTemplateResponse").text(" ");
+			$("#createTemplateResponse").html("<img src='img/loading_data.gif'/>");
 			var template_name = $("#templateName").val();
 			var	template = $("#template").val();
 			$.ajax({

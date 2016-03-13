@@ -78,7 +78,7 @@
 					<table  class='table' id="showOrgUnits" style="max-width:70%">
 							<script>
 								$(document).ready(function(){
-									document.getElementById("showOrgUnits").innerHTML="Loading....";
+									document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
 									viewOrgUnits("list","showOrgUnits","few");
 								});					
 							</script>	
@@ -93,7 +93,7 @@
 						<table  class='table' id="showOrgsList" style="max-width:70%">
 							<script>
 								$(document).ready(function(){
-									document.getElementById("showOrgsList").innerHTML="Loading....";
+									document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
 									viewOrgs("list","showOrgsList","few");
 								});
 							</script>	
