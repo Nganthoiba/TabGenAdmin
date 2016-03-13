@@ -44,11 +44,11 @@ function setTabTemplateLayout(){
 				var layout="<table class='table table-hover' align='center'>"+
 				"<tr><th></th><th>Tabs</th><th>Tab Templates</th><th style='min-width:80px'></th></tr>";
 				var role_name="<td></td>";
-				var templateList=" ";
 				/*getting list of templates created by the admin*/
 				$.ajax({
 					url: "TemplateList.php",
 					success: function(list){
+						var templateList=" ";
 						if(list!="error" || list!="false"){
 							var json_arr = jQuery.parseJSON(list);
 							for(var i=0;i<json_arr.length;i++){
