@@ -24,7 +24,7 @@ if(!empty($_GET)){
 		$res=$conn->query($query);
 		$count=0;
 		while($row=$res->fetch(PDO::FETCH_ASSOC)){
-			$my_array = array("RoleName"=>$row['RoleName'],"Tab_Name"=>$row['Tab_Name'],"Template_Name"=>getTemplateName($conn,$row['Template_ID']));
+			$my_array = array("OrganisationUnit"=>$row['OrganisationUnit'],"RoleName"=>$row['RoleName'],"Tab_Name"=>$row['Tab_Name'],"Template_Name"=>getTemplateName($conn,$row['Template_ID']));
 			$output[]=$my_array;
 			$count++;
 		}
