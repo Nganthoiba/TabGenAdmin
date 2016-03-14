@@ -8,16 +8,16 @@ if(!empty($_GET)){
 	if($conn){
 		//echo "Database Connection Successful";
 		if($role=="All"){
-			$query="select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
+			$query="select OrganisationUnit,Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
 					and Role.OrganisationUnit='$orgUnit' and Tab.RoleId=Role.Id order by Tab_Name";
 		}
 		else{
 			if(isUniversalRole($conn,$role,$orgUnit)==true){
-				$query = "select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
+				$query = "select OrganisationUnit,Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
 				and Tab.RoleId=Role.Id order by Tab_Name";
 			}
 			else{
-				$query="select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
+				$query="OrganisationUnit,select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
 				and Role.OrganisationUnit='$orgUnit' and Role.RoleName='$role' and Tab.RoleId=Role.Id order by Tab_Name";
 			}
 		}

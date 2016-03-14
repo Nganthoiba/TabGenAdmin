@@ -69,7 +69,7 @@ function setTabTemplateLayout(){
 										"<td><select class='form-control'  onchange='clear();'id='template_name"+i+"'><option>"+arr[i].Template_Name+"</option>"+
 										templateList+"</select></td>"+
 										"<td><Button class='btn btn-default'"+
-											" onclick='updateTemplate(\""+i+"\",\""+arr[i].Tab_Name+"\",\""+arr[i].RoleName+"\",\""+orgunit+"\"); return false;'>Update</Button></td>"+
+											" onclick='updateTemplate(\""+i+"\",\""+arr[i].Tab_Name+"\",\""+arr[i].RoleName+"\",\""+arr[i].OrganisationUnit+"\"); return false;'>Update</Button></td>"+
 										"<td><span id='update_status"+i+"' style='min-width:30px'></span></td></tr>";
 							}
 							layout+="<tr><td align='center' colspan='4'>"+
@@ -83,7 +83,7 @@ function setTabTemplateLayout(){
 								for(j=0;j<arr.length;j++){
 									var tab_name = arr[j].Tab_Name;
 									var role_name = arr[j].RoleName;
-									updateTemplate(j,tab_name,role_name,orgunit);//updating template
+									updateTemplate(j,tab_name,role_name,arr[j].OrganisationUnit);//updating template
 								}
 								return false;
 							});
