@@ -17,7 +17,7 @@ if(!empty($_GET)){
 				and Tab.RoleId=Role.Id order by Tab_Name";
 			}
 			else{
-				$query="OrganisationUnit,select Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
+				$query="select OrganisationUnit,Role.RoleName, Tab.Name as Tab_Name, Tab.TabTemplate as Template_ID from Role,Tab where Role.RoleName = Tab.RoleName
 				and Role.OrganisationUnit='$orgUnit' and Role.RoleName='$role' and Tab.RoleId=Role.Id order by Tab_Name";
 			}
 		}
