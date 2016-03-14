@@ -27,7 +27,7 @@ $(document).ready(function(){
 /*JavaScript function for getting Tabs and corresponding Templates assigned for respectives roles of a particular organisation*/
 function setTabTemplateLayout(){
 	document.getElementById("tabs_template_result").innerHTML="<center><img src='img/loading_data.gif'/></center>";
-	getRoles("roleSelect",$("#orgUnitSelect").val());//getRoles(id,orgunit)
+	//getRoles("roleSelect",$("#orgUnitSelect").val());//getRoles(id,orgunit)
 	var orgunit = $("#orgUnitSelect").val();
 	var user_role = $("#roleSelect").val();
 	$.ajax({

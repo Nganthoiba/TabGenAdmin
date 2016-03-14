@@ -25,7 +25,7 @@
 								if($conn->httpResponseCode==200){
 									session_start();
 									$_SESSION['user_details'] = $responseJsonData;
-									if($data->roles =="system_admin")
+									if($data->roles =="system_admin" || $data->roles =="admin")
 										//header('Location:home.php');
 										echo json_encode(array("state"=>"true","location"=>"home.php"));
 									else 
