@@ -144,7 +144,7 @@ $(document).ready(function (){
                     var orgname=$("#orgname").val();
 					var display_name =$("#display_name").val();
 					$("#error1").css('color', 'black');
-                    $("#error1").text("<div><img src='img/loading.gif'/></div> Wait a moment please...");
+                    $("#error1").html("<div><img src='img/loading.gif'/></div> Wait a moment please...");
                     $.ajax({
                    
                         type: "POST",
@@ -470,7 +470,7 @@ $(document).ready(function (){
 							for(var i=0;i<limit;i++){
 								view+="<tr><td>"+json_arr[i].name+"</td><td align='right'>"+
 								"<Button type='button' class='btn btn-warning'"+
-								" onclick='setDelAction4Org(\""+json_arr[i].id+"\",\""+json_arr[i].name+"\"); return false;' id='del_org"+i+"'>"+
+								"onclick='setDelAction4Org(\""+json_arr[i].id+"\",\""+json_arr[i].name+"\"); return false;' id='del_org"+i+"'>"+
 								"Delete</Button></td></tr>";
 							}
 						}

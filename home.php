@@ -69,8 +69,7 @@
 					<a href="#" data-toggle="modal" data-target="#logoutConfirmation"><li>logout</li></a>
 				</ul>
 			</div>
-			<div class="col-md-8"><!--class="col-md-8"-->
-				
+			<div class="col-md-8"><!--class="col-md-8"-->	
 				<div class="col-md-12" style="padding-top:0px">
 					<h3>Organisation Units</h3>
 					<br/>	
