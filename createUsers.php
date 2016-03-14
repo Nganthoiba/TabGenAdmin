@@ -35,7 +35,7 @@ if(validateUserDetails()==true){
 					"password" => $_POST['password'],
 					"name" => $_POST['org_unit']	
 				);
-				//"type" => $_POST['type']
+				
 				$url_send ="http://".IP.":8065/api/v1/users/create";
 				$str_data = json_encode($data);
 
@@ -46,6 +46,7 @@ if(validateUserDetails()==true){
 						$responseData = json_decode($result);
 						if($connect->httpResponseCode==200){	
 							updateUserRole($responseData->id,$conn);
+							userUniversalAccess($conn,$responseData->id,$_POST['type']);
 						}else if($connect->httpResponseCode==0){
 							echo "Unable to communicate with the API";
 						}

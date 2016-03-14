@@ -303,13 +303,13 @@
 							</select>
 						</div>
 					</div>
-					<!--<div class="form-group">
-						<label class="col-sm-4  control-label">Can Allow Offer</label>
+					<div class="form-group">
+						<label class="col-sm-4  control-label">Has access across all other OU</label>
 						<div class="col-sm-8">
-							<label class="radio-inline"><input type="radio" name="optradio" id="user_allow_offer">Yes</label>
-							<label class="radio-inline"><input type="radio" name="optradio" id="user_not_allow_offer">No</label>
+							<label class="radio-inline"><input type="radio" name="optradio" id="universal_access_yes" checked>Yes</label>
+							<label class="radio-inline"><input type="radio" name="optradio" id="universal_access_no">No</label>
 						</div>
-					</div>-->
+					</div>
 
 					<div class="form-group">
 						<div class="col-sm-3"></div>

@@ -36,15 +36,21 @@ function updateUserRole($userId,$con){
 	}
 	else echo "Role ".$role." could not be updated";;
 }
+//function to set either the user has access right accross all other OU or not
+function userUniversalAccess($conn,$user_id,$yes_no){
+	$id = randId(26);
+	$query="INSERT INTO UserUniversalAccessibility(Id,UserId,UniversalAccess) values('$id','$user_id',$yes_no)";
+	$conn->query($query);
+}
 	
 function randId($length){
 	$id = md5(uniqid());
-		$char = str_shuffle($id);
-		for($i = 0, $rand = '', $l = strlen($char) - 1; $i < $length; $i ++) {
-			$rand .= $char{mt_rand(0, $l)};
-		}
-		return $rand;
+	$char = str_shuffle($id);
+	for($i = 0, $rand = '', $l = strlen($char) - 1; $i < $length; $i ++) {
+		$rand .= $char{mt_rand(0, $l)};
 	}
+	return $rand;
+}
 	/* function to find number of tabs of a particular role*/
 function existingNoOfTabs($roleName,$org_unit,$conn){
 	$res = $conn->query("SELECT COUNT(*) AS NO_OF_TABS 

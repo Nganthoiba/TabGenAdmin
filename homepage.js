@@ -144,9 +144,8 @@ $(document).ready(function (){
                     var orgname=$("#orgname").val();
 					var display_name =$("#display_name").val();
 					$("#error1").css('color', 'black');
-                    $("#error1").html("<div><img src='img/loading.gif'/></div> Wait a moment please...");
+                    $("#error1").html("<img src='img/loading.gif'/> Wait a moment please...");
                     $.ajax({
-                   
                         type: "POST",
                         url: "createorg.php",
                         data: "orgname="+orgname+"&display_name="+display_name,
@@ -289,8 +288,8 @@ $(document).ready(function (){
 			var email = $("#email").val();
 			var org_unit = $("#OrgUnitList").val();
 			var user_role = $("#UserRole").val();
-			//var type = $("#user_allow_offer").val();document.getElementById("user_allow_offer").checked;
-			var type = true;
+			var is_universal = document.getElementById("universal_access_yes").checked;//if the user has access across all other OU
+			//var type = true;
 			if(username.length==0){
 				document.getElementById("error4").innerHTML="Username is blank";
 				document.getElementById("error4").style.color="green";
@@ -322,7 +321,8 @@ $(document).ready(function (){
 				$.ajax({
 					type: "POST",
 					url: "createUsers.php",
-					data:"username="+username+"&password="+password+"&conf_pwd="+conf_pwd+"&email="+email+"&org_unit="+org_unit+"&Role="+user_role+"&type="+type,    
+					data:"username="+username+"&password="+password+"&conf_pwd="+conf_pwd+
+							"&email="+email+"&org_unit="+org_unit+"&Role="+user_role+"&type="+is_universal,    
 					success: function(e){  
 						if(e.trim()=="true")
 						{
