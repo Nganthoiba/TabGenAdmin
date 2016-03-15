@@ -12,7 +12,7 @@
 		$res = $conn->query($query);					
 		if($res){
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
-				$output[]=$row_data;		
+				$output[]=$row;		
 			}
 			print json_encode($output);
 		}
