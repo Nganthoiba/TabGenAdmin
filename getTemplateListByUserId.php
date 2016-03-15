@@ -31,12 +31,27 @@
 			$ou_id =getOuIdByUserId($conn,$user_id);
 			$parent_ou_id = getParentOuId($conn,$ou_id);
 			
-			findTabs($conn,$role,$ou_id);
-			findTabs($conn,$role,$parent_ou_id);
-			//print json_encode(array_merge($own_tabs,$parent_tabs));
+			$own_tabs=findTabs($conn,$role,$ou_id);
+			$parent_tabs=findTabs($conn,$role,$parent_ou_id);
+			//echo "Parent OU id: ".$parent_ou_id;
+			//print json_encode($own_tabs);
+			print json_encode(concate_array($own_tabs,$parent_tabs));
+			//print json_encode($parent_tabs);
 		}
 		
 	}
+function concate_array($arr1,$arr2){
+	$res_arr = array();
+	$i=0;
+	for($i=0;$i<sizeof($arr1);$i++){
+		$res_arr[$i]=$arr1[$i];
+	}
+	$j=0;
+	for($j=0;$j<sizeof($arr2);$j++){
+		$res_arr[($i+$j)]=$arr2[$j];
+	}
+	return $res_arr; 	
+}
 	
 function findTabs($conn,$role,$ou_id){
 	$query = "select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit
@@ -52,7 +67,7 @@ function findTabs($conn,$role,$ou_id){
 			$output[]=$row;
 		}	
 	}
-	print json_encode($output);
+	return ($output);
 }
 //function for getting parent OU Id for an organisation
 function getParentOuId($conn,$ou_id){
