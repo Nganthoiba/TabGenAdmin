@@ -42,6 +42,17 @@ function userUniversalAccess($conn,$user_id,$yes_no){
 	$query="INSERT INTO UserUniversalAccessibility(Id,UserId,UniversalAccess) values('$id','$user_id',$yes_no)";
 	$conn->query($query);
 }
+// function to test whether the user has Universal access right
+function isUserUniversalAccessRight($conn,$user_id){
+	$query="select * from UserUniversalAccessibility where UserId='$user_id'";
+	$result = $conn->query($query);
+	$row = $result->fetch(PDO::FETCH_ASSOC);
+	$flag = (int)$row['UniversalAccess'];
+	if($flag==1)
+		return true;
+	else
+		return false;
+}
 	
 function randId($length){
 	$id = md5(uniqid());
@@ -110,7 +121,6 @@ function isUniversalRole($conn,$role_name,$orgunit){
 	}
 	return false;
 }
-
 //to get team_name
 function getTeamName($conn,$team_id){
 	$result = $conn->query("select * from Teams where Id='$team_id'");

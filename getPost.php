@@ -14,7 +14,7 @@
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
 				$output[]=$row_data;		
 			}
-			print($output[5]);
+			print json_encode($output);
 		}
 	}
 
