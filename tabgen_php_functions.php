@@ -144,5 +144,75 @@ function getTeamIdByUsername($conn,$user_name){
 	else
 		return null;
 }
+//function for getting parent OU Id for an organisation
+function getParentOuId($conn,$ou_id){
+	$query="select ParentOUId from OUHierarchy where OUId='$ou_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['ParentOUId'];
+}
+// function to get OU Id (which the user belong) by providing user Id
+function getOuIdByUserId($conn,$user_id){
+	$query="select Users.Id as user_id,Users.Username,Teams.Id as Team_id,Teams.Name as team_name,OrganisationUnit.Id as org_unit_id,OrganisationUnit.OrganisationUnit
+			from Users,Teams,OrganisationUnit
+			where Teams.Id=Users.TeamId 
+			and Teams.Name=OrganisationUnit.OrganisationUnit
+			and Users.Id='$user_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['org_unit_id'];
+}
+//function to get user role by providing user id
+function getRoleByUserId($conn,$user_id){
+	$query="select Roles from Users where Id='$user_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['Roles'];
+}
+//function to concate two arrays
+function concate_array($arr1,$arr2){
+	$res_arr = array();
+	$i=0;
+	for($i=0;$i<sizeof($arr1);$i++){
+		$res_arr[$i]=$arr1[$i];
+	}
+	$j=0;
+	for($j=0;$j<sizeof($arr2);$j++){
+		$res_arr[($i+$j)]=$arr2[$j];
+	}
+	return $res_arr; 	
+}
+//function to find list of Teams accessible by the user by providing user id
+function getTeams($conn,$user_id){
+	$output=null;
+	if(isUserUniversalAccessRight($conn,$user_id)){//checks whether the user is universal access right
+		$query="select Teams.Name as team_name from Teams order by team_name";
+		$res = $conn->query($query);
+		if($res){
+			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$output[]=$row;
+			}
+		}
+	}
+	else{
+		
+		$ou_id = getOuIdByUserId($conn,$user_id);
+		$my_team = getTeamByOUId($conn,$ou_id);	
+		$parent_ou_id=getParentOuId($conn,$ou_id);
+		$parent_team =getTeamByOUId($conn,$parent_ou_id);	
+		$output= array(array("team_name"=>$my_team),array("team_name"=>$parent_team));
+	}
+	return $output;
+}
 
+//function to get team name by providing OU id
+function getTeamByOUId($conn,$ou_id){
+	$query="select Teams.Name as team_name, OrganisationUnit as org_unit_name 
+			from Teams,OrganisationUnit 
+			where Teams.Name=OrganisationUnit and 
+				OrganisationUnit.Id='$ou_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['team_name'];
+}
 ?>

@@ -40,19 +40,7 @@
 		}
 		
 	}
-function concate_array($arr1,$arr2){
-	$res_arr = array();
-	$i=0;
-	for($i=0;$i<sizeof($arr1);$i++){
-		$res_arr[$i]=$arr1[$i];
-	}
-	$j=0;
-	for($j=0;$j<sizeof($arr2);$j++){
-		$res_arr[($i+$j)]=$arr2[$j];
-	}
-	return $res_arr; 	
-}
-	
+
 function findTabs($conn,$role,$ou_id){
 	$query = "select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit
 			  from TabTemplate,Tab,OrganisationUnit
