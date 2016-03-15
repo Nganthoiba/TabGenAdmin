@@ -31,9 +31,9 @@
 			$ou_id =getOuIdByUserId($conn,$user_id);
 			$parent_ou_id = getParentOuId($conn,$ou_id);
 			
-			$own_tabs[] = findTabs($conn,$role,$ou_id);
-			$parent_tabs[]=findTabs($conn,$role,$parent_ou_id);
-			print json_encode(array_merge($own_tabs,$parent_tabs));
+			findTabs($conn,$role,$ou_id);
+			findTabs($conn,$role,$parent_ou_id);
+			//print json_encode(array_merge($own_tabs,$parent_tabs));
 		}
 		
 	}
@@ -45,14 +45,14 @@ function findTabs($conn,$role,$ou_id){
 			  and OrganisationUnit.Id=Tab.OUId
 			  and RoleName='$role' 
 			  and OUId='$ou_id'";
-	$output = array();
+	$output = null;
 	$res = $conn->query($query);
 	if($res){
 		while($row=$res->fetch(PDO::FETCH_ASSOC)){
 			$output[]=$row;
 		}	
 	}
-	return $output;
+	print json_encode($output);
 }
 //function for getting parent OU Id for an organisation
 function getParentOuId($conn,$ou_id){
