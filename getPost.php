@@ -1,4 +1,5 @@
 <?php 
+	//php code for getting post messages
 	$channel_id = $_GET['channel_id'];
 	include('connect_db.php');
 	$query="select Posts.Id as postId,Posts.CreateAt,Message,Username as messaged_by,Posts.UserId,Channels.LastPostAt,Posts.Filenames as filenames
