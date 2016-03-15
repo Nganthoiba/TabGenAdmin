@@ -57,28 +57,4 @@ function findTabs($conn,$role,$ou_id){
 	}
 	return ($output);
 }
-//function for getting parent OU Id for an organisation
-function getParentOuId($conn,$ou_id){
-	$query="select ParentOUId from OUHierarchy where OUId='$ou_id'";
-	$res = $conn->query($query);
-	$row = $res->fetch(PDO::FETCH_ASSOC);
-	return $row['ParentOUId'];
-}
-// function to get OU Id (which the user belong) by providing user Id
-function getOuIdByUserId($conn,$user_id){
-	$query="select Users.Id as user_id,Users.Username,Teams.Id as Team_id,Teams.Name as team_name,OrganisationUnit.Id as org_unit_id,OrganisationUnit.OrganisationUnit
-			from Users,Teams,OrganisationUnit
-			where Teams.Id=Users.TeamId 
-			and Teams.Name=OrganisationUnit.OrganisationUnit
-			and Users.Id='$user_id'";
-	$res = $conn->query($query);
-	$row = $res->fetch(PDO::FETCH_ASSOC);
-	return $row['org_unit_id'];
-}
-function getRoleByUserId($conn,$user_id){
-	$query="select Roles from Users where Id='$user_id'";
-	$res = $conn->query($query);
-	$row = $res->fetch(PDO::FETCH_ASSOC);
-	return $row['Roles'];
-}
 ?>
