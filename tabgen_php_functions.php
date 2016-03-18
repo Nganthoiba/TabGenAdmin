@@ -197,7 +197,7 @@ function getTeams($conn,$user_id){
 	else{		
 		$ou_id = getOuIdByUserId($conn,$user_id);
 		$my_team = getTeamByOUId($conn,$ou_id);	
-		/*,array("team_name"=>$parent_team)*/
+		/*,array("team_name"=>$parent_team)
 		$parent_ou_id=getParentOuId($conn,$ou_id);
 		$parent_team =getTeamByOUId($conn,$parent_ou_id);*/	
 		$output= array(array("team_name"=>$my_team));
