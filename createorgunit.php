@@ -4,7 +4,9 @@ if(isset($_SESSION['user_details'])){
 	$user_details = json_decode($_SESSION['user_details']);
 
 include ('ConnectAPI.php');
-include ('server_IP.php');
+//include ('server_IP.php');
+include('connect_db.php');
+include('tabgen_php_functions.php');
 $orgunit = $_POST['orgunit'];
 $displaynameunit = $_POST['displaynameunit'];
 $orgnamesel = $_POST['orgnamesel'];
@@ -41,6 +43,9 @@ if($orgunit!='' && $orgnamesel!=''){
 			$createTeamResult = $createTeam->sendPostData("http://".IP.":8065/api/v1/teams/create",$str_createTeamData);
 			$responseTeamResult = json_decode($createTeamResult);
 			if( $createTeam->httpResponseCode==200){
+				//$team_id = $responseTeamResult->id;
+				//renameChannel($conn,$team_id,"Public Site","Town Square");
+				//deleteChannel($conn,$team_id,"Off-Topic");
 				echo "true";
 			}
 			else if($createTeam->httpResponseCode==0) 

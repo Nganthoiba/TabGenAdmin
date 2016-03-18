@@ -6,16 +6,14 @@ if(!empty($_GET['user_id'])){
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
 	if($conn){
-		$teams=getTeams($conn,$user_id);
-		//$json_data = json_encode($teams);
-		//print $json_data;
-		//echo "Size of array: ".sizeof($teams);
+		$teams=getTeams($conn,$user_id);//getting a	list of user accessible teams
 		$output=null;
-		for($i=0;$i<sizeof($teams);$i++){
+		
+		for($i=0;$i<sizeof($teams);$i++){//finding all the possible channels for a team
 			$team_name = $teams[$i]['team_name'];
 			$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,Teams.Name as Team_Name
-						from Channels,Teams
-						where Channels.TeamId = Teams.Id and
+					  from Channels,Teams
+					  where Channels.TeamId = Teams.Id and
 							Teams.Name='$team_name'";
 			$channels=null;
 			$res = $conn->query($query);

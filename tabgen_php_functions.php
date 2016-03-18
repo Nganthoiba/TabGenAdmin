@@ -194,13 +194,13 @@ function getTeams($conn,$user_id){
 			}
 		}
 	}
-	else{
-		
+	else{		
 		$ou_id = getOuIdByUserId($conn,$user_id);
 		$my_team = getTeamByOUId($conn,$ou_id);	
+		/*,array("team_name"=>$parent_team)*/
 		$parent_ou_id=getParentOuId($conn,$ou_id);
-		$parent_team =getTeamByOUId($conn,$parent_ou_id);	
-		$output= array(array("team_name"=>$my_team),array("team_name"=>$parent_team));
+		$parent_team =getTeamByOUId($conn,$parent_ou_id);*/	
+		$output= array(array("team_name"=>$my_team));
 	}
 	return $output;
 }
@@ -215,4 +215,25 @@ function getTeamByOUId($conn,$ou_id){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['team_name'];
 }
+
+function renameChannel($conn,$team_id,$channel_name,$old_display_name){
+	
+	if($conn){
+		$query="Update Channels set DisplayName='$channel_name',Name='$channel_name'
+				where TeamId='$team_id' and DisplayName='$old_display_name'";
+		$conn->query($query);
+	}
+}
+
+function deleteChannel($conn,$team_id,$old_display_name){
+	
+	if($conn){
+		$time = time();
+		$query="Update Channels set DeleteAt='$time'
+				where TeamId='$team_id' and DisplayName='$old_display_name'";
+		$conn->query($query);
+	}
+}
+
+
 ?>
