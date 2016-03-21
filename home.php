@@ -47,7 +47,7 @@
 		<div><!--class="row"-->
 			<div class="col-md-2" style="height:100%">
 				<div class="col-md-12" >
-					<div class="col-md-2" style="padding-bottom:10px;padding-top:10px"><img src="img\user.png" class="circular" alt="No profile Image found"/>
+					<div class="col-md-2" style="padding-bottom:10px;padding-top:10px"><img src="img/user.png" class="circular" alt="No profile Image found"/>
 						<p id="userID"><?php echo $user_name; ?></p>
 						<p><?php echo $user_role ?></p>
 					</div>
