@@ -6,27 +6,12 @@
 			
 	if($conn){
 		if(isUserUniversalAccessRight($conn,$user_id)){// if the user has universal access right
-			$temporaryQuery="select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit 
-					from TabTemplate,Tab,OrganisationUnit 
-					where Tab.TabTemplate=TabTemplate.Id 
-						and OrganisationUnit.Id=Tab.OUId
-					order by Tab.Name";
-			$res = $conn->query($temporaryQuery);	
-			if($res){
-				while($row=$res->fetch(PDO::FETCH_ASSOC)){
-					$output[]=$row;
-				}
-				print(json_encode($output));
-			}
+			$role = getRoleByUserId($conn,$user_id);
+			$role_type = getRoleType($conn,$role);
+			$tabs = findTabsByRoleType($conn,$role_type);
+			print json_encode($tabs);
 			
 		}else{
-			/*$query="select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit 
-					from TabTemplate,Tab,OrganisationUnit 
-					where Tab.TabTemplate=TabTemplate.Id 
-						and OrganisationUnit.Id=Tab.OUId 
-						and OrganisationUnit='$org_unit'
-						and RoleName='$role'
-					order by Tab.Name";*/
 			$role = getRoleByUserId($conn,$user_id);
 			$ou_id =getOuIdByUserId($conn,$user_id);
 			$parent_ou_id = getParentOuId($conn,$ou_id);
@@ -40,7 +25,7 @@
 		}
 		
 	}
-
+//function to find tabs specific to roles
 function findTabs($conn,$role,$ou_id){
 	$query = "select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit
 			  from TabTemplate,Tab,OrganisationUnit
@@ -48,6 +33,24 @@ function findTabs($conn,$role,$ou_id){
 			  and OrganisationUnit.Id=Tab.OUId
 			  and RoleName='$role' 
 			  and OUId='$ou_id'";
+	$output = null;
+	$res = $conn->query($query);
+	if($res){
+		while($row=$res->fetch(PDO::FETCH_ASSOC)){
+			$output[]=$row;
+		}	
+	}
+	return ($output);
+}
+
+//function to find tabs specific to roles types
+function findTabsByRoleType($conn,$role_type){
+	$query = "select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit
+			from TabTemplate,Tab,OrganisationUnit
+			where Tab.TabTemplate=TabTemplate.Id
+			and OrganisationUnit.Id=Tab.OUId
+			and Tab.RoleId in (select Id from Role where RoleType='$role_type')
+			order by Tab.Name";
 	$output = null;
 	$res = $conn->query($query);
 	if($res){

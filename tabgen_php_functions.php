@@ -243,4 +243,12 @@ function updateRoleType($conn,$role_id,$role_type){
 	}
 }
 
+//function to get role_type using role_name
+function getRoleType($conn,$role_name){
+	$query = "select RoleType from Role where RoleName='$role_name'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['RoleType'];
+}
+
 ?>
