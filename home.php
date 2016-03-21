@@ -116,13 +116,13 @@
 			<div class="modal-body">
 				<form class="form-horizontal" method="post" action="createorg.php">
 					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-4  control-label">Organization Name</label>
+						<label for="orgname" class="col-sm-4  control-label">Organization Name</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" value="" name="orgname" id="orgname" placeholder="Organization name">
 						</div>
 					</div>
 					<div class="form-group">
-                        <label for="inputPassword3" class="col-sm-4  control-label">Display Name</label>
+                        <label for="display_name" class="col-sm-4  control-label">Display Name</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" value="" placeholder="Display Name" name="display_name" id="display_name">
                         </div>
@@ -152,13 +152,13 @@
 			<div class="modal-body">
 				<form class="form-horizontal" method="post">
 					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-4  control-label">Organization Unit Name</label>
+						<label for="orgunit" class="col-sm-4  control-label">Organization Unit Name</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" value="" id="orgunit" name="orgunit" placeholder="Organization name" required>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4  control-label">Display Name</label>
+						<label for="displaynameunit" class="col-sm-4  control-label">Display Name</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" value="" id="displaynameunit"  placeholder="Display Name" required>
 						</div>
@@ -205,9 +205,20 @@
 			<div class="modal-body">
 				<form class="form-horizontal" method="post">
 					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-4  control-label">Role Name</label>
+						<label for="rolaname" class="col-sm-4  control-label">Role Name</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" name="rolaname" id="rolaname" placeholder="Role name">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="roletype" class="col-sm-4  control-label">Role Type</label>
+						<div class="col-sm-8">
+							<select class="form-control" name="role_type" id="roletype">
+								<option></option>
+								<option>Doctor</option>
+								<option>Nurse</option>
+							</select>
 						</div>
 					</div>
 					
