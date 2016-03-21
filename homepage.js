@@ -247,14 +247,15 @@ $(document).ready(function (){
         $('#btnrole').click(function() {
 			var rolaname=$("#rolaname").val();
 			var ousel =$("#ousel").val();
-			var access =document.getElementById("access_yes").checked;
+			//var access =document.getElementById("access_yes").checked;
 			//var access =$("#access_yes").val();
+			var role_type=$("#roletype").val();
 			$("#error3").html("<div><img src='img/loading.gif'/></div> Wait Please...");
 			$("#error3").css('color','black');
 			$.ajax({
                 type: "POST",
                 url: "createrole.php",
-                data: "rolaname="+rolaname+"&ousel="+ousel+"&access="+access,    
+                data: "rolaname="+rolaname+"&ousel="+ousel+"&role_type="+role_type,    
                 success: function(e){ 
 					if(e.trim()=="true")
                     {

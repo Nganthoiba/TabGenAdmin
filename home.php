@@ -215,7 +215,6 @@
 						<label for="roletype" class="col-sm-4  control-label">Role Type</label>
 						<div class="col-sm-8">
 							<select class="form-control" name="role_type" id="roletype">
-								<option></option>
 								<option>Doctor</option>
 								<option>Nurse</option>
 							</select>
@@ -234,13 +233,13 @@
 							</select>
 						</div>
 					</div> 
-					<div class="form-group">
+					<!--<div class="form-group">
 						<label class="col-sm-4  control-label">Can access other OU</label>
 						<div class="col-sm-8">
 							<label class="radio-inline"><input type="radio" name="optradio" id="access_yes" checked>Yes</label>
 							<label class="radio-inline"><input type="radio" name="optradio" id="access_no">No</label>
 						</div>
-					</div>
+					</div>-->
 	
 					<div class="form-group">
 						<div class="col-sm-3"></div>

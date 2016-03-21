@@ -235,5 +235,12 @@ function deleteChannel($conn,$team_id,$old_display_name){
 	}
 }
 
+//function to update role type
+function updateRoleType($conn,$role_id,$role_type){
+	if($conn){
+		$query = "Update Role set RoleType='$role_type' where Id='$role_id'";
+		$conn->query($query);
+	}
+}
 
 ?>

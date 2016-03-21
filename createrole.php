@@ -1,16 +1,19 @@
 <?php
 include('ConnectAPI.php');
-include('server_IP.php');
+include('tabgen_php_functions.php');
+//include('server_IP.php');
+include('connect_db.php');
 $rolaname = $_POST['rolaname'];
 $ousel = $_POST['ousel'];
-$access = $_POST['access'];
+//$access = $_POST['access'];
+$role_type = $_POST['role_type'];
+
 if($rolaname!='' && $ousel!=''){
 	$data = array(
-	   "organisationUnit"  => $ousel,
-		"universalRole" => $access,
+	   "organisationUnit"  => $ousel,	
 		"role_name" => $rolaname 
 	);
-	
+	//"universalRole" => $access,
 	$url_send ="http://".IP.":8065/api/v1/organisationRole/create";
 	$str_data = json_encode($data);
 	
@@ -20,6 +23,7 @@ if($rolaname!='' && $ousel!=''){
 		try{
 			$responseData = json_decode($result);
 			if($connect->httpResponseCode==200){
+				updateRoleType($conn,$responseData->id,$role_type);
 				echo "true";
 			}else if($connect->httpResponseCode==0){
 				echo "false";
