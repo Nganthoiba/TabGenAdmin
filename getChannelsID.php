@@ -13,7 +13,7 @@ if(!empty($_GET['user_id'])){
 			$team_name = $teams[$i]['team_name'];
 			$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,Teams.Name as Team_Name
 					  from Channels,Teams
-					  where Channels.TeamId = Teams.Id and
+					  where Channels.TeamId = Teams.Id
 							and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
 							and Teams.Name='$team_name'";
 			$channels=null;
