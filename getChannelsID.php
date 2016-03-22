@@ -14,7 +14,8 @@ if(!empty($_GET['user_id'])){
 			$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,Teams.Name as Team_Name
 					  from Channels,Teams
 					  where Channels.TeamId = Teams.Id and
-							Teams.Name='$team_name'";
+							and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
+							and Teams.Name='$team_name'";
 			$channels=null;
 			$res = $conn->query($query);
 			if($res){

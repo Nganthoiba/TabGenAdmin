@@ -250,5 +250,19 @@ function getRoleType($conn,$role_name){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['RoleType'];
 }
+//function to allow user to access every open channels or adding the user to every open channel
+function allowEveryOpenChannel($conn,$user_id){
+	//getting all channel Ids
+	if($conn){
+		$res = $conn->query("select Id from Channels where Type='O'");
+		if($res){
+			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$channel_id = $row['Id'];
+				$conn->query("insert into ChannelMembers(ChannelId,UserId)values('$channel_id','$user_id')");
+			}
+		}
+	}
+}
+
 
 ?>
