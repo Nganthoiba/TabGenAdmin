@@ -20,7 +20,13 @@ if(!empty($_GET['user_id'])){
 			$res = $conn->query($query);
 			if($res){
 				while($row=$res->fetch(PDO::FETCH_ASSOC)){
-					$channels[]=$row;
+					if($row['Channel_name']!="")
+						$channels[]=$row;
+					else{
+						//do nothing
+						$username=getUserInPrivateMessageChannel($conn,$row['Channel_ID'],$user_id);
+						$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$username,"Team_Name"=>$row['Team_Name']);
+					}
 				}
 				$output[$i]=array($team_name=>$channels);
 			}

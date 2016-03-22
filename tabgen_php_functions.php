@@ -264,5 +264,17 @@ function allowEveryOpenChannel($conn,$user_id){
 	}
 }
 
+//function to get users in a channel
+function getUserInPrivateMessageChannel($conn,$channel_id,$my_id){
+	$query = "select UserId, Username
+				from ChannelMembers,Users
+				where UserId=Users.Id and
+				ChannelId='$channel_id' and
+				UserId != '$my_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['Username'];
+}
+
 
 ?>
