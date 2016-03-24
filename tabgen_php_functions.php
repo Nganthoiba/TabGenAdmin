@@ -144,6 +144,17 @@ function getTeamIdByUsername($conn,$user_name){
 	else
 		return null;
 }
+//getting team id by username from the users table
+function getTeamIdByUserId($conn,$user_id){
+	$result = $conn->query("select * from Users where Id='$user_id'");
+	if($result){
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$team_id = $row['TeamId'];
+		return $team_id;
+	}
+	else
+		return null;
+}
 //function for getting parent OU Id for an organisation
 function getParentOuId($conn,$ou_id){
 	$query="select ParentOUId from OUHierarchy where OUId='$ou_id'";
@@ -193,6 +204,7 @@ function getTeams($conn,$user_id){
 				$output[]=$row;
 			}
 		}
+		return $output;
 	}
 	else{		
 		$ou_id = getOuIdByUserId($conn,$user_id);
@@ -201,8 +213,8 @@ function getTeams($conn,$user_id){
 		$parent_ou_id=getParentOuId($conn,$ou_id);
 		$parent_team =getTeamByOUId($conn,$parent_ou_id);*/	
 		$output= array(array("team_name"=>$my_team));
-	}
-	return $output;
+		return $output;
+	}	
 }
 
 //function to get team name by providing OU id
@@ -250,6 +262,44 @@ function getRoleType($conn,$role_name){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['RoleType'];
 }
+<<<<<<< HEAD
 /*********************/
+=======
+//function to allow user to access every open channels or adding the user to every open channel
+function allowEveryOpenChannel($conn,$user_id){
+	//getting all channel Ids
+	if($conn){
+		$team_id=getTeamIdByUserId($conn,$user_id);
+		$res = $conn->query("select Id from Channels where Type='O' and Channels.TeamId!='$team_id'");
+		if($res){
+			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$channel_id = $row['Id'];
+				$notify_props={"desktop":"default","mark_unread":"all"};
+				$conn->query("insert into ChannelMembers(ChannelId,UserId,NotifyProps)values('$channel_id','$user_id',$notify_props)");
+			}
+		}
+	}
+}
+
+//function to get users in a channel
+function getUserInPrivateMessageChannel($conn,$channel_id,$my_id){
+	$query = "select UserId, Username
+				from ChannelMembers,Users
+				where UserId=Users.Id and
+				ChannelId='$channel_id' and
+				UserId != '$my_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['Username'];
+}
+
+function getOUNameByOuId($conn,$ou_id){
+	$query = "select * from OrganisationUnit
+				where Id='$ou_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['OrganisationUnit'];
+}
+/************************************************/
 
 ?>
