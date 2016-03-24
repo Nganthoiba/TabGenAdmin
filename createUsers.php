@@ -47,8 +47,8 @@ if(validateUserDetails()==true){
 						if($connect->httpResponseCode==200){	
 							updateUserRole($responseData->id,$conn);
 							userUniversalAccess($conn,$responseData->id,$_POST['type']);
-							/*if($_POST['type']=="true")//if the user type is universal
-								allowEveryOpenChannel($conn,$responseData->id);*/
+							if($_POST['type']=="true")//if the user type is universal
+								allowEveryOpenChannel($conn,$responseData->id);
 						}else if($connect->httpResponseCode==0){
 							echo "Unable to communicate with the API";
 						}

@@ -193,6 +193,7 @@ function getTeams($conn,$user_id){
 				$output[]=$row;
 			}
 		}
+		return $output;
 	}
 	else{		
 		$ou_id = getOuIdByUserId($conn,$user_id);
@@ -201,8 +202,8 @@ function getTeams($conn,$user_id){
 		$parent_ou_id=getParentOuId($conn,$ou_id);
 		$parent_team =getTeamByOUId($conn,$parent_ou_id);*/	
 		$output= array(array("team_name"=>$my_team));
-	}
-	return $output;
+		return $output;
+	}	
 }
 
 //function to get team name by providing OU id
