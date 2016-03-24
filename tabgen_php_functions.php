@@ -144,6 +144,17 @@ function getTeamIdByUsername($conn,$user_name){
 	else
 		return null;
 }
+//getting team id by username from the users table
+function getTeamIdByUserId($conn,$user_id){
+	$result = $conn->query("select * from Users where Id='$user_id'");
+	if($result){
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$team_id = $row['TeamId'];
+		return $team_id;
+	}
+	else
+		return null;
+}
 //function for getting parent OU Id for an organisation
 function getParentOuId($conn,$ou_id){
 	$query="select ParentOUId from OUHierarchy where OUId='$ou_id'";
@@ -255,11 +266,13 @@ function getRoleType($conn,$role_name){
 function allowEveryOpenChannel($conn,$user_id){
 	//getting all channel Ids
 	if($conn){
-		$res = $conn->query("select Id from Channels where Type='O'");
+		$team_id=getTeamIdByUserId($conn,$user_id);
+		$res = $conn->query("select Id from Channels where Type='O' and Channels.TeamId!='$team_id'");
 		if($res){
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
 				$channel_id = $row['Id'];
-				$conn->query("insert into ChannelMembers(ChannelId,UserId)values('$channel_id','$user_id')");
+				$notify_props={"desktop":"default","mark_unread":"all"};
+				$conn->query("insert into ChannelMembers(ChannelId,UserId,NotifyProps)values('$channel_id','$user_id',$notify_props)");
 			}
 		}
 	}

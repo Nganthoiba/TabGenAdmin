@@ -5,6 +5,7 @@
 	if($conn){
 		$res = $conn->query($query);					
 		if($res){
+			$conn->query("delete from Teams where Teams.Name NOT IN (select OrganisationUnit from OrganisationUnit)");
 			echo "true";
 		}
 		else echo "false";
