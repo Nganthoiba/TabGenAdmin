@@ -250,7 +250,7 @@ function getRoleType($conn,$role_name){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['RoleType'];
 }
-<<<<<<< HEAD
+
 
 //function to get users in a channel
 function getUserInPrivateMessageChannel($conn,$channel_id,$my_id){
@@ -271,7 +271,6 @@ function getOUNameByOuId($conn,$ou_id){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['OrganisationUnit'];
 }
-=======
->>>>>>> origin/master
+
 
 ?>
