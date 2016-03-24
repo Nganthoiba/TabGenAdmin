@@ -290,5 +290,13 @@ function getUserInPrivateMessageChannel($conn,$channel_id,$my_id){
 	return $row['Username'];
 }
 
+function getOUNameByOuId($conn,$ou_id){
+	$query = "select * from OrganisationUnit
+				where Id='$ou_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['OrganisationUnit'];
+}
+
 
 ?>
