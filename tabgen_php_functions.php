@@ -186,7 +186,7 @@ function concate_array($arr1,$arr2){
 function getTeams($conn,$user_id){
 	$output=null;
 	if(isUserUniversalAccessRight($conn,$user_id)){//checks whether the user is universal access right
-		$query="select Teams.Name as team_name from Teams order by team_name";
+		$query="select Teams.Name as team_name from Teams,OrganisationUnit where Teams.Name=OrganisationUnit order by team_name";
 		$res = $conn->query($query);
 		if($res){
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
@@ -271,6 +271,5 @@ function getOUNameByOuId($conn,$ou_id){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['OrganisationUnit'];
 }
-
 
 ?>
