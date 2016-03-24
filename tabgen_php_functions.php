@@ -250,5 +250,6 @@ function getRoleType($conn,$role_name){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['RoleType'];
 }
+/*********************/
 
 ?>
