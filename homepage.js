@@ -220,6 +220,8 @@ $(document).ready(function (){
 									organisation units at the popup dialog for creating users*/  
 									viewOrgUnits("dropdown","sel_org_unit_global_tab","all");//displaying for creating global tab
 									viewOrgUnits("dropdown","sel_org_unit_role_tab","all");//displaying for creating role tab
+									viewOrgUnits("dropdown","orgUnitSelect","all");
+									getRoles("roleSelect",$("#orgUnitSelect").val());
 								}else if(e.trim()=="false"){
 									$("#error2").css('color', 'red');
 									$("#error2").text("Oops Some Goes Wrong Please Try Agian");
