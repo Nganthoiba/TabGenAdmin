@@ -27,7 +27,7 @@ if(!empty($_GET['user_id'])){
 					else{
 						//getting the other user in the private message channel
 						$username=getUserInPrivateMessageChannel($conn,$row['Channel_ID'],$user_id);
-						$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$username,"Team_Name"=>$row['Team_Name']);
+						$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$username,"members_count"=>$row["members_count"],"Team_Name"=>$row['Team_Name']);
 					}
 				}
 				$output[$i]=array($team_name=>$channels);
