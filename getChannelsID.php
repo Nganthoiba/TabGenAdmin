@@ -11,11 +11,13 @@ if(!empty($_GET['user_id'])){
 		
 		for($i=0;$i<sizeof($teams);$i++){//finding all the possible channels for a team
 			$team_name = $teams[$i]['team_name'];
-			$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,Teams.Name as Team_Name
-					  from Channels,Teams
+			$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count,Teams.Name as Team_Name
+					  from Channels,Teams,ChannelMembers
 					  where Channels.TeamId = Teams.Id
 							and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
-							and Teams.Name='$team_name'";
+							and Teams.Name='$team_name'
+							and Channels.Id=ChannelId
+							group by Channels.Id";
 			$channels=null;
 			$res = $conn->query($query);
 			if($res){
