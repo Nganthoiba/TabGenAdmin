@@ -13,7 +13,9 @@
 		$res = $conn->query($query);					
 		if($res){
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
-				$output[]=$row;		
+				$output[]=array("postId"=>$row['postId'],"CreateAt"=>$row['CreateAt'],"Message"=>$row['Message'],"messaged_by"=>$row['messaged_by'],
+				"UserId"=>$row['UserId'],"LastPostAt"=>$row['LastPostAt'],"filenames"=>"".$row['filenames']);
+				//$output[]=$row;		
 			}
 			print json_encode($output);
 		}

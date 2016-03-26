@@ -27,12 +27,12 @@
 	}
 //function to find tabs specific to roles
 function findTabs($conn,$role,$ou_id){
-	$query = "select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit
-			  from TabTemplate,Tab,OrganisationUnit
+	$query = "select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,Tab.RoleName,OrganisationUnit
+			  from TabTemplate,Tab,Role
 			  where Tab.TabTemplate=TabTemplate.Id
-			  and OrganisationUnit.Id=Tab.OUId
-			  and RoleName='$role' 
-			  and OUId='$ou_id'";
+			  and Tab.RoleName='Physiologist' 
+			  and Tab.RoleId=Role.Id
+			  order by Tab_Name";
 	$output = null;
 	$res = $conn->query($query);
 	if($res){
@@ -45,12 +45,12 @@ function findTabs($conn,$role,$ou_id){
 
 //function to find tabs specific to roles types
 function findTabsByRoleType($conn,$role_type){
-	$query = "select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit
-			from TabTemplate,Tab,OrganisationUnit
-			where Tab.TabTemplate=TabTemplate.Id
-			and OrganisationUnit.Id=Tab.OUId
-			and Tab.RoleId in (select Id from Role where RoleType='$role_type')
-			order by Tab.Name";
+	$query = "select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,Tab.RoleName,RoleType,OrganisationUnit
+			  from TabTemplate,Tab,Role
+			  where Tab.TabTemplate=TabTemplate.Id
+			  and Role.RoleType='$role_type'
+			  and Tab.RoleId=Role.Id
+			  order by Tab_Name";
 	$output = null;
 	$res = $conn->query($query);
 	if($res){
