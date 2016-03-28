@@ -432,7 +432,8 @@ $(document).ready(function (){
 					alert("Unable to delete Organisation Unit");
 				}
 				else{
-					viewOrgUnits("list","showOrgUnits","all");
+					//viewOrgUnits("list","showOrgUnits","all");
+					window.location.reload(true);
 				}
 			},
 			error: function(x,y,z){
