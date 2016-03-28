@@ -30,7 +30,7 @@ function findTabs($conn,$role,$ou_id){
 	$query = "select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,Tab.RoleName,OrganisationUnit
 			  from TabTemplate,Tab,Role
 			  where Tab.TabTemplate=TabTemplate.Id
-			  and Tab.RoleName='Physiologist' 
+			  and Tab.RoleName='$role' 
 			  and Tab.RoleId=Role.Id
 			  order by Tab_Name";
 	$output = null;
