@@ -65,7 +65,7 @@ function setTabTemplateLayout(){
 									else
 										role_name="<td></td>";
 								}
-								layout+="<tr>"+role_name+"<td><input type='text' id='tab_name"+i+"' class='form-control' value='"+arr[i].Tab_Name+"'/></td>"+
+								layout+="<tr><td>"+role_name+"</td><td><input type='text' id='tab_name"+i+"' class='form-control' value='"+arr[i].Tab_Name+"'/></td>"+
 										"<td><select class='form-control'  onchange='clear();'id='template_name"+i+"'><option>"+arr[i].Template_Name+
 									"</option>"+templateList+"</select></td>"+
 										"<td><Button class='btn btn-default'"+
