@@ -43,7 +43,7 @@ function setTabTemplateLayout(){
 				/*javascript function for parsing json data and displaying layout for Tab Template Association Update*/
 				var arr = jQuery.parseJSON(data);// JSON.parse(data)
 				var layout="<table class='table table-hover' align='center'>"+
-				"<tr><th></th><th></th><th>Tabs</th><th>Tab Templates</th><th style='min-width:80px'></th></tr>";
+				"<tr><th></th><th>Tabs</th><th>Tab Templates</th><th style='min-width:80px'></th></tr>";
 				var role_name="<td></td>";
 				/*getting list of templates created by the admin*/
 				$.ajax({
@@ -65,7 +65,7 @@ function setTabTemplateLayout(){
 									else
 										role_name="<td></td>";
 								}
-								layout+="<tr><td>"+role_name+"</td><td><input type='text' id='tab_name"+i+"' class='form-control' value='"+arr[i].Tab_Name+"'/></td>"+
+								layout+="<tr>"+role_name+"<td><input type='text' id='tab_name"+i+"' class='form-control' value='"+arr[i].Tab_Name+"'/></td>"+
 										"<td><select class='form-control'  onchange='clear();'id='template_name"+i+"'><option>"+arr[i].Template_Name+
 									"</option>"+templateList+"</select></td>"+
 										"<td><Button class='btn btn-default'"+
