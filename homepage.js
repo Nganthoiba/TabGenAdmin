@@ -65,11 +65,11 @@ function setTabTemplateLayout(){
 									else
 										role_name="<td></td>";
 								}
-								layout+="<tr>"+role_name+"<td><span id='tab_name"+i+"'>"+arr[i].Tab_Name+"</span></td>"+
-										"<td><select class='form-control'  onchange='clear();'id='template_name"+i+"'><option>"+arr[i].Template_Name+"</option>"+
-										templateList+"</select></td>"+
+								layout+="<tr>"+role_name+"<td><input type='text' id='tab_name"+i+"' class='form-control' value='"+arr[i].Tab_Name+"'/></td>"+
+										"<td><select class='form-control'  onchange='clear();'id='template_name"+i+"'><option>"+arr[i].Template_Name+
+									"</option>"+templateList+"</select></td>"+
 										"<td><Button class='btn btn-default'"+
-											" onclick='updateTemplate(\""+i+"\",\""+arr[i].Tab_Name+"\",\""+arr[i].RoleName+"\",\""+arr[i].OrganisationUnit+"\"); return false;'>Update</Button></td>"+
+											" onclick='updateTemplate(\""+i+"\",\""+arr[i].tab_id+"\"); return false;'>Update</Button></td>"+
 										"<td><span id='update_status"+i+"' style='min-width:30px'></span></td></tr>";
 							}
 							layout+="<tr><td align='center' colspan='4'>"+
@@ -81,9 +81,8 @@ function setTabTemplateLayout(){
 								/*javascrip code for updating tab templates*/
 								var j;
 								for(j=0;j<arr.length;j++){
-									var tab_name = arr[j].Tab_Name;
-									var role_name = arr[j].RoleName;
-									updateTemplate(j,tab_name,role_name,arr[j].OrganisationUnit);//updating template
+									var tab_id = arr[j].tab_id;
+									updateTemplate(j,tab_id);//updating template
 								}
 								return false;
 							});
@@ -98,14 +97,15 @@ function setTabTemplateLayout(){
 	});	
 }
 //function for updating template
-function updateTemplate(i,tab_name,role_name,orgunit){
+function updateTemplate(i,tab_id){
 	var template_name = $("#template_name"+i).val();
-	//alert("Role Name: "+role_name+"Tab Name: "+tab_name+"Template Name: "+template_name);
+	var tabname = $("#tab_name"+i).val();
+	//alert("Tab Id: "+tab_id+" Tab Name: "+tabname+"Template Name: "+template_name);
 	document.getElementById("update_status"+i).innerHTML="<img src='img/update_icon.gif'></img>";
 	$.ajax({
 		type: "POST",
 		url: "updateTabs.php",
-		data: "role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name+"&org_unit="+orgunit+"&index="+i,
+		data: "tab_id="+tab_id+"&tab_name="+tabname+"&template_name="+template_name+"&index="+i,
 		success: function(result){
 			var result_data = JSON.parse(result);
 			if(result_data.state==true)

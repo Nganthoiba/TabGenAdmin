@@ -10,8 +10,8 @@ function createTabs($conn,$start,$no_of_tabs,$org_unit,$role_name,$createdBy){
 		if($ou_id!=null){
 			if($role_id!=null){
 				$timestamp = time();
-				$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,Name,RoleName,CreatedBy,RoleId,OUId)
-						values('$id','$createAt','$timestamp','$tab_name','$role_name','$createdBy','$role_id','$ou_id')";
+				$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,Name,RoleName,CreatedBy,RoleId)
+						values('$id','$createAt','$timestamp','$tab_name','$role_name','$createdBy','$role_id')";
 				try{
 					$result = $conn->query($query);
 					if($result){
