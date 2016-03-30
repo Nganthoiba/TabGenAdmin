@@ -33,7 +33,7 @@ class ConnectAPI{
 		//return $result;
 	}
 
-	function ($url,$data){
+	function sendPostDataWithToken($url,$data){
 		session_start();
 		$login_header = $_SESSION['login_header_response'];
 		//echo $login_header;
