@@ -19,7 +19,7 @@ if(!empty($_GET['user_id'])){
 							and Channels.Id=ChannelId
 							and Channels.Name!='off-topic'
 							and Channels.Name!='town-square'
-							group by Channels.Id";
+							group by Channels.Id";//query to obtain channels which is not off-topic or townsquare
 			$channels=null;
 			$res = $conn->query($query);
 			if($res){
