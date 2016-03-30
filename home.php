@@ -3,15 +3,17 @@
 <head>
 	<title>Home</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<!--<link rel="stylesheet" type="text/css" href="css/main.css">-->
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/npm.js"></script>
 	<script src="homepage.js"></script>
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
-	<style type="text/css">
-		.listShow {list-style-type:none; max-width:70%}
-		
+	<style type="text/css">		
 		.circular {
 					width: 100px;
 					height: 100px;
@@ -45,30 +47,30 @@
                 $user_role = $user_data->roles;
 						
 	?>
-	<div class="container-fluid"><br><br>
-		<div><!--class="row"-->
-			<div class="col-md-2" style="height:100%">
-				<div class="col-md-12" >
-					<div class="col-md-2" style="padding-bottom:10px;padding-top:10px"><img src="img/user.png" class="circular" alt="No profile Image found"/>
+	<div class="container-fluid" ><br><br>
+		<div class="row"><!--class="row"-->
+			<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px;padding-top:10px">
+				<div class="nav nav-sidebar" >
+					<div class="col-md-2"><img src="img/user.png" class="circular" alt="No profile Image found"/>
 						<p id="userID"><?php echo $user_name; ?></p>
 						<p><?php echo $user_role ?></p>
 					</div>
 				</div>
-				
-				<ul class="nav nav-tabs nav-stacked" style="background-color:#F2F2F2;border-radius:5px;padding-top:10px">
-					<a href="#" data-toggle="modal" data-target="#createorg"><li>Create Organization</li></a>
-					<a href="#" data-toggle="modal" data-target="#createorgunit"><li>Create Organization Unit</li></a>
-					<a href="#" data-toggle="modal" data-target="#createrole">	<li>Create Roles</li></a>
-					<a href="#" data-toggle="modal" data-target="#createuser" 
-						onclick='getRoles("UserRole",$("#OrgUnitList").val());return false;'>	<li>Create Users</li></a>
-					<li>Create Tabs Strips</li>
-					<a href="#" data-toggle="modal" data-target="#createTemplateDialog"><li>Create Tabs template</li></a>
-					<a href="#" data-toggle="modal" data-target="#assocRole2Tab"
-						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'><li>Associate Role to Tab</li></a>
-					<a href="#" data-toggle="modal" data-target="#assocTab2Template"
-						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'><li>Associate Tab to Template</li></a>
-					<li>Edit Profiles</li>
-					<a href="#" data-toggle="modal" data-target="#logoutConfirmation"><li>logout</li></a>
+				<!--class="nav nav-tabs nav-stacked"-->
+				<ul class="nav nav-sidebar">
+					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#createuser" 
+						onclick='getRoles("UserRole",$("#OrgUnitList").val());return false;'>	Create Users</a></li>
+					<li><a href="#">Create Tabs Strips</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
+						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Associate Role to Tab</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
+						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Associate Tab to Template</a></li>
+					<li><a href="#">Edit Profiles</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
 				</ul>
 			</div>
 			<div class="col-md-8"><!--class="col-md-8"-->	
