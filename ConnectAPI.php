@@ -22,7 +22,7 @@ class ConnectAPI{
                         //echo $result; 
 			$this->httpResponseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			$header_size = curl_getinfo($ch,CURLINFO_HEADER_SIZE);
-                        $this->httpHeaderResponse = substr($result,0,$header_size);
+            $this->httpHeaderResponse = substr($result,0,$header_size);
 			$this->body = substr($result,$header_size);
 			curl_close($ch);  // Seems like good practice
 			return $this->body;	
