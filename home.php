@@ -198,7 +198,7 @@
 
 <!-- Modal for create role -->
 <div class="modal fade" id="createrole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -235,13 +235,7 @@
 							</select>
 						</div>
 					</div> 
-					<!--<div class="form-group">
-						<label class="col-sm-4  control-label">Can access other OU</label>
-						<div class="col-sm-8">
-							<label class="radio-inline"><input type="radio" name="optradio" id="access_yes" checked>Yes</label>
-							<label class="radio-inline"><input type="radio" name="optradio" id="access_no">No</label>
-						</div>
-					</div>-->
+					
 	
 					<div class="form-group">
 						<div class="col-sm-3"></div>
@@ -410,45 +404,7 @@ Tabs are created in this section-->
 						</tr>
 					</table>
 				</form>
-				<!--<ul class="nav nav-tabs">
-					<li class="active"><a data-toggle="tab" href="#role_specific_tab_layout">Create Role specific Tab</a></li>
-					<li><a data-toggle="tab" href="#global_tab_layout">Create Global Tab</a></li>
-				</ul>
-				<div class="tab-content">				
-					<div id="global_tab_layout" class="tab-pane fade">
-						<form class="form-horizontal">
-						<p>This tab is globally visible to all users in an organisation unit irrespective of their roles.<p>
-							<table border="0" align="center" class="table table-hover" width="100%">
-								<tr>
-									<td>
-										<label>Organisation Unit</label>
-										<select class="form-control" id="sel_org_unit_global_tab">
-											<script type="text/JavaScript">
-												$(document).ready(function(){
-													viewOrgUnits("dropdown","sel_org_unit_global_tab","all");/*displaying dropdown list of organisation unit*/
-												});
-											</script>
-										</select>
-									</td>
-									<td><label>Number of Tabs</label> 
-										<select class="form-control" id="no_of_global_tabs">
-											<option>1</option><option>2</option><option>3</option><option>4</option>
-										</select>
-									</td>
-									<td align="right">
-										<label><br/></label><br/><Button class="btn btn-default" id="saveGlobalTab" style="width:60px">Save</Button>
-									</td>
-								</tr>
-								<tr>
-									<td colspan='3'><span id="saveGlobalTabResponse"></span></td>		
-								</tr>
-							</table>
-						</form>
-					</div>
-					<div id="role_specific_tab_layout" class="tab-pane fade in active">
-							
-					</div>
-				</div>-->
+				
 			</div>	
 		</div>
 	</div>
@@ -489,7 +445,7 @@ Tabs are created in this section-->
 </div>
 <!-- Modal for logout -->
 <div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
