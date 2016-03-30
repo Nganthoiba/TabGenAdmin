@@ -69,7 +69,7 @@ function setTabTemplateLayout(){
 										"<td><select class='form-control'  onchange='clear();'id='template_name"+i+"'><option>"+arr[i].Template_Name+
 									"</option>"+templateList+"</select></td>"+
 										"<td><Button class='btn btn-default'"+
-											" onclick='updateTemplate(\""+i+"\",\""+arr[i].tab_id+"\"); return false;'>Update</Button></td>"+
+											" onclick='updateTemplate(\""+i+"\",\""+arr[i].tab_id+"\",\""+arr[i].OrganisationUnit+"\"); return false;'>Update</Button></td>"+
 										"<td><span id='update_status"+i+"' style='min-width:30px'></span></td></tr>";
 							}
 							layout+="<tr><td align='center' colspan='4'>"+
@@ -82,7 +82,8 @@ function setTabTemplateLayout(){
 								var j;
 								for(j=0;j<arr.length;j++){
 									var tab_id = arr[j].tab_id;
-									updateTemplate(j,tab_id);//updating template
+									var org_unit=arr[j].OrganisationUnit;
+									updateTemplate(j,tab_id,org_unit);//updating template
 								}
 								return false;
 							});
@@ -97,7 +98,7 @@ function setTabTemplateLayout(){
 	});	
 }
 //function for updating template
-function updateTemplate(i,tab_id){
+function updateTemplate(i,tab_id,org_unit){
 	var template_name = $("#template_name"+i).val();
 	var tabname = $("#tab_name"+i).val();
 	//alert("Tab Id: "+tab_id+" Tab Name: "+tabname+"Template Name: "+template_name);
@@ -105,7 +106,7 @@ function updateTemplate(i,tab_id){
 	$.ajax({
 		type: "POST",
 		url: "updateTabs.php",
-		data: "tab_id="+tab_id+"&tab_name="+tabname+"&template_name="+template_name+"&index="+i,
+		data: "tab_id="+tab_id+"&tab_name="+tabname+"&template_name="+template_name+"&index="+i+"&ou_name="+org_unit,
 		success: function(result){
 			var result_data = JSON.parse(result);
 			if(result_data.state==true)

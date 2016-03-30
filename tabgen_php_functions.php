@@ -153,7 +153,7 @@ function getParentOuId($conn,$ou_id){
 }
 // function to get OU Id (which the user belong) by providing user Id
 function getOuIdByUserId($conn,$user_id){
-	$query="select Users.Id as user_id,Users.Username,Teams.Id as Team_id,Teams.Name as team_name,OrganisationUnit.Id as org_unit_id,OrganisationUnit.OrganisationUnit
+	$query="select Users.Id as user_id,Users.Username,Teams.Id as Team_id,Teams.Name as team_name,OrganisationUnit.Id as org_unit_id,Organisation1Unit.OrganisationUnit
 			from Users,Teams,OrganisationUnit
 			where Teams.Id=Users.TeamId 
 			and Teams.Name=OrganisationUnit.OrganisationUnit
@@ -263,7 +263,7 @@ function getUserInPrivateMessageChannel($conn,$channel_id,$my_id){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['Username'];
 }
-
+//function to get name of an Organisation Unit by providing OU id
 function getOUNameByOuId($conn,$ou_id){
 	$query = "select * from OrganisationUnit
 				where Id='$ou_id'";
@@ -271,5 +271,13 @@ function getOUNameByOuId($conn,$ou_id){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['OrganisationUnit'];
 }
+//function to get team id by providing OU name
+function getTeamId_by_OU_name($conn,$ou_name){
+	$query = "select * from Teams where Name='$ou_name'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['Id'];
+}
+
 
 ?>

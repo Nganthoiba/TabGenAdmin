@@ -25,11 +25,13 @@
 								if($conn->httpResponseCode==200){
 									session_start();
 									$_SESSION['user_details'] = $responseJsonData;
+									$_SESSION['login_header_response'] = $conn->httpHeaderResponse;
+									
 									if($data->roles =="system_admin" || $data->roles =="admin")
-										//header('Location:home.php');
+										//header('Location:home.php');$conn->httpHeaderResponse
 										echo json_encode(array("state"=>"true","location"=>"home.php"));
 									else 
-										echo json_encode(array("state"=>"false","message"=>"You are not authorised"));
+										echo json_encode(array("state"=>"false","message"=>"You are not authorised!"));
 								}
 								else 
 									echo json_encode(array("state"=>"false","message"=>$data->message));

@@ -33,7 +33,9 @@
 </head>
 <body>
 	<?php
+
         session_start();
+	
         if(!isset($_SESSION['user_details'])){
                 echo "<p align='center'>You have to <a href='index.html'>login</a> first<br/>";
         }
@@ -41,7 +43,7 @@
                 $user_data = json_decode($_SESSION['user_details']);
                 $user_name = $user_data->username;
                 $user_role = $user_data->roles;
-				//include ('ConnectAPI.php');				
+						
 	?>
 	<div class="container-fluid"><br><br>
 		<div><!--class="row"-->
