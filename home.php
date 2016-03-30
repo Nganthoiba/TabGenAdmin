@@ -75,7 +75,7 @@
 			</div>
 			<div class="col-md-8"><!--class="col-md-8"-->	
 				<div class="col-md-12" style="padding-top:0px">
-					<h3>Organisation Units</h3>
+					<h3 class="page-header">Organisation Units</h3>
 					<br/>	
 					<div class="container">
 					<table  class='table' id="showOrgUnits" style="max-width:70%">
@@ -90,7 +90,7 @@
 					<Button type="button" id="viewAllOrgUnitLists" style="float:right" class="btn btn-success">VIEW ALL</Button>
 				</div>
 				<div class="col-md-12">	<br/><br/>
-					<h3>Organisation</h3>
+					<h3 class="page-header">Organisation</h3>
 					<br/>
 					<div class="container">
 						<table  class='table' id="showOrgsList" style="max-width:70%">
