@@ -574,7 +574,7 @@ $(document).ready(function(){
 			});
 			return false;
 	}
-	
+	/*Javascript function to set list of role in combo box*/
 	function getRoles(id,orgunit){
 			$.ajax({
 				type:"GET",
@@ -595,6 +595,39 @@ $(document).ready(function(){
 				},
 				error: function(x,y,z){
 					document.getElementById(id).innerHTML="<option></option>";
+					//alert("Error in connecting server. Try again later.");
+				}
+			});
+			//alert("Hi fff"+orgunit);
+			return false;
+	}
+	/*Javascript function to set list of role in combo box*/
+	function displayRoles(id,orgunit){
+			$.ajax({
+				type:"GET",
+				url: "getRoles.php",
+				data: "org_unit="+orgunit,
+				success: function(data){
+					if(data.trim()=="false"){
+						document.getElementById(id).innerHTML="<option></option>";
+					}
+					else{
+						var arr = JSON.parse(data);
+						var roleList=" ";
+						var i=0;
+						for(i=0;i<arr.length;i++){
+							roleList+="<div class='col-sm-4'><p>Role Name: "+arr[i].RoleName+"<br/>Role Type: "+arr[i].RoleType+"</p></div>";
+						}
+						if(i>0)
+							document.getElementById(id).innerHTML=roleList;
+						else{
+							document.getElementById(id).innerHTML="<div class='col-sm-4'>No role has been created so far.</div>";
+							alert("No role exists");
+						}
+					}
+				},
+				error: function(x,y,z){
+					document.getElementById(id).innerHTML="<div class='col-sm-4'></div>";
 					//alert("Error in connecting server. Try again later.");
 				}
 			});

@@ -49,7 +49,7 @@
 	?>
 	<div class="container-fluid" ><br><br>
 		<div class="row"><!--class="row"-->
-			<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px;padding-top:10px">
+			<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">
 				<div class="nav nav-sidebar" >
 					<div class="col-md-2"><img src="img/user.png" class="circular" alt="No profile Image found"/>
 						<p id="userID"><?php echo $user_name; ?></p>
@@ -200,7 +200,7 @@
 
 <!-- Modal for create role -->
 <div class="modal fade" id="createrole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -209,25 +209,8 @@
 			<div class="modal-body">
 				<form class="form-horizontal" method="post">
 					<div class="form-group">
-						<label for="rolaname" class="col-sm-4  control-label">Role Name</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" name="rolaname" id="rolaname" placeholder="Role name">
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="roletype" class="col-sm-4  control-label">Role Type</label>
-						<div class="col-sm-8">
-							<select class="form-control" name="role_type" id="roletype">
-								<option>Doctor</option>
-								<option>Nurse</option>
-							</select>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4  control-label">Organization Unit</label>
-						<div class="col-sm-8">
+						<label class="col-sm-4  control-label" for="ousel">Organization Unit</label>
+						<div class="col-sm-4">
 							<select class="form-control" id="ousel">
 								<script type="text/JavaScript">
 									$(document).ready(function(){
@@ -236,18 +219,60 @@
 								</script>
 							</select>
 						</div>
-					</div> 
-					
-	
-					<div class="form-group">
-						<div class="col-sm-3"></div>
-						<div class="col-sm-offset-2 col-sm-5">
-							<button type="submit" class="btn btn-default" style="width:70%" id="btnrole">Create </button>
+						<div class="col-sm-4">
+							<button type="submit" class="btn btn-default" id="disp_role">Display Existing Roles </button>
+							<script type="text/JavaScript">
+								$(document).ready(function(){
+									$('#disp_role').click(function(){
+										displayRoles("role_lists",$("#ousel").val());
+										return false;
+									});
+								});
+							</script>
 						</div>
-						<div class="col-sm-4"></div>
+					</div>
+					<div class="row" id="role_lists">
+						<!--
+						<div class="col-sm-4">
+							<h3>Column 2</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+							<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+						</div>
+						-->
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-4 col-sm-4">
+							<a href="#" data-toggle="collapse" data-target="#create_role_collapsible">
+								Create a new one
+							</a>
+						</div>
+					</div>
+					<div id="create_role_collapsible" class="collapse">
+						<div class="form-group">
+							<label for="rolaname" class="col-sm-4  control-label">Role Name</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="rolaname" id="rolaname" placeholder="Role name">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="roletype" class="col-sm-4  control-label">Role Type</label>
+							<div class="col-sm-8">
+								<select class="form-control" name="role_type" id="roletype">
+									<option>Doctor</option>
+									<option>Nurse</option>
+								</select>
+							</div>
+						</div>
+							
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-4">
+								<button type="submit" class="btn btn-default" style="width:70%" id="btnrole">Create </button>
+							</div><br/><br/>
+							<center><label id="error3"></label></center>
+						</div>
 					</div>
 				</form>
-			<center><label id="error3"></label></center>
 			</div>	
 		</div>
 	</div>
@@ -414,7 +439,7 @@ Tabs are created in this section-->
 
 <!-- Modal for Associating Tab to TabTemplates -->
 <div class="modal fade" id="assocTab2Template" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
