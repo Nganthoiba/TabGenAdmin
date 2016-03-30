@@ -17,6 +17,8 @@ if(!empty($_GET['user_id'])){
 							and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
 							and Teams.Name='$team_name'
 							and Channels.Id=ChannelId
+							and Channels.Name!='off-topic'
+							and Channels.Name!='town-square'
 							group by Channels.Id";
 			$channels=null;
 			$res = $conn->query($query);
