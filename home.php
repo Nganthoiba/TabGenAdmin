@@ -275,8 +275,7 @@
 					<div class="form-group">
 						<div class="col-sm-4">
 							<a href="#" data-toggle="collapse" data-target="#create_role_collapsible">
-								+ Create a new one
-							</a>
+								+ Create </a>a new one here
 						</div>
 					</div>
 					<div id="create_role_collapsible" class="collapse">

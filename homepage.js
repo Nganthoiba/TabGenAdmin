@@ -611,7 +611,7 @@ $(document).ready(function(){
 				data: "org_unit="+orgunit,
 				success: function(data){
 					if(data.trim()=="false"){
-						document.getElementById(id).innerHTML="<center>No role exists.</center>";
+						document.getElementById(id).innerHTML="<center>No role exists. You can create a new role by clicking the link below.</center>";
 					}
 					else{
 						var arr = JSON.parse(data);
