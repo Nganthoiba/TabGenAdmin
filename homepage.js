@@ -610,7 +610,7 @@ $(document).ready(function(){
 				data: "org_unit="+orgunit,
 				success: function(data){
 					if(data.trim()=="false"){
-						document.getElementById(id).innerHTML="<center>An unknown problem occurs!</center>";
+						document.getElementById(id).innerHTML="<center>No role has been created!</center>";
 					}
 					else{
 						var arr = JSON.parse(data);
@@ -628,7 +628,7 @@ $(document).ready(function(){
 					}
 				},
 				error: function(x,y,z){
-					document.getElementById(id).innerHTML="<div class='col-sm-4'></div>";
+					document.getElementById(id).innerHTML="<div class='col-sm-4'>An unknown problem occurs! Try again later, please.</div>";
 					//alert("Error in connecting server. Try again later.");
 				}
 			});

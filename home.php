@@ -78,7 +78,7 @@
 		<div class="row"><!--class="row"-->
 			<div class="col-sm-3 col-md-2 sidebar" >
 			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
-				<div class="nav nav-sidebar" >
+				<div class="nav nav-sidebar" style="background-color:#F2F2F2;border-radius:0px">
 					<div class="col-md-2"><img src="img/user.png" class="circular" alt="No profile Image found"/>
 						<p id="userID"><?php echo $user_name; ?></p>
 						<p><?php echo $user_role ?></p>
