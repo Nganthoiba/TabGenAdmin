@@ -47,9 +47,37 @@
                 $user_role = $user_data->roles;
 						
 	?>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <!--<span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar">ABC</span>
+            <span class="icon-bar">XYZ</span>
+            <span class="icon-bar"></span>-->
+          </button>
+          <a class="navbar-brand" href="#">H Circle</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>  
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+			<button type="button" class="btn btn-default">
+			  <span class="glyphicon glyphicon-search"></span> Search
+			</button>
+          </form>
+        </div>
+      </div>
+    </nav>
 	<div class="container-fluid" ><br><br>
 		<div class="row"><!--class="row"-->
-			<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">
+			<div class="col-sm-3 col-md-2 sidebar" >
+			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
 				<div class="nav nav-sidebar" >
 					<div class="col-md-2"><img src="img/user.png" class="circular" alt="No profile Image found"/>
 						<p id="userID"><?php echo $user_name; ?></p>
@@ -57,7 +85,7 @@
 					</div>
 				</div>
 				<!--class="nav nav-tabs nav-stacked"-->
-				<ul class="nav nav-sidebar">
+				<ul class="nav nav-sidebar" style="background-color:#F2F2F2;border-radius:0px">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
@@ -247,7 +275,7 @@
 					<div class="form-group">
 						<div class="col-sm-4">
 							<a href="#" data-toggle="collapse" data-target="#create_role_collapsible">
-								Create a new one
+								+ Create a new one
 							</a>
 						</div>
 					</div>
@@ -441,7 +469,7 @@ Tabs are created in this section-->
 
 <!-- Modal for Associating Tab to TabTemplates -->
 <div class="modal fade" id="assocTab2Template" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
