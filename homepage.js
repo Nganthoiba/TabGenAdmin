@@ -618,7 +618,7 @@ $(document).ready(function(){
 						var roleList=" ";
 						var i=0;
 						for(i=0;i<arr.length;i++){
-							roleList+="<div class='col-sm-4'><p>Role Name: "+arr[i].RoleName+"<br/>Role Type: "+arr[i].RoleType+"</p></div>";
+							roleList+="<div class='col-sm-4'><p>Name: "+arr[i].RoleName+"<br/>Type: "+arr[i].RoleType+"</p></div>";
 						}
 						if(i>0)
 							document.getElementById(id).innerHTML=roleList;

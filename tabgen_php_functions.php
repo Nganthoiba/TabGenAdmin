@@ -153,7 +153,7 @@ function getParentOuId($conn,$ou_id){
 }
 // function to get OU Id (which the user belong) by providing user Id
 function getOuIdByUserId($conn,$user_id){
-	$query="select Users.Id as user_id,Users.Username,Teams.Id as Team_id,Teams.Name as team_name,OrganisationUnit.Id as org_unit_id,Organisation1Unit.OrganisationUnit
+	$query="select Users.Id as user_id,Users.Username,Teams.Id as Team_id,Teams.Name as team_name,OrganisationUnit.Id as org_unit_id,OrganisationUnit.OrganisationUnit
 			from Users,Teams,OrganisationUnit
 			where Teams.Id=Users.TeamId 
 			and Teams.Name=OrganisationUnit.OrganisationUnit
