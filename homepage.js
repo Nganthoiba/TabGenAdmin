@@ -267,7 +267,8 @@ $(document).ready(function (){
 						organisation units at the popup dialog for creating users*/
 						getRoles("sel_roles",$("#sel_org_unit_role_tab").val());//to display role in Associate Role to Tab
 						getRoles("roleSelect",$("#orgUnitSelect").val());//to display role at Tab to TabTemplate
-                        getRoles("UserRole",$("#OrgUnitList").val()); //to display role in creating user        
+                        getRoles("UserRole",$("#OrgUnitList").val()); //to display role in creating user 
+						displayRoles("role_lists",$("#ousel").val());
                     }else if(e.trim()=="false"){
 						$("#error3").css('color','red');
 						$("#error3").html("<center>Oops Some Goes Wrong Please Try Agian</center>");
@@ -610,7 +611,7 @@ $(document).ready(function(){
 				data: "org_unit="+orgunit,
 				success: function(data){
 					if(data.trim()=="false"){
-						document.getElementById(id).innerHTML="<center>No role has been created!</center>";
+						document.getElementById(id).innerHTML="<center>No role exists.</center>";
 					}
 					else{
 						var arr = JSON.parse(data);
