@@ -252,7 +252,7 @@ $(document).ready(function (){
 			//var access =document.getElementById("access_yes").checked;
 			//var access =$("#access_yes").val();
 			var role_type=$("#roletype").val();
-			$("#error3").html("<div><img src='img/loading.gif'/></div> Wait Please...");
+			$("#error3").html("<center><img src='img/loading.gif'/></center>");
 			$("#error3").css('color','black');
 			$.ajax({
                 type: "POST",
@@ -262,7 +262,7 @@ $(document).ready(function (){
 					if(e.trim()=="true")
                     {
 						$("#error3").css('color','green');
-						$("#error3").text("Role Created ");
+						$("#error3").html("<center>Role Created</center>");
 						viewOrgUnits("dropdown","OrgUnitList","all");/*this will display drop down list of 
 						organisation units at the popup dialog for creating users*/
 						getRoles("sel_roles",$("#sel_org_unit_role_tab").val());//to display role in Associate Role to Tab
@@ -270,7 +270,7 @@ $(document).ready(function (){
                         getRoles("UserRole",$("#OrgUnitList").val()); //to display role in creating user        
                     }else if(e.trim()=="false"){
 						$("#error3").css('color','red');
-						$("#error3").text("Oops Some Goes Wrong Please Try Agian");
+						$("#error3").html("<center>Oops Some Goes Wrong Please Try Agian</center>");
 					}
 					else{
 						$("#error3").css('color','red');
@@ -603,13 +603,14 @@ $(document).ready(function(){
 	}
 	/*Javascript function to set list of role in combo box*/
 	function displayRoles(id,orgunit){
+			document.getElementById(id).innerHTML="<center><img src='img/loading.gif'/></center>";
 			$.ajax({
 				type:"GET",
 				url: "getRoles.php",
 				data: "org_unit="+orgunit,
 				success: function(data){
 					if(data.trim()=="false"){
-						document.getElementById(id).innerHTML="<option></option>";
+						document.getElementById(id).innerHTML="<center>An unknown problem occurs!</center>";
 					}
 					else{
 						var arr = JSON.parse(data);

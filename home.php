@@ -227,6 +227,10 @@
 										displayRoles("role_lists",$("#ousel").val());
 										return false;
 									});
+									$('#ousel').change(function(){
+										displayRoles("role_lists",$("#ousel").val());
+										return false;
+									});
 								});
 							</script>
 						</div>
@@ -241,7 +245,7 @@
 						-->
 					</div>
 					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-4">
+						<div class="col-sm-4">
 							<a href="#" data-toggle="collapse" data-target="#create_role_collapsible">
 								Create a new one
 							</a>
@@ -264,12 +268,10 @@
 								</select>
 							</div>
 						</div>
-							
-						<div class="form-group">
-							<div class="col-sm-offset-4 col-sm-4">
-								<button type="submit" class="btn btn-default" style="width:70%" id="btnrole">Create </button>
-							</div><br/><br/>
-							<center><label id="error3"></label></center>
+						<div class="modal-footer">
+							<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
+							<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+							<button type="submit" class="btn btn-default" id="btnrole">Create </button>
 						</div>
 					</div>
 				</form>
