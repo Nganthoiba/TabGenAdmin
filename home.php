@@ -176,48 +176,53 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Create Organization Unit</h4>
+				<h3 class="modal-title" id="myModalLabel">Create Organization Unit</h3>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" method="post">
-					<div class="form-group">
-						<label for="orgunit" class="col-sm-4  control-label">Organization Unit Name</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" value="" id="orgunit" name="orgunit" placeholder="Organization name" required>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form class="form-horizontal" method="post">
+							<div class="form-group">
+								<label for="orgunit" class="col-sm-4  control-label">Organization Unit Name</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" value="" id="orgunit" name="orgunit" placeholder="Organization name" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="displaynameunit" class="col-sm-4  control-label">Display Name</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" value="" id="displaynameunit"  placeholder="Display Name" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4  control-label">Organization</label>
+								<div class="col-sm-8">
+									<select id="orgnamesel" class="form-control">
+										<script type="text/JavaScript">
+											$(document).ready(function(){
+												viewOrgs("dropdown","orgnamesel","all");
+											});
+										</script>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-3"></div>
+								
+								<div class="col-sm-4"></div>
+							</div>
+						</form>
+					</div>
+					<div class="panel-footer clearfix">
+						<label id="error2" class="col-sm-offset-2 col-sm-8"></label>
+						<div class="pull-right">
+							<button type="submit" class="btn btn-default" id="createorgunitbtn">Create </button>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="displaynameunit" class="col-sm-4  control-label">Display Name</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" value="" id="displaynameunit"  placeholder="Display Name" required>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-4  control-label">Organization</label>
-						<div class="col-sm-8">
-							<select id="orgnamesel" class="form-control">
-								<script type="text/JavaScript">
-									$(document).ready(function(){
-										viewOrgs("dropdown","orgnamesel","all");
-									});
-								</script>
-							</select>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<div class="col-sm-3"></div>
-						<div class="col-sm-offset-2 col-sm-5">
-							<button type="submit" class="btn btn-default" style="width:70%" id="createorgunitbtn">Create </button>
-						</div>
-						<div class="col-sm-4"></div>
-					</div>
-				</form>
-
-
-
+				</div>
 			</div>
-			<center><label id="error2" align="center"></label></center>
+			
 			
 		</div>
 	</div>
@@ -245,7 +250,7 @@
 							</select>
 						</div>
 						<div class="col-sm-4">
-							<button type="submit" class="btn btn-info" id="disp_role">Display Existing Roles </button>
+							<button type="submit" class="btn btn-primary" id="disp_role">Display Existing Roles </button>
 							<script type="text/JavaScript">
 								$(document).ready(function(){
 									$('#disp_role').click(function(){
@@ -273,7 +278,7 @@
 								+ Create </a>a new one here</h3>
 					
 					<div id="create_role_collapsible" class="collapse">
-						<div class="panel panel-default">
+						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h1 class="panel-title">Role details:</h1>
 							</div>
@@ -298,7 +303,7 @@
 							<div class="panel-footer clearfix">
 								<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
 								<div class="pull-right">
-									<button type="submit" class="btn btn-default" id="btnrole">Create </button>
+									<button type="submit" class="btn btn-primary" id="btnrole">Create </button>
 								</div>
 							</div>
 						</div>
@@ -315,74 +320,75 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Create User</h4>
+				<h3 class="modal-title" id="myModalLabel">Create User</h3>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="username" class="col-sm-4  control-label">User Name</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control"  placeholder="Username" id="username">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="password" class="col-sm-4  control-label">Password</label>
-						<div class="col-sm-8">
-							<input type="password" class="form-control"  placeholder="Password" id="password">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="conf_pwd" class="col-sm-4  control-label">Conform Password</label>
-						<div class="col-sm-8">
-							<input type="password" class="form-control"  placeholder="Conform Password" id="conf_pwd">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="email" class="col-sm-4  control-label">Email</label>
-						<div class="col-sm-8">
-							<input type="email" class="form-control"  placeholder="Email" id="email">
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4  control-label">Organization Unit</label>
-						<div class="col-sm-8">
-							<select class="form-control" id="OrgUnitList">
-								<script type="text/JavaScript">
-									$(document).ready(function(){
-										viewOrgUnits("dropdown","OrgUnitList","all");
-										$("#OrgUnitList").change(function(){
-											getRoles("UserRole",$("#OrgUnitList").val());
-										});
-									});
-								</script>
-							</select>
-						</div>
-					</div> 
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<label for="username" class="col-sm-4  control-label">User Name</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control"  placeholder="Username" id="username">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="password" class="col-sm-4  control-label">Password</label>
+								<div class="col-sm-8">
+									<input type="password" class="form-control"  placeholder="Password" id="password">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="conf_pwd" class="col-sm-4  control-label">Conform Password</label>
+								<div class="col-sm-8">
+									<input type="password" class="form-control"  placeholder="Conform Password" id="conf_pwd">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="email" class="col-sm-4  control-label">Email</label>
+								<div class="col-sm-8">
+									<input type="email" class="form-control"  placeholder="Email" id="email">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label for="OrgUnitList" class="col-sm-4  control-label">Organization Unit</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="OrgUnitList">
+										<script type="text/JavaScript">
+											$(document).ready(function(){
+												viewOrgUnits("dropdown","OrgUnitList","all");
+												$("#OrgUnitList").change(function(){
+													getRoles("UserRole",$("#OrgUnitList").val());
+												});
+											});
+										</script>
+									</select>
+								</div>
+							</div> 
 
-					<div class="form-group">
-						<label class="col-sm-4  control-label">Role</label>
-						<div class="col-sm-8">
-							<select class="form-control " id="UserRole">
-							</select>
+							<div class="form-group">
+								<label for="UserRole" class="col-sm-4  control-label">Role</label>
+								<div class="col-sm-8">
+									<select class="form-control " id="UserRole">
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4  control-label">Has access across all other OU</label>
+								<div class="col-sm-8">
+									<label class="radio-inline"><input type="radio" name="optradio" id="universal_access_yes" checked>Yes</label>
+									<label class="radio-inline"><input type="radio" name="optradio" id="universal_access_no">No</label>
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer clearfix">
+							<label id="error4" class="col-sm-offset-2 col-sm-8"></label>
+							<div class="pull-right">
+									<button type="submit" class="btn btn-default" id="CreateUser">Create </button>
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-4  control-label">Has access across all other OU</label>
-						<div class="col-sm-8">
-							<label class="radio-inline"><input type="radio" name="optradio" id="universal_access_yes" checked>Yes</label>
-							<label class="radio-inline"><input type="radio" name="optradio" id="universal_access_no">No</label>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="col-sm-3"></div>
-						<div class="col-sm-offset-2 col-sm-5">
-							<button type="submit" class="btn btn-default" style="width:70%" id="CreateUser">Create </button>
-						</div>
-						<div class="col-sm-4"></div>
-					</div>
-					<center><label id="error4"></label></center>
 				</form>
 			</div>
 			
@@ -399,21 +405,25 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="templateName" class="col-sm-4  control-label">Template Name</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control"  placeholder="Name of template" id="templateName">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<label for="templateName" class="col-sm-4  control-label">Template Name</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control"  placeholder="Name of template" id="templateName">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="template" class="col-sm-4  control-label">Template</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control"  placeholder="HTML Content" id="template">
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="template" class="col-sm-4  control-label">Template</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control"  placeholder="HTML Content" id="template">
+						<div class="panel-footer clearfix">
+							<label id="createTemplateResponse"></label>
+							<div class="pull-right"><Button type="submit" class="btn btn-default" id="createTemplate">Create</Button></div>
 						</div>
-					</div>
-					<center><Button type="submit" class="btn btn-default" style="width:20%" id="createTemplate">Create</Button></center>
-					<div class="form-group">
-						<center><br/><label id="createTemplateResponse"></label></center>
 					</div>
 				</form>
 			</div>	
