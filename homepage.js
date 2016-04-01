@@ -252,6 +252,11 @@ $(document).ready(function (){
 			//var access =document.getElementById("access_yes").checked;
 			//var access =$("#access_yes").val();
 			var role_type=$("#roletype").val();
+			if(rolaname.trim().length==0){
+				$("#error3").css('color','red');
+				$("#error3").html("<center>Please fill up role name.</center>");
+				return false;
+			}
 			$("#error3").html("<center><img src='img/loading.gif'/></center>");
 			$("#error3").css('color','black');
 			$.ajax({

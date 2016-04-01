@@ -68,7 +68,7 @@
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
 			<button type="button" class="btn btn-default">
-			  <span class="glyphicon glyphicon-search"></span> Search
+			  <span class="glyphicon glyphicon-search"></span>
 			</button>
           </form>
         </div>
@@ -78,14 +78,14 @@
 		<div class="row"><!--class="row"-->
 			<div class="col-sm-3 col-md-2 sidebar" >
 			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
-				<div class="nav nav-sidebar" style="background-color:#F2F2F2;border-radius:0px">
+				<div class="nav nav-sidebar" style="background-color:#FAFAFA;border-radius:0px">
 					<div class="col-md-2"><img src="img/user.png" class="circular" alt="No profile Image found"/>
 						<p id="userID"><?php echo $user_name; ?></p>
 						<p><?php echo $user_role ?></p>
 					</div>
 				</div>
 				<!--class="nav nav-tabs nav-stacked"-->
-				<ul class="nav nav-sidebar" style="background-color:#F2F2F2;border-radius:0px">
+				<ul class="nav nav-sidebar" style="background-color:#FAFAFA;border-radius:0px">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
@@ -104,9 +104,8 @@
 			<div class="col-md-8"><!--class="col-md-8"-->	
 				<div class="col-md-12" style="padding-top:0px">
 					<h3 class="page-header">Organisation Units</h3>
-					<br/>	
-					<div class="container">
-					<table  class='table' id="showOrgUnits" style="max-width:70%">
+					<br/>		
+					<table  class='table' id="showOrgUnits">
 							<script>
 								$(document).ready(function(){
 									document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -114,14 +113,13 @@
 								});					
 							</script>	
 					</table>
-					</div>
+					
 					<Button type="button" id="viewAllOrgUnitLists" style="float:right" class="btn btn-success">VIEW ALL</Button>
 				</div>
 				<div class="col-md-12">	<br/><br/>
 					<h3 class="page-header">Organisation</h3>
 					<br/>
-					<div class="container">
-						<table  class='table' id="showOrgsList" style="max-width:70%">
+						<table  class='table' id="showOrgsList">
 							<script>
 								$(document).ready(function(){
 									document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -129,7 +127,7 @@
 								});
 							</script>	
 						</table>
-					</div>
+					
 					<Button type="button" id="viewAllOrgLists" style="float:right" class="btn btn-success">VIEW ALL</Button>
 				</div>
 			</div>
@@ -143,31 +141,30 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Create Organization</h4>
+				<h2 class="modal-title" id="myModalLabel">Create Organization</h2>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post" action="createorg.php">
-					<div class="form-group">
-						<label for="orgname" class="col-sm-4  control-label">Organization Name</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" value="" name="orgname" id="orgname" placeholder="Organization name">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<label for="orgname" class="col-sm-4  control-label">Organization Name</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" value="" name="orgname" id="orgname" placeholder="Organization name">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="display_name" class="col-sm-4  control-label">Display Name</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" value="" placeholder="Display Name" name="display_name" id="display_name">
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer clearfix">
+							<label id="error1" class="col-sm-offset-2 col-sm-8"></label>
+							<div class="pull-right"><button type="submit" class="btn btn-default" id="submit">Create </button></div>
 						</div>
 					</div>
-					<div class="form-group">
-                        <label for="display_name" class="col-sm-4  control-label">Display Name</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" value="" placeholder="Display Name" name="display_name" id="display_name">
-                        </div>
-                    </div>
-					
-					<div class="form-group">
-						<div class="col-sm-3"></div>
-						<div class="col-sm-offset-2 col-sm-5">
-							<button type="submit" class="btn btn-default" style="width:70%" id="submit">Create </button>
-						</div>
-						<div class="col-sm-4"></div>
-					</div>
-					<center><label id="error1" align="center"></label></center>
 				</form>
 			</div>
 		</div>
@@ -232,7 +229,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Create Role</h4>
+				<h1 class="modal-title" id="myModalLabel">Create Role</h1>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post">
@@ -248,7 +245,7 @@
 							</select>
 						</div>
 						<div class="col-sm-4">
-							<button type="submit" class="btn btn-default" id="disp_role">Display Existing Roles </button>
+							<button type="submit" class="btn btn-info" id="disp_role">Display Existing Roles </button>
 							<script type="text/JavaScript">
 								$(document).ready(function(){
 									$('#disp_role').click(function(){
@@ -272,33 +269,38 @@
 						</div>
 						-->
 					</div>
-					<div class="form-group">
-						<div class="col-sm-4">
-							<a href="#" data-toggle="collapse" data-target="#create_role_collapsible">
-								+ Create </a>a new one here
-						</div>
-					</div>
+					<h3 align="center"><a href="#" data-toggle="collapse" data-target="#create_role_collapsible">
+								+ Create </a>a new one here</h3>
+					
 					<div id="create_role_collapsible" class="collapse">
-						<div class="form-group">
-							<label for="rolaname" class="col-sm-4  control-label">Role Name</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" name="rolaname" id="rolaname" placeholder="Role name">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h1 class="panel-title">Role details:</h1>
 							</div>
-						</div>
-						
-						<div class="form-group">
-							<label for="roletype" class="col-sm-4  control-label">Role Type</label>
-							<div class="col-sm-8">
-								<select class="form-control" name="role_type" id="roletype">
-									<option>Doctor</option>
-									<option>Nurse</option>
-								</select>
+							<div class="panel-body">
+								<div class="form-group">
+									<label for="rolaname" class="col-sm-4  control-label">Role Name</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" name="rolaname" id="rolaname" placeholder="Role name">
+									</div>
+								</div>
+							
+								<div class="form-group">
+									<label for="roletype" class="col-sm-4  control-label">Role Type</label>
+									<div class="col-sm-8">
+										<select class="form-control" name="role_type" id="roletype">
+											<option>Doctor</option>
+											<option>Nurse</option>
+										</select>
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="modal-footer">
-							<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
-							<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-							<button type="submit" class="btn btn-default" id="btnrole">Create </button>
+							<div class="panel-footer clearfix">
+								<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
+								<div class="pull-right">
+									<button type="submit" class="btn btn-default" id="btnrole">Create </button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</form>
