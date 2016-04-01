@@ -103,32 +103,45 @@
 			</div>
 			<div class="col-md-8"><!--class="col-md-8"-->	
 				<div class="col-md-12" style="padding-top:0px">
-					<h3 class="page-header">Organisation Units</h3>
-					<br/>		
-					<table  class='table' id="showOrgUnits">
-							<script>
-								$(document).ready(function(){
-									document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
-									viewOrgUnits("list","showOrgUnits","few");
-								});					
-							</script>	
-					</table>
-					
-					<Button type="button" id="viewAllOrgUnitLists" style="float:right" class="btn btn-success">VIEW ALL</Button>
+					<div class="panel panel-default">
+						<div class="panel-heading"><h1 class="panel-title">Organisation Units</h1></div>
+						<div class="panel-body">
+							<table  class='table table-hover' id="showOrgUnits" border="0">
+									<script>
+										$(document).ready(function(){
+											document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
+											viewOrgUnits("list","showOrgUnits","few");
+										});					
+									</script>	
+							</table>
+						</div>
+						<div class="panel-footer clearfix">
+							<div class="pull-right"><Button type="button" id="viewAllOrgUnitLists" class="btn btn-success">VIEW ALL</Button></div>
+						</div>
+					</div>					
 				</div>
-				<div class="col-md-12">	<br/><br/>
-					<h3 class="page-header">Organisation</h3>
-					<br/>
-						<table  class='table' id="showOrgsList">
-							<script>
-								$(document).ready(function(){
-									document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
-									viewOrgs("list","showOrgsList","few");
-								});
-							</script>	
-						</table>
-					
-					<Button type="button" id="viewAllOrgLists" style="float:right" class="btn btn-success">VIEW ALL</Button>
+				
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h1 class="panel-title">Organisation</h1>
+						</div>
+						
+						<div class="panel-body">
+							<table  class='table table-hover' id="showOrgsList">
+								<script>
+									$(document).ready(function(){
+										document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
+										viewOrgs("list","showOrgsList","few");
+									});
+								</script>	
+							</table>
+						</div>
+						
+						<div class="panel-footer clearfix">
+							<div class="pull-right"><Button type="button" id="viewAllOrgLists" class="btn btn-success">VIEW ALL</Button></div>
+						</div>
+					</div>				
 				</div>
 			</div>
 		</div>
@@ -250,7 +263,7 @@
 							</select>
 						</div>
 						<div class="col-sm-4">
-							<button type="submit" class="btn btn-primary" id="disp_role">Display Existing Roles </button>
+							<button type="submit" class="btn btn-default" id="disp_role">Display Existing Roles </button>
 							<script type="text/JavaScript">
 								$(document).ready(function(){
 									$('#disp_role').click(function(){
@@ -278,7 +291,7 @@
 								+ Create </a>a new one here</h3>
 					
 					<div id="create_role_collapsible" class="collapse">
-						<div class="panel panel-primary">
+						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h1 class="panel-title">Role details:</h1>
 							</div>
@@ -303,7 +316,7 @@
 							<div class="panel-footer clearfix">
 								<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
 								<div class="pull-right">
-									<button type="submit" class="btn btn-primary" id="btnrole">Create </button>
+									<button type="submit" class="btn btn-default" id="btnrole">Create </button>
 								</div>
 							</div>
 						</div>
@@ -487,26 +500,29 @@ Tabs are created in this section-->
 				<h4 class="modal-title" id="myModalLabel">Associate Tab to Tab Templates</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal">
-					<center><table class="table table-hover">
-					<tr><td>Organisation Unit: <select class="form-control" id="orgUnitSelect">
-													<script type="text/JavaScript">
-														$(document).ready(function(){
-															/*displaying dropdown list of organisation unit*/
-															viewOrgUnits("dropdown","orgUnitSelect","all");
-														});
-													</script>
-												</select></td>
-						<td>Role: <select class="form-control" id="roleSelect"></select>
-						</td>
-						<td>
-							<br/><Button type="submit" class="btn btn-default" id="getTabsTemplate">Get Tabs and Templates</Button>
-						</td>
-					</tr>
-					</table></center>
-				</form>
-				<form><div id="tabs_template_result"></div>
-				</form>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form class="form-horizontal">
+							<center><table class="table table-hover">
+							<tr><td>Organisation Unit: <select class="form-control" id="orgUnitSelect">
+															<script type="text/JavaScript">
+																$(document).ready(function(){
+																	/*displaying dropdown list of organisation unit*/
+																	viewOrgUnits("dropdown","orgUnitSelect","all");
+																});
+															</script>
+														</select></td>
+								<td>Role: <select class="form-control" id="roleSelect"></select>
+								</td>
+								<td>
+									<br/><Button type="submit" class="btn btn-primary" id="getTabsTemplate">Show Tabs and Templates</Button>
+								</td>
+							</tr>
+							</table></center>
+						</form>
+						<form><div id="tabs_template_result"></div></form>
+					</div>
+				</div>				
 			</div>
 		</div>
 	</div>

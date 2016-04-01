@@ -42,7 +42,7 @@ function setTabTemplateLayout(){
 			{
 				/*javascript function for parsing json data and displaying layout for Tab Template Association Update*/
 				var arr = jQuery.parseJSON(data);// JSON.parse(data)
-				var layout="<table class='table table-hover' align='center'>"+
+				var layout="<table class='table' align='center'>"+
 				"<tr><th></th><th>Tabs</th><th>Tab Templates</th><th style='min-width:80px'></th></tr>";
 				var role_name="<td></td>";
 				/*getting list of templates created by the admin*/
@@ -301,27 +301,27 @@ $(document).ready(function (){
 			//var type = true;
 			if(username.length==0){
 				document.getElementById("error4").innerHTML="Username is blank";
-				document.getElementById("error4").style.color="green";
+				document.getElementById("error4").style.color="red";
 				return false;
 			}
 			else if(password.length==0){
 				document.getElementById("error4").innerHTML="Password is blank";
-				document.getElementById("error4").style.color="green";
+				document.getElementById("error4").style.color="red";
 				return false;
 			}
 			else if(conf_pwd.length==0){
 				document.getElementById("error4").innerHTML="Confirm Password is blank";
-				document.getElementById("error4").style.color="green";
+				document.getElementById("error4").style.color="red";
 				return false;
 			}
 			else if(conf_pwd!=password){
 				document.getElementById("error4").innerHTML="Confirm Password does not match with the password";
-				document.getElementById("error4").style.color="green";
+				document.getElementById("error4").style.color="red";
 				return false;
 			}
 			else if(email.length==0){
 				document.getElementById("error4").innerHTML="Email is blank";
-				document.getElementById("error4").style.color="green";
+				document.getElementById("error4").style.color="red";
 				return false;
 			}
 			else{
@@ -607,7 +607,7 @@ $(document).ready(function(){
 			//alert("Hi fff"+orgunit);
 			return false;
 	}
-	/*Javascript function to set list of role in combo box*/
+	/*Javascript function to set list of role in div*/
 	function displayRoles(id,orgunit){
 			document.getElementById(id).innerHTML="<center><img src='img/loading.gif'/></center>";
 			$.ajax({
@@ -617,8 +617,10 @@ $(document).ready(function(){
 				success: function(data){
 					if(data.trim()=="false"){
 						document.getElementById(id).innerHTML="<center>No role exists. You can create a new role by clicking the link below.</center>";
+						document.getElementById(id).style.color="red";
 					}
 					else{
+						document.getElementById(id).style.color="black";
 						var arr = JSON.parse(data);
 						var roleList=" ";
 						var i=0;
