@@ -500,29 +500,26 @@ Tabs are created in this section-->
 				<h4 class="modal-title" id="myModalLabel">Associate Tab to Tab Templates</h4>
 			</div>
 			<div class="modal-body">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<form class="form-horizontal">
-							<center><table class="table table-hover">
-							<tr><td>Organisation Unit: <select class="form-control" id="orgUnitSelect">
-															<script type="text/JavaScript">
-																$(document).ready(function(){
+				<form class="form-horizontal">
+					<center><table class="table table-hover">
+						<tr><td>Organisation Unit: <select class="form-control" id="orgUnitSelect">
+														<script type="text/JavaScript">
+															$(document).ready(function(){
 																	/*displaying dropdown list of organisation unit*/
-																	viewOrgUnits("dropdown","orgUnitSelect","all");
-																});
-															</script>
-														</select></td>
-								<td>Role: <select class="form-control" id="roleSelect"></select>
-								</td>
-								<td>
-									<br/><Button type="submit" class="btn btn-primary" id="getTabsTemplate">Show Tabs and Templates</Button>
-								</td>
-							</tr>
-							</table></center>
-						</form>
-						<form><div id="tabs_template_result"></div></form>
-					</div>
-				</div>				
+																viewOrgUnits("dropdown","orgUnitSelect","all");
+															});
+														</script>
+													</select></td>
+							<td>Role: <select class="form-control" id="roleSelect"></select>
+							</td>
+							<td>
+								<br/><Button type="submit" class="btn btn-primary" id="getTabsTemplate">Show Tabs and Templates</Button>
+							</td>
+						</tr>
+					</table></center>
+				</form>
+				
+				<form><div id="tabs_template_result"></div></form>				
 			</div>
 		</div>
 	</div>

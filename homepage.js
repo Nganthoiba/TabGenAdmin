@@ -42,7 +42,7 @@ function setTabTemplateLayout(){
 			{
 				/*javascript function for parsing json data and displaying layout for Tab Template Association Update*/
 				var arr = jQuery.parseJSON(data);// JSON.parse(data)
-				var layout="<table class='table' align='center'>"+
+				var layout="<div class='panel panel-default'><table class='table' align='center'>"+
 				"<tr><th></th><th>Tabs</th><th>Tab Templates</th><th style='min-width:80px'></th></tr>";
 				var role_name="<td></td>";
 				/*getting list of templates created by the admin*/
@@ -74,7 +74,7 @@ function setTabTemplateLayout(){
 							}
 							layout+="<tr><td align='center' colspan='4'>"+
 											"<Button type='submit' class='btn btn-default' id='updateAll'>Update All</Button>"+
-										"</td></tr></table>";
+										"</td></tr></table></div>";
 							document.getElementById("tabs_template_result").innerHTML="<center>"+layout+"</center>";
 							
 							$("#updateAll").click(function(){
