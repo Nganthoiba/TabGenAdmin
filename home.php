@@ -30,6 +30,7 @@
 		}
 		.my_table {width:100%}
 		h4 {font-family:calibri}
+		table th {background-color:#F2F2F2}
 	</style>
 	
 </head>
@@ -47,7 +48,7 @@
                 $user_role = $user_data->roles;
 						
 	?>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -154,7 +155,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h2 class="modal-title" id="myModalLabel">Create Organization</h2>
+				<h3 class="modal-title" id="myModalLabel">Create Organization</h3>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post" action="createorg.php">
@@ -247,7 +248,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h1 class="modal-title" id="myModalLabel">Create Role</h1>
+				<h3 class="modal-title" id="myModalLabel">Create Role</h3>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post">
@@ -451,14 +452,14 @@ Tabs are created in this section-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Associate Role to Tab</h4>
+				<h3 class="modal-title" id="myModalLabel">Associate Role to Tab</h3>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body"><div class="panel panel-default">
 				<form class="form-horizontal">	
 					<table border="0" align="center" class="table table-hover">
 						<tr>
 							<td>
-								<label>Organisation Unit</label>
+								<label>Organisation Unit:</label>
 								<select class="form-control" id="sel_org_unit_role_tab">
 									<script type="text/JavaScript">
 										$(document).ready(function(){
@@ -485,7 +486,7 @@ Tabs are created in this section-->
 						</tr>
 					</table>
 				</form>
-				
+				</div>
 			</div>	
 		</div>
 	</div>
@@ -497,7 +498,7 @@ Tabs are created in this section-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Associate Tab to Tab Templates</h4>
+				<h3 class="modal-title" id="titleForTab2TemplateAssn">Associate Tab to Tab Templates</h3>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
