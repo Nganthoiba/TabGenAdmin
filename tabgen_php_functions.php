@@ -278,5 +278,17 @@ function getTeamId_by_OU_name($conn,$ou_name){
 	return $row['Id'];
 }
 
-
+//function to get channel details by using channel name
+function getChannelByName($conn,$channel_name){
+	$query = "select * from Channels where Name='$channel_name'";
+	$res = $conn->query($query);
+	$count=0;
+	while($row = $res->fetch(PDO::FETCH_ASSOC)){
+		$output[]=$row;
+		$count++;
+	}
+	if($count==1)
+		return $output;
+	else return null;	
+}
 ?>

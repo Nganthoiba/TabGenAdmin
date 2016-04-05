@@ -12,6 +12,13 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/npm.js"></script>
 	<script src="homepage.js"></script>
+	<script type="text/JavaScript">
+		/*
+		 * global variables
+		 * */
+		 var arr; /*array for tab template association*/
+		 var prev_tab_name = [];/*Global array for tab name*/
+	</script>
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
 	<style type="text/css">		
 		.circular {

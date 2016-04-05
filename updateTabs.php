@@ -9,29 +9,76 @@ include('ConnectAPI.php');
 		$index = $_POST['index'];
 		$tab_id = $_POST['tab_id'];
 		$tab_name=$_POST['tab_name'];
+		$previous_tab_name = $_POST['previous_tab'];
 		$template_name=$_POST['template_name'];
 		$ou_name = $_POST['ou_name'];
-		$token_id = get_token($ou_name,"thoiba","admin");
+		
 		if($template_name=="Chat Template"){
+			$token_id = get_token($ou_name,"thoiba","admin");
 			if($token_id!=null){
-				$team_id = getTeamId_by_OU_name($conn,$ou_name);
-				$channel_array = array("display_name"=>$tab_name,"name"=>$tab_name,"team_id"=>$team_id,"type"=>"O");
-				$data = json_encode($channel_array);
-				$connection = new ConnectAPI();
-				$url = "http://".IP.":8065/api/v1/channels/create";
-				$response = json_decode($connection->sendPostDataWithToken($url,$data,$token_id));
-				if($connection->httpResponseCode==200){
-					updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
+				$channel_details = getChannelByName($conn,$previous_tab_name);
+				if($channel_details==null){
+					//it means no channel same as the tab name has been created so far. so we are going to create one.
+					$team_id = getTeamId_by_OU_name($conn,$ou_name);
+					$channel_array = array("display_name"=>$tab_name,"name"=>$tab_name,"team_id"=>$team_id,"type"=>"O");
+					$data = json_encode($channel_array);
+					$connection = new ConnectAPI();
+					$url = "http://".IP.":8065/api/v1/channels/create";
+					$response = json_decode($connection->sendPostDataWithToken($url,$data,$token_id));
+					if($connection->httpResponseCode==200){//it means channel has been created successfully
+						updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
+					}
+					else{
+						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>".$response->message."</font>","state"=>false));
+					}
+					//echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>NULL ".$previous_tab_name."</font>","state"=>false));
 				}
-				else{
-					echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>".$response->message."</font>","state"=>false));
+				else {
+					// it means a channel already exists with the same name as tab name, so we are going to update that channel name				
+					/*
+					 * value of $channel_details in the form of json :
+					 [{
+					 * "Id":"gqbq8545hbgptmsyf9yuapcx5w",
+					 * "CreateAt":"1459834842155",
+					 * "UpdateAt":"1459834842155",
+					 * "DeleteAt":"0",
+					 * "TeamId":"x1xt59ce9ir558gyhcefetpqjh",
+					 * "Type":"O",
+					 * "DisplayName":"chatting_for_immunologist",
+					 * "Name":"chatting_for_immunologist",
+					 * "Header":"","Purpose":"",
+					 * "LastPostAt":"1459834870740",
+					 * "TotalMsgCount":"1",
+					 * "ExtraUpdateAt":"1459834857292",
+					 * "CreatorId":"d4ms8cmjd3bhdyzge636mkauch"}]
+					*/
+					$update_channel_data = json_encode(array("id"=>$channel_details[0]['Id'],
+										"team_id"=>$channel_details[0]['TeamId'],
+										"type"=>"O",
+										"display_name"=>$tab_name,
+										"name"=>$tab_name,
+										"creator_id"=>$channel_details[0]['CreatorId']));
+					$update_channel_url = "http://".IP.":8065/api/v1/channels/update";
+					$updateChannel = new ConnectAPI();
+					$update_channel_response = json_decode($updateChannel->sendPostDataWithToken($update_channel_url,$update_channel_data,$token_id));
+					if($updateChannel->httpResponseCode==200){
+						//it means channel has been updated successfully
+						updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
+					}
+					else if($updateChannel->httpResponseCode==0){
+						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>Server not found! Try again later</font>","state"=>false));
+					}
+					else{
+						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>".$update_channel_response->message."</font>","state"=>false));
+					}
 				}
 			}
 			else 
 				echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>Token id is null</font>","state"=>false));
 			
 		}
-		else updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);		
+		else 
+			updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);		
 				
 	}
 	else{

@@ -41,7 +41,7 @@ function setTabTemplateLayout(){
 			else
 			{
 				/*javascript function for parsing json data and displaying layout for Tab Template Association Update*/
-				var arr = jQuery.parseJSON(data);// JSON.parse(data)
+				arr = jQuery.parseJSON(data);// JSON.parse(data)
 				var layout="<div class='panel panel-default'><table class='table' align='center'>"+
 				"<tr><th></th><th>Tabs</th><th>Tab Templates</th><th></th><th></th></tr>";
 				var role_name="<td></td>";
@@ -65,12 +65,16 @@ function setTabTemplateLayout(){
 									else
 										role_name="<td></td>";
 								}
+								prev_tab_name[i]=(arr[i].Tab_Name);
 								layout+="<tr>"+role_name+"<td><input type='text' id='tab_name"+i+"' class='form-control' value='"+arr[i].Tab_Name+"'/></td>"+
 										"<td><select class='form-control'  onchange='clear();'id='template_name"+i+"'><option>"+arr[i].Template_Name+
 									"</option>"+templateList+"</select></td>"+
 										"<td><Button class='btn btn-default'"+
-											" onclick='updateTemplate(\""+i+"\",\""+arr[i].tab_id+"\",\""+arr[i].OrganisationUnit+"\"); return false;'>Update</Button></td>"+
+											" onclick='updateTemplate(\""+i+"\",\""+arr[i].tab_id+
+											"\",\""+arr[i].OrganisationUnit+
+											"\"); return false;'>Update</Button></td>"+
 										"<td><span id='update_status"+i+"' style='min-width:30px'></span></td></tr>";
+										//,\""+prev_tab_name[i]+"\"
 							}
 							layout+="<tr><td align='center' colspan='5'>"+
 											"<Button type='submit' class='btn btn-default' id='updateAll'>Update All</Button>"+
@@ -83,6 +87,7 @@ function setTabTemplateLayout(){
 								for(j=0;j<arr.length;j++){
 									var tab_id = arr[j].tab_id;
 									var org_unit=arr[j].OrganisationUnit;
+									//var previous_tab_name = arr[j].Tab_Name;
 									updateTemplate(j,tab_id,org_unit);//updating template
 								}
 								return false;
@@ -101,17 +106,22 @@ function setTabTemplateLayout(){
 function updateTemplate(i,tab_id,org_unit){
 	var template_name = $("#template_name"+i).val();
 	var tabname = $("#tab_name"+i).val();
+	var previous_tab = prev_tab_name[i];
 	//alert("Tab Id: "+tab_id+" Tab Name: "+tabname+"Template Name: "+template_name);
+	//alert("Previous Tab Name: "+previous_tab);
 	document.getElementById("update_status"+i).innerHTML="<img src='img/update_icon.gif'></img>";
 	$.ajax({
 		type: "POST",
 		url: "updateTabs.php",
-		data: "tab_id="+tab_id+"&tab_name="+tabname+"&template_name="+template_name+"&index="+i+"&ou_name="+org_unit,
+		data: "tab_id="+tab_id+"&tab_name="+tabname+"&template_name="+template_name+"&index="+i+"&ou_name="+org_unit+"&previous_tab="+previous_tab,
 		success: function(result){
 			var result_data = JSON.parse(result);
-			if(result_data.state==true)
-				document.getElementById("update_status"+result_data.index).innerHTML="<img src='img/positive.png'/>";	
-			else
+			if(result_data.state==true){
+				document.getElementById("update_status"+result_data.index).innerHTML="<img src='img/positive.png'/>";
+				arr[result_data.index].Tab_Name=tabname;
+				prev_tab_name[result_data.index]=tabname;
+				//alert("Index: "+result_data.index+" Last updated tab name: "+prev_tab_name[result_data.index]);
+			}else
 				document.getElementById("update_status"+result_data.index).innerHTML=result_data.response;
 		}
 	});
@@ -622,7 +632,7 @@ $(document).ready(function(){
 					else{
 						document.getElementById(id).style.color="black";
 						var arr = JSON.parse(data);
-						var roleList=" ";
+						var roleList="<table> ";
 						var i=0;
 						for(i=0;i<arr.length;i++){
 							roleList+="<div class='col-sm-4'><p>Name: "+arr[i].RoleName+"<br/>Type: "+arr[i].RoleType+"</p></div>";
