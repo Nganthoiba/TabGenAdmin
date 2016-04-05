@@ -28,8 +28,7 @@ function createTabs($conn,$start,$no_of_tabs,$org_unit,$role_name,$createdBy){
 	}
 }
 //to update user role
-function updateUserRole($userId,$con){
-	$role=$_POST['Role'];
+function updateUserRole($userId,$con,$role){
 	$query="UPDATE Users SET Roles='$role' WHERE Id='$userId'";
 	if($con->query($query)){
 		echo "true";

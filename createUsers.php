@@ -44,8 +44,9 @@ if(validateUserDetails()==true){
 				if($result!=null){
 					try{
 						$responseData = json_decode($result);
-						if($connect->httpResponseCode==200){	
-							updateUserRole($responseData->id,$conn);
+						if($connect->httpResponseCode==200){
+							$role=$_POST['Role'];	
+							updateUserRole($responseData->id,$conn,$role);
 							userUniversalAccess($conn,$responseData->id,$_POST['type']);
 							/*if($_POST['type']=="true")//if the user type is universal
 								allowEveryOpenChannel($conn,$responseData->id);*/

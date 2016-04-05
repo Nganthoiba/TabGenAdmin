@@ -44,9 +44,28 @@ if($orgunit!='' && $orgnamesel!=''){
 			$responseTeamResult = json_decode($createTeamResult);
 			if( $createTeam->httpResponseCode==200){
 				//$team_id = $responseTeamResult->id;
-				//renameChannel($conn,$team_id,"Public Site","Town Square");
-				//deleteChannel($conn,$team_id,"Off-Topic");
-				echo "true";
+
+				$data_for_Team_admin = array(
+				   "team_id" => $responseTeamResult->id,
+					"email" => $user_details->email,
+					"username" => $user_details->username, 
+					"password" => "admin",
+					"name" => $responseTeamResult->name	
+				);
+				
+				$url_4_creating_user ="http://".IP.":8065/api/v1/users/create";
+				$json_data_admin = json_encode($data_for_Team_admin);//json data for admin of the team
+				
+				$createAdminApi = new ConnectAPI();
+				$createAdminResult = $createAdminApi->sendPostData($url_4_creating_user,$json_data_admin);
+				$createAdminResponse = json_decode($createAdminResult);
+				if($createAdminApi->httpResponseCode==200){
+					updateUserRole($createAdminResponse->id,$conn,"system_admin");
+					//echo "true";
+				}else if($createAdminApi->httpResponseCode==0)
+					echo "Unable to connect API, try again later.";
+				else
+					echo "Failed to create admin: ".$createAdminResponse->message;
 			}
 			else if($createTeam->httpResponseCode==0) 
 				echo "Unable to connect API for creating Team";

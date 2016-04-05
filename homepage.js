@@ -72,7 +72,7 @@ function setTabTemplateLayout(){
 											" onclick='updateTemplate(\""+i+"\",\""+arr[i].tab_id+"\",\""+arr[i].OrganisationUnit+"\"); return false;'>Update</Button></td>"+
 										"<td><span id='update_status"+i+"' style='min-width:30px'></span></td></tr>";
 							}
-							layout+="<tr><td align='center' colspan='4'>"+
+							layout+="<tr><td align='center' colspan='5'>"+
 											"<Button type='submit' class='btn btn-default' id='updateAll'>Update All</Button>"+
 										"</td></tr></table></div>";
 							document.getElementById("tabs_template_result").innerHTML="<center>"+layout+"</center>";

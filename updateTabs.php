@@ -11,21 +11,24 @@ include('ConnectAPI.php');
 		$tab_name=$_POST['tab_name'];
 		$template_name=$_POST['template_name'];
 		$ou_name = $_POST['ou_name'];
-		
+		$token_id = get_token($ou_name,"thoiba","admin");
 		if($template_name=="Chat Template"){
-			$team_id = getTeamId_by_OU_name($conn,$ou_name);
-			$channel_array = array("display_name"=>$tab_name,"name"=>$tab_name,"team_id"=>$team_id,"type"=>"O");
-			$data = json_encode($channel_array);
-			$connection = new ConnectAPI();
-			$url = "http://".IP.":8065/api/v1/channels/create";
-			$response = json_decode($connection->sendPostDataWithToken($url,$data));
-			if($connection->httpResponseCode==200){
-				updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
+			if($token_id!=null){
+				$team_id = getTeamId_by_OU_name($conn,$ou_name);
+				$channel_array = array("display_name"=>$tab_name,"name"=>$tab_name,"team_id"=>$team_id,"type"=>"O");
+				$data = json_encode($channel_array);
+				$connection = new ConnectAPI();
+				$url = "http://".IP.":8065/api/v1/channels/create";
+				$response = json_decode($connection->sendPostDataWithToken($url,$data,$token_id));
+				if($connection->httpResponseCode==200){
+					updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
+				}
+				else{
+					echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>".$response->message."</font>","state"=>false));
+				}
 			}
-			else{
-				echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>".$response->message."</font>","state"=>false));
-			}
-			//echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>".$response."</font>","state"=>false));
+			else 
+				echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>Token id is null</font>","state"=>false));
 			
 		}
 		else updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);		
@@ -71,6 +74,33 @@ function updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_n
 			$response = array("index"=>"".$index,"response"=>"Failed to save data: ".$e->getMessage(),"state"=>false);
 			echo json_encode($response);
 		}
+}
+
+function get_token($team_name,$username,$password){
+		$data = array("name"=>$team_name,"username"=>$username,"password"=>$password);
+		$url_send ="http://".IP.":8065/api/v1/users/login";
+		$token=null;
+		$str_data = json_encode($data);
+		$connect = new ConnectAPI();
+		$responseJsonData = $connect->sendPostData($url_send,$str_data);
+		if($responseJsonData!=null){
+			$resp_data = json_decode($responseJsonData);	
+			if($connect->httpResponseCode==200){
+				$header = $connect->httpHeaderResponse;
+				$header_array = $connect->http_parse_headers($header);
+				
+				foreach ($header_array as $name => $value) {
+					//echo "The value of '$name' is '$value'<br>";
+					if($name=="Token"){
+						$token = $value;
+						break;
+					}
+				}							
+			}
+			else $token=null; 
+			
+		}
+		return $token;
 }
 
 ?>
