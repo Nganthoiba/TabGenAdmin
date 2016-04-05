@@ -17,8 +17,6 @@ if(!empty($_GET['user_id'])){
 							and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
 							and Teams.Name='$team_name'
 							and Channels.Id=ChannelId
-							and Channels.Name!='off-topic'
-							and Channels.Name!='town-square'
 							group by Channels.Id";//query to obtain channels which is not off-topic or townsquare
 							
 			/*$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count,Teams.Name as Team_Name
