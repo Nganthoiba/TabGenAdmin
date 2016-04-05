@@ -271,7 +271,7 @@
 							</select>
 						</div>
 						<div class="col-sm-4">
-							<button type="submit" class="btn btn-default" id="disp_role">Display Existing Roles </button>
+							<button type="submit" class="btn btn-info" id="disp_role">Show Existing Roles </button>
 							<script type="text/JavaScript">
 								$(document).ready(function(){
 									$('#disp_role').click(function(){
@@ -286,7 +286,7 @@
 							</script>
 						</div>
 					</div>
-					<div class="row" id="role_lists">
+					<div id="role_lists">
 						<!--
 						<div class="col-sm-4">
 							<h3>Column 2</h3>
@@ -299,7 +299,7 @@
 								+ Create </a>a new one here</h3>
 					
 					<div id="create_role_collapsible" class="collapse">
-						<div class="panel panel-default">
+						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h1 class="panel-title">Role details:</h1>
 							</div>
@@ -324,7 +324,7 @@
 							<div class="panel-footer clearfix">
 								<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
 								<div class="pull-right">
-									<button type="submit" class="btn btn-default" id="btnrole">Create </button>
+									<button type="submit" class="btn btn-info" id="btnrole">Create </button>
 								</div>
 							</div>
 						</div>
@@ -521,7 +521,7 @@ Tabs are created in this section-->
 							<td>Role: <select class="form-control" id="roleSelect"></select>
 							</td>
 							<td>
-								<br/><Button type="submit" class="btn btn-primary" id="getTabsTemplate">Show Tabs and Templates</Button>
+								<br/><Button type="submit" class="btn btn-info" id="getTabsTemplate">Show Tabs and Templates</Button>
 							</td>
 						</tr>
 					</table></center>

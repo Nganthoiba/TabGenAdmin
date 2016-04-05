@@ -29,7 +29,7 @@ include('ConnectAPI.php');
 						updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
 					}
 					else{
-						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>".$response->message."</font>","state"=>false));
+						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#C52039'>".$response->message."</font>","state"=>false));
 					}
 					//echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>NULL ".$previous_tab_name."</font>","state"=>false));
 				}
@@ -66,10 +66,10 @@ include('ConnectAPI.php');
 						updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
 					}
 					else if($updateChannel->httpResponseCode==0){
-						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>Server not found! Try again later</font>","state"=>false));
+						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#C52039'>Server not found! Try again later</font>","state"=>false));
 					}
 					else{
-						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>".$update_channel_response->message."</font>","state"=>false));
+						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#C52039'>".$update_channel_response->message."</font>","state"=>false));
 					}
 				}
 			}

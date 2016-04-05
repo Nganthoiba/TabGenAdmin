@@ -69,7 +69,7 @@ function setTabTemplateLayout(){
 								layout+="<tr>"+role_name+"<td><input type='text' id='tab_name"+i+"' class='form-control' value='"+arr[i].Tab_Name+"'/></td>"+
 										"<td><select class='form-control'  onchange='clear();'id='template_name"+i+"'><option>"+arr[i].Template_Name+
 									"</option>"+templateList+"</select></td>"+
-										"<td><Button class='btn btn-default'"+
+										"<td><Button class='btn btn-info'"+
 											" onclick='updateTemplate(\""+i+"\",\""+arr[i].tab_id+
 											"\",\""+arr[i].OrganisationUnit+
 											"\"); return false;'>Update</Button></td>"+
@@ -77,7 +77,7 @@ function setTabTemplateLayout(){
 										//,\""+prev_tab_name[i]+"\"
 							}
 							layout+="<tr><td align='center' colspan='5'>"+
-											"<Button type='submit' class='btn btn-default' id='updateAll'>Update All</Button>"+
+											"<Button type='submit' class='btn btn-info' id='updateAll'>Update All</Button>"+
 										"</td></tr></table></div>";
 							document.getElementById("tabs_template_result").innerHTML="<center>"+layout+"</center>";
 							
@@ -632,11 +632,16 @@ $(document).ready(function(){
 					else{
 						document.getElementById(id).style.color="black";
 						var arr = JSON.parse(data);
-						var roleList="<table> ";
+						var roleList="<div class='panel panel-primary'><div class='panel-heading'>"+
+							"<h1 class='panel-title'>List of existing roles:</h1></div>"+
+							"<table border='0' class='table table-bordered'>"+
+							"<tr><th>Role Name</th><th>Role Type</th></tr>";
 						var i=0;
 						for(i=0;i<arr.length;i++){
-							roleList+="<div class='col-sm-4'><p>Name: "+arr[i].RoleName+"<br/>Type: "+arr[i].RoleType+"</p></div>";
+							roleList+="<tr><td>"+arr[i].RoleName+"</td><td>"+arr[i].RoleType+"</td></tr>";
+							//roleList+="<div class='col-sm-4'><p>Name: "+arr[i].RoleName+"<br/>Type: "+arr[i].RoleType+"</p></div>";
 						}
+						roleList+="</table></div>";
 						if(i>0)
 							document.getElementById(id).innerHTML=roleList;
 						else{
