@@ -75,7 +75,7 @@
           </ul>  
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
-			<button type="button" class="btn btn-default">
+			<button type="button" class="btn btn-info">
 			  <span class="glyphicon glyphicon-search"></span>
 			</button>
           </form>
@@ -299,7 +299,7 @@
 								+ Create </a>a new one here</h3>
 					
 					<div id="create_role_collapsible" class="collapse">
-						<div class="panel panel-primary">
+						<div class="panel panel-info">
 							<div class="panel-heading">
 								<h1 class="panel-title">Role details:</h1>
 							</div>
@@ -509,7 +509,7 @@ Tabs are created in this section-->
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
-					<center><table class="table table-hover">
+					<center><div class="panel panel-default"><table class="table table-striped" border="0">
 						<tr><td>Organisation Unit: <select class="form-control" id="orgUnitSelect">
 														<script type="text/JavaScript">
 															$(document).ready(function(){
@@ -524,7 +524,7 @@ Tabs are created in this section-->
 								<br/><Button type="submit" class="btn btn-info" id="getTabsTemplate">Show Tabs and Templates</Button>
 							</td>
 						</tr>
-					</table></center>
+					</table></div></center>
 				</form>
 				
 				<form><div id="tabs_template_result"></div></form>				
