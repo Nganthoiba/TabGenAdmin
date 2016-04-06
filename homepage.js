@@ -43,7 +43,11 @@ function setTabTemplateLayout(){
 				/*javascript function for parsing json data and displaying layout for Tab Template Association Update*/
 				arr = jQuery.parseJSON(data);// JSON.parse(data)
 				var layout="<div class='panel panel-default'><table class='table' align='center'>"+
-				"<tr><th></th><th>Tabs</th><th>Tab Templates</th><th></th><th></th></tr>";
+				"<tr><th style='background-color:#FF5733; color:#FFFFFF'></th>"+
+					"<th style='background-color:#FF5733; color:#FFFFFF'>Tabs</th>"+
+					"<th style='background-color:#FF5733; color:#FFFFFF'>Tab Templates</th>"+
+					"<th style='background-color:#FF5733; color:#FFFFFF'></th>"+
+					"<th style='background-color:#FF5733; color:#FFFFFF'></th></tr>";
 				var role_name="<td></td>";
 				/*getting list of templates created by the admin*/
 				$.ajax({
@@ -632,10 +636,11 @@ $(document).ready(function(){
 					else{
 						document.getElementById(id).style.color="black";
 						var arr = JSON.parse(data);
-						var roleList="<div class='panel panel-info'><div class='panel-heading'>"+
-							"<h1 class='panel-title'>List of existing roles:</h1></div>"+
+						var roleList="<div class='panel panel-info'>"+
+							"<div class='panel-heading'><h1 class='panel-title'>List of existing roles:</h1></div>"+
 							"<table border='0' class='table table-bordered'>"+
-							"<tr><th>Role Name</th><th>Role Type</th></tr>";
+							"<tr><th style='background-color:#FB5E3C;color:#FFFFFF'>Role Name</th>"+
+							"<th style='background-color:#90C6F3;color:#FFFFFF'>Role Type</th></tr>";
 						var i=0;
 						for(i=0;i<arr.length;i++){
 							roleList+="<tr><td>"+arr[i].RoleName+"</td><td>"+arr[i].RoleType+"</td></tr>";

@@ -64,7 +64,7 @@
             <span class="icon-bar">XYZ</span>
             <span class="icon-bar"></span>-->
           </button>
-          <a class="navbar-brand" href="#">H Circle</a>
+          <a class="navbar-brand" href="#">H-Circle</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -166,7 +166,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post" action="createorg.php">
-					<div class="panel panel-default">
+					<div class="panel panel-info">
 						<div class="panel-body">
 							<div class="form-group">
 								<label for="orgname" class="col-sm-4  control-label">Organization Name</label>
@@ -183,7 +183,7 @@
 						</div>
 						<div class="panel-footer clearfix">
 							<label id="error1" class="col-sm-offset-2 col-sm-8"></label>
-							<div class="pull-right"><button type="submit" class="btn btn-default" id="submit">Create </button></div>
+							<div class="pull-right"><button type="submit" class="btn btn-info" id="submit">Create </button></div>
 						</div>
 					</div>
 				</form>
@@ -200,7 +200,7 @@
 				<h3 class="modal-title" id="myModalLabel">Create Organization Unit</h3>
 			</div>
 			<div class="modal-body">
-				<div class="panel panel-default">
+				<div class="panel panel-info">
 					<div class="panel-body">
 						<form class="form-horizontal" method="post">
 							<div class="form-group">
@@ -238,7 +238,7 @@
 					<div class="panel-footer clearfix">
 						<label id="error2" class="col-sm-offset-2 col-sm-8"></label>
 						<div class="pull-right">
-							<button type="submit" class="btn btn-default" id="createorgunitbtn">Create </button>
+							<button type="submit" class="btn btn-info" id="createorgunitbtn">Create </button>
 						</div>
 					</div>
 				</div>
@@ -346,7 +346,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
-					<div class="panel panel-default">
+					<div class="panel panel-info">
 						<div class="panel-body">
 							<div class="form-group">
 								<label for="username" class="col-sm-4  control-label">User Name</label>
@@ -407,7 +407,7 @@
 						<div class="panel-footer clearfix">
 							<label id="error4" class="col-sm-offset-2 col-sm-8"></label>
 							<div class="pull-right">
-									<button type="submit" class="btn btn-default" id="CreateUser">Create </button>
+									<button type="submit" class="btn btn-info" id="CreateUser">Create </button>
 							</div>
 						</div>
 					</div>
@@ -464,7 +464,7 @@ Tabs are created in this section-->
 			</div>
 			<div class="modal-body"><div class="panel panel-default">
 				<form class="form-horizontal">	
-					<table border="0" align="center" class="table table-hover">
+					<table border="0" align="center" class="table">
 						<tr>
 							<td>
 								<label>Organisation Unit:</label>
@@ -489,7 +489,7 @@ Tabs are created in this section-->
 						<tr>
 							<td colspan="2"><span id="saveAsscRole2TabResponse"></span></td>
 							<td align="right">
-								<Button class="btn btn-default" id="saveAsscRole2Tab" style="width:60px">Save</Button>
+								<Button class="btn btn-info" id="saveAsscRole2Tab" style="width:60px">Save</Button>
 							</td>
 						</tr>
 					</table>

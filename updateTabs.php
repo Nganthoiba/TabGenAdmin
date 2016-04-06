@@ -52,24 +52,29 @@ include('ConnectAPI.php');
 					 * "ExtraUpdateAt":"1459834857292",
 					 * "CreatorId":"d4ms8cmjd3bhdyzge636mkauch"}]
 					*/
-					$update_channel_data = json_encode(array("id"=>$channel_details[0]['Id'],
-										"team_id"=>$channel_details[0]['TeamId'],
-										"type"=>"O",
-										"display_name"=>$tab_name,
-										"name"=>$tab_name,
-										"creator_id"=>$channel_details[0]['CreatorId']));
-					$update_channel_url = "http://".IP.":8065/api/v1/channels/update";
-					$updateChannel = new ConnectAPI();
-					$update_channel_response = json_decode($updateChannel->sendPostDataWithToken($update_channel_url,$update_channel_data,$token_id));
-					if($updateChannel->httpResponseCode==200){
-						//it means channel has been updated successfully
-						updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
-					}
-					else if($updateChannel->httpResponseCode==0){
-						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#C52039'>Server not found! Try again later</font>","state"=>false));
+					if($tab_name!=$previous_tab_name){
+						$update_channel_data = json_encode(array("id"=>$channel_details[0]['Id'],
+											"team_id"=>$channel_details[0]['TeamId'],
+											"type"=>"O",
+											"display_name"=>$tab_name,
+											"name"=>$tab_name,
+											"creator_id"=>$channel_details[0]['CreatorId']));
+						$update_channel_url = "http://".IP.":8065/api/v1/channels/update";
+						$updateChannel = new ConnectAPI();
+						$update_channel_response = json_decode($updateChannel->sendPostDataWithToken($update_channel_url,$update_channel_data,$token_id));
+						if($updateChannel->httpResponseCode==200){
+							//it means channel has been updated successfully
+							updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
+						}
+						else if($updateChannel->httpResponseCode==0){
+							echo json_encode(array("index"=>"".$index,"response"=>"<font color='#C52039'>Server not found! Try again later</font>","state"=>false));
+						}
+						else{
+							echo json_encode(array("index"=>"".$index,"response"=>"<font color='#C52039'>".$update_channel_response->message."</font>","state"=>false));
+						}
 					}
 					else{
-						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#C52039'>".$update_channel_response->message."</font>","state"=>false));
+						updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
 					}
 				}
 			}
