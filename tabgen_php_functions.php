@@ -2,7 +2,7 @@
 /* function for creating tabs */
 function createTabs($conn,$start,$no_of_tabs,$org_unit,$role_name,$createdBy){
 	for($i=$start;$i<=$no_of_tabs;$i++){
-		$tab_name = $org_unit."_".$role_name."_tab".$i;
+		$tab_name = strtolower($org_unit)."_".strtolower($role_name)."_tab".$i;
 		$id = randId(26);//creating unique id
 		$role_id = findRoleId($conn,$org_unit,$role_name);
 		$ou_id = findOUId($conn,$org_unit);

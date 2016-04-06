@@ -93,7 +93,7 @@
 					</div>
 				</div></div>
 				<!--class="nav nav-tabs nav-stacked"-->
-				<ul class="nav nav-sidebar" style="background-color:#FAFAFA;border-radius:3px">
+				<ul class="nav nav-sidebar" style="background-color:#F2F2F2;border-radius:3px">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
