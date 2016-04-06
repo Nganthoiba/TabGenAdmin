@@ -43,11 +43,11 @@ function setTabTemplateLayout(){
 				/*javascript function for parsing json data and displaying layout for Tab Template Association Update*/
 				arr = jQuery.parseJSON(data);// JSON.parse(data)
 				var layout="<div class='panel panel-default'><table class='table' align='center'>"+
-				"<tr><th style='background-color:#FF5733; color:#FFFFFF'></th>"+
-					"<th style='background-color:#FF5733; color:#FFFFFF'>Tabs</th>"+
-					"<th style='background-color:#FF5733; color:#FFFFFF'>Tab Templates</th>"+
-					"<th style='background-color:#FF5733; color:#FFFFFF'></th>"+
-					"<th style='background-color:#FF5733; color:#FFFFFF'></th></tr>";
+				"<tr><th style='background-color:#90C6F3; color:#FFFFFF'></th>"+
+					"<th style='background-color:#90C6F3; color:#FFFFFF'>Tabs</th>"+
+					"<th style='background-color:#90C6F3; color:#FFFFFF'>Tab Templates</th>"+
+					"<th style='background-color:#90C6F3; color:#FFFFFF'></th>"+
+					"<th style='background-color:#90C6F3; color:#FFFFFF'></th></tr>";
 				var role_name="<td></td>";
 				/*getting list of templates created by the admin*/
 				$.ajax({
