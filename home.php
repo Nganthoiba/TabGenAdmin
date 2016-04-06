@@ -161,8 +161,9 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3 class="modal-title" id="myModalLabel">Create Organization</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Create Organization</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post" action="createorg.php">
@@ -197,7 +198,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3 class="modal-title" id="myModalLabel">Create Organization Unit</h3>
+				<h4 class="modal-title" id="myModalLabel">Create Organization Unit</h4>
 			</div>
 			<div class="modal-body">
 				<div class="panel panel-info">
@@ -255,7 +256,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3 class="modal-title" id="myModalLabel">Create Role</h3>
+				<h4 class="modal-title" id="myModalLabel">Create Role</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post">
@@ -297,7 +298,7 @@
 					</div>
 					<h3 align="center"> 
 					<a href="#" data-toggle="collapse" class='btn btn-link' data-target="#create_role_collapsible">
-					Click here to create a new role</a></h3>
+					<span class="glyphicon glyphicon-plus"></span> Click here to create a new role</a></h3>
 					
 					<div id="create_role_collapsible" class="collapse">
 						<div class="panel panel-info">
@@ -342,7 +343,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3 class="modal-title" id="myModalLabel">Create User</h3>
+				<h4 class="modal-title" id="myModalLabel">Create User</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
@@ -444,7 +445,7 @@
 						</div>
 						<div class="panel-footer clearfix">
 							<label id="createTemplateResponse"></label>
-							<div class="pull-right"><Button type="submit" class="btn btn-default" id="createTemplate">Create</Button></div>
+							<div class="pull-right"><Button type="submit" class="btn btn-info" id="createTemplate">Create</Button></div>
 						</div>
 					</div>
 				</form>
@@ -460,7 +461,7 @@ Tabs are created in this section-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3 class="modal-title" id="myModalLabel">Associate Role to Tab</h3>
+				<h4 class="modal-title" id="myModalLabel">Associate Role to Tab</h4>
 			</div>
 			<div class="modal-body"><div class="panel panel-default">
 				<form class="form-horizontal">	
@@ -505,8 +506,9 @@ Tabs are created in this section-->
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3 class="modal-title" id="titleForTab2TemplateAssn">Associate Tab to Tab Templates</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="titleForTab2TemplateAssn">Associate Tab to Tab Templates</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">

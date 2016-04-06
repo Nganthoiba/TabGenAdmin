@@ -414,9 +414,9 @@ $(document).ready(function (){
 						if(method=="list"){
 							for(var i=0;i<limit;i++){
 								view+='<tr><td>'+json_arr[i].organisation_unit+'</td><td align="right">'+
-								'<Button type="button" class="btn btn-warning"'+
+								'<Button type="button" class="btn btn-default"'+
 								' onclick="setDelAction4OrgUnit(\''+json_arr[i].id+'\',\''+json_arr[i].organisation_unit+'\')" id="del_org_unit'+i+'">'+
-								'Delete</Button></td></tr>';
+								'<span class="glyphicon glyphicon-trash"></span></Button></td></tr>';
 							}
 						}
 						else if(method=="dropdown"){
@@ -493,9 +493,9 @@ $(document).ready(function (){
 						if(method=="list"){
 							for(var i=0;i<limit;i++){
 								view+="<tr><td>"+json_arr[i].name+"</td><td align='right'>"+
-								"<Button type='button' class='btn btn-warning'"+
+								"<Button type='button' class='btn btn-default'"+
 								"onclick='setDelAction4Org(\""+json_arr[i].id+"\",\""+json_arr[i].name+"\"); return false;' id='del_org"+i+"'>"+
-								"Delete</Button></td></tr>";
+								"<span class='glyphicon glyphicon-trash'></span></Button></td></tr>";
 							}
 						}
 						else if(method=="dropdown"){
