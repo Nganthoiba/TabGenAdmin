@@ -632,7 +632,7 @@ $(document).ready(function(){
 					else{
 						document.getElementById(id).style.color="black";
 						var arr = JSON.parse(data);
-						var roleList="<div class='panel panel-primary'><div class='panel-heading'>"+
+						var roleList="<div class='panel panel-info'><div class='panel-heading'>"+
 							"<h1 class='panel-title'>List of existing roles:</h1></div>"+
 							"<table border='0' class='table table-bordered'>"+
 							"<tr><th>Role Name</th><th>Role Type</th></tr>";

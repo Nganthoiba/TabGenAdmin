@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-	<!--<link rel="stylesheet" type="text/css" href="css/main.css">-->
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -262,7 +262,7 @@
 					<div class="form-group">
 						<label class="col-sm-4  control-label" for="ousel">Organization Unit</label>
 						<div class="col-sm-4">
-							<select class="form-control" id="ousel">
+							<select class="form-control" id="ousel" style="float:center">
 								<script type="text/JavaScript">
 									$(document).ready(function(){
 										viewOrgUnits("dropdown","ousel","all");
@@ -271,7 +271,7 @@
 							</select>
 						</div>
 						<div class="col-sm-4">
-							<button type="submit" class="btn btn-info" id="disp_role">Show Existing Roles </button>
+							<button type="submit" class="btn btn-info" id="disp_role" style="float:right">Show Existing Roles </button>
 							<script type="text/JavaScript">
 								$(document).ready(function(){
 									$('#disp_role').click(function(){
@@ -295,8 +295,9 @@
 						</div>
 						-->
 					</div>
-					<h3 align="center"><a href="#" data-toggle="collapse" data-target="#create_role_collapsible">
-								+ Create </a>a new one here</h3>
+					<h3 align="center"> 
+					<a href="#" data-toggle="collapse" class='btn btn-link' data-target="#create_role_collapsible">
+					Click here to create a new role</a></h3>
 					
 					<div id="create_role_collapsible" class="collapse">
 						<div class="panel panel-info">
@@ -518,9 +519,9 @@ Tabs are created in this section-->
 															});
 														</script>
 													</select></td>
-							<td>Role: <select class="form-control" id="roleSelect"></select>
+							<td>Role: <select class="form-control" id="roleSelect" style="float:right"></select>
 							</td>
-							<td>
+							<td align="right">
 								<br/><Button type="submit" class="btn btn-info" id="getTabsTemplate">Show Tabs and Templates</Button>
 							</td>
 						</tr>
