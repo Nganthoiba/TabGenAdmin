@@ -639,7 +639,7 @@ $(document).ready(function(){
 						var roleList="<div class='panel panel-info'>"+
 							"<div class='panel-heading'><h1 class='panel-title'>List of existing roles:</h1></div>"+
 							"<table border='0' class='table table-bordered'>"+
-							"<tr><th style='background-color:#FB5E3C;color:#FFFFFF'>Role Name</th>"+
+							"<tr><th style='background-color:#90C6F3;color:#FFFFFF'>Role Name</th>"+
 							"<th style='background-color:#90C6F3;color:#FFFFFF'>Role Type</th></tr>";
 						var i=0;
 						for(i=0;i<arr.length;i++){
