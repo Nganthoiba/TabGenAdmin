@@ -645,13 +645,12 @@ $(document).ready(function(){
 						if(i>0)
 							document.getElementById(id).innerHTML=roleList;
 						else{
-							document.getElementById(id).innerHTML="<div class='col-sm-4'>No role has been created so far.</div>";
-							alert("No role exists");
+							document.getElementById(id).innerHTML="<center>No role has been created so far.</center>";
 						}
 					}
 				},
 				error: function(x,y,z){
-					document.getElementById(id).innerHTML="<div class='col-sm-4'>An unknown problem occurs! Try again later, please.</div>";
+					document.getElementById(id).innerHTML="<center>An unknown problem occurs! Try again later, please.</center>";
 					//alert("Error in connecting server. Try again later.");
 				}
 			});
