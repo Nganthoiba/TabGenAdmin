@@ -36,7 +36,7 @@ function setTabTemplateLayout(){
 		data: "orgunit="+orgunit+"&role="+user_role,
 		success: function(data){
 			if(data.trim()=="false"){//the server returns false when no record found
-				document.getElementById("tabs_template_result").innerHTML="<center><p>No record found!</P></center>";
+				document.getElementById("tabs_template_result").innerHTML="<center><p style='color:red'>No record found!</P></center>";
 			} 
 			else
 			{
@@ -130,20 +130,15 @@ function updateTemplate(i,tab_id,org_unit){
 		}
 	});
 }
-// clean up update response field
-function clear(){
-	//document.getElementById("update_status"+i).innerHTML=" ";
-	alert("You have changed ");
-}
-
-
+/*Automatic display for tab to template association when any of the folling event occurs*/
 $(document).ready(function (){
 	$('#getTabsTemplate').click(function() {
 		setTabTemplateLayout();
 		return false;
 	});
 	$('#orgUnitSelect').change(function(){
-		setTabTemplateLayout();	
+		getRoles("roleSelect",$("orgUnitSelect").val());
+		//setTabTemplateLayout();	
 		return false;
 	});
 	$('#roleSelect').change(function(){
