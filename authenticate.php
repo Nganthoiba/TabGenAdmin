@@ -9,10 +9,10 @@
 		$password = $_POST['password'];
 		if($username!='' && $password!=''){
 			try{
-				if($conn){
-					$team_id = getTeamIdByUsername($conn,$username);
-					if($team_id!=null){
-						$team_name = getTeamName($conn,$team_id);
+				//if($conn){
+					/*$team_id = getTeamIdByUsername($conn,$username);
+					if($team_id!=null){*/
+						$team_name = "organisation";//getTeamName($conn,$team_id);
 						if($team_name!=null){
 							
 							$data = array("name"=>$team_name,"username"=>$username,"password"=>$password);
@@ -41,10 +41,10 @@
 						}
 						else 
 							echo json_encode(array("state"=>"false","message"=>"Team does not exist"));
-					}
-					else echo json_encode(array("state"=>"false","message"=>"Username does not exist.")); 
-				}
-				else json_encode(array("state"=>"false","message"=>"Unable to connect database!")); 
+					/*}
+					else echo json_encode(array("state"=>"false","message"=>"Username does not exist."));*/ 
+				/*}
+				else json_encode(array("state"=>"false","message"=>"Unable to connect database!"));*/ 
 			}catch(Exception $e){
 				echo json_encode(array("state"=>"false","message"=>$e->getMessage()));
 			}

@@ -136,15 +136,24 @@ $(document).ready(function (){
 		setTabTemplateLayout();
 		return false;
 	});
-	$('#orgUnitSelect').change(function(){
+	/*$('#orgUnitSelect').change(function(){
 		getRoles("roleSelect",$("orgUnitSelect").val());
 		//setTabTemplateLayout();	
 		return false;
-	});
+	});*/
 	$('#roleSelect').change(function(){
 		setTabTemplateLayout();
 		return false;
 	});	
+	$("#sel_org_unit_role_tab").change(function(){
+		getRoles("sel_roles",$("#sel_org_unit_role_tab").val());
+	});
+});
+$(document).ready(function(){
+		
+		$("#orgUnitSelect").change(function(){
+			getRoles("roleSelect",$("#orgUnitSelect").val());
+		});
 });
 
 
@@ -657,14 +666,7 @@ $(document).ready(function(){
 			//alert("Hi fff"+orgunit);
 			return false;
 	}
-	$(document).ready(function(){
-		$("#sel_org_unit_role_tab").change(function(){
-			getRoles("sel_roles",$("#sel_org_unit_role_tab").val());
-		});
-		$("#orgUnitSelect").change(function(){
-			getRoles("roleSelect",$("#orgUnitSelect").val());
-		});
-	});
+	
 	
 	
 	
