@@ -775,10 +775,12 @@ $(document).ready(function(){
 		//alert(tab_id);
 		var confirmation = confirm("Are you sure to drop this tab?");
 		if(confirmation){
+			var ou_name = $("#choose_ou").val();
+			var role_name = $("#choose_role").val();
 			$.ajax({
 					type: "POST",
 					url: "deleteAssociatedTab.php",
-					data: {"tab_id":tab_id},
+					data: {"tab_id":tab_id,"ou_name":ou_name,"role_name":role_name},
 					success: function(response){
 						var resp_arr = JSON.parse(response);
 						if(resp_arr.status==true){
