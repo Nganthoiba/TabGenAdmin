@@ -118,7 +118,7 @@ function updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_n
 					}
 				}
 				else{ 
-					$response = array("index"=>"".$index,"response"=>"Template dosn't exist","state"=>false);
+					$response = array("index"=>"".$index,"response"=>"Template doesn't exist","state"=>false);
 					echo json_encode($response);
 				}							
 			}

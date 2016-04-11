@@ -10,7 +10,7 @@
 				if($team_name!=null){
 					echo json_encode(array("state"=>true,"team_name"=>$team_name));
 				}
-				else echo json_encode(array("state"=>false,"message"=>"Team does not exist"));
+				else echo json_encode(array("state"=>false,"message"=>"Account does not exist"));
 			}
 			else echo json_encode(array("state"=>false,"message"=>"This account does not refer to any Team"));
 		}

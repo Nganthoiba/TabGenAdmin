@@ -7,6 +7,8 @@
 	if($conn){
 		$res = $conn->query($query);					
 		if($res){
+			$time = time();
+			$conn->query("update table Users set DeleteAt='$time' where TeamId=(select Id from Teams where Name='$ou_name')");
 			$conn->query("delete from Teams where Teams.Name = '$ou_name'");
 			echo "true";
 		}

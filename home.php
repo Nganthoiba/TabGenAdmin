@@ -18,6 +18,7 @@
 		 * */
 		 var arr; /*array for tab template association*/
 		 var prev_tab_name = [];/*Global array for tab name*/
+		 var templates_arr="hello"; /*list of templates*/
 	</script>
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
 	<style type="text/css">		
@@ -97,14 +98,18 @@
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#create_tab_modal">Create Tab</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createuser" 
 						onclick='getRoles("UserRole",$("#OrgUnitList").val());return false;'>	Create Users</a></li>
 					<li><a href="#">Create Tabs Strips</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
-						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Associate Role to Tab</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
-						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Associate Tab to Template</a></li>
+					<!--<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
+						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Associate Role to Tab</a>
+					</li>-->
+					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role">Associate Tabs to Role</a></li>
+					<!--<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
+						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Associate Tab to Template</a>
+					</li>-->
 					<li><a href="#">Edit Profiles</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
 				</ul>
@@ -449,6 +454,179 @@
 						</div>
 					</div>
 				</form>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- Modal for Creating Tab (a simple design)-->
+<div class="modal fade" id="create_tab_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Create Tabs</h4>
+			</div>
+			<div class="modal-body">
+				<div class="panel panel-default">
+				<form class="form-horizontal">
+					<div class="panel-body">							
+						<div class="form-group">
+							<label class="col-sm-4  control-label">Tab Name:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="tab_name"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4  control-label">Choose Template:</label>
+							<div class="col-sm-8">
+								<select class="form-control" id="choose_templates" >
+									<script type="text/JavaScript">
+										$(document).ready(function(){
+												setTemplateList("choose_templates");
+										});
+									</script>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer clearfix">
+						<span id="createTabResponse"></span>
+						<div class="pull-right"><Button type="submit" class="btn btn-info" id="createTab" style="width:60px">Create</Button></div>
+					</div>
+				</form>
+				</div>	
+			</div>	
+		</div>
+	</div>
+</div>
+<script type="text/JavaScript">
+	$(document).ready(function(){
+		//javascript for creating tab
+		$('#createTab').click(function(){
+			var tab_name = $("#tab_name").val();
+			var template_name = $("#choose_templates").val();
+			//alert("org_unit="+org_unit+"&role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name);
+			$.ajax({
+					type: "POST",
+					url: "createTab.php",
+					data: "tab_name="+tab_name+"&template_name="+template_name,
+					success: function(resp){
+						//alert("Response: "+resp);
+						var resp_arr = JSON.parse(resp);
+						if(resp_arr.status==true){
+							getTabs("list_of_tabs");
+							document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
+							document.getElementById("createTabResponse").style.color="black";
+						}
+						else{
+							document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
+							document.getElementById("createTabResponse").style.color="red";
+						}
+					}
+			});
+			return false;
+		});
+	});
+</script>
+
+<!-- Modal for Associating Tabs to role (a simple design)-->
+<div class="modal fade" id="associate_tabs_to_role" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Associate Tabs to Roles</h4>
+			</div>
+			<div class="modal-body">
+				<div class="panel panel-default">
+					<form class="form-horizontal">
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-sm-4  control-label">Organisation Unit:</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="choose_ou" >
+										<script type="text/JavaScript">
+											$(document).ready(function(){
+													viewOrgUnits("dropdown","choose_ou","all");
+													$("#choose_ou").change(function(){
+														getRoles("choose_role",$("#choose_ou").val());
+														getAssociatedTabs("associated_tabs");
+													});
+											});
+										</script>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4  control-label">Select Role:</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="choose_role" >
+										<script type="text/JavaScript">
+											$(document).ready(function(){
+													getRoles("choose_role",$("#choose_ou").val());
+													$("#choose_role").change(function(){
+															getAssociatedTabs("associated_tabs");
+													});
+											});
+										</script>
+									</select>
+								</div>
+							</div><hr/>
+							<div class="form-group">
+								<div class="col-sm-6">
+									<div class="panel panel-default">
+										<div class="panel-heading clearfix">
+											<table width="100%"><tr>
+											<td><h1 class="panel-title">Associated Tabs</h1></td>
+											<td align="right"><div class="pull-right"><Button class="btn btn-info" id="refresh_ass_tab">
+											<span class="glyphicon glyphicon-refresh"></span></Button></div></td>
+											</tr></table>
+										</div>
+									<ul class="list-group" id="associated_tabs" style="max-height: 300px;min-height:300px;
+									overflow: hidden;overflow-y: auto;"></ul>
+									<script type="text/JavaScript">
+										$(document).ready(function(){
+											getAssociatedTabs("associated_tabs");
+											$("#refresh_ass_tab").click(function(){
+												getAssociatedTabs("associated_tabs");
+												return false;
+											});
+										});
+									</script>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="panel panel-default">
+										<div class="panel-heading clearfix">
+											<table width="100%">
+											<tr>
+											<td><h1 class="panel-title">List of Tabs</h1></td>
+											<td align="right"><div class="pull-right">
+													<Button class="btn btn-info" id="refresh_tab_list">
+													<span class="glyphicon glyphicon-refresh"></span></Button>
+												</div>
+											</td>
+											</tr>
+											</table>		
+										</div>
+									<ul class="list-group" id="list_of_tabs" style="max-height:300px;min-height:300px;
+									overflow:hidden; overflow-y:auto"></ul>
+									<script type="text/JavaScript">
+										$(document).ready(function(){
+											getTabs("list_of_tabs");
+											$("#refresh_tab_list").click(function(){
+												getTabs("list_of_tabs");
+												return false;
+											});
+										});
+									</script>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>		
+				</div>
 			</div>	
 		</div>
 	</div>

@@ -72,7 +72,6 @@ function existingNoOfTabs($roleName,$org_unit,$conn){
 	$no_of_tabs = (int)$row['NO_OF_TABS'];
 	return $no_of_tabs;
 }
-
 	
 //to get OU id
 function findOUId($conn,$org_unit){

@@ -24,6 +24,28 @@ $(document).ready(function(){
 	});
 });
 
+/*JavaScript function for setting template to a layout by giving Ids*/
+function setTemplateList(id){	
+	$.ajax({
+		url: "TemplateList.php",
+		success: function(templates_arr) {
+			if(templates_arr=="error" || templates_arr=="false"){
+				document.getElementById(id).innerHTML=" ";
+			}else{
+				var layout="";
+				var json_arr = jQuery.parseJSON(templates_arr);
+				for(var i=0;i<json_arr.length;i++){
+					layout+="<option>"+json_arr[i].name+"</option>";
+				}
+				document.getElementById(id).innerHTML=layout;
+			}
+		},
+		error: function( xhr, status, errorThrown ) {
+			templates_arr=null;
+		}
+	});
+}
+
 /*JavaScript function for getting Tabs and corresponding Templates assigned for respectives roles of a particular organisation*/
 function setTabTemplateLayout(){
 	document.getElementById("tabs_template_result").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -91,7 +113,6 @@ function setTabTemplateLayout(){
 								for(j=0;j<arr.length;j++){
 									var tab_id = arr[j].tab_id;
 									var org_unit=arr[j].OrganisationUnit;
-									//var previous_tab_name = arr[j].Tab_Name;
 									updateTemplate(j,tab_id,org_unit);//updating template
 								}
 								return false;
@@ -622,7 +643,6 @@ $(document).ready(function(){
 					//alert("Error in connecting server. Try again later.");
 				}
 			});
-			//alert("Hi fff"+orgunit);
 			return false;
 	}
 	/*Javascript function to set list of role in div*/
@@ -660,13 +680,117 @@ $(document).ready(function(){
 				},
 				error: function(x,y,z){
 					document.getElementById(id).innerHTML="<center>An unknown problem occurs! Try again later, please.</center>";
-					//alert("Error in connecting server. Try again later.");
+					document.getElementById(id).style.color="red";
 				}
 			});
-			//alert("Hi fff"+orgunit);
 			return false;
 	}
+	function getTabs(id){
+		$.ajax({
+			url: "getTabs.php",
+			success: function(resp){
+				if(resp.trim()=="false"){
+					document.getElementById(id).innerHTML="Unable to connect database";
+				}
+				else{
+					var json_arr = JSON.parse(resp);
+					var layout="";
+					for(var i=0;i<json_arr.length;i++){
+						layout+= "<li class='list-group-item'>"+
+						"<div class='form-group'><div class='col-sm-3'>"+
+						"<Button class='btn btn-info' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+						"<span class='glyphicon glyphicon-chevron-left'></span></Button></div>"+
+						"&nbsp;<div class='col-sm-8'>"+json_arr[i].Name+"</div></div></li>";
+					}
+					document.getElementById(id).innerHTML=layout;
+				}
+			}
+		});
+	}
+	function associate(tab_id){
+		
+		var ou_name = $("#choose_ou").val();
+		var role_name = $("#choose_role").val();
+		if(ou_name.length==0){
+			alert("Choose an OU");
+			return;
+		}
+		if(role_name.length==0){
+			alert("Choose a role");
+			return;
+		}
+		//alert("Tab Id: "+tab_id);
+		$.ajax({
+			type: "POST",
+			url: "associateTab_to_Role.php",
+			data: {"ou_name":ou_name,"role_name":role_name,"tab_id":tab_id},
+			success: function(resp){
+				//alert(resp);
+				if(resp.trim()=="true"){
+					getAssociatedTabs("associated_tabs");
+				}
+				else{
+					alert(resp);
+				}
+			},
+			error: function(x,y,z){
+				alert("Something goes wrong. Please try again later..");
+			}
+			
+		});
+	}
 	
+	function getAssociatedTabs(id){
+		var ou_name = $("#choose_ou").val();
+		var role_name = $("#choose_role").val(); 
+		document.getElementById(id).innerHTML=" ";
+		$.ajax({
+			type: "GET",
+			url: "getAssociatedTabs.php",
+			data: "ou_name="+ou_name+"&role_name="+role_name,
+			success: function(resp){
+				if(resp!="problem"){
+					var resp_array = JSON.parse(resp);
+					var layout=" ";
+					//alert("Length of Array: "+resp_array.length);
+					for(var i=0;i<resp_array.length;i++){
+						layout+="<li class='list-group-item' align='right'><div class='form-group'><div class='col-sm-8'>"+
+									resp_array[i].Name+"</div>&nbsp;&nbsp;"+
+									"<div class='col-sm-2'><Button class='btn btn-danger' "+
+									"onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
+									"return false;'>"+
+									"<span class='glyphicon glyphicon-minus'></span></Button></div></div></li>"	
+					}
+					document.getElementById(id).innerHTML=layout;
+				}
+				else{
+					alert(resp);
+					document.getElementById(id).innerHTML="Something Goes Wrong!";
+				}
+			}
+		});
+	}
+	
+	function deleteAssociatedTab(tab_id){
+		//alert(tab_id);
+		var confirmation = confirm("Are you sure to drop this tab?");
+		if(confirmation){
+			$.ajax({
+					type: "POST",
+					url: "deleteAssociatedTab.php",
+					data: {"tab_id":tab_id},
+					success: function(response){
+						var resp_arr = JSON.parse(response);
+						if(resp_arr.status==true){
+								getAssociatedTabs("associated_tabs");
+						}
+						else {
+							alert(resp_arr.message);
+						}
+					}
+			});
+		}
+	}
 	
 	
 	
