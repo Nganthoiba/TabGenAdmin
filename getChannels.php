@@ -11,7 +11,7 @@ if(!empty($_GET['user_id'])){
 		$query=null;
 		$channels=null;
 		//echo "hi Size: ".sizeof($teams);
-		
+		$accessible_teams=null;
 		for($i=0;$i<sizeof($teams);$i++){//finding all the possible channels for a team
 			$team_name = $teams[$i]['team_name'];
 		
@@ -37,12 +37,13 @@ if(!empty($_GET['user_id'])){
 							$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$username,"members_count"=>$row["members_count"],"Team_Name"=>$row['Team_Name']);
 						}
 					}
+					$accessible_teams[]=$team_name;
 					$output[$i]=array($team_name=>$channels);
 				}
 			}	
 				
 		}
-		$final_array = array("team_list"=>$teams,"channels"=>concate_array($output,getAssociatedChannels($conn,$user_id)));
+		$final_array = array("team_list"=>concate_array($accessible_teams,array("Associated Tabs")),"channels"=>concate_array($output,getAssociatedChannels($conn,$user_id)));
 		print json_encode($final_array);
 		//array($output[0],$output[1],$output[2])
 		//print sizeof($output);
