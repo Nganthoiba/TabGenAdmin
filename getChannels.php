@@ -1,0 +1,66 @@
+<?php
+/* php code for getting list of channels along with IDs associated with the particular teams which the particular user belongs to */
+
+if(!empty($_GET['user_id'])){
+	$user_id = $_GET['user_id'];
+	include('connect_db.php');
+	include('tabgen_php_functions.php');
+	if($conn){
+		$teams=getOUs($conn,$user_id);//getting a	list of user accessible OUs
+		$output=null;
+		//echo "hi Size: ".sizeof($teams);
+		for($i=0;$i<sizeof($teams);$i++){//finding all the possible channels for a team
+			$team_name = $teams[$i]['team_name'];
+			/*if($team_name == "Associated Tabs")
+				echo $team_name."\n";*/
+			$query=null;
+			if($team_name == "Associated Tabs"){
+				$org_unit=getOU_Byuser_Id($conn,$user_id);
+				//echo $org_unit."\n";
+				$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
+							from Channels,ChannelMembers
+							where Channels.Name in(SELECT Tab.Name as tab_name
+							FROM Tab,TabTemplate,RoleTabAsson
+							where Tab.TabTemplate=TabTemplate.Id
+							and TabTemplate.Name='Chat Template'
+							and Tab.Id=RoleTabAsson.TabId
+							and RoleTabAsson.RoleId=(select Id from Role 
+													where OrganisationUnit='$org_unit'))
+							and Channels.DeleteAt=0
+							and Channels.Id=ChannelId
+							group by Channels.Id";	
+				//and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
+			}
+			else{
+				$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
+							from Channels,ChannelMembers
+							where Channels.Name in (select Tab.Name from Tab 
+															where RoleId=(select Id from Role 
+															where OrganisationUnit='$team_name'))
+							and Channels.DeleteAt=0
+							and Channels.Id=ChannelId
+							group by Channels.Id";
+				//and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
+			}	
+			
+						
+			$channels=null;
+			$res = $conn->query($query);
+			if($res){
+				while($row=$res->fetch(PDO::FETCH_ASSOC)){
+					if($row['Channel_name']!="")
+						$channels[]=$row;
+					else{
+						//getting the other user in the private message channel
+						$username=getUserInPrivateMessageChannel($conn,$row['Channel_ID'],$user_id);
+						$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$username,"members_count"=>$row["members_count"],"Team_Name"=>$row['Team_Name']);
+					}
+				}
+				$output[$i]=array($team_name=>$channels);
+			}
+		}
+		$final_array = array("team_list"=>$teams,"channels"=>$output);
+		print json_encode($final_array);
+	}
+}
+?>
