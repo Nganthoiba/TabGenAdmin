@@ -172,6 +172,26 @@ function getRoleByUserId($conn,$user_id){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['Roles'];
 }
+
+//function to find role id by user id
+function findRoleIdByUser_id($conn,$user_id){
+	$query="select Role.Id as role_id,Roles,OrganisationUnit.OrganisationUnit
+	from Users,User_OU_Mapping,OrganisationUnit,Role
+	where Users.Id=User_OU_Mapping.user_id and
+		OrganisationUnit.Id=User_OU_Mapping.OU_id and
+		Role.RoleName=Roles and
+		Role.OrganisationUnit=OrganisationUnit.OrganisationUnit and 
+		Users.Id='$user_id'";
+	$res = $conn->query($query);
+	if($res){
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return $row['role_id'];
+	}else{
+		return null;
+	}
+}
+
+
 //function to concate two arrays
 function concate_array($arr1,$arr2){
 	$res_arr = array();
