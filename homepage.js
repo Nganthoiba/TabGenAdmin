@@ -219,14 +219,15 @@ $(document).ready(function(){
 /*Validating OU name*/
 function validate_ou_name(ou_name)
 {
-	var regexp1=new RegExp("[^a-z]");
+	/*var regexp1=new RegExp("[^a-z]");
 	if(regexp1.test(ou_name))
 	{
 		document.getElementById("error2").innerHTML="<font color='red'>Only alphabets from a to z are allowed, no numbers,"+
 		" no capital latters, no whitespaces</font>";
 		return false;
 	}
-	else return true;
+	else */
+	return true;
 }
 $(document).ready(function (){
     $('#createorgunitbtn').click(function() {
@@ -726,11 +727,12 @@ $(document).ready(function(){
 			data: {"ou_name":ou_name,"role_name":role_name,"tab_id":tab_id},
 			success: function(resp){
 				//alert(resp);
-				if(resp.trim()=="true"){
+				var resp_json = JSON.parse(resp);
+				if(resp_json.status==true){
 					getAssociatedTabs("associated_tabs");
 				}
 				else{
-					alert(resp);
+					alert(resp_json.message);
 				}
 			},
 			error: function(x,y,z){
@@ -784,7 +786,7 @@ $(document).ready(function(){
 					success: function(response){
 						var resp_arr = JSON.parse(response);
 						if(resp_arr.status==true){
-								getAssociatedTabs("associated_tabs");
+							getAssociatedTabs("associated_tabs");
 						}
 						else {
 							alert(resp_arr.message);
@@ -793,6 +795,8 @@ $(document).ready(function(){
 			});
 		}
 	}
+	
+
 	
 	
 	

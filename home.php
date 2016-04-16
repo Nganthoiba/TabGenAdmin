@@ -98,18 +98,18 @@
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#create_tab_modal">Create Tab</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#create_tab_modal">Create Tabs</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
+						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Create OU Specific Tabs</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createuser" 
 						onclick='getRoles("UserRole",$("#OrgUnitList").val());return false;'>	Create Users</a></li>
 					<li><a href="#">Create Tabs Strips</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
-					<!--<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
-						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Associate Role to Tab</a>
-					</li>-->
-					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role">Associate Tabs to Role</a></li>
-					<!--<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
-						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Associate Tab to Template</a>
-					</li>-->
+					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
+						onclick='getRoles("choose_role",$("#choose_ou").val());'>Associate Tabs to Role</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
+						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Update Tabs</a>
+					</li>
 					<li><a href="#">Edit Profiles</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
 				</ul>
@@ -418,8 +418,7 @@
 						</div>
 					</div>
 				</form>
-			</div>
-			
+			</div>			
 		</div>
 	</div>
 </div>
@@ -468,7 +467,7 @@
 				<h4 class="modal-title" id="myModalLabel">Create Tabs</h4>
 			</div>
 			<div class="modal-body">
-				<div class="panel panel-default">
+				<div class="panel panel-default clearfix">
 				<form class="form-horizontal">
 					<div class="panel-body">							
 						<div class="form-group">
@@ -489,11 +488,10 @@
 								</select>
 							</div>
 						</div>
-					</div>
-					<div class="panel-footer clearfix">
-						<span id="createTabResponse"></span>
-						<div class="pull-right"><Button type="submit" class="btn btn-info" id="createTab" style="width:60px">Create</Button></div>
-					</div>
+					</div>	<br/>
+					<div class="panel-footer clearfix"><div class="pull-right"><Button type="submit" class="btn btn-info" id="createTab" style="width:60px">
+							Create</Button></div>
+					<span id="createTabResponse"></span></div>
 				</form>
 				</div>	
 			</div>	
@@ -549,6 +547,7 @@
 										<script type="text/JavaScript">
 											$(document).ready(function(){
 													viewOrgUnits("dropdown","choose_ou","all");
+													getAssociatedTabs("associated_tabs");
 													$("#choose_ou").change(function(){
 														getRoles("choose_role",$("#choose_ou").val());
 														getAssociatedTabs("associated_tabs");
@@ -564,7 +563,7 @@
 									<select class="form-control" id="choose_role" >
 										<script type="text/JavaScript">
 											$(document).ready(function(){
-													getRoles("choose_role",$("#choose_ou").val());
+													//getRoles("choose_role",$("#choose_ou").val());
 													$("#choose_role").change(function(){
 															getAssociatedTabs("associated_tabs");
 													});
@@ -639,7 +638,8 @@ Tabs are created in this section-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Associate Role to Tab</h4>
+				<h4 class="modal-title" id="myModalLabel">Create OU Specific Tabs</h4>
+				<!--Associate Role to Tab-->
 			</div>
 			<div class="modal-body"><div class="panel panel-default">
 				<form class="form-horizontal">	
@@ -686,7 +686,7 @@ Tabs are created in this section-->
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="titleForTab2TemplateAssn">Associate Tab to Tab Templates</h4>
+				<h4 class="modal-title" id="titleForTab2TemplateAssn">Update OU specific Tabs</h4><!--Associate Tab to Tab Templates-->
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">

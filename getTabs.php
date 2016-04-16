@@ -1,7 +1,7 @@
 <?php
 	include('connect_db.php');
 	if($conn){
-			$query = "select * from Tab";
+			$query = "SELECT * FROM Tab where RoleId IS NULL";
 			$res = $conn->query($query);
 			while($row = $res->fetch(PDO::FETCH_ASSOC)){
 				$output[]=$row;

@@ -14,26 +14,39 @@ include('ConnectAPI.php');
 		$ou_name = $_POST['ou_name'];
 		
 		if($template_name=="Chat Template"){
-			$token_id = get_token($ou_name,"thoiba","admin");
+			//$token_id = get_token($ou_name,"thoiba","admin");
+			
+			$token_id = get_token();
+			/*echo json_encode(array("index"=>"".$index,
+				"response"=>"<font color='#198D24'>".$token_id."</font>","state"=>false));*/
+			
 			if($token_id!=null){
 				$channel_details = getChannelByName($conn,$previous_tab_name);
 				if($channel_details==null){
 					//it means no channel same as the tab name has been created so far. so we are going to create one.
-					$team_id = getTeamId_by_OU_name($conn,$ou_name);
+					//$team_id = getTeamId_by_OU_name($conn,$ou_name);
+					session_start();
+					$user_details = json_decode($_SESSION['user_details']);
+					$team_id = $user_details->team_id;
 					$channel_array = array("display_name"=>$tab_name,"name"=>$tab_name,"team_id"=>$team_id,"type"=>"O");
 					$data = json_encode($channel_array);
 					$connection = new ConnectAPI();
+					
 					$url = "http://".IP.":8065/api/v1/channels/create";
 					$response = json_decode($connection->sendPostDataWithToken($url,$data,$token_id));
 					if($connection->httpResponseCode==200){//it means channel has been created successfully
 						updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_name);
+						/*echo json_encode(array("index"=>"".$index,
+							"response"=>"<font color='#198D24'>Channel Created</font>","state"=>false));*/
 					}
 					else{
 						echo json_encode(array("index"=>"".$index,"response"=>"<font color='#C52039'>".$response->message."</font>","state"=>false));
 					}
-					//echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>NULL ".$previous_tab_name."</font>","state"=>false));
+					
 				}
 				else {
+					/*echo json_encode(array("index"=>"".$index,
+				"response"=>"<font color='#198D24'>Old Channel</font>","state"=>false));*/
 					// it means a channel already exists with the same name as tab name, so we are going to update that channel name				
 					/*
 					 * value of $channel_details in the form of json :
@@ -79,7 +92,7 @@ include('ConnectAPI.php');
 				}
 			}
 			else 
-				echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>Token id is null</font>","state"=>false));
+				echo json_encode(array("index"=>"".$index,"response"=>"<font color='#198D24'>Token id is null, your session is expired. Login again.</font>","state"=>false));
 			
 		}
 		else 
@@ -128,7 +141,7 @@ function updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_n
 		}
 }
 
-function get_token($team_name,$username,$password){
+/*function get_token($team_name,$username,$password){
 		$data = array("name"=>$team_name,"username"=>$username,"password"=>$password);
 		$url_send ="http://".IP.":8065/api/v1/users/login";
 		$token=null;
@@ -153,6 +166,6 @@ function get_token($team_name,$username,$password){
 			
 		}
 		return $token;
-}
+}*/
 
 ?>

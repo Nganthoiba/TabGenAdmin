@@ -9,17 +9,22 @@
 			$role_id = findRoleId($conn,$ou_name,$role_name);
 			$query = "insert into RoleTabAsson values('$role_id','$tab_id')";
 			if($role_id!=null){
-				if($conn->query($query)){
-					echo "true";
+				if(!isTabAlreadyAssociated($conn,$role_id,$tab_id)){
+					if($conn->query($query)){
+						echo json_encode(array("status"=>true,"message"=>"Successfully associated."));
+					}
+					else {
+						echo json_encode(array("status"=>false,"message"=>"Unable to associate, an internal problem occurs."));
+					}
 				}
-				else {
-					echo "false";
+				else{
+					echo json_encode(array("status"=>false,"message"=>"Tab is already associated!"));
 				}
 			}
-			else echo "Role does not exist";
+			else echo json_encode(array("status"=>false,"message"=>"Role does not exist!"));
 		}
-		else echo "Database Connection failed";
+		else echo json_encode(array("status"=>false,"message"=>"Database Connection failed!"));
 	}
-	else 
-		echo "Invalid parameter passed!";
+	else echo json_encode(array("status"=>false,"message"=>"Invalid parameter passed!"));
+		
 ?>

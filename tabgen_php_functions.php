@@ -10,8 +10,8 @@ function createTabs($conn,$start,$no_of_tabs,$org_unit,$role_name,$createdBy){
 		if($ou_id!=null){
 			if($role_id!=null){
 				$timestamp = time();
-				$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,Name,RoleName,CreatedBy,RoleId)
-						values('$id','$createAt','$timestamp','$tab_name','$role_name','$createdBy','$role_id')";
+				$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,DeleteAt,Name,RoleName,CreatedBy,RoleId)
+						values('$id','$createAt','$timestamp',0,'$tab_name','$role_name','$createdBy','$role_id')";
 				try{
 					$result = $conn->query($query);
 					if($result){
@@ -90,6 +90,11 @@ function findRoleId($conn,$org_unit,$role_name){
 	if(isset($role_id))
 		return $role_id;
 	else return null;
+}
+
+function mapUserwithOU($conn,$user_id,$ou_id){
+	$query = "insert into User_OU_Mapping values('$user_id','$ou_id')";
+	$conn->query($query);
 }
 //to get template Id
 function findTemplateId($conn,$template_name){
@@ -203,6 +208,40 @@ function getTeams($conn,$user_id){
 	return $output;
 }
 
+//function to find list of OUs accessible by the user by providing user id
+function getOUs($conn,$user_id){
+	$output=null;
+	if(isUserUniversalAccessRight($conn,$user_id)){//checks whether the user is universal access right
+		$query="select OrganisationUnit as team_name from OrganisationUnit order by team_name";
+		$res = $conn->query($query);
+		if($res){
+			$count=0;
+			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$output[]=$row;
+				$count++;
+			}
+			$output[$count]['team_name']="Associated Tabs";
+		}
+	}
+	else{		
+		$my_ou = getOU_Byuser_Id($conn,$user_id);
+		$output= array(array("team_name"=>$my_ou),array("team_name"=>"Associated Tabs"));
+		//echo "OU: ".$my_ou;
+	}
+	return $output;
+}
+
+//function to get OU name by providing OU id
+function getOU_Byuser_Id($conn,$user_id){
+	$query = "SELECT OrganisationUnit
+				FROM User_OU_Mapping,OrganisationUnit
+				WHERE OU_id=OrganisationUnit.Id
+				and user_id='$user_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['OrganisationUnit'];
+}
+
 //function to get team name by providing OU id
 function getTeamByOUId($conn,$ou_id){
 	$query="select Teams.Name as team_name, OrganisationUnit as org_unit_name 
@@ -279,7 +318,7 @@ function getTeamId_by_OU_name($conn,$ou_name){
 
 //function to get channel details by using channel name
 function getChannelByName($conn,$channel_name){
-	$query = "select * from Channels where Name='$channel_name'";
+	$query = "select * from Channels where Name='$channel_name' and DeleteAt=0";
 	$res = $conn->query($query);
 	$count=0;
 	while($row = $res->fetch(PDO::FETCH_ASSOC)){
@@ -290,4 +329,52 @@ function getChannelByName($conn,$channel_name){
 		return $output;
 	else return null;	
 }
+
+//function to check if tab name already exists
+function isTabExist($conn,$tab_name){
+	$query = "select count(*) as count from Tab where Name='$tab_name'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	if((int)$row['count']>0){
+			return true;
+	}
+	else{
+			return false;
+	}
+}
+
+//function to extract token which was stored in session at the time of login
+function get_token(){
+		session_start();
+		$token=null;
+		if(isset($_SESSION['login_header_response'])){
+			$connect = new ConnectAPI();
+			$header = $_SESSION['login_header_response'];
+			$header_array = $connect->http_parse_headers($header);
+					
+			foreach ($header_array as $name => $value) {
+				//echo "The value of '$name' is '$value'<br>";
+				if($name=="Token"){
+					$token = $value;
+					break;
+				}
+			}
+		}
+		else 
+			$token=null;
+											
+		return $token;
+}
+
+//function to check if the tab is already associated to the specific role
+	function isTabAlreadyAssociated($conn,$role_id,$tab_id){
+		$query = "select count(*) as count from RoleTabAsson where RoleId='$role_id' and TabId='$tab_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		$count = (int)$row['count'];
+		if($count>0)
+			return true;
+		else 
+			return false;
+	}
 ?>

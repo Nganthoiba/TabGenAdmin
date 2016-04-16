@@ -15,19 +15,25 @@ include('ConnectAPI.php');
 //include('server_IP.php');
 include('connect_db.php');
 include('tabgen_php_functions.php');
+
 if(validateUserDetails()==true){
 	$id=null;
 	$org_unit_name = $_POST['org_unit'];
 	try{
 		if($conn){
 			$res = $conn->query("SELECT Id,Name from Teams where Name='$org_unit_name'");
-			if($res){
-				while($row=$res->fetch(PDO::FETCH_ASSOC)){
+			
+			session_start();
+			if(isset($_SESSION['user_details'])){
+				//
+				/*while($row=$res->fetch(PDO::FETCH_ASSOC)){
 					if($row['Name']==$_POST['org_unit']){
 						$id = $row['Id'];
 						break;
 					}
-				}
+				}*/
+				$user_details = json_decode($_SESSION['user_details']);
+				$id = $user_details->team_id;
 				$data = array(
 				   "team_id" => $id,
 					"email" => $_POST['email'],
@@ -48,6 +54,8 @@ if(validateUserDetails()==true){
 							$role=$_POST['Role'];	
 							updateUserRole($responseData->id,$conn,$role);
 							userUniversalAccess($conn,$responseData->id,$_POST['type']);
+							$ou_id = findOUId($conn,$org_unit_name);
+							mapUserwithOU($conn,$responseData->id,$ou_id);
 							/*if($_POST['type']=="true")//if the user type is universal
 								allowEveryOpenChannel($conn,$responseData->id);*/
 						}else if($connect->httpResponseCode==0){
@@ -62,6 +70,7 @@ if(validateUserDetails()==true){
 				else 
 					echo "Oops! There may be a problem at the server. Try again later.";
 			}
+			else echo "Session expired, please login again.";
 		}
 	}
 	catch(Exception $e){
