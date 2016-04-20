@@ -11,10 +11,15 @@
 					RoleTabAsson.RoleId='$role_id'";
 		$res = $conn->query($query);
 		if($res){
+			$count=0;
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
 				$output[]=$row;
+				$count++;
 			}
-			echo json_encode($output);
+			if($count>0)
+				echo json_encode($output);
+			else
+				echo "null";
 		}
 		else
 			echo "problem";

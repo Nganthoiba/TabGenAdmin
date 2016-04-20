@@ -11,7 +11,7 @@
 		//echo $tab_id." ".$new_tab_name." ".$template_name." ".$old_tab_name;
 		if($conn){
 			if($template_name!="Chat Template"){
-				updateATab($conn,$tab_id,$new_tab_name);	
+				updateTab($conn,$tab_id,$new_tab_name);	
 			}else{
 				$token_id = get_token();
 				//echo json_encode(array("status"=>false,"message"=>$token_id));
@@ -50,7 +50,7 @@
 						$update_channel_response = json_decode($updateChannel->sendPostDataWithToken($update_channel_url,$update_channel_data,$token_id));
 						if($updateChannel->httpResponseCode==200){
 							//it means channel has been updated successfully
-							updateATab($conn,$tab_id,$new_tab_name);//and now updating the tab name
+							updateTab($conn,$tab_id,$new_tab_name);//and now updating the tab name
 						}
 						else if($updateChannel->httpResponseCode==0){
 							echo json_encode(array("status"=>false,"message"=>"Unable to connect API for updating channel name"));
@@ -72,7 +72,7 @@
 		}
 	}
 	else echo "Invalid Request!";
-	function updateATab($conn,$tab_id,$new_tab_name){
+	function updateTab($conn,$tab_id,$new_tab_name){
 		$query = "update Tab set Name = '$new_tab_name' where Id='$tab_id'";
 		if($conn->query($query)){
 			echo json_encode(array("status"=>true,"message"=>"Tab Name Updated Successfully."));

@@ -640,7 +640,7 @@
 										<script type="text/JavaScript">
 											$(document).ready(function(){
 													viewOrgUnits("dropdown","choose_ou","all");
-													getAssociatedTabs("associated_tabs");
+													//getAssociatedTabs("associated_tabs");
 													$("#choose_ou").change(function(){
 														getRoles("choose_role",$("#choose_ou").val());
 														getAssociatedTabs("associated_tabs");
@@ -664,7 +664,6 @@
 									</select>
 								</div>
 							</div>
-							<hr/>
 							<div class="form-group">
 								<div class="col-sm-6">
 									<div class="panel panel-default">
@@ -684,6 +683,11 @@
 										<script type="text/JavaScript">
 											$(document).ready(function(){
 												//getAssociatedTabs("associated_tabs");
+												$("#associated_tabs").html("<h1 align='center'>Click Refresh button "+
+												"<br/><Button class='btn btn-info' type='button' onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
+												"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
+												" to show the associated Tabs</h1>");
+												$("#associated_tabs").css('color','#A4A4A4');
 												$("#refresh_ass_tab").click(function(){
 													getAssociatedTabs("associated_tabs");
 													return false;
@@ -708,7 +712,7 @@
 											</table>		
 										</div>
 										<div style="max-height:300px;min-height:300px; overflow:hidden; overflow-x:auto;overflow-y:auto;">
-											<table class="table table-bordered" id="list_of_tabs">
+											<table class="table table-striped" id="list_of_tabs">
 											<script type="text/JavaScript">
 												$(document).ready(function(){
 													getTabs("list_of_tabs");
@@ -721,6 +725,19 @@
 											</table>
 										</div>
 									</div>
+									<p>
+										Index:
+										<div class="col-sm-6">
+											<Button class="btn btn-warning" type="button">
+												<!--<span class='glyphicon glyphicon-chevron-left'></span>-->
+											</Button> Global tabs.
+										</div>
+										<div class="col-sm-6">
+											<Button class="btn btn-success" type="button">
+												<!--<span class='glyphicon glyphicon-chevron-left'></span>-->
+											</Button> OU specific tabs.
+										</div>
+									</p>
 								</div>									
 							</div>
 						</div>

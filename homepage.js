@@ -687,6 +687,8 @@ $(document).ready(function(){
 			return false;
 	}
 	function getTabs(id){
+		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
+		document.getElementById(id).style.color="black";
 		$.ajax({
 			url: "getTabs.php",
 			success: function(resp){
@@ -738,7 +740,7 @@ $(document).ready(function(){
 								"</form>"+
 							"</div>"+
 						"</td>"+
-						"<td align='right'><a href='#'>Delete</a></td>"+"</tr>";
+						"<td align='right'><a href='#' onclick='deleteTab(\""+json_arr[i].Id+"\")'>Delete</a></td>"+"</tr>";
 						/*
 						 * 
 						"<td>"+
@@ -751,7 +753,7 @@ $(document).ready(function(){
 					for(var i=0;i<json_arr.length;i++){
 						$("[data-toggle='popover"+i+"']").popover({
 							html: true,
-							title: "Edit tab name here",
+							title: "Edit tab name here:",
 							placement: "left", 
 							content: getPopupContent(i)	
 						});
@@ -846,13 +848,21 @@ $(document).ready(function(){
 	function getAssociatedTabs(id){
 		var ou_name = $("#choose_ou").val();
 		var role_name = $("#choose_role").val(); 
-		document.getElementById(id).innerHTML=" ";
+		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
+		document.getElementById(id).style.color="#A4A4A4";
 		$.ajax({
 			type: "GET",
 			url: "getAssociatedTabs.php",
 			data: "ou_name="+ou_name+"&role_name="+role_name,
 			success: function(resp){
-				if(resp!="problem"){
+				//alert(resp);
+				if(resp=="problem"){
+					alert(resp);
+					document.getElementById(id).innerHTML="Something Goes Wrong!";
+				}else if(resp.trim()=="null"){
+					document.getElementById(id).innerHTML="<h1 align='center'>No Record Found!</h1>";
+					document.getElementById(id).style.color="#FE642E";
+				}else {
 					var resp_array = JSON.parse(resp);
 					var layout=" ";
 					//alert("Length of Array: "+resp_array.length);
@@ -865,10 +875,6 @@ $(document).ready(function(){
 									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";	
 					}
 					document.getElementById(id).innerHTML=layout;
-				}
-				else{
-					alert(resp);
-					document.getElementById(id).innerHTML="Something Goes Wrong!";
 				}
 			}
 		});
@@ -895,6 +901,32 @@ $(document).ready(function(){
 					}
 			});
 		}
+	}
+	
+	function deleteTab(tab_id){
+		var confirm_var = confirm("Are you sure to delete this tab?");
+		if(confirm_var){
+			$.ajax({
+				type: "POST",
+				url: "delete_a_tab.php",
+				data: {"tab_id":tab_id},
+				success: function(resp){
+					var resp_arr = JSON.parse(resp);
+					//alert(resp);
+					if(resp_arr.status==true){
+						getTabs("list_of_tabs");//refreshing the tab list
+						getAssociatedTabs("associated_tabs");
+					}
+					else{
+						alert(resp_arr.message);
+					}
+				},
+				error: function(x,y,z){
+					alert("Something goes wrong...");
+				}
+			});
+		}
+		return false;
 	}
 	
 
