@@ -687,7 +687,9 @@
 											$(document).ready(function(){
 												//getAssociatedTabs("associated_tabs");
 												$("#associated_tabs").html("<h1 align='center'>Click Refresh button "+
-												"<br/><Button class='btn btn-info' type='button' onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
+												"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
+												"style='border-radius:50%'"+
+												"onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
 												"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
 												" to show the associated Tabs</h1>");
 												$("#associated_tabs").css('color','#A4A4A4');
@@ -728,19 +730,18 @@
 											</table>
 										</div>
 									</div>
-									<p>
+									<div class="pull-right">
 										Index:
-										<div class="col-sm-6">
-											<Button class="btn btn-warning" type="button">
+											<Button class="btn btn-warning" type="button"
+												style="width: 3px;height: 3px; border-radius: 50%;">
 												<!--<span class='glyphicon glyphicon-chevron-left'></span>-->
 											</Button> Global tabs.
-										</div>
-										<div class="col-sm-6">
-											<Button class="btn btn-success" type="button">
+										
+											<Button style="width: 3px;height: 3px; border-radius: 50%;" 
+												class="btn btn-success" type="button">
 												<!--<span class='glyphicon glyphicon-chevron-left'></span>-->
 											</Button> OU specific tabs.
-										</div>
-									</p>
+									</div>
 								</div>									
 							</div>
 						</div>

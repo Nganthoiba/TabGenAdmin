@@ -710,7 +710,8 @@ $(document).ready(function(){
 						prev_tab_name[i] = 	json_arr[i].Name;
 						
 						layout+= "<tr><td>"+
-						"<Button class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+						"<Button style='width: 50px;height: 50px;border-radius: 50%;' "+
+						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
 						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
 						"<td style='overflow: hidden;overflow-x: auto;max-width:120px'>"+
 							"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
@@ -871,6 +872,7 @@ $(document).ready(function(){
 						layout+="<tr><td><div class='col-sm-8'>"+
 									resp_array[i].Name+"</div></td>"+
 									"<td align='right'><Button class='btn btn-danger' "+
+									"style='width: 50px;height: 50px;border-radius: 50%;'"+
 									"onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
 									"return false;'>"+
 									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";	
