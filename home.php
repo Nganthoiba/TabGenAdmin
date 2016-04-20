@@ -103,7 +103,7 @@
 					<li><a href="#" data-toggle="modal" data-target="#create_tab_modal">Create Tabs</a></li>
 					<!--<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
 						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Create OU Specific Tabs</a>
-						</li>-->
+					</li>-->
 					<li><a href="#" data-toggle="modal" data-target="#createuser" 
 						onclick='getRoles("UserRole",$("#OrgUnitList").val());return false;'>	Create Users</a></li>
 					<li><a href="#">Create Tabs Strips</a></li>
@@ -603,6 +603,24 @@
 	});
 </script>
 
+<!-- Modal for logout -->
+<div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Logout Confirmation</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger">
+				  <center><strong>Logout! &nbsp;</strong> Are you sure?</center>
+				</div>
+				<center><a href="logout.php" class="btn btn-default" style="width:20%" id="YesLogout">Yes</a></center>
+			</div>	
+		</div>
+	</div>
+</div>
+
 <!-- Modal for Associating Tabs to role (a simple design)-->
 <div class="modal fade" id="associate_tabs_to_role" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
@@ -631,8 +649,7 @@
 										</script>
 									</select>
 								</div>
-							<!--</div>
-							<div class="form-group">-->
+							
 								<div class="col-sm-6">
 									<label class="control-label" for="choose_role">Select Role:</label>
 									<select class="form-control" id="choose_role" >
@@ -646,7 +663,8 @@
 										</script>
 									</select>
 								</div>
-							</div><hr/>
+							</div>
+							<hr/>
 							<div class="form-group">
 								<div class="col-sm-6">
 									<div class="panel panel-default">
@@ -658,20 +676,20 @@
 											</tr></table>
 										</div>
 										
-									<div style="max-height: 300px;min-height:300px;overflow: hidden;overflow-y: auto;">
-										<table class="table table-striped" id="associated_tabs">
-										
-										</table>
-									</div>
-									<script type="text/JavaScript">
-										$(document).ready(function(){
-											//getAssociatedTabs("associated_tabs");
-											$("#refresh_ass_tab").click(function(){
-												getAssociatedTabs("associated_tabs");
-												return false;
+										<div style="max-height: 300px;min-height:300px;overflow: hidden;overflow-y: auto;">
+											<table class="table table-striped" id="associated_tabs">
+											
+											</table>
+										</div>
+										<script type="text/JavaScript">
+											$(document).ready(function(){
+												//getAssociatedTabs("associated_tabs");
+												$("#refresh_ass_tab").click(function(){
+													getAssociatedTabs("associated_tabs");
+													return false;
+												});
 											});
-										});
-									</script>
+										</script>
 									</div>
 								</div>
 								<div class="col-sm-6">
@@ -679,65 +697,31 @@
 										<div class="panel-heading clearfix">
 											<table width="100%">
 											<tr>
-											<td><h1 class="panel-title">List of Tabs</h1></td>
-											<td align="right"><div class="pull-right">
-													<Button class="btn btn-info" id="refresh_tab_list">
-													<span class="glyphicon glyphicon-refresh"></span></Button>
-												</div>
-											</td>
+												<td><h1 class="panel-title">List of Tabs</h1></td>
+												<td align="right">
+													<div class="pull-right">
+														<Button class="btn btn-info" id="refresh_tab_list">
+														<span class="glyphicon glyphicon-refresh"></span></Button>
+													</div>
+												</td>
 											</tr>
 											</table>		
 										</div>
-									<div style="max-height:300px;min-height:300px; overflow:hidden; overflow-x:auto;overflow-y:auto;">
-									<table class="table table-bordered" id="list_of_tabs">
-									<script type="text/JavaScript">
-										$(document).ready(function(){
-											getTabs("list_of_tabs");
-											$("#refresh_tab_list").click(function(){
-												getTabs("list_of_tabs");
-												return false;
-											});
-										});
-									</script></table></div>
-									<!--<div class="container">
-									  <h3>Popover Example</h3>
-										<a href="#" data-toggle="popover">Click me</a>
-										<li><a data-placement="bottom" data-toggle="popover" data-title="Login" data-container="body" 
-												type="button" data-trigger="focus" data-html="true" href="#" id="login">Login</a></li>
-									</div>-->
-								</div>
-								<!--
-								<div class="container">				  		
-									<div id="popover-content" class="hide">
-										<form class="form-horizontal" role="form">
-											<div>
-												<table>
-													<tr>
-														<td><input type="text" placeholder="Tab Name"
-														 id="updated_tab_name" name="tab_name" class="form-control"/></td>
-														<td>
-															<button type="button" class="btn btn-primary" 
-															onclick="show('2');" id="saveTabName" style="float:right">Save</button>
-														</td>
-													</tr>
-												</table>
-											</div>
-										</form>
+										<div style="max-height:300px;min-height:300px; overflow:hidden; overflow-x:auto;overflow-y:auto;">
+											<table class="table table-bordered" id="list_of_tabs">
+											<script type="text/JavaScript">
+												$(document).ready(function(){
+													getTabs("list_of_tabs");
+													$("#refresh_tab_list").click(function(){
+														getTabs("list_of_tabs");
+														return false;
+													});
+												});
+											</script>
+											</table>
+										</div>
 									</div>
-								</div>-->
-								<script type="text/JavaScript">
-									
-									/*$(document).ready(function(){
-										$("[data-toggle='popover']").popover({
-											html: true,
-											title: "Update tab here",
-											placement: "left", 
-											content: function() {
-												return $('#popover-content').html();
-											}		
-										});
-									});*/			
-								</script>
+								</div>									
 							</div>
 						</div>
 					</form>		
@@ -831,22 +815,9 @@ Tabs are created in this section-->
 		</div>
 	</div>
 </div>
-<!-- Modal for logout -->
-<div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-sm" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Logout Confirmation</h4>
-			</div>
-			<div class="modal-body">
-				<div class="alert alert-danger">
-				  <center><strong>Logout! &nbsp;</strong> Are you sure?</center>
-				</div>
-				<center><a href="logout.php" class="btn btn-default" style="width:20%" id="YesLogout">Yes</a></center>
-			</div>	
-		</div>
-	</div>
-</div><?php } ?>
+
+
+
+<?php } ?>
 </body>
 </html>

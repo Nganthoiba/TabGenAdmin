@@ -737,7 +737,7 @@ $(document).ready(function(){
 									"</div>"+
 								"</form>"+
 							"</div>"+
-						"</div></td>"+
+						"</td>"+
 						"<td align='right'><a href='#'>Delete</a></td>"+"</tr>";
 						/*
 						 * 
@@ -806,8 +806,6 @@ $(document).ready(function(){
 				alert("Something goes wrong. Please try again later..");
 			}
 		});
-		//document.getElementById("tabname"+i).innerHTML=tab_name;
-		//document.getElementById("updated_tab_name"+i).innerHTML=tab;
 		return false;
 	}
 	
