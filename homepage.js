@@ -717,7 +717,8 @@ $(document).ready(function(){
 							"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 						"</td>"+
 						"<td align='right'>"+
-							"<a href='#' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>Edit</a>"+			  		
+							"<a href='#' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
+							"<span class='glyphicon glyphicon-pencil'></span></a>"+			  		
 							"<div class='container' style='width:2px'><div style='width:200px' class='hide' id='popover-content"+i+"'>"+
 								"<form class='form-horizontal' role='form'>"+
 									"<div>"+
@@ -741,7 +742,8 @@ $(document).ready(function(){
 								"</form>"+
 							"</div>"+
 						"</td>"+
-						"<td align='right'><a href='#' onclick='deleteTab(\""+json_arr[i].Id+"\")'>Delete</a></td>"+"</tr>";
+						"<td align='right'><a href='#' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+						"<span class='glyphicon glyphicon-remove'></span></a></td>"+"</tr>";
 						/*
 						 * 
 						"<td>"+
@@ -861,7 +863,7 @@ $(document).ready(function(){
 					alert(resp);
 					document.getElementById(id).innerHTML="Something Goes Wrong!";
 				}else if(resp.trim()=="null"){
-					document.getElementById(id).innerHTML="<div>"+
+					document.getElementById(id).innerHTML="<br/><div>"+
 					"<h1 align='center'>No Record Found!</h1></div>";
 					document.getElementById(id).style.color="#FE642E";
 				}else {
@@ -871,7 +873,7 @@ $(document).ready(function(){
 					for(var i=0;i<resp_array.length;i++){
 						layout+="<tr><td><div class='col-sm-8'>"+
 									resp_array[i].Name+"</div></td>"+
-									"<td align='right'><Button class='btn btn-danger' "+
+									"<td align='right'><Button type='button' class='btn btn-default' "+
 									"style='width: 50px;height: 50px;border-radius: 50%;'"+
 									"onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
 									"return false;'>"+

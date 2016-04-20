@@ -688,7 +688,7 @@
 												//getAssociatedTabs("associated_tabs");
 												$("#associated_tabs").html("<h1 align='center'>Click Refresh button "+
 												"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
-												"style='border-radius:50%'"+
+												"style='height:80px;width:80px;border-radius:50%'"+
 												"onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
 												"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
 												" to show the associated Tabs</h1>");
