@@ -691,23 +691,123 @@ $(document).ready(function(){
 			url: "getTabs.php",
 			success: function(resp){
 				if(resp.trim()=="false"){
-					document.getElementById(id).innerHTML="Unable to connect database";
+					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
+				}
+				else if(resp.trim()=="sesssion_expired"){
+					document.getElementById(id).innerHTML="<h1>Oops! Session expired, Please Login again.</h1>";
 				}
 				else{
 					var json_arr = JSON.parse(resp);
-					var layout="";
+					var layout=" ";
 					for(var i=0;i<json_arr.length;i++){
-						layout+= "<li class='list-group-item'>"+
-						"<div class='form-group'><div class='col-sm-3'>"+
-						"<Button class='btn btn-info' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
-						"<span class='glyphicon glyphicon-chevron-left'></span></Button></div>"+
-						"&nbsp;<div class='col-sm-8'>"+json_arr[i].Name+"</div></div></li>";
+						var btn_class;
+						if(json_arr[i].RoleId == null)
+							btn_class="btn btn-warning";	
+						else
+							btn_class="btn btn-success";
+						prev_tab_name[i] = 	json_arr[i].Name;
+						
+						layout+= "<tr><td>"+
+						"<Button class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
+						"<td style='overflow: hidden;overflow-x: auto;max-width:120px'>"+
+							"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+						"</td>"+
+						"<td align='right'>"+
+							"<a href='#' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>Edit</a>"+			  		
+							"<div class='container' style='width:2px'><div style='width:200px' class='hide' id='popover-content"+i+"'>"+
+								"<form class='form-horizontal' role='form'>"+
+									"<div>"+
+										"<table>"+
+											"<tr>"+
+												"<td>"+
+													"<input type='text' value='"+json_arr[i].Name+"'"+
+														"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
+												"</td>"+
+												"<td>"+
+													"<button type='button' class='btn btn-info'"+ 
+														"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
+															"\",\""+json_arr[i].Template_Name+"\")'"+
+														"id='saveTabName"+i+"'"+
+														"style='float:right'>Save</button>"+
+												"</td>"+
+											"</tr>"+
+											"<tr><td colspan='2'><span id='upadate_tab_resp"+i+"'></span></td></tr>"+
+										"</table>"+
+									"</div>"+
+								"</form>"+
+							"</div>"+
+						"</div></td>"+
+						"<td align='right'><a href='#'>Delete</a></td>"+"</tr>";
+						/*
+						 * 
+						"<td>"+
+							"<div>"+json_arr[i].Template_Name+"</div>"+
+						"</td>"+
+						 * */
 					}
 					document.getElementById(id).innerHTML=layout;
+					
+					for(var i=0;i<json_arr.length;i++){
+						$("[data-toggle='popover"+i+"']").popover({
+							html: true,
+							title: "Edit tab name here",
+							placement: "left", 
+							content: getPopupContent(i)	
+						});
+					}
+					
+					/*
+					 * $("[data-toggle='popover']").popover({
+							html: true,
+							title: "Update tab here",
+							placement: "left", 
+							content: function() {
+								return $('#popover-content'+i).html();
+							}		
+						});
+					 * */
 				}
 			}
 		});
 	}
+	//getting popup content according to the index
+	function getPopupContent(index){
+		return $("#popover-content"+index).html();
+	}
+	//function to update a tab name
+	function updateTab(i,tab_id,template_name){
+		//alert("Tab index:"+i+" Tab Id: "+tab_id+" Template Name: "+template_name);
+		var new_tab_name = $("#updated_tab_name"+i).val();
+		var old_tab_name = prev_tab_name[i];
+		//alert(old_tab_name);
+		//alert("New tab: "+tab_name);
+		$.ajax({
+			type: "POST",
+			url: "updateTab.php",
+			data: {"tab_id":tab_id,"old_tab_name":old_tab_name,"new_tab_name":new_tab_name,"template_name":template_name},
+			success: function(resp){
+				//alert(resp);
+				var resp_arr = JSON.parse(resp);
+				if(resp_arr.status==true){
+					//prev_tab_name[i]=new_tab_name;
+					getTabs("list_of_tabs");//refreshing the tab list
+					getAssociatedTabs("associated_tabs");
+				}
+				else{
+					alert(resp_arr.message);
+					document.getElementById("upadate_tab_resp"+i).innerHTML="<p>"+resp_arr.message+"</p>";
+				}
+			},
+			error: function(x,y,z){
+				alert("Something goes wrong. Please try again later..");
+			}
+		});
+		//document.getElementById("tabname"+i).innerHTML=tab_name;
+		//document.getElementById("updated_tab_name"+i).innerHTML=tab;
+		return false;
+	}
+	
 	function associate(tab_id){
 		
 		var ou_name = $("#choose_ou").val();
@@ -756,12 +856,12 @@ $(document).ready(function(){
 					var layout=" ";
 					//alert("Length of Array: "+resp_array.length);
 					for(var i=0;i<resp_array.length;i++){
-						layout+="<li class='list-group-item' align='right'><div class='form-group'><div class='col-sm-8'>"+
-									resp_array[i].Name+"</div>&nbsp;&nbsp;"+
-									"<div class='col-sm-2'><Button class='btn btn-danger' "+
+						layout+="<tr><td><div class='col-sm-8'>"+
+									resp_array[i].Name+"</div></td>"+
+									"<td align='right'><Button class='btn btn-danger' "+
 									"onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
 									"return false;'>"+
-									"<span class='glyphicon glyphicon-minus'></span></Button></div></div></li>"	
+									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";	
 					}
 					document.getElementById(id).innerHTML=layout;
 				}

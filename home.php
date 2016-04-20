@@ -19,6 +19,8 @@
 		 var arr; /*array for tab template association*/
 		 var prev_tab_name = [];/*Global array for tab name*/
 		 var templates_arr="hello"; /*list of templates*/
+		 var tabs=[];
+		 var json_arr;
 	</script>
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
 	<style type="text/css">		
@@ -99,17 +101,18 @@
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#create_tab_modal">Create Tabs</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
-						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Create OU Specific Tabs</a></li>
+					<!--<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
+						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Create OU Specific Tabs</a>
+						</li>-->
 					<li><a href="#" data-toggle="modal" data-target="#createuser" 
 						onclick='getRoles("UserRole",$("#OrgUnitList").val());return false;'>	Create Users</a></li>
 					<li><a href="#">Create Tabs Strips</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
 						onclick='getRoles("choose_role",$("#choose_ou").val());'>Associate Tabs to Role</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
+					<!--<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
 						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Update Tabs</a>
-					</li>
+					</li>-->
 					<li><a href="#">Edit Profiles</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
 				</ul>
@@ -477,7 +480,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-4  control-label">Choose Template:</label>
+							<label class="col-sm-4  control-label">Choose a Template:</label>
 							<div class="col-sm-8">
 								<select class="form-control" id="choose_templates" >
 									<script type="text/JavaScript">
@@ -488,10 +491,21 @@
 								</select>
 							</div>
 						</div>
-					</div>	<br/>
-					<div class="panel-footer clearfix"><div class="pull-right"><Button type="submit" class="btn btn-info" id="createTab" style="width:60px">
+						<div class="form-group">
+							<label class="col-sm-4  control-label">OU Specific:</label>
+							<div class="col-sm-8">
+								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_yes" value="Yes"/>Yes</label>
+								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_no" value="No"/>No</label>
+							</div>
+						</div>
+						<div class="form-group" id="ou_selector_region"></div>
+						<div class="form-group" id="role_selector_region"></div>
+					</div>	
+					<div class="panel-footer clearfix">
+						<div class="pull-right"><Button type="submit" class="btn btn-info" id="createTab">
 							Create</Button></div>
 					<span id="createTabResponse"></span></div>
+					
 				</form>
 				</div>	
 			</div>	
@@ -500,29 +514,90 @@
 </div>
 <script type="text/JavaScript">
 	$(document).ready(function(){
+		//If the tab to be created is OU specific
+		$('#ou_specific_yes').click(function(){	
+			//alert("Yes");
+			$('#ou_selector_region').html("<label class='col-sm-4  control-label' for='ou_selector'>Select an OU:</label>"+
+				"<div class='col-sm-8'><select id='ou_selector' class='form-control'></select></div>");
+			$('#role_selector_region').html("<label class='col-sm-4 control-label'>Select a Role:</label>"+
+				"<div class='col-sm-8'><select id='role_selector' class='form-control'></select></div>");
+			viewOrgUnits("dropdown","ou_selector","all");
+			
+			$("#ou_selector").change(function(){
+				getRoles("role_selector",$("#ou_selector").val());
+			});
+			$("#ou_selector").click(function(){
+				getRoles("role_selector",$("#ou_selector").val());
+			});
+		
+		});
+		
+		//If the tab to be created is OU specific
+		$('#ou_specific_no').click(function(){
+			
+			//alert("No");
+			$('#ou_selector_region').html(" ");
+			$('#role_selector_region').html(" ");
+		
+		});
+		
 		//javascript for creating tab
 		$('#createTab').click(function(){
+			document.getElementById("createTabResponse").innerHTML="<center>Wait please....</center>";
+			document.getElementById("createTabResponse").style.color="black";
 			var tab_name = $("#tab_name").val();
 			var template_name = $("#choose_templates").val();
+			var ou_specific = document.getElementById("ou_specific_yes").checked;
+			var post_data;//data to be posted
+			
 			//alert("org_unit="+org_unit+"&role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name);
-			$.ajax({
-					type: "POST",
-					url: "createTab.php",
-					data: "tab_name="+tab_name+"&template_name="+template_name,
-					success: function(resp){
-						//alert("Response: "+resp);
-						var resp_arr = JSON.parse(resp);
-						if(resp_arr.status==true){
-							getTabs("list_of_tabs");
-							document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
-							document.getElementById("createTabResponse").style.color="black";
+			if(tab_name.length==0){
+				document.getElementById("createTabResponse").innerHTML="<center>Give a Tab name</center>";
+				document.getElementById("createTabResponse").style.color="red";
+				return false;
+			}
+			//Check if the tab to be created is ou specific or not
+			if(ou_specific==true){
+				var ou_name = $("#ou_selector").val();
+				var role_name = $("#role_selector").val();
+				if(role_name==null){
+					document.getElementById("createTabResponse").innerHTML="<center>Select a role.</center>";
+					document.getElementById("createTabResponse").style.color="red";
+					//alert("Select a role.");
+					return false;
+				 }
+				else post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,
+						"ou_name":ou_name,"role_name":role_name};
+			}
+			else if(ou_specific==false){
+				post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific};
+			
+			}
+			
+			if(document.getElementById("ou_specific_yes").checked==true || document.getElementById("ou_specific_no").checked==true){
+				
+				$.ajax({
+						type: "POST",
+						url: "createTab.php",
+						data: post_data,
+						success: function(resp){
+							//alert("Response: "+resp);
+							var resp_arr = JSON.parse(resp);
+							if(resp_arr.status==true){
+								getTabs("list_of_tabs");
+								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
+								document.getElementById("createTabResponse").style.color="black";
+							}
+							else{
+								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
+								document.getElementById("createTabResponse").style.color="red";
+							}
 						}
-						else{
-							document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
-							document.getElementById("createTabResponse").style.color="red";
-						}
-					}
-			});
+				});
+			}else{
+				document.getElementById("createTabResponse").innerHTML="<center>You have to select whether the tab should be OU specific or not.</center>";
+				document.getElementById("createTabResponse").style.color="red";
+			}
 			return false;
 		});
 	});
@@ -530,7 +605,7 @@
 
 <!-- Modal for Associating Tabs to role (a simple design)-->
 <div class="modal fade" id="associate_tabs_to_role" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -541,8 +616,8 @@
 					<form class="form-horizontal">
 						<div class="panel-body">
 							<div class="form-group">
-								<label class="col-sm-4  control-label">Organisation Unit:</label>
-								<div class="col-sm-8">
+								<div class="col-sm-6">
+									<label class="control-label" for="choose_ou">Organisation Unit:</label>
 									<select class="form-control" id="choose_ou" >
 										<script type="text/JavaScript">
 											$(document).ready(function(){
@@ -556,10 +631,10 @@
 										</script>
 									</select>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4  control-label">Select Role:</label>
-								<div class="col-sm-8">
+							<!--</div>
+							<div class="form-group">-->
+								<div class="col-sm-6">
+									<label class="control-label" for="choose_role">Select Role:</label>
 									<select class="form-control" id="choose_role" >
 										<script type="text/JavaScript">
 											$(document).ready(function(){
@@ -582,11 +657,15 @@
 											<span class="glyphicon glyphicon-refresh"></span></Button></div></td>
 											</tr></table>
 										</div>
-									<ul class="list-group" id="associated_tabs" style="max-height: 300px;min-height:300px;
-									overflow: hidden;overflow-y: auto;"></ul>
+										
+									<div style="max-height: 300px;min-height:300px;overflow: hidden;overflow-y: auto;">
+										<table class="table table-striped" id="associated_tabs">
+										
+										</table>
+									</div>
 									<script type="text/JavaScript">
 										$(document).ready(function(){
-											getAssociatedTabs("associated_tabs");
+											//getAssociatedTabs("associated_tabs");
 											$("#refresh_ass_tab").click(function(){
 												getAssociatedTabs("associated_tabs");
 												return false;
@@ -609,8 +688,8 @@
 											</tr>
 											</table>		
 										</div>
-									<ul class="list-group" id="list_of_tabs" style="max-height:300px;min-height:300px;
-									overflow:hidden; overflow-y:auto"></ul>
+									<div style="max-height:300px;min-height:300px; overflow:hidden; overflow-x:auto;overflow-y:auto;">
+									<table class="table table-bordered" id="list_of_tabs">
 									<script type="text/JavaScript">
 										$(document).ready(function(){
 											getTabs("list_of_tabs");
@@ -619,9 +698,46 @@
 												return false;
 											});
 										});
-									</script>
-									</div>
+									</script></table></div>
+									<!--<div class="container">
+									  <h3>Popover Example</h3>
+										<a href="#" data-toggle="popover">Click me</a>
+										<li><a data-placement="bottom" data-toggle="popover" data-title="Login" data-container="body" 
+												type="button" data-trigger="focus" data-html="true" href="#" id="login">Login</a></li>
+									</div>-->
 								</div>
+								<!--
+								<div class="container">				  		
+									<div id="popover-content" class="hide">
+										<form class="form-horizontal" role="form">
+											<div>
+												<table>
+													<tr>
+														<td><input type="text" placeholder="Tab Name"
+														 id="updated_tab_name" name="tab_name" class="form-control"/></td>
+														<td>
+															<button type="button" class="btn btn-primary" 
+															onclick="show('2');" id="saveTabName" style="float:right">Save</button>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</form>
+									</div>
+								</div>-->
+								<script type="text/JavaScript">
+									
+									/*$(document).ready(function(){
+										$("[data-toggle='popover']").popover({
+											html: true,
+											title: "Update tab here",
+											placement: "left", 
+											content: function() {
+												return $('#popover-content').html();
+											}		
+										});
+									});*/			
+								</script>
 							</div>
 						</div>
 					</form>		
@@ -630,6 +746,8 @@
 		</div>
 	</div>
 </div>
+
+
 
 <!-- Modal for Associating Role to Tab 
 Tabs are created in this section-->
