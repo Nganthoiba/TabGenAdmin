@@ -52,7 +52,7 @@ if(!empty($_GET['user_id'])){
 			}	
 				
 		}
-		$final_array = array("team_list"=>concate_array($accessible_teams,array("Associated Tabs")),"channels"=>concate_array($output,getAssociatedChannels($conn,$user_id,$role_id)));
+		$final_array = array("team_list"=>concate_array(array("Associated Tabs"),$accessible_teams),"channels"=>concate_array(getAssociatedChannels($conn,$user_id,$role_id),$output));
 		print json_encode($final_array);
 		//array($output[0],$output[1],$output[2])
 		//print sizeof($output);
