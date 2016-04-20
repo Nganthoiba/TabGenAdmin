@@ -661,7 +661,7 @@ $(document).ready(function(){
 					else{
 						document.getElementById(id).style.color="black";
 						var arr = JSON.parse(data);
-						var roleList="<div class='panel panel-info'>"+
+						var roleList="<div class='panel panel-default'>"+
 							"<div class='panel-heading'><h1 class='panel-title'>List of existing roles:</h1></div>"+
 							"<table border='0' class='table table-bordered'>"+
 							"<tr><th style='background-color:#90C6F3;color:#FFFFFF'>Role Name</th>"+
@@ -710,13 +710,13 @@ $(document).ready(function(){
 						prev_tab_name[i] = 	json_arr[i].Name;
 						
 						layout+= "<tr><td>"+
-						"<Button style='width: 50px;height: 50px;border-radius: 50%;' "+
+						"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
 						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
 						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-						"<td style='overflow: hidden;overflow-x: auto;max-width:120px'>"+
+						"<td valign='middle' style='overflow: hidden;overflow-x: auto;max-width:120px'>"+
 							"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 						"</td>"+
-						"<td align='right'>"+
+						"<td valign='middle' align='right'>"+
 							"<a href='#' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
 							"<span class='glyphicon glyphicon-pencil'></span></a>"+			  		
 							"<div class='container' style='width:2px'><div style='width:200px' class='hide' id='popover-content"+i+"'>"+
@@ -742,7 +742,7 @@ $(document).ready(function(){
 								"</form>"+
 							"</div>"+
 						"</td>"+
-						"<td align='right'><a href='#' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+						"<td valign='middle' align='right'><a href='#' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
 						"<span class='glyphicon glyphicon-remove'></span></a></td>"+"</tr>";
 						/*
 						 * 
@@ -871,10 +871,10 @@ $(document).ready(function(){
 					var layout=" ";
 					//alert("Length of Array: "+resp_array.length);
 					for(var i=0;i<resp_array.length;i++){
-						layout+="<tr><td><div class='col-sm-8'>"+
+						layout+="<tr><td valign='middle'><div class='col-sm-8'>"+
 									resp_array[i].Name+"</div></td>"+
-									"<td align='right'><Button type='button' class='btn btn-default' "+
-									"style='width: 50px;height: 50px;border-radius: 50%;'"+
+									"<td align='right' ><Button type='button' class='btn btn-default' "+
+									"style='width: 40px;height: 40px;border-radius: 50%;'"+
 									"onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
 									"return false;'>"+
 									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";	

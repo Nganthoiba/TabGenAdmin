@@ -41,6 +41,7 @@
 		.my_table {width:100%}
 		h4 {font-family:calibri}
 		table th {background-color:#F2F2F2}
+		td {vertical-align:middle}
 	</style>
 	
 </head>
@@ -270,33 +271,38 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post">
-					<div class="form-group">
-						<label class="col-sm-4  control-label" for="ousel">Organization Unit</label>
-						<div class="col-sm-4">
-							<select class="form-control" id="ousel" style="float:center">
-								<script type="text/JavaScript">
-									$(document).ready(function(){
-										viewOrgUnits("dropdown","ousel","all");
-									});
-								</script>
-							</select>
-						</div>
-						<div class="col-sm-4">
-							<button type="submit" class="btn btn-info" id="disp_role" style="float:right">Show Existing Roles </button>
-							<script type="text/JavaScript">
-								$(document).ready(function(){
-									$('#disp_role').click(function(){
-										displayRoles("role_lists",$("#ousel").val());
-										return false;
-									});
-									$('#ousel').change(function(){
-										displayRoles("role_lists",$("#ousel").val());
-										return false;
-									});
-								});
-							</script>
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-sm-4  control-label" for="ousel">Organization Unit</label>
+								<div class="col-sm-4">
+									<select class="form-control" id="ousel" style="float:center">
+										<script type="text/JavaScript">
+											$(document).ready(function(){
+												viewOrgUnits("dropdown","ousel","all");
+											});
+										</script>
+									</select>
+								</div>
+								<div class="col-sm-4">
+									<button type="submit" class="btn btn-info" id="disp_role" style="float:right">Show Existing Roles </button>
+									<script type="text/JavaScript">
+										$(document).ready(function(){
+											$('#disp_role').click(function(){
+												displayRoles("role_lists",$("#ousel").val());
+												return false;
+											});
+											$('#ousel').change(function(){
+												displayRoles("role_lists",$("#ousel").val());
+												return false;
+											});
+										});
+									</script>
+								</div>
+							</div>
 						</div>
 					</div>
+					
 					<div id="role_lists">
 						<!--
 						<div class="col-sm-4">
@@ -307,11 +313,11 @@
 						-->
 					</div>
 					<h3 align="center"> 
-					<a href="#" data-toggle="collapse" class='btn btn-link' data-target="#create_role_collapsible">
+					<a href="#" data-toggle="collapse" class='btn btn-primary' data-target="#create_role_collapsible">
 					<span class="glyphicon glyphicon-plus"></span> Click here to create a new role</a></h3>
 					
 					<div id="create_role_collapsible" class="collapse">
-						<div class="panel panel-info">
+						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h1 class="panel-title">Role details:</h1>
 							</div>
@@ -691,7 +697,7 @@
 												"style='height:80px;width:80px;border-radius:50%'"+
 												"onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
 												"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
-												" to show the associated Tabs</h1>");
+												" to display all the associated tabs</h1>");
 												$("#associated_tabs").css('color','#A4A4A4');
 												$("#refresh_ass_tab").click(function(){
 													getAssociatedTabs("associated_tabs");
