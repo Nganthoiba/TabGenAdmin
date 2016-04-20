@@ -778,6 +778,8 @@ $(document).ready(function(){
 	//function to update a tab name
 	function updateTab(i,tab_id,template_name){
 		//alert("Tab index:"+i+" Tab Id: "+tab_id+" Template Name: "+template_name);
+		document.getElementById("upadate_tab_resp"+i).innerHTML="<br/><p>Wait please...</p>";
+		document.getElementById("upadate_tab_resp"+i).style.color="red";
 		var new_tab_name = $("#updated_tab_name"+i).val();
 		var old_tab_name = prev_tab_name[i];
 		//alert(old_tab_name);
@@ -796,7 +798,8 @@ $(document).ready(function(){
 				}
 				else{
 					alert(resp_arr.message);
-					document.getElementById("upadate_tab_resp"+i).innerHTML="<p>"+resp_arr.message+"</p>";
+					//document.getElementById("upadate_tab_resp"+i).innerHTML="<br/><p>"+resp_arr.message+"</p>";
+					document.getElementById("upadate_tab_resp"+i).style.color="red";
 				}
 			},
 			error: function(x,y,z){
