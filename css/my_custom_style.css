@@ -116,3 +116,14 @@ body {
 .navbar-fixed-top {
   border: 0;
 }
+
+.div_vertical_center_align{
+	border: 1px solid #c3c3c3;
+	height: 280px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-content: center;
+    align-content: center;
+}

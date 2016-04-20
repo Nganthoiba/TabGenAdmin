@@ -261,7 +261,7 @@ $(document).ready(function (){
 									organisation units at the popup dialog for creating users*/  
 									viewOrgUnits("dropdown","sel_org_unit_global_tab","all");//displaying for creating global tab
 									viewOrgUnits("dropdown","sel_org_unit_role_tab","all");//displaying for creating role tab
-									viewOrgUnits("dropdown","orgUnitSelect","all");//displaying oOU list in associate tab to template layout
+									viewOrgUnits("dropdown","choose_ou","all");//displaying oOU list in associate tab to template layout
 								}else if(e.trim()=="false"){
 									$("#error2").css('color', 'red');
 									$("#error2").text("Oops Some Goes Wrong Please Try Agian");
@@ -688,7 +688,7 @@ $(document).ready(function(){
 	}
 	function getTabs(id){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
-		document.getElementById(id).style.color="black";
+		document.getElementById(id).style.color="#A4A4A4";
 		$.ajax({
 			url: "getTabs.php",
 			success: function(resp){
@@ -781,7 +781,7 @@ $(document).ready(function(){
 	function updateTab(i,tab_id,template_name){
 		//alert("Tab index:"+i+" Tab Id: "+tab_id+" Template Name: "+template_name);
 		document.getElementById("upadate_tab_resp"+i).innerHTML="<br/><p>Wait please...</p>";
-		document.getElementById("upadate_tab_resp"+i).style.color="red";
+		document.getElementById("upadate_tab_resp"+i).style.color="#A4A4A4";
 		var new_tab_name = $("#updated_tab_name"+i).val();
 		var old_tab_name = prev_tab_name[i];
 		//alert(old_tab_name);
@@ -799,8 +799,8 @@ $(document).ready(function(){
 					getAssociatedTabs("associated_tabs");
 				}
 				else{
-					alert(resp_arr.message);
-					//document.getElementById("upadate_tab_resp"+i).innerHTML="<br/><p>"+resp_arr.message+"</p>";
+					//alert(resp_arr.message);
+					document.getElementById("upadate_tab_resp"+i).innerHTML="<br/><center><p>"+resp_arr.message+"</p></center>";
 					document.getElementById("upadate_tab_resp"+i).style.color="red";
 				}
 			},
@@ -860,7 +860,8 @@ $(document).ready(function(){
 					alert(resp);
 					document.getElementById(id).innerHTML="Something Goes Wrong!";
 				}else if(resp.trim()=="null"){
-					document.getElementById(id).innerHTML="<h1 align='center'>No Record Found!</h1>";
+					document.getElementById(id).innerHTML="<div>"+
+					"<h1 align='center'>No Record Found!</h1></div>";
 					document.getElementById(id).style.color="#FE642E";
 				}else {
 					var resp_array = JSON.parse(resp);

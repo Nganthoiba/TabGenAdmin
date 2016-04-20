@@ -89,14 +89,15 @@
 		<div class="row"><!--class="row"-->
 			<div class="col-sm-3 col-md-2 sidebar" >
 			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
-				<div class="well"><div class="nav nav-sidebar">
+				<div class="container"><div class="nav nav-sidebar">
 					<div class="col-md-2"><img src="img/user.png" class="circular" alt="No profile Image found"/>
-						<br/><hr/><p id="userID"><?php echo $user_name; ?></p>
+						<br/>
+						<p id="userID"><?php echo $user_name; ?></p>
 						<p><?php echo $user_role ?></p>
 					</div>
 				</div></div>
 				<!--class="nav nav-tabs nav-stacked"-->
-				<ul class="nav nav-sidebar" style="background-color:#F2F2F2;border-radius:3px">
+				<ul class="nav nav-sidebar" style="background-color:#FAFAFA;border-radius:3px">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
@@ -675,7 +676,8 @@
 											</tr></table>
 										</div>
 										
-										<div style="max-height: 300px;min-height:300px;overflow: hidden;overflow-y: auto;">
+										<div style="max-height: 300px;min-height:300px;overflow: hidden;overflow-y: auto;
+										-webkit-align-content: center; align-content: center;">
 											<table class="table table-striped" id="associated_tabs">
 											
 											</table>
