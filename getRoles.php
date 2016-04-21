@@ -1,7 +1,7 @@
 <?php
 	include('connect_db.php');
 	$org_unit = $_GET['org_unit'];
-	$query="select * from Role where OrganisationUnit='$org_unit'";
+	$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0";
 	if($conn){
 		$res = $conn->query($query);					
 		if($res){

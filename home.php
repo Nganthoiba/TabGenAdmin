@@ -98,8 +98,8 @@
 						<p><?php echo $user_role ?></p>
 					</div>
 				</div></div>
-				<!--class="nav nav-tabs nav-stacked"-->
-				<ul class="nav nav-sidebar" style="background-color:#FAFAFA;border-radius:3px">
+				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
+				<ul class="nav nav-tabs nav-stacked" style="background-color:#FAFAFA;border-radius:3px">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
@@ -304,13 +304,7 @@
 					</div>
 					
 					<div id="role_lists">
-						<!--
-						<div class="col-sm-4">
-							<h3>Column 2</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-							<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-						</div>
-						-->
+						
 					</div>
 					<h3 align="center"> 
 					<a href="#" data-toggle="collapse" class='btn btn-primary' data-target="#create_role_collapsible">
@@ -500,7 +494,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-4  control-label">OU Specific:</label>
+							<label class="col-sm-4  control-label">Organisation Unit Specific:</label>
 							<div class="col-sm-8">
 								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_yes" value="Yes"/>Yes</label>
 								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_no" value="No"/>No</label>
@@ -525,7 +519,7 @@
 		//If the tab to be created is OU specific
 		$('#ou_specific_yes').click(function(){	
 			//alert("Yes");
-			$('#ou_selector_region').html("<label class='col-sm-4  control-label' for='ou_selector'>Select an OU:</label>"+
+			$('#ou_selector_region').html("<label class='col-sm-4  control-label' for='ou_selector'>Select an Oorganisation Unit:</label>"+
 				"<div class='col-sm-8'><select id='ou_selector' class='form-control'></select></div>");
 			$('#role_selector_region').html("<label class='col-sm-4 control-label'>Select a Role:</label>"+
 				"<div class='col-sm-8'><select id='role_selector' class='form-control'></select></div>");
@@ -694,7 +688,7 @@
 												//getAssociatedTabs("associated_tabs");
 												$("#associated_tabs").html("<h1 align='center'>Click Refresh button "+
 												"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
-												"style='height:80px;width:80px;border-radius:50%'"+
+												"style='height:100px;width:100px;border-radius:50%'"+
 												"onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
 												"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
 												" to display all the associated tabs</h1>");

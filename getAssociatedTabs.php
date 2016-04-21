@@ -5,10 +5,11 @@
 	$role_name = $_GET['role_name'];
 	if($conn){
 		$role_id = findRoleId($conn,$ou_name,$role_name);
-		$query="select Tab.Id,Tab.Name 
+		$query="select Tab.* 
 				from RoleTabAsson,Tab 
 				where Tab.Id=TabId and
-					RoleTabAsson.RoleId='$role_id'";
+					RoleTabAsson.RoleId='$role_id'
+				order by CreateAt desc";
 		$res = $conn->query($query);
 		if($res){
 			$count=0;

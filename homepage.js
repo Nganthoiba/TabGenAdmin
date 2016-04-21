@@ -227,7 +227,11 @@ function validate_ou_name(ou_name)
 		return false;
 	}
 	else */
-	return true;
+	if(ou_name.trim().length==0){
+		document.getElementById("error2").innerHTML="<font color='red'>Don't leave Organisation Unit name blank.</font>";
+		return false;
+	}
+	else return true;
 }
 $(document).ready(function (){
     $('#createorgunitbtn').click(function() {
@@ -480,6 +484,7 @@ $(document).ready(function (){
 				}
 				else{
 					//viewOrgUnits("list","showOrgUnits","all");
+					//alert(resp);
 					window.location.reload(true);
 				}
 			},
@@ -663,19 +668,44 @@ $(document).ready(function(){
 						var arr = JSON.parse(data);
 						var roleList="<div class='panel panel-default'>"+
 							"<div class='panel-heading'><h1 class='panel-title'>List of existing roles:</h1></div>"+
-							"<table border='0' class='table table-bordered'>"+
-							"<tr><th style='background-color:#90C6F3;color:#FFFFFF'>Role Name</th>"+
-							"<th style='background-color:#90C6F3;color:#FFFFFF'>Role Type</th></tr>";
+							"<table border='0' style='max-height:160px;overflow: hidden;overflow-y: auto;' "+
+									"class='table table-bordered'>"+
+							"<tr>"+
+								"<th style='background-color:#90C6F3;color:#FFFFFF'>Role Name</th>"+
+								"<th style='background-color:#90C6F3;color:#FFFFFF'>Role Type</th>"+
+							"</tr>";
 						var i=0;
 						for(i=0;i<arr.length;i++){
-							roleList+="<tr><td>"+arr[i].RoleName+"</td><td>"+arr[i].RoleType+"</td></tr>";
+							roleList+="<tr><td>"+arr[i].RoleName+"<div class='pull-right'>"+
+								"<Button type='button' data-toggle='editRolePopup"+i+"' id='editRole"+i+"' class='btn btn-link'>"+
+									"<span class='glyphicon glyphicon-pencil'></span>"+
+								"</Button>"+
+									"<div class='container' style='width:2px'>"+
+										"<div class='hide' id='edit_role_popover"+i+"'>"+
+											"<form class='form-horizontal' role='form'>"+	
+												"<label for='rolename"+i+"'>Role Name</label>"+
+												"<input type='text' class='form-control'"+
+																	" id='rolename"+i+"' value='"+arr[i].RoleName+"'/>"+
+												"<div class='pull-right' style='padding:10px'>"+
+													"<button type='button' class='btn btn-info'"+
+													" id='save_role"+i+"'>Save</button></div><br/>"+
+												"<center><span id='updateRoleResp"+i+"'></span></center>"+
+											"</form>"+	
+										"</div>"+
+									"</div></div>"+
+								"</td>"+
+							"<td>"+arr[i].RoleType+"</td></tr>";
 							//roleList+="<div class='col-sm-4'><p>Name: "+arr[i].RoleName+"<br/>Type: "+arr[i].RoleType+"</p></div>";
 						}
 						roleList+="</table></div>";
-						if(i>0)
-							document.getElementById(id).innerHTML=roleList;
-						else{
-							document.getElementById(id).innerHTML="<center>No role has been created so far.</center>";
+						document.getElementById(id).innerHTML=roleList;
+						for(var j=0;j<arr.length;j++){
+							$("#editRole"+j).popover({
+								html: true,
+								title: "Edit role name here:",
+								placement: "left", 
+								content: getEditRolePopupContent(j)
+							});
 						}
 					}
 				},
@@ -686,6 +716,11 @@ $(document).ready(function(){
 			});
 			return false;
 	}
+	
+	function getEditRolePopupContent(index){
+		return $("#edit_role_popover"+index).html();
+	}
+	
 	function getTabs(id){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
@@ -721,7 +756,7 @@ $(document).ready(function(){
 							"<Button class='btn btn-link' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
 							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
 							"<div class='container' style='width:2px'>"+
-								"<div style='width:200px' class='hide' id='popover-content"+i+"'>"+
+								"<div class='hide' id='popover-content"+i+"'>"+
 								"<form class='form-horizontal' role='form'>"+
 									"<div>"+
 										"<table>"+
@@ -868,7 +903,7 @@ $(document).ready(function(){
 					document.getElementById(id).innerHTML="Something Goes Wrong!";
 				}else if(resp.trim()=="null"){
 					document.getElementById(id).innerHTML="<br/><div>"+
-					"<h1 align='center'>No Record Found!</h1></div>";
+					"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span><br/>No Record Found</h1></div>";
 					document.getElementById(id).style.color="#FE642E";
 				}else {
 					var resp_array = JSON.parse(resp);
@@ -877,7 +912,7 @@ $(document).ready(function(){
 					for(var i=0;i<resp_array.length;i++){
 						layout+="<tr><td valign='middle'><div class='col-sm-8'>"+
 									resp_array[i].Name+"</div></td>"+
-									"<td align='right' ><Button type='button' class='btn btn-default' "+
+									"<td align='right' ><Button type='button' class='btn btn-link' "+
 									"style='width: 40px;height: 40px;border-radius: 50%;'"+
 									"onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
 									"return false;'>"+

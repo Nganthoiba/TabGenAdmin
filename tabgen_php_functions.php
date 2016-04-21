@@ -397,4 +397,16 @@ function get_token(){
 		else 
 			return false;
 	}
+	
+	//function to delete a tab
+	function deleteTab($conn, $tab_id){
+		$query1 = "delete from RoleTabAsson where TabId='$tab_id'";
+		$query2 = "delete from Tab where Id='$tab_id'";
+		if($conn->query($query1) && $conn->query($query2)){	
+			echo json_encode(array("status"=>true,"message"=>"Successfully deleted"));
+		}
+		else{
+			echo json_encode(array("status"=>false,"message"=>"Failed to delete"));
+		}		
+	}
 ?>

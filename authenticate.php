@@ -36,8 +36,7 @@
 								else 
 									echo json_encode(array("state"=>"false","message"=>$data->message));
 							}
-							else echo json_encode(array("state"=>"false","message"=>"Unable to connect API, or API is down... 
-							Please contact the concerned developer."));		
+							else echo json_encode(array("state"=>"false","message"=>"Unable to connect API, or API is down...."));		
 						}
 						else 
 							echo json_encode(array("state"=>"false","message"=>"Team does not exist"));

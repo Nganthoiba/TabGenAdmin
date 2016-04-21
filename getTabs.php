@@ -9,7 +9,7 @@ if(isset($_SESSION['user_details'])){
 						FROM Tab,TabTemplate
 						where Tab.TabTemplate=TabTemplate.Id and
 							Tab.CreatedBy='$created_by'
-						order by Tab.CreateAt";
+						order by Tab.CreateAt desc";
 			$res = $conn->query($query);
 			while($row = $res->fetch(PDO::FETCH_ASSOC)){
 				$output[]=$row;
