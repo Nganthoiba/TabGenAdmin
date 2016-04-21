@@ -713,13 +713,15 @@ $(document).ready(function(){
 						"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
 						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
 						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-						"<td valign='middle' style='overflow: hidden;overflow-x: auto;max-width:120px'>"+
-							"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+						"<td valign='middle'>"+
+							"<div style='overflow: hidden;overflow-x: auto;min-width:120px;max-width:220px' "+
+								"id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 						"</td>"+
 						"<td valign='middle' align='right'>"+
-							"<a href='#' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
-							"<span class='glyphicon glyphicon-pencil'></span></a>"+			  		
-							"<div class='container' style='width:2px'><div style='width:200px' class='hide' id='popover-content"+i+"'>"+
+							"<Button class='btn btn-link' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
+							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
+							"<div class='container' style='width:2px'>"+
+								"<div style='width:200px' class='hide' id='popover-content"+i+"'>"+
 								"<form class='form-horizontal' role='form'>"+
 									"<div>"+
 										"<table>"+
@@ -742,8 +744,10 @@ $(document).ready(function(){
 								"</form>"+
 							"</div>"+
 						"</td>"+
-						"<td valign='middle' align='right'><a href='#' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-						"<span class='glyphicon glyphicon-remove'></span></a></td>"+"</tr>";
+						"<td valign='middle' align='right'>"+
+								"<Button type='button' class='btn btn-link' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+								"<span class='glyphicon glyphicon-remove'></span></Button>"+
+						"</td></tr>";
 						/*
 						 * 
 						"<td>"+
