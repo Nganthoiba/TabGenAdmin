@@ -14,7 +14,7 @@
 				$res3 = $conn->query($query);					
 				if($res3){	
 					$conn->query("update Tab set DeleteAt='$time' 
-								where RoleId = (select Id from Role where OrganisationUnit='$ou_name')");
+								where RoleId in (select Id from Role where OrganisationUnit='$ou_name')");
 					$conn->query("Update Role set DeleteAt='$time' where OrganisationUnit='$ou_name'");
 					
 					$conn->query("delete from RoleTabAsson 

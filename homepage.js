@@ -748,12 +748,12 @@ $(document).ready(function(){
 						"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
 						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
 						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-						"<td valign='middle'>"+
-							"<div style='overflow: hidden;overflow-x: auto;min-width:120px;max-width:220px' "+
+						"<td>"+
+							"<div style='overflow: hidden;overflow-x: auto;padding-top:10px; height: 40px;min-width:120px;max-width:220px' "+
 								"id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 						"</td>"+
-						"<td valign='middle' align='right'>"+
-							"<Button class='btn btn-link' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
+						"<td align='right'>"+
+							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
 							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
 							"<div class='container' style='width:2px'>"+
 								"<div class='hide' id='popover-content"+i+"'>"+
@@ -777,10 +777,11 @@ $(document).ready(function(){
 										"</table>"+
 									"</div>"+
 								"</form>"+
+								"</div>"+
 							"</div>"+
 						"</td>"+
-						"<td valign='middle' align='right'>"+
-								"<Button type='button' class='btn btn-link' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+						"<td align='right'>"+
+								"<Button type='button' style='height: 40px;' class='btn btn-link' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
 								"<span class='glyphicon glyphicon-remove'></span></Button>"+
 						"</td></tr>";
 						/*
@@ -910,9 +911,9 @@ $(document).ready(function(){
 					var layout=" ";
 					//alert("Length of Array: "+resp_array.length);
 					for(var i=0;i<resp_array.length;i++){
-						layout+="<tr><td valign='middle'><div class='col-sm-8'>"+
+						layout+="<tr><td valign='middle'><div style='height:40px;padding-top:10px'>"+
 									resp_array[i].Name+"</div></td>"+
-									"<td align='right' ><Button type='button' class='btn btn-link' "+
+									"<td align='right' ><Button type='button' class='btn btn-default' "+
 									"style='width: 40px;height: 40px;border-radius: 50%;'"+
 									"onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
 									"return false;'>"+

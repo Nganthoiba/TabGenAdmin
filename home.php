@@ -629,7 +629,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h1 class="modal-title" id="myModalLabel">Associate Tabs to Roles</h1>
+				<h3 class="modal-title" id="myModalLabel">Associate Tabs to Roles</h3>
 			</div>
 			<div class="modal-body">
 				<div class="panel panel-default">
