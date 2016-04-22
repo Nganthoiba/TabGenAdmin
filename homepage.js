@@ -559,17 +559,18 @@ $(document).ready(function (){
 			url: "delete_org.php",
 			data: "org_id="+id,
 			success: function(resp){
-				if(resp.trim()=="false"){
-					alert("Unable to delete Organisation Unit");
+				var resp_json = JSON.parse(resp);
+				if(resp_json.status==false){
+					alert(resp_json.message);
 				}
 				else{
-					viewOrgs("list","showOrgsList","all");
-					viewOrgUnits("list","showOrgUnits","all");
-					window.reload();
+					//viewOrgs("list","showOrgsList","all");
+					//viewOrgUnits("list","showOrgUnits","all");
+					window.location.reload(true);
 				}
 			},
 			error: function(x,y,z){
-				alert("Oops! an error occur.");
+				alert("Oops! an error occur."+x+" "+y+" "+z);
 			}
 		});
 	}
@@ -730,7 +731,7 @@ $(document).ready(function(){
 				if(resp.trim()=="false"){
 					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
 				}
-				else if(resp.trim()=="sesssion_expired"){
+				else if(resp.trim()=="sesssion_expired!"){
 					document.getElementById(id).innerHTML="<h1>Oops! Session expired, Please Login again.</h1>";
 				}
 				else{

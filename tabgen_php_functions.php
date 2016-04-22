@@ -273,25 +273,6 @@ function getTeamByOUId($conn,$ou_id){
 	return $row['team_name'];
 }
 
-function renameChannel($conn,$team_id,$channel_name,$old_display_name){
-	
-	if($conn){
-		$query="Update Channels set DisplayName='$channel_name',Name='$channel_name'
-				where TeamId='$team_id' and DisplayName='$old_display_name'";
-		$conn->query($query);
-	}
-}
-
-function deleteChannel($conn,$team_id,$old_display_name){
-	
-	if($conn){
-		$time = time();
-		$query="Update Channels set DeleteAt='$time'
-				where TeamId='$team_id' and DisplayName='$old_display_name'";
-		$conn->query($query);
-	}
-}
-
 //function to update role type
 function updateRoleType($conn,$role_id,$role_type){
 	if($conn){
@@ -408,5 +389,35 @@ function get_token(){
 		else{
 			echo json_encode(array("status"=>false,"message"=>"Failed to delete"));
 		}		
+	}
+	
+	//function to delete an organisation unit
+	
+	function deleteOU($conn,$org_unit_id){
+		$ou_name=getOUNameByOuId($conn,$org_unit_id);
+		$res1=$conn->query("update Users set DeleteAt='$time' where Id in (select user_id 
+							from User_OU_Mapping where OU_id='$org_unit_id')");
+		if($res1){
+			$res2=$conn->query("delete from User_OU_Mapping where OU_id = '$org_unit_id'");
+			if($res2){
+				$query="delete from OrganisationUnit where OrganisationUnit.Id='$org_unit_id'";
+				$res3 = $conn->query($query);					
+				if($res3){	
+					$conn->query("update Tab set DeleteAt='$time' 
+								where RoleId in (select Id from Role where OrganisationUnit='$ou_name')");
+					$conn->query("Update Role set DeleteAt='$time' where OrganisationUnit='$ou_name'");
+					
+					$conn->query("delete from RoleTabAsson 
+									where TabId in (select Id from Tab where DeleteAt !=0)
+									OR RoleId in (select Id from Role where DeleteAt!=0)");
+					return true;
+				}
+				else return false;
+			}
+			else{ 
+				return false;
+			}
+		}
+		else return false;
 	}
 ?>
