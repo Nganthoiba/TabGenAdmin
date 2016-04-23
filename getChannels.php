@@ -69,7 +69,7 @@ function getAssociatedChannels($conn,$user_id,$role_id){
 	//echo $org_unit."\n";
 	$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
 							from Channels,ChannelMembers
-							where Channels.Name in (SELECT Tab.Name
+							where Channels.DisplayName in (SELECT Tab.Name
 								FROM Tab,TabTemplate,RoleTabAsson
 								where Tab.TabTemplate=TabTemplate.Id
 								and TabTemplate.Name='Chat Template'
