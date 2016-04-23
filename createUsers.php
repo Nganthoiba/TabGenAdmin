@@ -15,23 +15,18 @@ include('ConnectAPI.php');
 //include('server_IP.php');
 include('connect_db.php');
 include('tabgen_php_functions.php');
+$user_displayname = $_POST['user_displayname'];
 
 if(validateUserDetails()==true){
 	$id=null;
 	$org_unit_name = $_POST['org_unit'];
 	try{
 		if($conn){
-			$res = $conn->query("SELECT Id,Name from Teams where Name='$org_unit_name'");
+			//$res = $conn->query("SELECT Id,Name from Teams where Name='$org_unit_name'");
 			
 			session_start();
 			if(isset($_SESSION['user_details'])){
-				//
-				/*while($row=$res->fetch(PDO::FETCH_ASSOC)){
-					if($row['Name']==$_POST['org_unit']){
-						$id = $row['Id'];
-						break;
-					}
-				}*/
+				
 				$user_details = json_decode($_SESSION['user_details']);
 				$id = $user_details->team_id;
 				$data = array(
@@ -51,13 +46,14 @@ if(validateUserDetails()==true){
 					try{
 						$responseData = json_decode($result);
 						if($connect->httpResponseCode==200){
-							$role=$_POST['Role'];	
+							$role=$_POST['Role'];
+								
 							updateUserRole($responseData->id,$conn,$role);
+							//updateUserFirstName($conn,$responseData->id,$user_displayname);
+							$conn->query("UPDATE Users set FirstName='$user_displayname ' where Id='$responseData->id'");
 							userUniversalAccess($conn,$responseData->id,$_POST['type']);
 							$ou_id = findOUId($conn,$org_unit_name);
 							mapUserwithOU($conn,$responseData->id,$ou_id);
-							/*if($_POST['type']=="true")//if the user type is universal
-								allowEveryOpenChannel($conn,$responseData->id);*/
 						}else if($connect->httpResponseCode==0){
 							echo "Unable to communicate with the API";
 						}

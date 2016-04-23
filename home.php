@@ -107,8 +107,18 @@
 					<!--<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
 						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Create OU Specific Tabs</a>
 					</li>-->
-					<li><a href="#" data-toggle="modal" data-target="#createuser" 
-						onclick='getRoles("UserRole",$("#OrgUnitList").val());return false;'>	Create Users</a></li>
+					<li>
+						  <a href='#' type="button" data-toggle="dropdown">Users
+						  <span class="caret"></span></a>
+						  <ul class="dropdown-menu">
+							<li><a href="#" data-toggle="modal" data-target="#createuser" 
+								onclick='getRoles("UserRole",$("#OrgUnitList").val());return false;'>Create Users</a></li>
+							<li role="presentation" class="divider"></li>
+							<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show Users</a></li>
+						  </ul>
+						
+					</li>
+					
 					<li><a href="#">Create Tabs Strips</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
@@ -125,7 +135,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading"><h1 class="panel-title">Organisation Units</h1></div>
 						<div class="panel-body">
-							<table  class='table table-hover' id="showOrgUnits" border="0">
+							<table  class='table' id="showOrgUnits" border="0">
 									<script>
 										$(document).ready(function(){
 											document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -147,7 +157,7 @@
 						</div>
 						
 						<div class="panel-body">
-							<table  class='table table-hover' id="showOrgsList">
+							<table  class='table' id="showOrgsList">
 								<script>
 									$(document).ready(function(){
 										document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -164,7 +174,7 @@
 				</div>
 			</div>
 		</div>
-</div>
+	</div>
 
 <!--- popup start for each one -->
 <!-- Modal for create Organization -->
@@ -359,6 +369,12 @@
 				<form class="form-horizontal">
 					<div class="panel panel-info">
 						<div class="panel-body">
+							<div class="form-group">
+								<label for="displayname" class="col-sm-4  control-label">Display Name</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control"  placeholder="User full name" id="user_displayname">
+								</div>
+							</div>
 							<div class="form-group">
 								<label for="username" class="col-sm-4  control-label">User Name</label>
 								<div class="col-sm-8">
@@ -605,30 +621,31 @@
 	});
 </script>
 
-<!-- Modal for logout -->
-<div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-sm" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Logout Confirmation</h4>
-			</div>
-			<div class="modal-body">
-				<div class="alert alert-danger">
-				  <center><strong>Logout! &nbsp;</strong> Are you sure?</center>
-				</div>
-				<center><a href="logout.php" class="btn btn-default" style="width:20%" id="YesLogout">Yes</a></center>
-			</div>	
-		</div>
+
+<!--popup dialog header for editing role -->
+<div class='hide' id="edit_role_header">
+	Edit role here:
+	<div class="pull-right">
+		<button type="button" class="close" id="close_edit_role">
+			<span aria-hidden="true">&times;</span>
+			<script type="text/JavaScript">
+				$(document).ready({
+					//$("#close_edit_role").popover("hide");
+					$("#close_edit_role").click(function(){
+							alert("Hi");
+					});
+				});
+			</script>
+		</button>
 	</div>
 </div>
-
 <!-- Modal for Associating Tabs to role (a simple design)-->
 <div class="modal fade" id="associate_tabs_to_role" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-dialog modal-lg" role="document" style="width:80%; min-height:50%">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
 				<h3 class="modal-title" id="myModalLabel">Associate Tabs to Roles</h3>
 			</div>
 			<div class="modal-body">
@@ -836,6 +853,89 @@ Tabs are created in this section-->
 		</div>
 	</div>
 </div>
+
+<!-- Modal for displaying Users-->
+<div class="modal fade" id="displayUsers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document" style="width:80%;min-height:50%;overflow-x:auto">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">List of Users Created:
+					<div class="pull-right">
+						<form method="GET">
+						<table>
+							<tr>
+								<td>Find a user: &nbsp;</td>
+								<td><input type="text" class="form-control" id="search_user" onkeyup="find()" 
+										placeholder="Type a Username Here"/></td>
+								<td><button type="submit" class="btn btn-primary" id="findUser"><span class="glyphicon glyphicon-search"></span>
+									</button></td>
+								<td>&nbsp;&nbsp;&nbsp;</td>
+								<td>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span></button>
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<script type="text/JavaScript">
+							function find(){
+								$("#user_display_content").html("<center><p>Wait Please...</p></center>");
+								var user_name = $("#search_user").val();
+								if(user_name.length==0)
+								{
+									$("#user_display_content").html("<center><p>Type a username</p></center>");
+								}
+								else findUsers("user_display_content",user_name);
+							}
+							$(document).ready(function(){
+								getAllUsers("user_display_content");
+								$("#findUser").click(function(){
+									$("#user_display_content").html("<center><p>Wait Please...</p></center>");
+									find();
+									return false;
+								});
+								
+								$("#view_all_users").click(function(){
+									$("#user_display_content").html("<center><p>Wait Please...</p></center>");
+									getAllUsers("user_display_content");
+									return false;
+								});
+							});
+						</script>
+						<div id="user_display_content" style="max-width:100%; min-height:50%; overflow:hidden;overflow-x:auto">
+							Content goes here....
+						</div>
+					</div>
+					<div class="pull-right"><Button class="btn btn-link" id="view_all_users">VIEW ALL</Button></div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+<!-- Modal for logout -->
+<div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Logout Confirmation</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger">
+				  <center><strong>Logout! &nbsp;</strong> Are you sure?</center>
+				</div>
+				<center><a href="logout.php" class="btn btn-default" style="width:20%" id="YesLogout">Yes</a></center>
+			</div>	
+		</div>
+	</div>
+</div>
+
 <?php } ?>
 </body>
 </html>

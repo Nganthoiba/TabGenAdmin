@@ -420,4 +420,10 @@ function get_token(){
 		}
 		else return false;
 	}
+	
+	//function to update first name (display name)
+	function updateUserFirstName($conn,$user_id,$display_name){
+		$query = "update Users set FirstName='$display_name' where Id='$user_id'";
+		$conn->query($query);
+	}
 ?>

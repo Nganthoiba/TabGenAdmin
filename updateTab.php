@@ -71,9 +71,13 @@
 			echo json_encode(array("status"=>false,"message"=>"Database connection failed"));
 		}
 	}
-	else echo "Invalid Request!";
+	else{ 
+		echo json_encode(array("status"=>false,"message"=>"Invalid Request!"));
+	}
+		
 	function updateTab($conn,$tab_id,$new_tab_name){
-		$query = "update Tab set Name = '$new_tab_name' where Id='$tab_id'";
+		$updateTime=time();
+		$query = "update Tab set Name = '$new_tab_name',set UpdateAt='$updateTime' where Id='$tab_id'";
 		if($conn->query($query)){
 			echo json_encode(array("status"=>true,"message"=>"Tab Name Updated Successfully."));
 		}

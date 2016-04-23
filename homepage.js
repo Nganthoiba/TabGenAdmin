@@ -335,6 +335,7 @@ $(document).ready(function (){
 /*JavaScript for creating users*/
 	$(document).ready(function(){
 		$('#CreateUser').click(function(){
+			var user_displayname = $("#user_displayname").val();
 			var username = $("#username").val();
 			var password = $("#password").val();
 			var conf_pwd = $("#conf_pwd").val();
@@ -343,6 +344,11 @@ $(document).ready(function (){
 			var user_role = $("#UserRole").val();
 			var is_universal = document.getElementById("universal_access_yes").checked;//if the user has access across all other OU
 			//var type = true;
+			if(user_displayname.length==0){
+				document.getElementById("error4").innerHTML="Give the full name";
+				document.getElementById("error4").style.color="red";
+				return false;
+			}
 			if(username.length==0){
 				document.getElementById("error4").innerHTML="Username is blank";
 				document.getElementById("error4").style.color="red";
@@ -374,14 +380,14 @@ $(document).ready(function (){
 				$.ajax({
 					type: "POST",
 					url: "createUsers.php",
-					data:"username="+username+"&password="+password+"&conf_pwd="+conf_pwd+
+					data: "user_displayname="+user_displayname+"&username="+username+"&password="+password+"&conf_pwd="+conf_pwd+
 							"&email="+email+"&org_unit="+org_unit+"&Role="+user_role+"&type="+is_universal,    
 					success: function(e){  
 						if(e.trim()=="true")
 						{
 							$("#error4").css('color','green');
 							$("#error4").text("User Created ");
-									
+							getAllUsers("user_display_content");//getting all users			
 						}else if(e.trim()=="false"){
 							$("#error4").css('color','red');
 							$("#error4").text("Oops Some Goes Wrong Please Try Agian");
@@ -443,7 +449,16 @@ $(document).ready(function (){
 						}
 						if(method=="list"){
 							for(var i=0;i<limit;i++){
-								view+='<tr><td>'+json_arr[i].organisation_unit+'</td><td align="right">'+
+								var created_date = new Date(json_arr[i].create_at);
+								var updated_date = new Date(json_arr[i].update_at);
+								view+='<tr><td>'+json_arr[i].organisation_unit+'</td>'+
+								'<td> Created Under: '+json_arr[i].organisation+'<br/>'+
+									'Date of creation: '+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+
+									created_date.getFullYear()+'<br/>'+
+									'Last updated at: '+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
+									updated_date.getFullYear()+
+								'</td>'+
+								'<td align="right">'+
 								'<Button type="button" class="btn btn-default"'+
 								' onclick="setDelAction4OrgUnit(\''+json_arr[i].id+'\',\''+json_arr[i].organisation_unit+'\')" id="del_org_unit'+i+'">'+
 								'<span class="glyphicon glyphicon-trash"></span></Button></td></tr>';
@@ -703,7 +718,7 @@ $(document).ready(function(){
 						for(var j=0;j<arr.length;j++){
 							$("#editRole"+j).popover({
 								html: true,
-								title: "Edit role name here:",
+								title: getEditRoleHeader(),
 								placement: "left", 
 								content: getEditRolePopupContent(j)
 							});
@@ -716,6 +731,10 @@ $(document).ready(function(){
 				}
 			});
 			return false;
+	}
+	
+	function getEditRoleHeader(){
+		return $("#edit_role_header").html();
 	}
 	
 	function getEditRolePopupContent(index){
@@ -755,7 +774,7 @@ $(document).ready(function(){
 						"</td>"+
 						"<td align='right'>"+
 							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
-							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
+							"<span class='glyphicon glyphicon-pencil'></span> Edit</Button>"+			  		
 							"<div class='container' style='width:2px'>"+
 								"<div class='hide' id='popover-content"+i+"'>"+
 								"<form class='form-horizontal' role='form'>"+
@@ -783,7 +802,7 @@ $(document).ready(function(){
 						"</td>"+
 						"<td align='right'>"+
 								"<Button type='button' style='height: 40px;' class='btn btn-link' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-								"<span class='glyphicon glyphicon-remove'></span></Button>"+
+								"<span class='glyphicon glyphicon-remove'></span> Delete</Button>"+
 						"</td></tr>";
 						/*
 						 * 
@@ -973,6 +992,136 @@ $(document).ready(function(){
 			});
 		}
 		return false;
+	}
+	
+	/* Javascript function to get All users */
+	function getAllUsers(display_id){
+		document.getElementById(display_id).innerHTML="<center><p>Wait Please...</p></center>";
+		$.ajax({
+			type: "GET",
+			url: "getAllUsers.php",
+			success: function(response){
+				if(response.trim()=="error"){
+					document.getElementById(display_id).innerHTML="<p>Oops! something goes wrong, please try again later.";
+				}
+				else if(response.trim()=="null"){
+					document.getElementById(display_id).innerHTML="<center><p>Oops! No record found.</p></center>";
+				}
+				else{
+					displayUsers(display_id,response);	
+				}
+			},
+			error: function(x,y,z){
+				document.getElementById(display_id).innerHTML="<p>Oops! The requested resource is not found at server, please try again later.";
+			}
+		});
+		return false;
+	}
+	
+	//javascript function to find users
+	function findUsers(display_id,username){
+		$.ajax({
+			type: "GET",
+			url: "findaUser.php",
+			data: {"user_name":username},
+			success: function(response){
+				//alert(response);
+				if(response.trim()=="error"){
+					document.getElementById(display_id).innerHTML="<p>Oops! something goes wrong, please try again later.";
+				}else if(response.trim()=="null"){
+					document.getElementById(display_id).innerHTML="<center><p>Oops! No record found.</p></center>";
+				}
+				else{
+					displayUsers(display_id,response);	
+				}
+			},
+			error: function(x,y,z){
+				document.getElementById(display_id).innerHTML="<p>Oops! Something is wrong.";
+			}
+		});
+	}
+	
+	//function to display list of users
+	function displayUsers(display_id,data){
+		var resp_arr = JSON.parse(data);
+		//alert(resp_arr.length);
+		if(resp_arr.length==0){
+			document.getElementById(display_id).innerHTML="<h1 align='center'>No user found</h1>";
+		}
+		else{
+			var layout="<table class='table'>";
+			var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+			for(var i=0;i<resp_arr.length;i++){
+				var created_date = new Date(parseFloat(resp_arr[i].CreateAt));
+				var updated_date = new Date(parseFloat(resp_arr[i].UpdateAt));
+				layout+="<tr>"+
+							"<td>"+
+								"<img src='img/user.png' class='circular' alt='No profile Image found'/>"+
+							"</td>"+
+							"<td>"+
+								"<form class='form-horizontal'>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4 control-label'>ID : </label>"+
+										"<div class='col-sm-8'><div style='padding-top:7px'>"+resp_arr[i].Id+"</div></div>"+
+									"</div>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4 control-label'>Display Name : </label>"+
+										"<div class='col-sm-8'><div style='padding-top:7px'>"+resp_arr[i].FirstName+"</div></div>"+
+									"</div>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4 control-label'>Username : </label>"+
+										"<div class='col-sm-8' style='padding-top:7px'>"+resp_arr[i].Username+"</div>"+
+									"</div>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4 control-label'>Email : </label>"+
+										"<div class='col-sm-8' style='padding-top:7px'>"+resp_arr[i].Email+"</div>"+
+									"</div>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4 control-label'>Role : </label>"+
+										"<div class='col-sm-8' style='padding-top:7px'>"+resp_arr[i].Roles+"</div>"+
+									"</div>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4 control-label'>Organisation Unit : </label>"+
+										"<div class='col-sm-8' style='padding-top:7px'>"+resp_arr[i].OrganisationUnit+"</div>"+
+									"</div>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4 control-label'>Organisation Name : </label>"+
+										"<div class='col-sm-8' style='padding-top:7px'>"+resp_arr[i].Organisation+"</div>"+
+									"</div>"+
+								"</form>"+
+							"</td>"+
+							"<td>"+
+								"<label><b>Created on :</b></label> "+created_date.getDate()+" - "+months[created_date.getMonth()]+" - "+
+															created_date.getFullYear()+"<br/>"+
+								"<label><b>Time: </b>&nbsp;</label>"+getHumanReadableTime(created_date)+"<br/>"+
+								"<label><b>Last updated on:</b></label> "+updated_date.getDate()+" - "+months[updated_date.getMonth()]+" - "+
+															updated_date.getFullYear()+"<br/>"+
+								"<label><b>Time: </b>&nbsp;</label>"+getHumanReadableTime(updated_date)+"<br/>"+
+							"</td>"+
+						"</tr>";
+			}
+			layout+="</table>";
+			document.getElementById(display_id).innerHTML=layout;
+		}
+	}
+	
+	//get human readable time
+	function getHumanReadableTime(date){
+		var hour;
+		var min;
+		var sec;
+		var shift;
+		if(date.getHours()>12){
+			hour = date.getHours()-12;
+			shift = "P.M.";
+		}
+		else{
+			hour = date.getHours();
+			shift = "A.M.";
+		}
+		min = date.getMinutes();
+		sec = date.getSeconds();
+		return (hour+":"+min+":"+sec+" "+shift);
 	}
 	
 
