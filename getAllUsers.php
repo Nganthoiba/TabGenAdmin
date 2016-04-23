@@ -6,6 +6,7 @@
 		$query = "select Users.*,OrganisationUnit,Organisation 
 				from Users,User_OU_Mapping,OrganisationUnit
 				where Users.Id=User_OU_Mapping.user_id
+				and Users.DeleteAt=0
 				and User_OU_Mapping.OU_id=OrganisationUnit.Id";
 		$res = $conn->query($query);
 		$output=null;
