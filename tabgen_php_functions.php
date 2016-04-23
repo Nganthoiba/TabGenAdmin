@@ -319,7 +319,7 @@ function getTeamId_by_OU_name($conn,$ou_name){
 
 //function to get channel details by using channel name
 function getChannelByName($conn,$channel_name){
-	$query = "select * from Channels where Name='$channel_name' and DeleteAt=0";
+	$query = "select * from Channels where DisplayName='$channel_name' and DeleteAt=0";
 	$res = $conn->query($query);
 	$count=0;
 	while($row = $res->fetch(PDO::FETCH_ASSOC)){

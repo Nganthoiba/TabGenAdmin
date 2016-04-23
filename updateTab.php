@@ -42,7 +42,7 @@
 											"team_id"=>$channel_details[0]['TeamId'],
 											"type"=>"O",
 											"display_name"=>$new_tab_name,
-											"name"=>$new_tab_name,
+											"name"=>strtolower(str_replace(' ','_',$new_tab_name)),
 											"creator_id"=>$channel_details[0]['CreatorId']));
 											
 						$update_channel_url = "http://".IP.":8065/api/v1/channels/update";
@@ -77,7 +77,7 @@
 		
 	function updateTab($conn,$tab_id,$new_tab_name){
 		$updateTime=time();
-		$query = "update Tab set Name = '$new_tab_name',set UpdateAt='$updateTime' where Id='$tab_id'";
+		$query = "update Tab set Name = '$new_tab_name',UpdateAt='$updateTime' where Id='$tab_id'";
 		if($conn->query($query)){
 			echo json_encode(array("status"=>true,"message"=>"Tab Name Updated Successfully."));
 		}

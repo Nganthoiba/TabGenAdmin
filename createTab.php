@@ -27,7 +27,10 @@ if(isset($_SESSION['user_details'])){
 						if($token_id!=null){
 							$user_details = json_decode($_SESSION['user_details']);
 							$team_id = $user_details->team_id;
-							$channel_array = array("display_name"=>$tab_name,"name"=>$tab_name,"team_id"=>$team_id,"type"=>"O");
+							$channel_array = array("display_name"=>$tab_name,
+													"name"=>strtolower(str_replace(' ','_',$tab_name)),
+													"team_id"=>$team_id,
+													"type"=>"O");
 							$data = json_encode($channel_array);
 							$connection = new ConnectAPI();
 							$url = "http://".IP.":8065/api/v1/channels/create";//url for creating a channel for chatting
