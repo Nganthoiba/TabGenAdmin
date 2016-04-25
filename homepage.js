@@ -758,10 +758,12 @@ $(document).ready(function(){
 					var layout=" ";
 					for(var i=0;i<json_arr.length;i++){
 						var btn_class;
-						if(json_arr[i].RoleId == null)
-							btn_class="btn btn-warning";	
-						else
+						if(json_arr[i].RoleId == null){
+							btn_class="btn btn-warning";
+						}	
+						else{
 							btn_class="btn btn-success";
+						}
 						prev_tab_name[i] = 	json_arr[i].Name;
 						
 						layout+= "<tr><td>"+
@@ -769,8 +771,7 @@ $(document).ready(function(){
 						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
 						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
 						"<td>"+
-							"<div style='overflow: hidden;overflow-x: auto;padding-top:10px; height: 40px;min-width:120px;max-width:220px' "+
-								"id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+							"<div class='tab_name' id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 						"</td>"+
 						"<td align='right'>"+
 							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
@@ -1049,7 +1050,7 @@ $(document).ready(function(){
 			document.getElementById(display_id).innerHTML="<h1 align='center'>No user found</h1>";
 		}
 		else{
-			var layout="<table class='table'>";
+			var layout="<table class='table' width='100%'>";
 			var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 			for(var i=0;i<resp_arr.length;i++){
 				var created_date = new Date(parseFloat(resp_arr[i].CreateAt));
@@ -1062,47 +1063,63 @@ $(document).ready(function(){
 								"<form class='form-horizontal'>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>ID : </label>"+
-										"<div class='col-sm-8'><div style='padding-top:7px'>"+resp_arr[i].Id+"</div></div>"+
+										"<div class='col-sm-6'><div style='padding-top:7px'>"+resp_arr[i].Id+"</div></div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>Display Name : </label>"+
-										"<div class='col-sm-8'><div style='padding-top:7px'>"+resp_arr[i].FirstName+"</div></div>"+
+										"<div class='col-sm-6'><div style='padding-top:7px'>"+resp_arr[i].FirstName+"</div></div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>Username : </label>"+
-										"<div class='col-sm-8' style='padding-top:7px'>"+resp_arr[i].Username+"</div>"+
+										"<div class='col-sm-6' style='padding-top:7px'>"+resp_arr[i].Username+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>Email : </label>"+
-										"<div class='col-sm-8' style='padding-top:7px'>"+resp_arr[i].Email+"</div>"+
+										"<div class='col-sm-6' style='padding-top:7px'>"+resp_arr[i].Email+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>Role : </label>"+
-										"<div class='col-sm-8' style='padding-top:7px'>"+resp_arr[i].Roles+"</div>"+
+										"<div class='col-sm-6' style='padding-top:7px'>"+resp_arr[i].Roles+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>Organisation Unit : </label>"+
-										"<div class='col-sm-8' style='padding-top:7px'>"+resp_arr[i].OrganisationUnit+"</div>"+
+										"<div class='col-sm-6' style='padding-top:7px'>"+resp_arr[i].OrganisationUnit+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>Organisation Name : </label>"+
-										"<div class='col-sm-8' style='padding-top:7px'>"+resp_arr[i].Organisation+"</div>"+
+										"<div class='col-sm-6' style='padding-top:7px'>"+resp_arr[i].Organisation+"</div>"+
+									"</div>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4 control-label'>Has access across all other OU : </label>"+
+										"<div class='col-sm-6' style='padding-top:7px'>"+yesOrNo(resp_arr[i].UniversalAccess)+"</div>"+
 									"</div>"+
 								"</form>"+
 							"</td>"+
 							"<td>"+
+								"<div class='account-wall'>"+
 								"<label><b>Created on :</b></label> "+created_date.getDate()+" - "+months[created_date.getMonth()]+" - "+
 															created_date.getFullYear()+"<br/>"+
 								"<label><b>Time: </b>&nbsp;</label>"+getHumanReadableTime(created_date)+"<br/>"+
 								"<label><b>Last updated on:</b></label> "+updated_date.getDate()+" - "+months[updated_date.getMonth()]+" - "+
 															updated_date.getFullYear()+"<br/>"+
 								"<label><b>Time: </b>&nbsp;</label>"+getHumanReadableTime(updated_date)+"<br/>"+
+								"</div>"+
+								"<br/><Button type='button' class='btn btn-lg btn-link btn-block'>"+
+								"<span class='glyphicon glyphicon-pencil'></span>&nbsp;&nbsp"+
+								"Edit</Button>"+
 							"</td>"+
 						"</tr>";
 			}
 			layout+="</table>";
 			document.getElementById(display_id).innerHTML=layout;
 		}
+	}
+	//function to return yes/no according to 0 and 1
+	function yesOrNo(val){
+		if(parseInt(val)==0)
+			return "No";
+		else
+			return "Yes";
 	}
 	
 	//get human readable time

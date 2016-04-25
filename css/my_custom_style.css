@@ -1,6 +1,13 @@
 .my_body {
 	background: #eee !important;	
 }
+.tab_name{
+	overflow: hidden;overflow-x: auto;padding-top:10px; height: 40px;min-width:120px;max-width:220px
+}
+.tab_name:hover{
+	cursor:pointer;
+	text-decoration:underline
+}
 .response_body{
 	padding-left:15px;
 	padding-bottom:5px;
@@ -51,12 +58,12 @@ label {color:#848484; font-weight:normal}
 .account-wall
 {
     margin-top: 20px;
-    padding: 40px 0px 20px 0px;
+    padding: 40px 10px 40px 10px;
     background-color: #f7f7f7;
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-	border-radius:10px
+	border-radius:6px
 }
 .login-title
 {
