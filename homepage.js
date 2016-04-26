@@ -1067,15 +1067,15 @@ $(document).ready(function(){
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>Display Name : </label>"+
-										"<div class='col-sm-6'><div style='padding-top:7px'>"+resp_arr[i].FirstName+"</div></div>"+
+										"<div class='col-sm-6' id='user_display_name"+i+"'style='padding-top:7px'>"+resp_arr[i].FirstName+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>Username : </label>"+
-										"<div class='col-sm-6' style='padding-top:7px'>"+resp_arr[i].Username+"</div>"+
+										"<div class='col-sm-6' id='user_name"+i+"' style='padding-top:7px'>"+resp_arr[i].Username+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>Email : </label>"+
-										"<div class='col-sm-6' style='padding-top:7px'>"+resp_arr[i].Email+"</div>"+
+										"<div class='col-sm-6' id='user_email"+i+"' style='padding-top:7px'>"+resp_arr[i].Email+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4 control-label'>Role : </label>"+
@@ -1094,8 +1094,36 @@ $(document).ready(function(){
 										"<div class='col-sm-6' style='padding-top:7px'>"+yesOrNo(resp_arr[i].UniversalAccess)+"</div>"+
 									"</div>"+
 								"</form>"+
+								"<div class='pull-right'>"+
+								"<Button type='button' id='edit_user"+i+"' data-toggle='popover_edit_user"+i+"' class='btn btn-sm btn-link btn-block'>"+
+								"<span class='glyphicon glyphicon-pencil'></span>&nbsp;&nbsp"+
+								"Edit</Button></div>"+
+								"<div class='hide' id='edit_user_popover"+i+"'>"+
+									"<form style='max-width:300px;min-width:200px;min-height:300px'>"+
+										"<div class='form-group'>"+
+											"<label>Display Name : </label>"+
+											"<div><input type='text' id='update_display_name"+i+"' class='form-control' value='"+resp_arr[i].FirstName+"'/></div>"+
+										"</div>"+
+										"<div class='form-group'>"+
+											"<label>Username : </label>"+
+											"<div><input type='text' id='update_username"+i+"' class='form-control' value='"+resp_arr[i].Username+"'/></div>"+
+										"</div>"+
+										"<div class='form-group'>"+
+											"<label>Email : </label>"+
+											"<div><input type='email' id='update_email"+i+"' class='form-control' value='"+resp_arr[i].Email+"'/></div>"+
+										"</div>"+
+										"<div class='form-group'>"+
+											"<center>"+
+											"<Button type='button' class='btn btn-default' onclick='cancel_update_user(\""+i+"\");' id='cancel_update"+i+"'>Close</Button>"+
+											"&nbsp;&nbsp;<Button type='button' class='btn btn-default'"+
+											" id='update_user"+i+"' onclick='update_user(\""+i+"\",\""+resp_arr[i].Id+"\")'>Update</Button>"+
+											"</center>"+
+										"</div>"+
+										"<center><div class='form-group' style='min-height:20px' id='update_user_resp"+i+"'></div></center>"+
+									"</form>"+
+								"</div>"+
 							"</td>"+
-							"<td>"+
+							"<td align='right'>"+
 								"<div class='account-wall'>"+
 								"<label><b>Created on :</b></label> "+created_date.getDate()+" - "+months[created_date.getMonth()]+" - "+
 															created_date.getFullYear()+"<br/>"+
@@ -1104,16 +1132,59 @@ $(document).ready(function(){
 															updated_date.getFullYear()+"<br/>"+
 								"<label><b>Time: </b>&nbsp;</label>"+getHumanReadableTime(updated_date)+"<br/>"+
 								"</div>"+
-								"<br/><Button type='button' class='btn btn-lg btn-link btn-block'>"+
-								"<span class='glyphicon glyphicon-pencil'></span>&nbsp;&nbsp"+
-								"Edit</Button>"+
 							"</td>"+
 						"</tr>";
 			}
 			layout+="</table>";
 			document.getElementById(display_id).innerHTML=layout;
+			
+			for(var i=0;i<resp_arr.length;i++){
+				$("#edit_user"+i).popover({
+					html: true,
+					title: "Edit user here:",
+					placement: "top", 
+					content: getEditUserContent(i)
+				});
+				
+			}
 		}
 	}
+	function cancel_update_user(index){
+		//$("#edit_user"+i).popover("hide");
+		$("[data-toggle='popover_edit_user"+index+"']").popover('hide');
+	}
+	
+	function update_user(index,user_id){
+		//alert("Index: "+index+" User ID: "+user_id);
+		$("#update_user_resp"+index).html("Wait Please...");
+		var display_name = $("#update_display_name"+index).val();
+		var username = $("#update_username"+index).val();
+		var email = $("#update_email"+index).val();
+		$.ajax({
+			type: "POST",
+			url: "updateUser.php",
+			data: {"user_id":user_id,"display_name":display_name,"username":username,"email":email},
+			success: function(resp){
+				var json_resp = JSON.parse(resp);
+				if(json_resp.state==true){
+					$("#user_display_name"+index).html(display_name);
+					$("#user_name"+index).html(username);
+					$("#user_email"+index).html(email);
+				}
+				$("#update_user_resp"+index).html(json_resp.message);
+				//alert(resp);
+			},
+			error: function(x,y,z){
+				$("#update_user_resp"+index).html("Oops! Something is wrong, pleae try again later.");
+			}
+		});
+	}
+	
+	//function to get edit user content
+	function getEditUserContent(index){
+		return $("#edit_user_popover"+index).html();
+	}
+	
 	//function to return yes/no according to 0 and 1
 	function yesOrNo(val){
 		if(parseInt(val)==0)
