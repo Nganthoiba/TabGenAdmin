@@ -44,9 +44,9 @@ if(!empty($_GET['user_id'])){
 						}
 						$count++;
 					}
+					$output[$i]=array($team_name=>$channels);
 					if($count>0 && $channels!=null){
 						$accessible_teams[]=$team_name;
-						$output[$i]=array($team_name=>$channels);
 					}
 				}
 			}	
