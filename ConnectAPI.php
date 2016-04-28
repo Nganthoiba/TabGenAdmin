@@ -33,20 +33,8 @@ class ConnectAPI{
 		//return $result;
 	}
 
-	/*function sendPostDataWithToken($url,$data){
-		session_start();
-		$login_header = $_SESSION['login_header_response'];
-		//echo $login_header;
-		$hdr_array = $this->http_parse_headers($login_header);
-		//print($hdr_array);
-		$token=null;
-		foreach ($hdr_array as $name => $value) {
-		    //echo "The value of '$name' is '$value'<br>";
-			if($name=="Token"){
-				$token = $value;
-				break;
-			}
-		}
+	
+	function sendPostDataWithToken($url,$data,$token){
 		try{
 			$ch = curl_init($url);
 			$headers = array();
@@ -69,9 +57,9 @@ class ConnectAPI{
 			echo $e->getMessage();
 			return null;
 		}
-	}*/
-	
-	function sendPostDataWithToken($url,$data,$token){
+	}
+	//Getting data from an api by passing token
+	function getDataByToken($url,$token){
 		try{
 			$ch = curl_init($url);
 			$headers = array();
@@ -79,9 +67,8 @@ class ConnectAPI{
 			$headers[] = 'Content-Type: application/json';
 			$headers[] = 'Authorization: Bearer '.$token;
 			
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST,"POST");  
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST,"GET");  
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_POST, true);
 			//curl_setopt($ch, CURLOPT_HEADER, true);

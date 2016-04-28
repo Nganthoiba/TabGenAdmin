@@ -1,24 +1,21 @@
 <?php 
 	//php code for getting post messages
 	$channel_id = $_GET['channel_id'];
+	$token = $_GET['token'];
+	
 	include('connect_db.php');
-	$query="select Posts.Id as postId,Posts.CreateAt,Message,Username as messaged_by,Posts.UserId,Channels.LastPostAt,Posts.Filenames as filenames
-		from Posts,Channels,Users 
-		where Channels.Id=ChannelID and 
-		ChannelID='$channel_id' and 
-		Users.Id=Posts.UserId and Posts.DeleteAt=0
-		order by CreateAt desc limit 10";
-
-	if($conn){
-		$res = $conn->query($query);					
-		if($res){
-			while($row=$res->fetch(PDO::FETCH_ASSOC)){
-				$output[]=array("postId"=>$row['postId'],"CreateAt"=>$row['CreateAt'],"Message"=>$row['Message'],"messaged_by"=>$row['messaged_by'],
-				"UserId"=>$row['UserId'],"LastPostAt"=>$row['LastPostAt'],"filenames"=>"".$row['filenames']);
-				//$output[]=$row;		
-			}
-			print json_encode($output);
-		}
+	include('ConnectAPI.php');
+	include('tabgen_php_functions.php');
+	
+	$url="http://".IP.":8065/api/v1/channels/".$channel_id."/posts/0/12";
+	$getPosts = new ConnectAPI();
+	$result = $getPosts->getDataByToken($url,$token);
+	//echo $result;
+	$decoded_res = json_decode($result);
+	$posts=$decoded_res->posts;
+	for($i=0;$i<sizeof($decoded_res->order);$i++){
+		$post_id = $decoded_res->order[$i];
+		$decoded_res->posts->$post_id->no_of_reply=getNoOfReplies($conn,$post_id);	
 	}
-
+	echo json_encode($decoded_res);
 ?>

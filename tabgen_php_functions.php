@@ -426,4 +426,12 @@ function get_token(){
 		$query = "update Users set FirstName='$display_name' where Id='$user_id'";
 		$conn->query($query);
 	}
+	
+	//function to get number of replies
+	function getNoOfReplies($conn,$post_id){
+		$query = "select count(*) as no_of_replies from Posts where ParentId='$post_id' or RootId='$post_id'";
+		$res=$conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return (int)$row['no_of_replies'];
+	}
 ?>
