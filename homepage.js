@@ -718,7 +718,7 @@ $(document).ready(function(){
 						for(var j=0;j<arr.length;j++){
 							$("#editRole"+j).popover({
 								html: true,
-								title: getEditRoleHeader(),
+								title: "Edit Role here",
 								placement: "left", 
 								content: getEditRolePopupContent(j)
 							});
@@ -1062,36 +1062,36 @@ $(document).ready(function(){
 							"<td>"+
 								"<form class='form-horizontal'>"+
 									"<div class='form-group'>"+
-										"<label class='col-sm-4 control-label'>ID : </label>"+
-										"<div class='col-sm-6'><div style='padding-top:7px'>"+resp_arr[i].Id+"</div></div>"+
+										"<label class='col-sm-4'>ID : </label>"+
+										"<div class='col-sm-6'><div>"+resp_arr[i].Id+"</div></div>"+
 									"</div>"+
 									"<div class='form-group'>"+
-										"<label class='col-sm-4 control-label'>Display Name : </label>"+
-										"<div class='col-sm-6' id='user_display_name"+i+"'style='padding-top:7px'>"+resp_arr[i].FirstName+"</div>"+
+										"<label class='col-sm-4'>Display Name : </label>"+
+										"<div class='col-sm-6' id='user_display_name"+i+"'>"+resp_arr[i].FirstName+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
-										"<label class='col-sm-4 control-label'>Username : </label>"+
-										"<div class='col-sm-6' id='user_name"+i+"' style='padding-top:7px'>"+resp_arr[i].Username+"</div>"+
+										"<label class='col-sm-4'>Username : </label>"+
+										"<div class='col-sm-6' id='user_name"+i+"'>"+resp_arr[i].Username+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
-										"<label class='col-sm-4 control-label'>Email : </label>"+
-										"<div class='col-sm-6' id='user_email"+i+"' style='padding-top:7px'>"+resp_arr[i].Email+"</div>"+
+										"<label class='col-sm-4'>Email : </label>"+
+										"<div class='col-sm-6' id='user_email"+i+"'>"+resp_arr[i].Email+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
-										"<label class='col-sm-4 control-label'>Role : </label>"+
-										"<div class='col-sm-6' style='padding-top:7px'>"+resp_arr[i].Roles+"</div>"+
+										"<label class='col-sm-4'>Role : </label>"+
+										"<div class='col-sm-6'>"+resp_arr[i].Roles+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
-										"<label class='col-sm-4 control-label'>Organisation Unit : </label>"+
-										"<div class='col-sm-6' style='padding-top:7px'>"+resp_arr[i].OrganisationUnit+"</div>"+
+										"<label class='col-sm-4'>Organisation Unit : </label>"+
+										"<div class='col-sm-6'>"+resp_arr[i].OrganisationUnit+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
-										"<label class='col-sm-4 control-label'>Organisation Name : </label>"+
-										"<div class='col-sm-6' style='padding-top:7px'>"+resp_arr[i].Organisation+"</div>"+
+										"<label class='col-sm-4'>Organisation Name : </label>"+
+										"<div class='col-sm-6'>"+resp_arr[i].Organisation+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
-										"<label class='col-sm-4 control-label'>Has access across all other OU : </label>"+
-										"<div class='col-sm-6' style='padding-top:7px'>"+yesOrNo(resp_arr[i].UniversalAccess)+"</div>"+
+										"<label class='col-sm-4'>Has access across all other OU : </label>"+
+										"<div class='col-sm-6'>"+yesOrNo(resp_arr[i].UniversalAccess)+"</div>"+
 									"</div>"+
 								"</form>"+
 								"<div class='pull-right'>"+
