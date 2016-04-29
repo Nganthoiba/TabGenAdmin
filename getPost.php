@@ -11,8 +11,12 @@
 	$getPosts = new ConnectAPI();
 	$result = $getPosts->getDataByToken($url,$token);
 	$decoded_res = json_decode($result);
-	foreach($decoded_res->order as $post_id){
+	/*foreach($decoded_res->order as $post_id){
+		$decoded_res->posts->$post_id->no_of_reply=getNoOfReplies($conn,$post_id);
+	}*/
+	foreach($decoded_res->posts as $post_id => $post_details){
 		$decoded_res->posts->$post_id->no_of_reply=getNoOfReplies($conn,$post_id);
 	}
+	
 	echo json_encode($decoded_res);
 ?>
