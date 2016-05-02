@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<!--<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<script src="js/jquery.min.js"></script>
@@ -35,7 +35,7 @@
 					-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 		}
 		.my_background {
-			background-color:#F2F2F2; color:#292928;padding-top:5px;width:100%;
+			background-color:#90C6F3; color:#292928;padding-top:5px;width:100%;
 				padding-bottom:5px;padding-left:10px;padding-right:10px;border-radius:3px
 		}
 		.my_table {width:100%}
@@ -57,19 +57,20 @@
                 $user_data = json_decode($_SESSION['user_details']);
                 $user_name = $user_data->username;
                 $user_role = $user_data->roles;
+                $user_email= $user_data->email;
 						
 	?>
-	<nav class="navbar navbar-default navbar-fixed-top">
+	<nav class="navbar navbar-default navbar-fixed-top" 
+			style="height:60px;padding-top:10px;padding-bottom:10px;background-color:#90C6F3;color:#f7f7f7">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" 
-          data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <!--<span class="sr-only">Toggle navigation</span>
             <span class="icon-bar">ABC</span>
             <span class="icon-bar">XYZ</span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>-->
           </button>
-          <a class="navbar-brand" href="#">H-Circle</a>
+          <a class="navbar-brand" href="#">H Circle</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -80,26 +81,36 @@
           </ul>  
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
-			<button type="button" class="btn btn-info">
+			<button type="button" class="btn btn-default">
 			  <span class="glyphicon glyphicon-search"></span>
 			</button>
           </form>
         </div>
       </div>
     </nav>
-	<div class="container-fluid" ><br><br>
+	<div class="container-fluid" ><br/><br/><br/>
 		<div class="row"><!--class="row"-->
 			<div class="col-sm-3 col-md-2 sidebar" >
 			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
-				<div class="container"><div class="nav nav-sidebar">
-					<div class="col-md-2"><img src="img/user.png" class="circular" alt="No profile Image found"/>
-						<br/>
-						<p id="userID"><?php echo $user_name; ?></p>
-						<p><?php echo $user_role ?></p>
-					</div>
-				</div></div>
+				<div class="nav nav-sidebar" style="background-color:#E1DFEA;padding-top:10px;padding-bottom:10px;">
+					<center>
+						<div class="col-md-4">
+							<img src="img/user.png" class="circular" alt="No profile Image found"/>			
+						</div>
+					</center>	
+				</div>
+				<div style="background-color:#90C6F3; color:#f7f7f7; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
+					<?php echo $user_name; ?>
+				</div>
+				<div style="background-color:#90C6F3; color:#f7f7f7; padding-left:5px;padding-right:5px;padding-bottom:10px">
+					<u><?php echo $user_role; ?></u>
+					<br/><?php echo $user_email; ?>
+				</div>
 				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
-				<ul class="nav nav-tabs nav-stacked" style="background-color:#FAFAFA;border-radius:3px">
+				<ul class="nav nav-tabs nav-stacked" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
+															-webkit-box-shadow: 0px 2px 2px rgba(0.2, 0.3, 0, 0.3);
+															background-color: #f7f7f7;padding-top:10px;
+														box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
@@ -131,46 +142,33 @@
 				</ul>
 			</div>
 			<div class="col-md-8"><!--class="col-md-8"-->	
-				<div class="col-md-12" style="padding-top:0px">
-					<div class="panel panel-default">
-						<div class="panel-heading"><h1 class="panel-title">Organisation Units</h1></div>
-						<div class="panel-body">
-							<table  class='table' id="showOrgUnits" border="0">
-									<script>
-										$(document).ready(function(){
-											document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
-											viewOrgUnits("list","showOrgUnits","few");
-										});					
-									</script>	
-							</table>
-						</div>
-						<div class="panel-footer clearfix">
-							<div class="pull-right"><Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button></div>
-						</div>
-					</div>					
+				<div class="col-md-16" style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
+										-webkit-align-content: center; align-content: center;padding-top:0px">
+					<div><h3 class="heading">Organisation Units</h3></div>	
+					<br/>	
+					<table  class='table' id="showOrgUnits" border="0">
+						<script>
+							$(document).ready(function(){
+								document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
+								viewOrgUnits("list","showOrgUnits","few");
+							});					
+						</script>	
+					</table>			
+					<div class="pull-right"><Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button></div>	
 				</div>
-				
-				<div class="col-md-12">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h1 class="panel-title">Organisation</h1>
-						</div>
-						
-						<div class="panel-body">
-							<table  class='table' id="showOrgsList">
-								<script>
-									$(document).ready(function(){
-										document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
-										viewOrgs("list","showOrgsList","few");
-									});
-								</script>	
-							</table>
-						</div>
-						
-						<div class="panel-footer clearfix">
-							<div class="pull-right"><Button type="button" id="viewAllOrgLists" class="btn btn-link">VIEW ALL</Button></div>
-						</div>
-					</div>				
+				<br/>
+				<div class="col-md-16" style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
+										-webkit-align-content: center; align-content: center;padding-top:0px">	
+					<h3 class="heading">Organisation</h3><br/>
+					<table  class='table' id="showOrgsList" border='0'>
+						<script>
+							$(document).ready(function(){
+								document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
+								viewOrgs("list","showOrgsList","few");
+							});
+						</script>	
+					</table>
+					<div class="pull-right"><Button type="button" id="viewAllOrgLists" class="btn btn-link">VIEW ALL</Button></div>					
 				</div>
 			</div>
 		</div>
@@ -862,13 +860,18 @@ Tabs are created in this section-->
 				<h4 class="modal-title" id="myModalLabel">List of Users Created:
 					<div class="pull-right">
 						<form method="GET">
-						<table>
+						<table width="100%">
 							<tr>
 								<td>Find a user: &nbsp;</td>
-								<td><input type="text" class="form-control" id="search_user" onkeyup="find()" 
-										placeholder="Type a Username Here"/></td>
-								<td><button type="submit" class="btn btn-primary" id="findUser"><span class="glyphicon glyphicon-search"></span>
-									</button></td>
+								<td>
+									<input type="text" class="form-control" id="search_user" onkeyup="find()" 
+										placeholder="Type a Username Here"/>
+								</td>
+								<td>
+									<button type="submit" class="btn btn-default" id="findUser">
+									<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</td>
 								<td>&nbsp;&nbsp;&nbsp;</td>
 								<td>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">

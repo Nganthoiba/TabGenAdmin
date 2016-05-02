@@ -434,4 +434,37 @@ function get_token(){
 		$row = $res->fetch(PDO::FETCH_ASSOC);
 		return (int)$row['no_of_replies'];
 	}
+	
+	//function to check whether the user has already liked the post or not
+	function isAlreadyLiked($conn,$post_id,$user_id){
+		$query = "select count(*) as count from Likes where post_id='$post_id' and user_id='$user_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		if((int)$row['count']>0)//check for existence of row
+			return true;
+		else
+			return false;
+	}
+
+	//function to unlike a post
+	function unlikeAPost($conn,$post_id,$user_id){
+		$query = "delete from Likes where post_id='$post_id' and user_id='$user_id'";
+		$res = $conn->query($query);
+		return $res;
+	}
+
+	//function to like a post
+	function likeAPost($conn,$post_id,$user_id){
+		$query = "insert into Likes values('$post_id','$user_id')";
+		$res = $conn->query($query);
+		return $res;
+	}
+	
+	//function to count the number of likes for a particular messsage
+	function getNoOfLikes($conn,$post_id){
+		$query = "select count(*) as count from Likes where post_id='$post_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return (int)$row['count'];
+	}
 ?>
