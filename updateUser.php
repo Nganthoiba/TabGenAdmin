@@ -9,7 +9,7 @@ if(!empty($_POST['user_id'])){
 	$email = $_POST['email'];
 	$updateTime = time();
 	
-	$query="Update Users set UpdateAt=time(),FirstName='$user_display',Username='$username',Email='$email' 
+	$query="Update Users set UpdateAt='time()',FirstName='$user_display',Username='$username',Email='$email' 
 			where Id='$user_id'";
 	if($conn->query($query)){
 		echo json_encode(array("state"=>true,"message"=>"Successfully updated."));
