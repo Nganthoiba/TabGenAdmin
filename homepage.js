@@ -699,8 +699,8 @@ $(document).ready(function(){
 							"<table border='0' style='max-height:160px;overflow: hidden;overflow-y: auto;' "+
 									"class='table table-bordered'>"+
 							"<tr>"+
-								"<th style='background-color:#90C6F3;color:#FFFFFF'>Role Name</th>"+
-								"<th style='background-color:#90C6F3;color:#FFFFFF'>Role Type</th>"+
+								"<th>Role Name</th>"+
+								"<th>Role Type</th>"+
 							"</tr>";
 						var i=0;
 						for(i=0;i<arr.length;i++){
@@ -1109,12 +1109,14 @@ $(document).ready(function(){
 										"<div class='col-sm-6'>"+yesOrNo(resp_arr[i].UniversalAccess)+"</div>"+
 									"</div>"+
 								"</form>"+
-								"<div class='pull-right'>"+
+							"</td>"+
+							"<td>"+
+								"<div>"+
 								"<Button type='button' id='edit_user"+i+"' data-toggle='popover_edit_user"+i+"' class='btn btn-sm btn-link btn-block'>"+
 								"<span class='glyphicon glyphicon-pencil'></span>&nbsp;&nbsp"+
 								"Edit</Button></div>"+
 								"<div class='hide' id='edit_user_popover"+i+"'>"+
-									"<form style='max-width:300px;min-width:200px;min-height:300px'>"+
+									"<form style='max-width:250px;min-width:200px;max-height:270px'>"+
 										"<div class='form-group'>"+
 											"<label>Display Name : </label>"+
 											"<div><input type='text' id='update_display_name"+i+"' class='form-control' value='"+resp_arr[i].FirstName+"'/></div>"+
@@ -1157,7 +1159,7 @@ $(document).ready(function(){
 				$("#edit_user"+i).popover({
 					html: true,
 					title: "Edit user here:",
-					placement: "top", 
+					placement: "bottom", 
 					content: getEditUserContent(i)
 				});
 				

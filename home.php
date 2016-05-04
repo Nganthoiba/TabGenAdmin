@@ -224,7 +224,7 @@
 						</div>
 						<div class="panel-footer clearfix">
 							<label id="error1" class="col-sm-offset-2 col-sm-8"></label>
-							<div class="pull-right"><button type="submit" class="btn btn-info" id="submit">Create </button></div>
+							<div class="pull-right"><button type="submit" class="btn btn-default" id="submit">Create </button></div>
 						</div>
 					</div>
 				</form>
@@ -279,7 +279,7 @@
 					<div class="panel-footer clearfix">
 						<label id="error2" class="col-sm-offset-2 col-sm-8"></label>
 						<div class="pull-right">
-							<button type="submit" class="btn btn-info" id="createorgunitbtn">Create </button>
+							<button type="submit" class="btn btn-default" id="createorgunitbtn">Create </button>
 						</div>
 					</div>
 				</div>
@@ -314,7 +314,7 @@
 									</select>
 								</div>
 								<div class="col-sm-4">
-									<button type="submit" class="btn btn-info" id="disp_role" style="float:right">Show Existing Roles </button>
+									<button type="submit" class="btn btn-default" id="disp_role" style="float:right">Show Existing Roles </button>
 									<script type="text/JavaScript">
 										$(document).ready(function(){
 											$('#disp_role').click(function(){
@@ -336,7 +336,7 @@
 						
 					</div>
 					<h3 align="center"> 
-					<a href="#" data-toggle="collapse" class='btn btn-primary' data-target="#create_role_collapsible">
+					<a href="#" data-toggle="collapse" class='btn btn-default' data-target="#create_role_collapsible">
 					<span class="glyphicon glyphicon-plus"></span> Click here to create a new role</a></h3>
 					
 					<div id="create_role_collapsible" class="collapse">
@@ -365,7 +365,7 @@
 							<div class="panel-footer clearfix">
 								<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
 								<div class="pull-right">
-									<button type="submit" class="btn btn-info" id="btnrole">Create </button>
+									<button type="submit" class="btn btn-default" id="btnrole">Create </button>
 								</div>
 							</div>
 						</div>
@@ -453,7 +453,7 @@
 						<div class="panel-footer clearfix">
 							<label id="error4" class="col-sm-offset-2 col-sm-8"></label>
 							<div class="pull-right">
-									<button type="submit" class="btn btn-info" id="CreateUser">Create </button>
+									<button type="submit" class="btn btn-default" id="CreateUser">Create </button>
 							</div>
 						</div>
 					</div>
@@ -489,7 +489,7 @@
 						</div>
 						<div class="panel-footer clearfix">
 							<label id="createTemplateResponse"></label>
-							<div class="pull-right"><Button type="submit" class="btn btn-info" id="createTemplate">Create</Button></div>
+							<div class="pull-right"><Button type="submit" class="btn btn-default" id="createTemplate">Create</Button></div>
 						</div>
 					</div>
 				</form>
@@ -539,7 +539,7 @@
 						<div class="form-group" id="role_selector_region"></div>
 					</div>	
 					<div class="panel-footer clearfix">
-						<div class="pull-right"><Button type="submit" class="btn btn-info" id="createTab">
+						<div class="pull-right"><Button type="submit" class="btn btn-default" id="createTab">
 							Create</Button></div>
 					<span id="createTabResponse"></span></div>
 					
@@ -708,7 +708,7 @@
 										<div class="panel-heading clearfix">
 											<table width="100%"><tr>
 											<td><h1 class="panel-title">Associated Tabs</h1></td>
-											<td align="right"><div class="pull-right"><Button class="btn btn-info" id="refresh_ass_tab">
+											<td align="right"><div class="pull-right"><Button class="btn btn-default" id="refresh_ass_tab">
 											<span class="glyphicon glyphicon-refresh"></span></Button></div></td>
 											</tr></table>
 										</div>
@@ -745,7 +745,7 @@
 												<td><h1 class="panel-title">List of Tabs</h1></td>
 												<td align="right">
 													<div class="pull-right">
-														<Button class="btn btn-info" id="refresh_tab_list">
+														<Button class="btn btn-default" id="refresh_tab_list">
 														<span class="glyphicon glyphicon-refresh"></span></Button>
 													</div>
 												</td>
@@ -827,7 +827,7 @@ Tabs are created in this section-->
 						<tr>
 							<td colspan="2"><span id="saveAsscRole2TabResponse"></span></td>
 							<td align="right">
-								<Button class="btn btn-info" id="saveAsscRole2Tab" style="width:60px">Save</Button>
+								<Button class="btn btn-default" id="saveAsscRole2Tab" style="width:60px">Save</Button>
 							</td>
 						</tr>
 					</table>
@@ -861,7 +861,7 @@ Tabs are created in this section-->
 							<td>Role: <select class="form-control" id="roleSelect" style="float:right"></select>
 							</td>
 							<td align="right">
-								<br/><Button type="submit" class="btn btn-info" id="getTabsTemplate">Show Tabs and Templates</Button>
+								<br/><Button type="submit" class="btn btn-default" id="getTabsTemplate">Show Tabs and Templates</Button>
 							</td>
 						</tr>
 					</table></div></center>
@@ -905,8 +905,6 @@ Tabs are created in this section-->
 				</h4>
 			</div>
 			<div class="modal-body">
-				<div class="panel panel-default">
-					<div class="panel-body">
 						<script type="text/JavaScript">
 							function find(){
 								$("#user_display_content").html("<center><p>Wait Please...</p></center>");
@@ -936,11 +934,9 @@ Tabs are created in this section-->
 							Content goes here....
 						</div>
 					</div>
-					<div class="pull-right"><Button class="btn btn-link" id="view_all_users">VIEW ALL</Button></div>
-				</div>
-			</div>	
+					<div class="pull-right"><Button class="btn btn-link" id="view_all_users">VIEW ALL</Button></div>	
+			</div>
 		</div>
-	</div>
 </div>
 <!-- Modal for logout -->
 <div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
