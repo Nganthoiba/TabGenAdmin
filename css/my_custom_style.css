@@ -16,11 +16,10 @@
 }
 .heading{
 	background-color:#FFFFFF;
-	color:#3C01FD;
+	color:#424242;
 	width:100%;
 	height:45px;
 	padding:10px;
-	font-family:calibri
 }
 label {color:#848484; font-weight:normal}
 .form-signin

@@ -96,17 +96,17 @@
 		<div class="row"><!--class="row"-->
 			<div class="col-sm-3 col-md-2 sidebar">
 			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
-				<div class="nav nav-sidebar" style="background-color:#E1DFEA;padding-top:10px;padding-bottom:10px;">
+				<div class="nav nav-sidebar" style="background-color:#585858;padding-top:10px;padding-bottom:10px">
 					<center>
 						<div class="col-md-4">
 							<img src="img/user.png" class="circular" alt="No profile Image found"/>			
 						</div>
 					</center>	
 				</div>
-				<div style="background-color:#90C6F3; color:#f7f7f7; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
+				<div style="background-color:#585858; color:#f7f7f7; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
 					<?php echo $user_name; ?>
 				</div>
-				<div style="background-color:#90C6F3; color:#f7f7f7; padding-left:5px;padding-right:5px;padding-bottom:10px">
+				<div style="background-color:#585858; color:#f7f7f7; padding-left:5px;padding-right:5px;padding-bottom:10px">
 					<u><?php echo $user_role; ?></u>
 					<br/><?php echo $user_email; ?>
 				</div>

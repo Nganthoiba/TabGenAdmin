@@ -448,14 +448,16 @@ $(document).ready(function (){
 							limit=(json_arr.length>4?4:json_arr.length);
 						}
 						if(method=="list"){
+							view="<tr><th>Name</th><th>Organisation Name</th><th>Created at</th><th colspan='2'>Last Updated at</th></tr>";
 							for(var i=0;i<limit;i++){
 								var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);
 								view+='<tr><td>'+json_arr[i].organisation_unit+'</td>'+
-								'<td> Created Under: '+json_arr[i].organisation+'<br/>'+
-									'Date of creation: '+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+
-									created_date.getFullYear()+'<br/>'+
-									'Last updated at: '+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
+								'<td>'+json_arr[i].organisation+'</td>'+
+								'<td>'+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+
+									created_date.getFullYear()+
+								'</td>'+
+								'<td>'+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
 									updated_date.getFullYear()+
 								'</td>'+
 								'<td align="right">'+
@@ -537,8 +539,18 @@ $(document).ready(function (){
 							limit=json_arr.length>4?4:json_arr.length;
 						}
 						if(method=="list"){
+							view="<tr><th>Name</th><th>Created At</th><th>Last Updated At</th><th></th></tr>";
 							for(var i=0;i<limit;i++){
-								view+="<tr><td>"+json_arr[i].name+"</td><td align='right'>"+
+								var created_date = new Date(json_arr[i].create_at);
+								var updated_date = new Date(json_arr[i].update_at);
+								view+="<tr><td>"+json_arr[i].name+"</td>"+
+								'<td>'+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+
+									created_date.getFullYear()+
+								'</td>'+
+								'<td>'+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
+									updated_date.getFullYear()+
+								'</td>'+
+								"<td align='right'>"+
 								"<Button type='button' class='btn btn-default'"+
 								"onclick='setDelAction4Org(\""+json_arr[i].id+"\",\""+json_arr[i].name+"\"); return false;' id='del_org"+i+"'>"+
 								"<span class='glyphicon glyphicon-trash'></span></Button></td></tr>";
