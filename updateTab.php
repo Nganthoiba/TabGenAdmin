@@ -76,7 +76,7 @@
 	}
 		
 	function updateTab($conn,$tab_id,$new_tab_name){
-		$updateTime=time();
+		$updateTime=time()*1000;
 		$query = "update Tab set Name = '$new_tab_name',UpdateAt='$updateTime' where Id='$tab_id'";
 		if($conn->query($query)){
 			echo json_encode(array("status"=>true,"message"=>"Tab Name Updated Successfully."));

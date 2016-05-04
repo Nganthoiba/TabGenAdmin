@@ -92,7 +92,7 @@
     </nav>
 	<div class="container-fluid" ><br/><br/><br/>
 		<div class="row"><!--class="row"-->
-			<div class="col-sm-3 col-md-2 sidebar" >
+			<div class="col-sm-3 col-md-2 sidebar" style="position:fixed">
 			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
 				<div class="nav nav-sidebar" style="background-color:#E1DFEA;padding-top:10px;padding-bottom:10px;">
 					<center>

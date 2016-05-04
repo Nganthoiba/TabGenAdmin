@@ -110,7 +110,7 @@ function updateTabTemplateAssociation($conn,$index,$tab_id,$template_name,$tab_n
 				$template_id=findTemplateId($conn,$template_name);
 				if($template_id!=null){
 					
-					$updateTime = time();
+					$updateTime = time()*1000;
 					$query2 = "UPDATE Tab set TabTemplate = '$template_id',UpdateAt='$updateTime',Name='$tab_name' WHERE Tab.Id='$tab_id'";
 							/*$query2 = "UPDATE Tab set TabTemplate = '$template_id',UpdateAt='$updateTime'  
 							WHERE RoleId='$role_id' AND Name='$tab_name' AND RoleName='$role_name' AND OUId='$ou_id'";*/

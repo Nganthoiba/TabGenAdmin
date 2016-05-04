@@ -692,7 +692,15 @@ $(document).ready(function(){
 							"</tr>";
 						var i=0;
 						for(i=0;i<arr.length;i++){
-							roleList+="<tr><td>"+arr[i].RoleName+"<div class='pull-right'>"+
+							roleList+="<tr><td>"+arr[i].RoleName+
+								"</td>"+
+							"<td>"+arr[i].RoleType+"</td></tr>";
+							//roleList+="<div class='col-sm-4'><p>Name: "+arr[i].RoleName+"<br/>Type: "+arr[i].RoleType+"</p></div>";
+						}
+						roleList+="</table></div>";
+						document.getElementById(id).innerHTML=roleList;
+						/*
+						 "<div class='pull-right'>"+
 								"<Button type='button' data-toggle='editRolePopup"+i+"' id='editRole"+i+"' class='btn btn-link'>"+
 									"<span class='glyphicon glyphicon-pencil'></span>"+
 								"</Button>"+
@@ -709,20 +717,15 @@ $(document).ready(function(){
 											"</form>"+	
 										"</div>"+
 									"</div></div>"+
-								"</td>"+
-							"<td>"+arr[i].RoleType+"</td></tr>";
-							//roleList+="<div class='col-sm-4'><p>Name: "+arr[i].RoleName+"<br/>Type: "+arr[i].RoleType+"</p></div>";
-						}
-						roleList+="</table></div>";
-						document.getElementById(id).innerHTML=roleList;
-						for(var j=0;j<arr.length;j++){
+						 * 
+						 * for(var j=0;j<arr.length;j++){
 							$("#editRole"+j).popover({
 								html: true,
 								title: "Edit Role here",
 								placement: "left", 
 								content: getEditRolePopupContent(j)
 							});
-						}
+						}*/
 					}
 				},
 				error: function(x,y,z){

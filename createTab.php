@@ -67,7 +67,7 @@ else
 //creating tab	
 function create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific){
 	$id = randId(26);//creating unique id
-	$createAt = time();
+	$createAt = time()*1000;
 	$query=null;
 	if($ou_specific == "true"){//check if the tab to be created is OU specific or not
 		$ou_name = $_POST['ou_name'];

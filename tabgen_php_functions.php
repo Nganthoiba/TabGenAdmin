@@ -6,7 +6,7 @@ function createTabs($conn,$start,$no_of_tabs,$org_unit,$role_name,$createdBy){
 		$id = randId(26);//creating unique id
 		$role_id = findRoleId($conn,$org_unit,$role_name);
 		$ou_id = findOUId($conn,$org_unit);
-		$createAt = time();
+		$createAt = time()*1000;
 		if($ou_id!=null){
 			if($role_id!=null){
 				$timestamp = time();
@@ -395,6 +395,7 @@ function get_token(){
 	
 	function deleteOU($conn,$org_unit_id){
 		$ou_name=getOUNameByOuId($conn,$org_unit_id);
+		$time = time()*1000;
 		$res1=$conn->query("update Users set DeleteAt='$time' where Id in (select user_id 
 							from User_OU_Mapping where OU_id='$org_unit_id')");
 		if($res1){
