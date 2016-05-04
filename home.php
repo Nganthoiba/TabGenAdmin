@@ -150,12 +150,12 @@
 										-webkit-align-content: center; align-content: center;padding-top:0px">
 					<div>
 						<h3 class="heading">Organisation Units
-							<form class="navbar-form navbar-right">
+							<!--<form class="navbar-form navbar-right">
 								<input type="text" class="form-control" placeholder="Search...">
 								<button type="button" class="btn btn-default">
 								  <span class="glyphicon glyphicon-search"></span>
 								</button>
-							</form>
+							</form>-->
 						</h3>
 					</div>	
 					
@@ -174,12 +174,12 @@
 				<div class="col-md-16" style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;padding-top:0px">	
 					<h3 class="heading">Organisation
-						<form class="navbar-form navbar-right">
+						<!--<form class="navbar-form navbar-right">
 							<input type="text" class="form-control" placeholder="Search...">
 							<button type="button" class="btn btn-default">
 								 <span class="glyphicon glyphicon-search"></span>
 							</button>
-						</form>
+						</form>-->
 					</h3><br/>
 					<table  class='table' cellspacing="10" id="showOrgsList" border='0'>
 						<script>
