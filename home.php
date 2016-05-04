@@ -38,14 +38,22 @@
 			background-color:#90C6F3; color:#292928;padding-top:5px;width:100%;
 				padding-bottom:5px;padding-left:10px;padding-right:10px;border-radius:3px
 		}
-		.my_table {width:100%}
+		.table_borderless {
+			width:100%;
+			border-top-style: none;
+			border-left-style: none;
+			border-right-style: none;
+			border-bottom-style: none;
+			cellspacing:10px
+		}
 		h4 {font-family:calibri}
 		table th {background-color:#F2F2F2}
 		td {vertical-align:middle}
+		a {color:#D8D8D8}
 	</style>
 	
 </head>
-<body>
+<body bgcolor="#E6E6E6">
 	<?php
 
         session_start();
@@ -76,17 +84,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
             <li><a href="#">Settings</a></li>
             <li><a href="#">FAQ</a></li>
             <li><a href="#">Help</a></li>
           </ul>  
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-			<button type="button" class="btn btn-default">
-			  <span class="glyphicon glyphicon-search"></span>
-			</button>
-          </form>
+          
         </div>
       </div>
     </nav>
@@ -111,7 +113,7 @@
 				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
 				<ul class="nav nav-tabs nav-stacked" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
 															-webkit-box-shadow: 0px 2px 2px rgba(0.2, 0.3, 0, 0.3);
-															background-color: #f7f7f7;padding-top:10px;
+															background-color: #585858;padding-top:10px;
 														box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
@@ -146,9 +148,19 @@
 			<div class="col-md-8"><!--class="col-md-8"-->	
 				<div class="col-md-16" style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;padding-top:0px">
-					<div><h3 class="heading">Organisation Units</h3></div>	
+					<div>
+						<h3 class="heading">Organisation Units
+							<form class="navbar-form navbar-right">
+								<input type="text" class="form-control" placeholder="Search...">
+								<button type="button" class="btn btn-default">
+								  <span class="glyphicon glyphicon-search"></span>
+								</button>
+							</form>
+						</h3>
+					</div>	
+					
 					<br/>	
-					<table  class='table' id="showOrgUnits" border="0">
+					<table  class='table' cellspacing="10" id="showOrgUnits" border="0">
 						<script>
 							$(document).ready(function(){
 								document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -161,8 +173,15 @@
 				<br/>
 				<div class="col-md-16" style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;padding-top:0px">	
-					<h3 class="heading">Organisation</h3><br/>
-					<table  class='table' id="showOrgsList" border='0'>
+					<h3 class="heading">Organisation
+						<form class="navbar-form navbar-right">
+							<input type="text" class="form-control" placeholder="Search...">
+							<button type="button" class="btn btn-default">
+								 <span class="glyphicon glyphicon-search"></span>
+							</button>
+						</form>
+					</h3><br/>
+					<table  class='table' cellspacing="10" id="showOrgsList" border='0'>
 						<script>
 							$(document).ready(function(){
 								document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
