@@ -9,7 +9,7 @@
 	include('ConnectAPI.php');
 	include('tabgen_php_functions.php');
 	
-	$url="http://".IP.":8065/api/v1/channels/".$channel_id."/posts/".$post_id."/before/0/10";
+	$url="http://".IP.":8065/api/v1/channels/".$channel_id."/post/".$post_id."/before/0/10";
 	$getPosts = new ConnectAPI();
 	$result = $getPosts->getDataByToken($url,$token);
 	$decoded_res = json_decode($result);
@@ -19,4 +19,5 @@
 		$decoded_res->posts->$post_id->isLikedByYou=isAlreadyLiked($conn,$post_id,$user_id);
 	}
 	echo json_encode($decoded_res);
+	//http://128.199.111.18:8065/api/v1/channels/6qiw4zhjdjnabgwsfw1axkijrc/post/f6bda3nx1ifd5noixi1qyhffrc/before/4/10
 ?>
