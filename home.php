@@ -930,14 +930,15 @@ Tabs are created in this section-->
 								});
 							});
 						</script>
-				<div id="user_display_content" style="max-width:100%; min-height:50%; overflow:hidden;overflow-x:auto">
-							Content goes here....
-				</div>	
+					<div id="user_display_content" style="max-width:100%; min-height:50%; overflow:hidden;overflow-x:auto">
+								Content goes here....
+					</div>	
 			</div>
 			<div class='modal-footer'>
 				<div class="pull-right"><Button class="btn btn-link" id="view_all_users">VIEW ALL</Button></div>
 			</div>
 		</div>
+	</div>
 </div>
 <!-- Modal for logout -->
 <div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
