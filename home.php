@@ -107,7 +107,7 @@
 					<?php echo $user_name; ?>
 				</div>
 				<div style="background-color:#585858; color:#f7f7f7; padding-left:5px;padding-right:5px;padding-bottom:10px">
-					<u><?php echo $user_role; ?></u>
+					<?php echo $user_role; ?>
 					<br/><?php echo $user_email; ?>
 				</div>
 				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
@@ -207,7 +207,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post" action="createorg.php">
-					<div class="panel panel-info">
+					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="form-group">
 								<label for="orgname" class="col-sm-4  control-label">Organization Name</label>
@@ -241,7 +241,7 @@
 				<h4 class="modal-title" id="myModalLabel">Create Organization Unit</h4>
 			</div>
 			<div class="modal-body">
-				<div class="panel panel-info">
+				<div class="panel panel-default">
 					<div class="panel-body">
 						<form class="form-horizontal" method="post">
 							<div class="form-group">

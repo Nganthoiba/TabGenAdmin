@@ -378,16 +378,76 @@ function get_token(){
 		else 
 			return false;
 	}
+	//getting a tab with its template name
+	function getTabWithTemplate($conn,$tab_id){
+		$query = "SELECT Tab.*,TabTemplate.Name as Template_Name 
+				FROM Tab,TabTemplate
+				where Tab.TabTemplate=TabTemplate.Id and Tab.Id='$tab_id'";
+		$res = $conn->query($query);
+		if($res){
+			$row = $res->fetch(PDO::FETCH_ASSOC);
+			return $row;
+		}
+		else 
+			return null;
+	}
 	
-	//function to delete a tab
+	//function to delete a tab along with channels 
+	function deleteATab($conn,$tab_id){
+		$tab_details = getTabWithTemplate($conn,$tab_id);
+			if($tab_details['Template_Name']=="Chat Template"){
+				$token_id = get_token();
+				//echo json_encode(array("status"=>false,"message"=>$token_id));
+				if($token_id!=null){
+					/*getting channel details for the channel having same name as the earlier tab name*/
+					$tab_name=$tab_details['Name'];
+					$channel_details = getChannelByName($conn,$tab_name);//this returns null of the channel does not exists
+					if($channel_details!=null){
+						/* it means a channel already exists with the same name as tab name, so we are going to delete that channel name
+						with the new tab name.	*/		
+						
+						$delete_channel_data = null;
+											
+						$delete_channel_url = "http://".IP.":8065/api/v1/channels/".$channel_details[0]['Id']."/delete";
+						$deleteChannel = new ConnectAPI();
+						$delete_channel_response = json_decode($deleteChannel->sendPostDataWithToken($delete_channel_url,$delete_channel_data,$token_id));
+						if($deleteChannel->httpResponseCode==200){
+							//it means channel has been deleted successfully
+							return deleteTab($conn,$tab_id);	
+						}
+						else if($deleteChannel->httpResponseCode==0){
+							return json_encode(array("status"=>false,"message"=>"Unable to connect API for updating channel name"));
+						}
+						else{
+							return json_encode(array("status"=>false,"message"=>$delete_channel_response->message));
+						}
+						
+						
+					}else{
+						return json_encode(array("status"=>false,"message"=>"No channel exists with the earlier tab name"));
+					}
+					
+				}
+				else{
+						return json_encode(array("status"=>false,"message"=>"Token not found. Login again."));
+				}
+						
+			}else{
+				//deleting Tabs which is not chat template
+				return deleteTab($conn,$tab_id);
+			}
+		
+	}
+	//this function will modify tabs in Table
 	function deleteTab($conn, $tab_id){
+		$time = time()*1000;
 		$query1 = "delete from RoleTabAsson where TabId='$tab_id'";
-		$query2 = "delete from Tab where Id='$tab_id'";
+		$query2 = "update Tab set DeleteAt='$time' where Id='$tab_id'";
 		if($conn->query($query1) && $conn->query($query2)){	
-			echo json_encode(array("status"=>true,"message"=>"Successfully deleted"));
+			return json_encode(array("status"=>true,"message"=>"Successfully deleted"));
 		}
 		else{
-			echo json_encode(array("status"=>false,"message"=>"Failed to delete"));
+			return json_encode(array("status"=>false,"message"=>"Failed to delete"));
 		}		
 	}
 	
@@ -404,12 +464,19 @@ function get_token(){
 				$query="delete from OrganisationUnit where OrganisationUnit.Id='$org_unit_id'";
 				$res3 = $conn->query($query);					
 				if($res3){	
-					$conn->query("update Tab set DeleteAt='$time' 
-								where RoleId in (select Id from Role where OrganisationUnit='$ou_name')");
+					/*$conn->query("update Tab set DeleteAt='$time' 
+								where RoleId in (select Id from Role where OrganisationUnit='$ou_name')");*/
+					$result=$conn->query("select Id from Tab where RoleId in 
+					(select Id from Role where OrganisationUnit='$ou_name')");
+					if($result){	
+						while($row=$result->fetch(PDO::FETCH_ASSOC)){
+							deleteATab($conn,$row['Id']);
+						}	
+					}			
 					$conn->query("Update Role set DeleteAt='$time' where OrganisationUnit='$ou_name'");
 					
 					$conn->query("delete from RoleTabAsson 
-									where TabId in (select Id from Tab where DeleteAt !=0)
+									where TabId in (select Id from Tab where DeleteAt!=0)
 									OR RoleId in (select Id from Role where DeleteAt!=0)");
 					return true;
 				}

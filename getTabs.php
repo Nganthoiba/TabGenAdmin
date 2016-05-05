@@ -9,7 +9,8 @@ if(isset($_SESSION['user_details'])){
 			$query = "SELECT Tab.*,TabTemplate.Name as Template_Name 
 						FROM Tab,TabTemplate
 						where Tab.TabTemplate=TabTemplate.Id and
-							Tab.CreatedBy='$created_by'
+							Tab.CreatedBy='$created_by' and
+							Tab.DeleteAt=0
 						order by Tab.CreateAt desc";
 			$res = $conn->query($query);
 			while($row = $res->fetch(PDO::FETCH_ASSOC)){
@@ -19,7 +20,7 @@ if(isset($_SESSION['user_details'])){
 	}
 	else echo "false";
 }
-else echo "sesssion_expired";
+else echo "Sesssion_expired";
 
 function getRoleInfo($conn,$role_id){
 		$query = "select Role.Id,Role.RoleName,OrganisationUnit.OrganisationUnit,Organisation
