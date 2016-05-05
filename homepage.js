@@ -467,6 +467,8 @@ $(document).ready(function (){
 								' onclick="setDelAction4OrgUnit(\''+json_arr[i].id+'\',\''+json_arr[i].organisation_unit+'\')" id="del_org_unit'+i+'">'+
 								'<span class="glyphicon glyphicon-trash"></span></Button></td></tr>';
 							}
+							if(i==0)
+								view="<center><p>No Organisation Unit exists, create a new one.</p></center>";
 						}
 						else if(method=="dropdown"){
 							for(var i=0;i<limit;i++){
@@ -559,6 +561,8 @@ $(document).ready(function (){
 								"onclick='setDelAction4Org(\""+json_arr[i].id+"\",\""+json_arr[i].name+"\"); return false;' id='del_org"+i+"'>"+
 								"<span class='glyphicon glyphicon-trash'></span></Button></td></tr>";
 							}
+							if(i==0)
+								view="<center><p>No Organisation exists, create a new one.</p></center>";
 						}
 						else if(method=="dropdown"){
 							for(var i=0;i<limit;i++){
