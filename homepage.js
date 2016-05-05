@@ -448,17 +448,19 @@ $(document).ready(function (){
 							limit=(json_arr.length>4?4:json_arr.length);
 						}
 						if(method=="list"){
-							view="<tr><th>Name</th><th>Organisation Name</th><th>Created at</th><th colspan='2'>Last Updated at</th></tr>";
+							view="<tr><th>Name</th><th>Organisation Name</th><th>Created on</th><th colspan='2'>Last Updated on</th></tr>";
 							for(var i=0;i<limit;i++){
 								var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);
 								view+='<tr><td>'+json_arr[i].organisation_unit+'</td>'+
 								'<td>'+json_arr[i].organisation+'</td>'+
-								'<td>'+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+
+								'<td>Date: '+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+
 									created_date.getFullYear()+
+									"<br/>Time: "+getHumanReadableTime(created_date)+
 								'</td>'+
-								'<td>'+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
+								'<td>Date: '+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
 									updated_date.getFullYear()+
+									'<br/>Time: '+getHumanReadableTime(updated_date)+
 								'</td>'+
 								'<td align="right">'+
 								'<Button type="button" class="btn btn-default"'+
@@ -539,16 +541,18 @@ $(document).ready(function (){
 							limit=json_arr.length>4?4:json_arr.length;
 						}
 						if(method=="list"){
-							view="<tr><th>Name</th><th>Created At</th><th>Last Updated At</th><th></th></tr>";
+							view="<tr><th>Name</th><th>Created on</th><th>Last updated on</th><th></th></tr>";
 							for(var i=0;i<limit;i++){
 								var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);
 								view+="<tr><td>"+json_arr[i].name+"</td>"+
-								'<td>'+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+
+								'<td>Date: '+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+
 									created_date.getFullYear()+
+									"<br/>Time: "+getHumanReadableTime(created_date)+
 								'</td>'+
-								'<td>'+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
+								'<td>Date: '+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
 									updated_date.getFullYear()+
+									"<br/>Time: "+getHumanReadableTime(updated_date)+
 								'</td>'+
 								"<td align='right'>"+
 								"<Button type='button' class='btn btn-default'"+
