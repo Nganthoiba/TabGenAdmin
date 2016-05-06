@@ -49,7 +49,7 @@
 		h4 {font-family:calibri}
 		table th {background-color:#F2F2F2}
 		td {vertical-align:middle}
-		a {color:#D8D8D8}
+		a {color:#F8FAFC}
 	</style>
 	
 </head>
@@ -96,24 +96,27 @@
 		<div class="row"><!--class="row"-->
 			<div class="col-sm-3 col-md-2 sidebar">
 			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
-				<div class="nav nav-sidebar" style="background-color:#585858;padding-top:10px;padding-bottom:10px">
+				<div class="nav nav-sidebar" 
+					style="background-color:#585858;padding-top:10px;padding-bottom:10px;height:100%;
+					width:100%">
 					<center>
 						<div class="col-md-4">
 							<img src="img/user.png" class="circular" alt="No profile Image found"/>			
 						</div>
 					</center>	
 				</div>
-				<div style="background-color:#585858; color:#f7f7f7; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
+				<div style="background-color:#2D79D7; color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
 					<?php echo $user_name; ?>
 				</div>
-				<div style="background-color:#585858; color:#f7f7f7; padding-left:5px;padding-right:5px;padding-bottom:10px">
+				<div style="background-color:#2D79D7; color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-bottom:10px">
 					<?php echo $user_role; ?>
 					<br/><?php echo $user_email; ?>
 				</div>
 				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
 				<ul class="nav nav-tabs nav-stacked" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
 															-webkit-box-shadow: 0px 2px 2px rgba(0.2, 0.3, 0, 0.3);
-															background-color: #585858;padding-top:10px;
+															background-color: #569FF8;padding-top:10px;
+															width:100%;
 														box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
@@ -145,10 +148,9 @@
 					<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
 				</ul>
 			</div>
-			<div class="col-md-8"><!--class="col-md-8"-->	
-				<div class="col-md-16">
-					<div>
-						<h3 class="heading">Organisation Units
+			<div class="col-md-10"><!--class="col-md-8"-->	
+				<div class="box">
+						<div class="heading">Organisation Units
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;padding-top:0px"
@@ -158,10 +160,7 @@
 								  <span class="glyphicon glyphicon-search"></span>
 								</button>
 							</form>-->
-						</h3>
-					</div>	
-					
-					<br/>	
+						</div>	
 					<table  class='table' cellspacing="10" id="showOrgUnits" border="0">
 						<script>
 							$(document).ready(function(){
@@ -172,9 +171,9 @@
 					</table>			
 					<div class="pull-right"><Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button></div>	
 				</div>
-				<br/>
-				<div class="col-md-16">	
-					<h3 class="heading">Organisation
+				<div class="box">	
+					<div class="heading">
+						Organisation
 						<!--
 						style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;padding-top:0px"
@@ -184,7 +183,7 @@
 								 <span class="glyphicon glyphicon-search"></span>
 							</button>
 						</form>-->
-					</h3><br/>
+					</div>
 					<table  class='table' cellspacing="10" id="showOrgsList" border='0'>
 						<script>
 							$(document).ready(function(){
