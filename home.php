@@ -97,7 +97,7 @@
 			<div class="col-sm-3 col-md-2 sidebar">
 			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
 				<div class="nav nav-sidebar" 
-					style="background-color:#585858;padding-top:10px;padding-bottom:10px;height:100%;
+					style="background-color:#DEDFE1;padding-top:10px;padding-bottom:10px;height:100%;
 					width:100%">
 					<center>
 						<div class="col-md-4">
