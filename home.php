@@ -146,11 +146,13 @@
 				</ul>
 			</div>
 			<div class="col-md-8"><!--class="col-md-8"-->	
-				<div class="col-md-16" style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
-										-webkit-align-content: center; align-content: center;padding-top:0px">
+				<div class="col-md-16">
 					<div>
 						<h3 class="heading">Organisation Units
-							<!--<form class="navbar-form navbar-right">
+							<!--
+							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
+										-webkit-align-content: center; align-content: center;padding-top:0px"
+							<form class="navbar-form navbar-right">
 								<input type="text" class="form-control" placeholder="Search...">
 								<button type="button" class="btn btn-default">
 								  <span class="glyphicon glyphicon-search"></span>
@@ -171,10 +173,12 @@
 					<div class="pull-right"><Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button></div>	
 				</div>
 				<br/>
-				<div class="col-md-16" style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
-										-webkit-align-content: center; align-content: center;padding-top:0px">	
+				<div class="col-md-16">	
 					<h3 class="heading">Organisation
-						<!--<form class="navbar-form navbar-right">
+						<!--
+						style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
+										-webkit-align-content: center; align-content: center;padding-top:0px"
+						<form class="navbar-form navbar-right">
 							<input type="text" class="form-control" placeholder="Search...">
 							<button type="button" class="btn btn-default">
 								 <span class="glyphicon glyphicon-search"></span>
@@ -569,7 +573,7 @@
 		
 		});
 		
-		//If the tab to be created is OU specific
+		//If the tab to be created is not OU specific
 		$('#ou_specific_no').click(function(){
 			
 			//alert("No");
