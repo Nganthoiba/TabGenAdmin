@@ -6,7 +6,7 @@ if(!empty($_GET['user_id'])){
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
 	if($conn){
-		$teams=getOUs($conn,$user_id);//getting a	list of user accessible OUs
+		$teams=getOUs($conn,$user_id);//getting a list of user accessible OUs
 		$output=null;
 		$query=null;
 		
