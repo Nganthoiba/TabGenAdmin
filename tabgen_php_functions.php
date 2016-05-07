@@ -535,4 +535,57 @@ function get_token(){
 		$row = $res->fetch(PDO::FETCH_ASSOC);
 		return (int)$row['count'];
 	}
+	
+	//function to add bookmark
+	function addBookmark($conn,$post_id,$user_id){
+		//check if the post has already been bookmarked or not
+		if(!isAlreadyBookmarked($conn,$post_id,$user_id)){
+			//in case if the post has not already been bookmarked
+			$title = $_POST['title'];//title of the bookmark
+			$time = time()*1000;
+			$id = randId(26);
+			$query="insert into Bookmark(Id,PostId,UserId,BookmarkAt,title) 
+					values('$id','$post_id','$user_id','$time','$title')";
+			$res = $conn->query($query);
+			return $res;
+		}
+		else{
+			return true; //in case if the post has already been bookmarked
+		}
+	}
+	
+	//function to remove bookmark
+	function removeBookmark($conn,$post_id,$user_id){
+		//check if the post has already been bookmarked or not
+		if(isAlreadyBookmarked($conn,$post_id,$user_id)){
+			//in case if the post has already been bookmarked
+			$query="delete from Bookmark where PostId='$post_id' and UserId='$user_id'";
+			$res = $conn->query($query);
+			return $res;
+		}
+		else{
+			return true; //in case if the post has not already been bookmarked
+		}
+	}
+	
+	//function to check whether a post has already been bookmarked by a user or not
+	function isAlreadyBookmarked($conn,$post_id,$user_id){
+		$query="select count(*) as count from Bookmark where PostId='$post_id' and UserId='$user_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		if((int)$row['count']>0)//check for existence of row
+			return true;//in case if row exists
+		else
+			return false;//in case if row does not exist
+	}
+	//function to get a list of bookmarks
+	function getBookmarks($conn,$user_id){
+		$query="select * from Bookmark where UserId='$user_id' order by BookmarkAt desc";
+		$res = $conn->query($query);
+		$output=null;
+		while($row = $res->fetch(PDO::FETCH_ASSOC)){
+			$output[]=$row;
+		}
+		return json_encode($output);
+	}
 ?>
