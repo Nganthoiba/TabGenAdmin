@@ -60,7 +60,7 @@
 	
         if(!isset($_SESSION['user_details'])){
                 //echo "<p align='center'>You have to <a href='index.html'>login</a> first<br/>";
-                header('Location: 127.0.0.1/TabGenAdmin/');
+                header('Location: http://127.0.0.1/TabGenAdmin/');
         }
         else {
                 $user_data = json_decode($_SESSION['user_details']);
