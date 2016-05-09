@@ -53,19 +53,19 @@ if(!empty($_GET['user_id'])){
 							$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$username,"members_count"=>$row["members_count"],"Team_Name"=>$row['Team_Name']);
 						}
 						$count++;
-					}
-					$output[$i]=array($team_name=>$channels);
-					if($count>0 && $channels!=null){
+					}	
+					if($count>0){
+						$output[]=array($team_name=>$channels);
 						$accessible_teams[]=$team_name;
 					}
 				}
+				
 			}	
 				
 		}
-		$final_array = array("team_list"=>concate_array(array("Global Tabs associated to you"),$accessible_teams),"channels"=>concate_array(getAssociatedChannels($conn,$user_id,$role_id),$output));
+		$final_array = array("team_list"=>concate_array(array("Global Tabs associated to you"),$accessible_teams),
+		"channels"=>concate_array(getAssociatedChannels($conn,$user_id,$role_id),$output));
 		print json_encode($final_array);
-		//array($output[0],$output[1],$output[2])
-		//print sizeof($output);
 	}
 	
 	
@@ -105,4 +105,5 @@ function getAssociatedChannels($conn,$user_id,$role_id){
 	}		
 	return $output;
 }
+
 ?>
