@@ -468,7 +468,9 @@ $(document).ready(function (){
 								'<span class="glyphicon glyphicon-trash"></span></Button></td></tr>';
 							}
 							if(i==0)
-								view="<center><p>No Organisation Unit exists, create a new one.</p></center>";
+								view="<h3 align='center' style='color:#FE642E'>"+
+								"<span class='glyphicon glyphicon-alert' style='height:80px;width:80px;padding-top:40px'></span>"+
+								"No Organisation exists, create a new one.</h3></div>";
 						}
 						else if(method=="dropdown"){
 							for(var i=0;i<limit;i++){
@@ -562,7 +564,9 @@ $(document).ready(function (){
 								"<span class='glyphicon glyphicon-trash'></span></Button></td></tr>";
 							}
 							if(i==0)
-								view="<center><p>No Organisation exists, create a new one.</p></center>";
+								view="<h3 align='center' style='color:#FE642E'>"+
+								"<span class='glyphicon glyphicon-alert' style='height:80px;width:80px;padding-top:40px;color:#FE642E'></span>"+
+								"No Organisation exists, create a new one.</h3></div>";
 						}
 						else if(method=="dropdown"){
 							for(var i=0;i<limit;i++){

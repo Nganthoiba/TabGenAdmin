@@ -25,6 +25,16 @@ if(!empty($_GET['user_id'])){
 															where RoleId = (select Id from Role 
 															where OrganisationUnit='$team_name'
 															and RoleName='$role_name'))
+							or Channels.DisplayName in (SELECT Tab.Name
+								FROM Tab,TabTemplate,RoleTabAsson
+								where Tab.TabTemplate=TabTemplate.Id
+								and TabTemplate.Name='Chat Template'
+								and Tab.Id=RoleTabAsson.TabId
+								and Tab.RoleId is not null
+								and RoleTabAsson.RoleId = '$role_id'
+								and RoleTabAsson.RoleId = (select Id from Role 
+															where OrganisationUnit='$team_name'
+															and RoleName='$role_name'))
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
 							group by Channels.Id";
@@ -52,7 +62,7 @@ if(!empty($_GET['user_id'])){
 			}	
 				
 		}
-		$final_array = array("team_list"=>concate_array(array("Associated Tabs"),$accessible_teams),"channels"=>concate_array(getAssociatedChannels($conn,$user_id,$role_id),$output));
+		$final_array = array("team_list"=>concate_array(array("Global Tabs associated to you"),$accessible_teams),"channels"=>concate_array(getAssociatedChannels($conn,$user_id,$role_id),$output));
 		print json_encode($final_array);
 		//array($output[0],$output[1],$output[2])
 		//print sizeof($output);
@@ -74,6 +84,7 @@ function getAssociatedChannels($conn,$user_id,$role_id){
 								where Tab.TabTemplate=TabTemplate.Id
 								and TabTemplate.Name='Chat Template'
 								and Tab.Id=RoleTabAsson.TabId
+								and Tab.RoleId is null
 								and RoleTabAsson.RoleId = '$role_id')
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
@@ -90,7 +101,7 @@ function getAssociatedChannels($conn,$user_id,$role_id){
 				$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$username,"members_count"=>$row["members_count"],"Team_Name"=>$row['Team_Name']);
 			}
 		}
-		$output[]=array("Associated Tabs"=>$channels);
+		$output[]=array("Global Tabs associated to you"=>$channels);
 	}		
 	return $output;
 }

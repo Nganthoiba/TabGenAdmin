@@ -70,6 +70,8 @@
 						
 	?>
 	<nav class="navbar navbar-inverse navbar-fixed-top" >
+		style="height:60px;padding-top:10px;padding-bottom:10px;
+		background-color:#819FF7;color:#f7f7f7;position:fixed;width:100%" >
 		<!--class="navbar navbar-default navbar-fixed-top"
 		style="height:60px;padding-top:10px;padding-bottom:10px;background-color:#819FF7;color:#f7f7f7;position:fixed-top"-->
       <div class="container-fluid">
@@ -162,7 +164,7 @@
 								</button>
 							</form>-->
 						</div>	
-					<table  class='table' cellspacing="10" id="showOrgUnits" border="0">
+					<table  class='table table-striped' cellspacing="10" id="showOrgUnits" border="0">
 						<script>
 							$(document).ready(function(){
 								document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -185,7 +187,7 @@
 							</button>
 						</form>-->
 					</div>
-					<table  class='table' cellspacing="10" id="showOrgsList" border='0'>
+					<table  class='table table-striped' cellspacing="10" id="showOrgsList" border='0'>
 						<script>
 							$(document).ready(function(){
 								document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -558,7 +560,7 @@
 		//If the tab to be created is OU specific
 		$('#ou_specific_yes').click(function(){	
 			//alert("Yes");
-			$('#ou_selector_region').html("<label class='col-sm-4  control-label' for='ou_selector'>Select an Oorganisation Unit:</label>"+
+			$('#ou_selector_region').html("<label class='col-sm-4  control-label' for='ou_selector'>Select an Organisation Unit:</label>"+
 				"<div class='col-sm-8'><select id='ou_selector' class='form-control'></select></div>");
 			$('#role_selector_region').html("<label class='col-sm-4 control-label'>Select a Role:</label>"+
 				"<div class='col-sm-8'><select id='role_selector' class='form-control'></select></div>");

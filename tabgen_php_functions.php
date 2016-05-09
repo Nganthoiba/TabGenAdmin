@@ -240,7 +240,7 @@ function getOUs($conn,$user_id){
 				$output[]=$row;
 				$count++;
 			}
-			$output[$count]['team_name']="Associated Tabs";
+			//$output[$count]['team_name']="Associated Tabs";
 		}
 	}
 	else{		
