@@ -23,14 +23,16 @@ if(!empty($_GET['user_id'])){
 							from Channels,ChannelMembers
 							where Channels.DisplayName in (select Tab.Name from Tab 
 															where RoleId = (select Id from Role 
-															where OrganisationUnit='$team_name'
-															and RoleName='$role_name'))
+																where OrganisationUnit='$team_name'
+																and RoleName='$role_name')
+															and Tab.DeleteAt=0)
 							or Channels.DisplayName in (SELECT Tab.Name
 								FROM Tab,TabTemplate,RoleTabAsson
 								where Tab.TabTemplate=TabTemplate.Id
 								and TabTemplate.Name='Chat Template'
 								and Tab.Id=RoleTabAsson.TabId
 								and Tab.RoleId is not null
+								and Tab.DeleteAt=0
 								and RoleTabAsson.RoleId = '$role_id'
 								and RoleTabAsson.RoleId = (select Id from Role 
 															where OrganisationUnit='$team_name'
