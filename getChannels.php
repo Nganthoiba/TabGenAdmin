@@ -87,6 +87,7 @@ function getAssociatedChannels($conn,$user_id,$role_id){
 								and TabTemplate.Name='Chat Template'
 								and Tab.Id=RoleTabAsson.TabId
 								and Tab.RoleId is null
+								and Tab.DeleteAt=0
 								and RoleTabAsson.RoleId = '$role_id')
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
