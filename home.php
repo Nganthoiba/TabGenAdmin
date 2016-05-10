@@ -18,7 +18,7 @@
 		 * */
 		 var arr; /*array for tab template association*/
 		 var prev_tab_name = [];/*Global array for tab name*/
-		 var templates_arr="hello"; /*list of templates*/
+		 var templates_arr=""; /*list of templates*/
 		 var tabs=[];
 		 var json_arr;
 	</script>
@@ -457,7 +457,7 @@
 							</div>
 						</div>
 						<div class="panel-footer clearfix">
-							<label id="error4" class="col-sm-offset-2 col-sm-8"></label>
+							<center><label id="error4" class="col-sm-offset-2 col-sm-8"></label></center>
 							<div class="pull-right">
 									<button type="submit" class="btn btn-default" id="CreateUser">Create </button>
 							</div>

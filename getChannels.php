@@ -27,15 +27,14 @@ if(!empty($_GET['user_id'])){
 																and RoleName='$role_name')
 															and Tab.DeleteAt=0)
 								or Channels.DisplayName in (SELECT Tab.Name
-									FROM Tab,TabTemplate,RoleTabAsson
-									where Tab.TabTemplate=TabTemplate.Id
-									and TabTemplate.Name='Chat Template'
-									and Tab.Id=RoleTabAsson.TabId
-									and Tab.RoleId is not null
-									and Tab.DeleteAt=0
-									and RoleTabAsson.RoleId = '$role_id'
-									and RoleTabAsson.RoleId in (select Id from Role 
-																where OrganisationUnit='$team_name'))
+										FROM Tab,TabTemplate,RoleTabAsson
+										where Tab.TabTemplate=TabTemplate.Id
+										and TabTemplate.Name='Chat Template'
+										and Tab.Id=RoleTabAsson.TabId
+										and Tab.RoleId is not null
+										and Tab.DeleteAt=0
+										and RoleTabAsson.RoleId in (select Id from Role 
+																	where OrganisationUnit='$team_name'))
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
 							group by Channels.Id";
@@ -62,13 +61,12 @@ if(!empty($_GET['user_id'])){
 						$output[]=array($team_name=>$channels);
 						$accessible_teams[]=$team_name;
 					}
-				}
-				
-				
+				}		
 				
 		}
-		$final_array = array("team_list"=>concate_array(array("Others"),$accessible_teams),
-		"channels"=>concate_array(getAssociatedChannels($conn,$user_id,$role_id),$output));
+		/*$final_array = array("team_list"=>concate_array(array("Others"),$accessible_teams),
+		"channels"=>concate_array(getAssociatedChannels($conn,$user_id,$role_id),$output));*/
+		$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
 		print json_encode($final_array);
 	}
 	
