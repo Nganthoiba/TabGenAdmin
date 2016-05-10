@@ -48,12 +48,12 @@
 		}
 		h4 {font-family:calibri}
 		table th {background-color:#F2F2F2}
-		td {vertical-align:middle}
+		td {vertical-align:middle;font-size:13px}
 		a {color:#F8FAFC}
 	</style>
 	
 </head>
-<body bgcolor="#E6E6E6">
+<body>
 	<?php
 
         session_start();
@@ -69,7 +69,7 @@
                 $user_email= $user_data->email;
 						
 	?>
-	<nav class="navbar navbar-inverse navbar-fixed-top" >
+	<nav class="navbar navbar-inverse navbar-fixed-top" 
 		style="height:60px;padding-top:10px;padding-bottom:10px;
 		background-color:#819FF7;color:#f7f7f7;position:fixed;width:100%" >
 		<!--class="navbar navbar-default navbar-fixed-top"
@@ -99,7 +99,7 @@
 		<div class="row"><!--class="row"-->
 			<div class="col-sm-3 col-md-2 sidebar">
 			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
-				<div class="nav nav-sidebar" 
+				<div class="nav nav-header" 
 					style="background-color:#DEDFE1;padding-top:10px;padding-bottom:10px;height:100%;
 					width:100%">
 					<center>

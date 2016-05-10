@@ -108,11 +108,12 @@ label {color:#848484; font-weight:normal}
  * Base structure
  */
 
-/* Move down content because we have a fixed navbar that is 50px tall */
+/* Move down content because we have a fixed navbar that is 50px tall
+ * 
+ * background-color:#FAFAFA; */
 body {
-  background-color:#FAFAFA;
    font-family: Arial, Helvetica, sans-serif, calibri;
-   font-size: 13px;
+   font-size: 15px;
 }
 
 
@@ -153,7 +154,7 @@ body {
 .outer_box {
     float: left;
     margin: 5px;
-    width: 120%;
+    width: 100%;
 }
 .city {
    float: left;
