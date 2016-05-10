@@ -588,4 +588,12 @@ function get_token(){
 		}
 		return json_encode($output);
 	}
+	
+	//function to find the number of members in a particular channel
+	function getMembersCount($conn,$channel_id){
+		$query="select count(*) as members_count from ChannelMembers where ChannelId='$channel_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return (int)$row['members_count'];
+	}
 ?>

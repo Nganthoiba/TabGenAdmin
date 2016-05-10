@@ -17,7 +17,7 @@ if(!empty($_GET['user_id'])){
 		for($i=0;$i<sizeof($teams);$i++){//finding all the possible channels for a team
 			$team_name = $teams[$i]['team_name'];
 			//echo $team_name."<br/>";
-			if($team_name != "Associated Tabs"){
+			
 				//Getting OU specific channels
 				$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
 							from Channels,ChannelMembers
@@ -33,7 +33,7 @@ if(!empty($_GET['user_id'])){
 									and Tab.Id=RoleTabAsson.TabId
 									and Tab.RoleId is not null
 									and Tab.DeleteAt=0
-									and RoleTabAsson.RoleId = (select Id from Role 
+									and RoleTabAsson.RoleId in (select Id from Role 
 																where OrganisationUnit='$team_name'))
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
@@ -45,13 +45,15 @@ if(!empty($_GET['user_id'])){
 					$channels=null;
 					while($row=$res->fetch(PDO::FETCH_ASSOC)){
 						if($row['Channel_name']!=""){
-							$channels[]=$row;
+							//$channels[]=$row;
+							$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$row['Channel_name'],
+							"members_count"=>getMembersCount($conn,$row['Channel_ID']));
 						}
 						else{
 							//getting the other user in the private message channel
 							$username=getUserInPrivateMessageChannel($conn,$row['Channel_ID'],$user_id);
 							$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$username,
-							"members_count"=>$row["members_count"],"Team_Name"=>$row['Team_Name']);
+							"members_count"=>getMembersCount($conn,$row['Channel_ID']));
 						}
 						$count++;
 					}	
@@ -61,7 +63,7 @@ if(!empty($_GET['user_id'])){
 					}
 				}
 				
-			}	
+				
 				
 		}
 		$final_array = array("team_list"=>concate_array(array("Others"),$accessible_teams),
@@ -95,12 +97,15 @@ function getAssociatedChannels($conn,$user_id,$role_id){
 	$res = $conn->query($query);
 	if($res){
 		while($row=$res->fetch(PDO::FETCH_ASSOC)){
-			if($row['Channel_name']!="")
-				$channels[]=$row;
-			else{
+			if($row['Channel_name']!=""){
+				//$channels[]=$row;
+				$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$row['Channel_name'],
+				"members_count"=>getMembersCount($conn,$row['Channel_ID']));
+			}else{
 				//getting the other user in the private message channel
 				$username=getUserInPrivateMessageChannel($conn,$row['Channel_ID'],$user_id);
-				$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$username,"members_count"=>$row["members_count"],"Team_Name"=>$row['Team_Name']);
+				$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$username,
+				"members_count"=>getMembersCount($conn,$row['Channel_ID']));
 			}
 		}
 		$output[]=array("Others"=>$channels);
