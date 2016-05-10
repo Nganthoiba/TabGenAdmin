@@ -245,7 +245,7 @@ function getOUs($conn,$user_id){
 	}
 	else{		
 		$my_ou = getOU_Byuser_Id($conn,$user_id);
-		$output= array(array("team_name"=>$my_ou),array("team_name"=>"Associated Tabs"));
+		$output= array(array("team_name"=>$my_ou));
 		//echo "OU: ".$my_ou;
 	}
 	return $output;

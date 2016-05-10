@@ -33,6 +33,7 @@ if(!empty($_GET['user_id'])){
 									and Tab.Id=RoleTabAsson.TabId
 									and Tab.RoleId is not null
 									and Tab.DeleteAt=0
+									and RoleTabAsson.RoleId = '$role_id'
 									and RoleTabAsson.RoleId in (select Id from Role 
 																where OrganisationUnit='$team_name'))
 							and Channels.DeleteAt=0
