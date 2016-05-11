@@ -8,7 +8,7 @@
 	include('ConnectAPI.php');
 	include('tabgen_php_functions.php');
 	
-	$url="http://".IP.":8065/api/v1/channels/".$channel_id."/posts/0/20";
+	$url="http://".IP.":8065//api/v1/channels/".$channel_id."/posts/0/10";
 	$getPosts = new ConnectAPI();
 	$result = $getPosts->getDataByToken($url,$token);
 	$decoded_res = json_decode($result);
