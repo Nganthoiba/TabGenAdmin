@@ -808,7 +808,7 @@ $(document).ready(function(){
 						"</td>"+
 						"<td align='right'>"+
 							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
-							"<span class='glyphicon glyphicon-pencil'></span> Edit</Button>"+			  		
+							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
 							"<div class='container' style='width:2px'>"+
 								"<div class='hide' id='popover-content"+i+"'>"+
 								"<form class='form-horizontal' role='form'>"+
@@ -836,7 +836,7 @@ $(document).ready(function(){
 						"</td>"+
 						"<td align='right'>"+
 								"<Button type='button' style='height: 40px;' class='btn btn-link' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-								"<span class='glyphicon glyphicon-remove'></span> Delete</Button>"+
+								"<span class='glyphicon glyphicon-remove'></span></Button>"+
 						"</td></tr>";
 						/*
 						 * 
