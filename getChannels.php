@@ -71,16 +71,24 @@ if(!empty($_GET['user_id'])){
 				}		
 				
 		}
-		/*$final_array = array("team_list"=>concate_array(array("Others"),$accessible_teams),
-		"channels"=>concate_array(getAssociatedChannels($conn,$user_id,$role_id),$output));*/
-		$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
-		print json_encode($final_array);
+		$others = getOtherChannels($conn,$user_id,$role_id);
+		if($others!=null){
+			$final_array = array("team_list"=>concate_array(array("Others"),$accessible_teams),
+			"channels"=>concate_array($others,$output));
+			print json_encode($final_array);
+		}
+		else{
+			$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
+			print json_encode($final_array);
+		}
+		
 	}
 	
 	
 }
 
-function getAssociatedChannels($conn,$user_id,$role_id){
+//function to get non OU specific tabs
+function getOtherChannels($conn,$user_id,$role_id){
 	$channels=null;
 	$org_unit=getOU_Byuser_Id($conn,$user_id);
 	//$role_name = getRoleByUserId($conn,$user_id);
