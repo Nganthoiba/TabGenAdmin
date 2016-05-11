@@ -9,7 +9,7 @@
 	include('tabgen_php_functions.php');
 	
 	if($conn){
-			$query = "select * from Posts where RootId='$post_id' or ParentId='$post_id' and CreateAt > '$timestamp'";
+			$query = "select * from Posts where RootId='$post_id' and CreateAt > '$timestamp'";
 			$output=null;
 			$res = $conn->query($query);
 			while($row = $res->fetch(PDO::FETCH_ASSOC)){
