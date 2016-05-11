@@ -21,12 +21,7 @@ if(!empty($_GET['user_id'])){
 				//Getting OU specific channels
 				$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
 							from Channels,ChannelMembers
-							where Channels.DisplayName in (select Tab.Name from Tab 
-															where RoleId = (select Id from Role 
-																where OrganisationUnit='$team_name'
-																and RoleName='$role_name')
-															and Tab.DeleteAt=0)
-								or Channels.DisplayName in (SELECT Tab.Name
+							where Channels.DisplayName in (SELECT Tab.Name
 										FROM Tab,TabTemplate,RoleTabAsson
 										where Tab.TabTemplate=TabTemplate.Id
 										and TabTemplate.Name='Chat Template'
@@ -34,7 +29,14 @@ if(!empty($_GET['user_id'])){
 										and Tab.RoleId is not null
 										and Tab.DeleteAt=0
 										and RoleTabAsson.RoleId in (select Id from Role 
-																	where OrganisationUnit='$team_name'))
+																	where OrganisationUnit='$team_name'
+																	and RoleName='$role_name'))
+																	
+								or Channels.DisplayName in (select Tab.Name from Tab 
+															where RoleId = (select Id from Role 
+																where OrganisationUnit='$team_name'
+																and RoleName='$role_name')
+															and Tab.DeleteAt=0)
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
 							group by Channels.Id";
