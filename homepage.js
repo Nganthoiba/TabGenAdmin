@@ -785,11 +785,14 @@ $(document).ready(function(){
 					var layout=" ";
 					for(var i=0;i<json_arr.length;i++){
 						var btn_class;
+						var OU = " ";
 						if(json_arr[i].RoleId == null){
 							btn_class="btn btn-warning";
+							OU = " ";
 						}	
 						else{
 							btn_class="btn btn-success";
+							OU = json_arr[i].OU;
 						}
 						prev_tab_name[i] = 	json_arr[i].Name;
 						
@@ -801,7 +804,7 @@ $(document).ready(function(){
 							"<div class='tab_name' id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 						"</td>"+
 						"<td>"+
-							"<div>"+json_arr[i].OU+"</div>"+
+							"<div>"+OU+"</div>"+
 						"</td>"+
 						"<td align='right'>"+
 							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
