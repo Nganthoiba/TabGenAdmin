@@ -31,12 +31,19 @@ if(!empty($_GET['user_id'])){
 										and RoleTabAsson.RoleId in (select Id from Role 
 																	where OrganisationUnit='$team_name'
 																	and RoleName='$role_name'))
-																	
-								or Channels.DisplayName in (select Tab.Name from Tab 
+							and Channels.DeleteAt=0
+							and Channels.Id=ChannelId
+							group by Channels.Id
+							
+							union
+							
+						select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
+							from Channels,ChannelMembers
+							where Channels.DisplayName in (select Tab.Name from Tab 
 															where RoleId = (select Id from Role 
 																where OrganisationUnit='$team_name'
 																and RoleName='$role_name')
-															and Tab.DeleteAt=0)
+															and Tab.DeleteAt=0)								
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
 							group by Channels.Id";
