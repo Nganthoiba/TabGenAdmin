@@ -14,7 +14,10 @@ if(isset($_SESSION['user_details'])){
 						order by Tab.CreateAt desc";
 			$res = $conn->query($query);
 			while($row = $res->fetch(PDO::FETCH_ASSOC)){
-				$output[]=$row;
+				$output[]=array("Id"=>$row['Id'],"CreateAt"=>$row['CreateAt'],"UpdateAt"=>$row['UpdateAt'],
+				"DeleteAt"=>$row['DeleteAt'],"Name"=>$row['Name'],"RoleName"=>$row['RoleName'],"CreatedBy"=>$row['CreatedBy'],
+				"TabTemplate"=>$row['TabTemplate'],"RoleId"=>$row['RoleId'],"OU"=>getRoleInfo($conn,$row['RoleId']));
+				//$row;''
 			}
 			echo json_encode($output);
 	}
@@ -23,13 +26,15 @@ if(isset($_SESSION['user_details'])){
 else echo "Sesssion_expired";
 
 function getRoleInfo($conn,$role_id){
-		$query = "select Role.Id,Role.RoleName,OrganisationUnit.OrganisationUnit,Organisation
+		$query = "select Role.Id,Role.RoleName,OrganisationUnit.OrganisationUnit as OU,Organisation
 					from OrganisationUnit,Role
 					where Role.OrganisationUnit=OrganisationUnit.OrganisationUnit
 					and Role.Id='$role_id'";
 					
 		$res = $conn->query($query);
 		$row = $res->fetch(PDO::FETCH_ASSOC);
-		return $row;
+		return $row['OU'];
 }
+
+
 ?>
