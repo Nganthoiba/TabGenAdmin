@@ -29,8 +29,7 @@ if(!empty($_GET['user_id'])){
 										and Tab.RoleId is not null
 										and Tab.DeleteAt=0
 										and RoleTabAsson.RoleId in (select Id from Role 
-																	where OrganisationUnit='$team_name'
-																	and RoleName='$role_name'))
+																	where OrganisationUnit='$team_name'))
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
 							group by Channels.Id
