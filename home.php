@@ -164,7 +164,7 @@
 								</button>
 							</form>-->
 						</div>	
-					<table  class='table table-striped' cellspacing="10" id="showOrgUnits" border="0">
+					<table  class='table table-striped' cellspacing="10" id="showOrgUnits" border="0" style="padding-top:20px">
 						<script>
 							$(document).ready(function(){
 								document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -187,7 +187,7 @@
 							</button>
 						</form>-->
 					</div>
-					<table  class='table table-striped' cellspacing="10" id="showOrgsList" border='0'>
+					<table  class='table table-striped' cellspacing="10" id="showOrgsList" border='0' style="padding-top:20px">
 						<script>
 							$(document).ready(function(){
 								document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
