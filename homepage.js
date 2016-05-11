@@ -799,6 +799,8 @@ $(document).ready(function(){
 						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
 						"<td>"+
 							"<div class='tab_name' id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+						"</td>"+
+						"<td>"+
 							"<div>"+json_arr[i].OU+"</div>"+
 						"</td>"+
 						"<td align='right'>"+
