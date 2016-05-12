@@ -541,11 +541,11 @@ function get_token(){
 		//check if the post has already been bookmarked or not
 		if(!isAlreadyBookmarked($conn,$post_id,$user_id)){
 			//in case if the post has not already been bookmarked
-			$title = $_POST['title'];//title of the bookmark
+			//$title = $_POST['title'];//title of the bookmark
 			$time = time()*1000;
 			$id = randId(26);
-			$query="insert into Bookmark(Id,PostId,UserId,BookmarkAt,title) 
-					values('$id','$post_id','$user_id','$time','$title')";
+			$query="insert into Bookmark(Id,PostId,UserId,BookmarkAt) 
+					values('$id','$post_id','$user_id','$time')";
 			$res = $conn->query($query);
 			return $res;
 		}

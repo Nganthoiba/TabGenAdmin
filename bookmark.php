@@ -7,7 +7,6 @@
 	either to add a bookmark, or to remove a bookmark, or to get a list of bookmarks for a particular user*/
 	
 	if($action=="addBookmark"){
-		
 		if(empty($_POST['user_id'])){
 			echo json_encode(array("status"=>false,"message"=>"You have not passed user id."));
 		}
