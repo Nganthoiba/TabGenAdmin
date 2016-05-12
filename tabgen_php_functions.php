@@ -596,4 +596,12 @@ function get_token(){
 		$row = $res->fetch(PDO::FETCH_ASSOC);
 		return (int)$row['members_count'];
 	}
+	
+	//function to get channel_id by post_id from the channel table
+	function getChannelIdByPost_id($conn,$post_id){
+		$query="select ChannelId from Posts where Id='$post_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return $row['ChannelId'];
+	}
 ?>

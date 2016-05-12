@@ -16,6 +16,7 @@
 		$decoded_res->posts->$post_id->no_of_reply=getNoOfReplies($conn,$post_id);
 		$decoded_res->posts->$post_id->no_of_likes=getNoOfLikes($conn,$post_id);
 		$decoded_res->posts->$post_id->isLikedByYou=isAlreadyLiked($conn,$post_id,$user_id);
+		$decoded_res->posts->$post_id->isBookmarkedByYou=isAlreadyBookmarked($conn,$post_id,$user_id);
 	}
 	echo json_encode($decoded_res);
 ?>
