@@ -17,10 +17,10 @@
 			$user_id = $_POST['user_id'];
 			$post_id = $_POST['post_id'];
 			if(addBookmark($conn,$post_id,$user_id)){
-				echo json_encode(array("status"=>true,"message"=>"You have successfully bookmarked."));
+				echo json_encode(array("post_id"=>$post_id,"status"=>true,"message"=>"You have successfully bookmarked."));
 			}
 			else{
-				echo json_encode(array("status"=>false,"message"=>"Oops! you could not bookmarked. Please try again."));
+				echo json_encode(array("post_id"=>$post_id,"status"=>false,"message"=>"Oops! you could not bookmarked. Please try again."));
 			}
 		}
 	}else if($action=="removeBookmark"){
@@ -34,10 +34,10 @@
 			$user_id = $_POST['user_id'];
 			$post_id = $_POST['post_id'];
 			if(removeBookmark($conn,$post_id,$user_id)){
-				echo json_encode(array("status"=>true,"message"=>"You have successfully removed bookmark."));
+				echo json_encode(array("post_id"=>$post_id,"status"=>true,"message"=>"You have successfully removed bookmark."));
 			}
 			else{
-				echo json_encode(array("status"=>false,"message"=>"Oops! you could not remove bookmarked post. 
+				echo json_encode(array("post_id"=>$post_id,"status"=>false,"message"=>"Oops! you could not remove bookmarked post. 
 				Please try again."));
 			}
 		}
