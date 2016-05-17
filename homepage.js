@@ -783,6 +783,7 @@ $(document).ready(function(){
 				else{
 					var json_arr = JSON.parse(resp);
 					var layout=" ";
+					var popup_content_form=" ";
 					for(var i=0;i<json_arr.length;i++){
 						var btn_class;
 						var OU = json_arr[i].OU;
@@ -794,31 +795,17 @@ $(document).ready(function(){
 							btn_class="btn btn-success";
 						}
 						prev_tab_name[i] = 	json_arr[i].Name;
-						
-						layout+= "<tr><td>"+
-						"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
-						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
-						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-						"<td>"+
-							"<div class='tab_name' id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-							"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
-							"</div>"+
-						"</td>"+
-						"<td align='right'>"+
-							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
-							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
-							"<div class='container' style='width:2px'>"+
-								"<div class='hide' id='popover-content"+i+"'>"+
-								"<form class='form-horizontal' role='form'>"+
+						popup_content_form="<form class='form-horizontal' role='form'>"+
 									"<div>"+
 										"<table>"+
 											"<tr>"+
 												"<td>"+
-													"<input type='text' value='"+json_arr[i].Name+"'"+
+													"<div>"+
+														"<label>Tab Name</label>"+
+														"<input type='text' value='"+json_arr[i].Name+"'"+
 														"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
-												"</td>"+
-												"<td>"+
-													"<button type='button' class='btn btn-info'"+ 
+													"</div>"+
+													"<br/><button type='button' class='btn btn-info'"+ 
 														"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
 															"\",\""+json_arr[i].Template_Name+"\")'"+
 														"id='saveTabName"+i+"'"+
@@ -828,7 +815,23 @@ $(document).ready(function(){
 											"<tr><td colspan='2'><span id='upadate_tab_resp"+i+"'></span></td></tr>"+
 										"</table>"+
 									"</div>"+
-								"</form>"+
+								"</form>";
+						layout+= "<tr><td>"+
+						"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
+						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
+						"<td>"+
+							"<div class='tab_name' id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+							"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
+							"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+							"</div>"+
+						"</td>"+
+						"<td align='right'>"+
+							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
+							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
+							"<div class='container' style='width:2px'>"+
+								"<div class='hide' id='popover-content"+i+"'>"+
+									popup_content_form+
 								"</div>"+
 							"</div>"+
 						"</td>"+
@@ -848,7 +851,7 @@ $(document).ready(function(){
 					for(var i=0;i<json_arr.length;i++){
 						$("[data-toggle='popover"+i+"']").popover({
 							html: true,
-							title: "Edit tab name here:",
+							title: "Edit tab here:",
 							placement: "left", 
 							content: getPopupContent(i)	
 						});
