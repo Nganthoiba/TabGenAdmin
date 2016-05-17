@@ -785,14 +785,13 @@ $(document).ready(function(){
 					var layout=" ";
 					for(var i=0;i<json_arr.length;i++){
 						var btn_class;
-						var OU = " ";
-						if(json_arr[i].RoleId == null){
+						var OU = json_arr[i].OU;
+						var RoleName = json_arr[i].RoleName;
+						if(parseInt(json_arr[i].OU_Specific) == 0){
 							btn_class="btn btn-warning";
-							OU = " ";
 						}	
 						else{
 							btn_class="btn btn-success";
-							OU = json_arr[i].OU;
 						}
 						prev_tab_name[i] = 	json_arr[i].Name;
 						
@@ -802,9 +801,8 @@ $(document).ready(function(){
 						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
 						"<td>"+
 							"<div class='tab_name' id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-						"</td>"+
-						"<td>"+
-							"<div>"+OU+"</div>"+
+							"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
+							"</div>"+
 						"</td>"+
 						"<td align='right'>"+
 							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+

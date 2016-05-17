@@ -541,8 +541,14 @@
 								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_no" value="No"/>No</label>
 							</div>
 						</div>
-						<div class="form-group" id="ou_selector_region"></div>
-						<div class="form-group" id="role_selector_region"></div>
+						<div class="form-group" id="ou_selector_region">
+							<label class='col-sm-4  control-label' for='ou_selector'>Select an Organisation Unit:</label>
+							<div class='col-sm-8'><select id='ou_selector' class='form-control'></select></div>
+						</div>
+						<div class="form-group" id="role_selector_region">
+							<label class='col-sm-4 control-label'>Select a Role:</label>
+							<div class='col-sm-8'><select id='role_selector' class='form-control'></select></div>
+						</div>
 					</div>	
 					<div class="panel-footer clearfix">
 						<div class="pull-right"><Button type="submit" class="btn btn-default" id="createTab">
@@ -558,31 +564,32 @@
 <script type="text/JavaScript">
 	$(document).ready(function(){
 		//If the tab to be created is OU specific
-		$('#ou_specific_yes').click(function(){	
+		viewOrgUnits("dropdown","ou_selector","all");
+			
+		$("#ou_selector").change(function(){
+			getRoles("role_selector",$("#ou_selector").val());
+		});
+		$("#ou_selector").click(function(){
+			getRoles("role_selector",$("#ou_selector").val());
+		});
+		
+		/*$('#ou_specific_yes').click(function(){	
 			//alert("Yes");
 			$('#ou_selector_region').html("<label class='col-sm-4  control-label' for='ou_selector'>Select an Organisation Unit:</label>"+
 				"<div class='col-sm-8'><select id='ou_selector' class='form-control'></select></div>");
 			$('#role_selector_region').html("<label class='col-sm-4 control-label'>Select a Role:</label>"+
 				"<div class='col-sm-8'><select id='role_selector' class='form-control'></select></div>");
-			viewOrgUnits("dropdown","ou_selector","all");
 			
-			$("#ou_selector").change(function(){
-				getRoles("role_selector",$("#ou_selector").val());
-			});
-			$("#ou_selector").click(function(){
-				getRoles("role_selector",$("#ou_selector").val());
-			});
-		
-		});
+		});*/
 		
 		//If the tab to be created is not OU specific
-		$('#ou_specific_no').click(function(){
+		/*$('#ou_specific_no').click(function(){
 			
 			//alert("No");
 			$('#ou_selector_region').html(" ");
 			$('#role_selector_region').html(" ");
 		
-		});
+		});*/
 		
 		//javascript for creating tab
 		$('#createTab').click(function(){
@@ -666,7 +673,7 @@
 </div>
 <!-- Modal for Associating Tabs to role (a simple design)-->
 <div class="modal fade" id="associate_tabs_to_role" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document" style="width:80%; min-height:50%">
+	<div class="modal-dialog modal-lg" role="document" style="width:90%; min-height:50%">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">

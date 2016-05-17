@@ -21,6 +21,7 @@
 	height:45px;
 	font-size:15pt;
 	padding:10px;
+	border-radius:2px;
 }
 label {color:#848484; font-weight:normal}
 .form-signin
@@ -149,6 +150,7 @@ body {
     float: left;
     margin: 5px;
     width: 80%;
+    border-radius:2px;
     border: 1px solid #BDBDBD;
 }
 .outer_box {

@@ -604,4 +604,45 @@ function get_token(){
 		$row = $res->fetch(PDO::FETCH_ASSOC);
 		return $row['ChannelId'];
 	}
+	
+	//function to get OU by role
+	function getOUbyRole($conn,$role_id){
+		$query = "select Role.Id,Role.RoleName,OrganisationUnit.OrganisationUnit as OU,Organisation
+					from OrganisationUnit,Role
+					where Role.OrganisationUnit=OrganisationUnit.OrganisationUnit
+					and Role.Id='$role_id'";
+					
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return $row['OU'];
+	}
+	
+	//function to get role id by Tab id
+	function getRolebyTab($conn,$tab_id){
+		$query = "select RoleId from Tab where Id='$tab_id'";			
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return $row['RoleId'];
+	}
+	
+	//function to check whether a tab is OU specific or not
+	function isTabOUSpecific($conn,$tab_id){
+		$query = "select OU_Specific from Tab where Id='$tab_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		if((int)$row['OU_Specific']==1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	//function to get role id by Tab id
+	function getRoleNamebyId($conn,$role_id){
+		$query = "select RoleName from Role where Id='$role_id'";			
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return $row['RoleName'];
+	}
 ?>

@@ -16,25 +16,19 @@ if(isset($_SESSION['user_details'])){
 			while($row = $res->fetch(PDO::FETCH_ASSOC)){
 				$output[]=array("Id"=>$row['Id'],"CreateAt"=>$row['CreateAt'],"UpdateAt"=>$row['UpdateAt'],
 				"DeleteAt"=>$row['DeleteAt'],"Name"=>$row['Name'],"RoleName"=>$row['RoleName'],"CreatedBy"=>$row['CreatedBy'],
-				"TabTemplate"=>$row['TabTemplate'],"RoleId"=>$row['RoleId'],"OU"=>getRoleInfo($conn,$row['RoleId']));
+				"TabTemplate"=>$row['TabTemplate'],"RoleId"=>$row['RoleId'],"OU_Specific"=>$row['OU_Specific'],
+				"RoleName"=>getRoleNamebyId($conn,$row['RoleId']),
+				"OU"=>getOUbyRole($conn,$row['RoleId']));
 				//$row;''
 			}
 			echo json_encode($output);
 	}
 	else echo "false";
 }
-else echo "Sesssion_expired";
+else 
+	echo "Sesssion_expired";
 
-function getRoleInfo($conn,$role_id){
-		$query = "select Role.Id,Role.RoleName,OrganisationUnit.OrganisationUnit as OU,Organisation
-					from OrganisationUnit,Role
-					where Role.OrganisationUnit=OrganisationUnit.OrganisationUnit
-					and Role.Id='$role_id'";
-					
-		$res = $conn->query($query);
-		$row = $res->fetch(PDO::FETCH_ASSOC);
-		return $row['OU'];
-}
+
 
 
 ?>
