@@ -778,7 +778,7 @@
 											<Button class="btn btn-warning" type="button"
 												style="width: 3px;height: 3px; border-radius: 50%;">
 												<!--<span class='glyphicon glyphicon-chevron-left'></span>-->
-											</Button> Global tabs.
+											</Button> Not OU specific tabs.
 										
 											<Button style="width: 3px;height: 3px; border-radius: 50%;" 
 												class="btn btn-success" type="button">

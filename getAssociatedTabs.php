@@ -5,16 +5,22 @@
 	$role_name = $_GET['role_name'];
 	if($conn){
 		$role_id = findRoleId($conn,$ou_name,$role_name);
-		$query="select Tab.* 
-				from RoleTabAsson,Tab 
+					
+		$query="select Tab.*,TabTemplate.Name as Template_Name 
+				from RoleTabAsson,Tab,TabTemplate 
 				where Tab.Id=TabId and
+					Tab.TabTemplate=TabTemplate.Id and
 					RoleTabAsson.RoleId='$role_id'
 				order by CreateAt desc";
 		$res = $conn->query($query);
 		if($res){
 			$count=0;
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
-				$output[]=$row;
+				$output[]=array("Id"=>$row['Id'],"CreateAt"=>$row['CreateAt'],"UpdateAt"=>$row['UpdateAt'],
+				"DeleteAt"=>$row['DeleteAt'],"Name"=>$row['Name'],"RoleName"=>$row['RoleName'],"CreatedBy"=>$row['CreatedBy'],
+				"TabTemplate"=>$row['TabTemplate'],"RoleId"=>$row['RoleId'],"OU_Specific"=>$row['OU_Specific'],
+				"RoleName"=>getRoleNamebyId($conn,$row['RoleId']),
+				"OU"=>getOUbyRole($conn,$row['RoleId']));
 				$count++;
 			}
 			if($count>0)

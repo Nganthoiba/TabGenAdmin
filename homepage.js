@@ -964,7 +964,10 @@ $(document).ready(function(){
 					//alert("Length of Array: "+resp_array.length);
 					for(var i=0;i<resp_array.length;i++){
 						layout+="<tr><td valign='middle'><div style='height:40px;padding-top:10px'>"+
-									resp_array[i].Name+"</div></td>"+
+									resp_array[i].Name+"</div>"+
+									"<div><b>OU:</b> "+resp_array[i].OU+
+									"<br/><b>Role:</b> "+resp_array[i].RoleName+"</div>"+
+									"</td>"+
 									"<td align='right' ><Button type='button' class='btn btn-default' "+
 									"style='width: 40px;height: 40px;border-radius: 50%;'"+
 									"onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
