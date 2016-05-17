@@ -606,24 +606,18 @@
 				document.getElementById("createTabResponse").style.color="red";
 				return false;
 			}
-			//Check if the tab to be created is ou specific or not
-			if(ou_specific==true){
-				var ou_name = $("#ou_selector").val();
-				var role_name = $("#role_selector").val();
-				if(role_name==null){
-					document.getElementById("createTabResponse").innerHTML="<center>Select a role.</center>";
-					document.getElementById("createTabResponse").style.color="red";
-					//alert("Select a role.");
-					return false;
-				 }
-				else post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,
+			
+			var ou_name = $("#ou_selector").val();
+			var role_name = $("#role_selector").val();
+			if(role_name==null){
+				document.getElementById("createTabResponse").innerHTML="<center>Select a role.</center>";
+				document.getElementById("createTabResponse").style.color="red";
+				//alert("Select a role.");
+				return false;
+			}
+			else post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,
 						"ou_name":ou_name,"role_name":role_name};
-			}
-			else if(ou_specific==false){
-				post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific};
-			
-			}
-			
+						
 			if(document.getElementById("ou_specific_yes").checked==true || document.getElementById("ou_specific_no").checked==true){
 				
 				$.ajax({
