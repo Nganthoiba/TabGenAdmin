@@ -821,7 +821,7 @@ $(document).ready(function(){
 						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
 						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
 						"<td>"+
-							"<div class='tab_name' id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+							"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 							"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
 							"<br/><b>Template:</b> "+json_arr[i].Template_Name+
 							"</div>"+
@@ -969,7 +969,9 @@ $(document).ready(function(){
 						layout+="<tr><td valign='middle'><div style='height:40px;padding-top:10px'>"+
 									resp_array[i].Name+"</div>"+
 									"<div><b>OU:</b> "+resp_array[i].OU+
-									"<br/><b>Role:</b> "+resp_array[i].RoleName+"</div>"+
+									"<br/><b>Role:</b> "+resp_array[i].RoleName+
+									"<br/><b>Template:</b> "+resp_array[i].Template_Name+
+									"</div>"+
 									"</td>"+
 									"<td align='right' ><Button type='button' class='btn btn-default' "+
 									"style='width: 40px;height: 40px;border-radius: 50%;'"+

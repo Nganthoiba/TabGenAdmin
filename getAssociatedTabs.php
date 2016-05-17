@@ -20,6 +20,7 @@
 				"DeleteAt"=>$row['DeleteAt'],"Name"=>$row['Name'],"RoleName"=>$row['RoleName'],"CreatedBy"=>$row['CreatedBy'],
 				"TabTemplate"=>$row['TabTemplate'],"RoleId"=>$row['RoleId'],"OU_Specific"=>$row['OU_Specific'],
 				"RoleName"=>getRoleNamebyId($conn,$row['RoleId']),
+				"Template_Name"=>$row['Template_Name'],
 				"OU"=>getOUbyRole($conn,$row['RoleId']));
 				$count++;
 			}
