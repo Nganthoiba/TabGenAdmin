@@ -781,7 +781,7 @@ $(document).ready(function(){
 		
 		var ou = document.getElementById("choose_ou2").value;
 		var role = document.getElementById("choose_role2").value;
-		alert(ou);
+		//alert(ou);
 		$.ajax({
 			url: "getTabs.php",
 			success: function(resp){
