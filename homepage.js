@@ -778,6 +778,10 @@ $(document).ready(function(){
 	function getTabs(id){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
+		
+		var ou = document.getElementById("choose_ou2").value;
+		var role = document.getElementById("choose_role2").value;
+		alert(ou);
 		$.ajax({
 			url: "getTabs.php",
 			success: function(resp){
@@ -804,32 +808,27 @@ $(document).ready(function(){
 						prev_tab_name[i] = 	json_arr[i].Name;
 						if(json_arr[i].Template_Name=="Chat Template"){
 							popup_content_form="<form class='form-horizontal' role='form'"+
-								"style='max-width:300px;min-width:280px'>"+
+								"style='max-width:300px;min-width:250px'>"+
 									"<div>"+
-										"<table>"+
-											"<tr>"+
-												"<td>"+
-													"<div>"+
-														"<label>Tab Name</label>"+
-														"<input type='text' value='"+json_arr[i].Name+"'"+
-														"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
+											"<label>Tab Name</label>"+
+											"<input type='text' value='"+json_arr[i].Name+"'"+
+											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
 													
-														"<button type='button' class='btn btn-info'"+ 
+									"</div>"+
+									"<div><br/>"+
+											"<button type='button' class='btn btn-info'"+ 
 														"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
 															"\",\""+json_arr[i].Template_Name+"\")'"+
 														"id='saveTabName"+i+"'"+
 														"style='float:right'>Save</button>"+
-													"</div>"+
-												"</td>"+
-											"</tr>"+
-											"<tr><td colspan='2'><span id='upadate_tab_resp"+i+"'></span></td></tr>"+
-										"</table>"+
+									"</div>"+
+									"<div style='height:50px'>"+
+										"<br/><span id='upadate_tab_resp"+i+"'></span>"+
 									"</div>"+
 								"</form>";
 						}
 						else{
-							popup_content_form="<form class='form-horizontal' role='form' "+
-								"style='max-width:400px;min-width:350px'>"+
+							popup_content_form="<form class='form-horizontal' role='form'>"+
 								"<div>"+
 									"<label>Tab Name</label>"+
 										"<input type='text' value='"+json_arr[i].Name+"'"+
@@ -841,7 +840,16 @@ $(document).ready(function(){
 										"Paste your html contents here"+
 									"</textarea>"+
 								"</div>"+
-								
+								"<div><br/>"+
+									"<button type='button' class='btn btn-info'"+ 
+											"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
+															"\",\""+json_arr[i].Template_Name+"\")'"+
+											"id='saveTabName"+i+"'"+
+											"style='float:right'>Save</button>"+
+								"</div>"+
+								"<div style='height:50px'>"+
+									"<br/><span id='upadate_tab_resp"+i+"'></span>"+
+								"</div>"+
 							"</form>";
 						}
 						layout+= "<tr><td>"+
@@ -858,7 +866,7 @@ $(document).ready(function(){
 							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
 							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
 							"<div class='container' style='width:20px'>"+
-								"<div class='hide' id='popover-content"+i+"'>"+
+								"<div class='hide' style='max-width:300px;min-width:250px' id='popover-content"+i+"'>"+
 									popup_content_form+
 								"</div>"+
 							"</div>"+

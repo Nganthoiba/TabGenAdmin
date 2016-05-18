@@ -143,7 +143,8 @@
 					<li><a href="#">Create Tabs Strips</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
-						onclick='getRoles("choose_role",$("#choose_ou").val());'>Associate Tabs to Role</a></li>
+						onclick='getRoles("choose_role",$("#choose_ou").val());
+								 getRoles("choose_role2",$("#choose_ou2").val());'>Associate Tabs to Role</a></li>
 					<!--<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
 						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Update Tabs</a>
 					</li>-->
@@ -779,9 +780,9 @@
 														viewOrgUnits("dropdown","choose_ou2","all");
 														//getAssociatedTabs("associated_tabs");
 															$("#choose_ou2").change(function(){
-																	getRoles("choose_role2",$("#choose_ou2").val());
+																getRoles("choose_role2",$("#choose_ou2").val());
+																getTabs("list_of_tabs");
 															});
-															getRoles("choose_role2",$("#choose_ou2").val());
 														});
 													</script>
 												</select>
@@ -798,6 +799,7 @@
 														$(document).ready(function(){
 															getRoles("choose_role2",$("#choose_ou2").val());
 															$("#choose_role2").change(function(){
+																getTabs("list_of_tabs");
 															});
 														});
 													</script>
