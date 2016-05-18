@@ -294,7 +294,7 @@ $(document).ready(function (){
         $('#btnrole').click(function() {
 			var rolaname=$("#rolaname").val();
 			var ousel =$("#ousel").val();
-			//var access =document.getElementById("access_yes").checked;
+			var access =document.getElementById("access_yes").checked;
 			//var access =$("#access_yes").val();
 			var role_type=$("#roletype").val();
 			if(rolaname.trim().length==0){
@@ -307,7 +307,7 @@ $(document).ready(function (){
 			$.ajax({
                 type: "POST",
                 url: "createrole.php",
-                data: "rolaname="+rolaname+"&ousel="+ousel+"&role_type="+role_type,    
+                data: "rolaname="+rolaname+"&ousel="+ousel+"&role_type="+role_type+"&ou_specific="+access,    
                 success: function(e){ 
 					if(e.trim()=="true")
                     {

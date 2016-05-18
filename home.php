@@ -334,6 +334,7 @@
 										});
 									</script>
 								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -365,6 +366,13 @@
 											<option>Doctor</option>
 											<option>Nurse</option>
 										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4  control-label">OU Specific</label>
+									<div class="col-sm-4">
+										<label class="radio-inline"><input type="radio" name="optradio" id="access_yes" checked>Yes</label>
+										<label class="radio-inline"><input type="radio" name="optradio" id="access_no">No</label>
 									</div>
 								</div>
 							</div>
@@ -677,50 +685,64 @@
 			<div class="modal-body">
 				<div class="panel panel-default">
 					<form class="form-horizontal">
-						<div class="panel-body">
+						<div class="panel-body">	
 							<div class="form-group">
 								<div class="col-sm-6">
-									<label class="control-label" for="choose_ou">Organisation Unit:</label>
-									<select class="form-control" id="choose_ou" >
-										<script type="text/JavaScript">
-											$(document).ready(function(){
-													viewOrgUnits("dropdown","choose_ou","all");
-													//getAssociatedTabs("associated_tabs");
-													$("#choose_ou").change(function(){
-														getRoles("choose_role",$("#choose_ou").val());
-														getAssociatedTabs("associated_tabs");
-													});
-											});
-										</script>
-									</select>
-								</div>
-							
-								<div class="col-sm-6">
-									<label class="control-label" for="choose_role">Select Role:</label>
-									<select class="form-control" id="choose_role" >
-										<script type="text/JavaScript">
-											$(document).ready(function(){
-													//getRoles("choose_role",$("#choose_ou").val());
-													$("#choose_role").change(function(){
-															getAssociatedTabs("associated_tabs");
-													});
-											});
-										</script>
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-6">
+									<table width="100%">
+										<tr>
+											<td>
+												<label class="control-label" for="choose_ou">Organisation Unit:</label>
+											</td>
+											<td>
+												<select class="form-control" id="choose_ou" >
+													<script type="text/JavaScript">
+														$(document).ready(function(){
+														viewOrgUnits("dropdown","choose_ou","all");
+														//getAssociatedTabs("associated_tabs");
+															$("#choose_ou").change(function(){
+																	getRoles("choose_role",$("#choose_ou").val());
+																	getAssociatedTabs("associated_tabs");
+															});
+														});
+													</script>
+												</select>
+											</td>
+										</tr>
+										<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+										<tr>
+											<td>
+												<label class="control-label" for="choose_role">Select Role:</label>
+											</td>
+											<td>
+												<select class="form-control" id="choose_role" >
+													<script type="text/JavaScript">
+														$(document).ready(function(){
+															//getRoles("choose_role",$("#choose_ou").val());
+															$("#choose_role").change(function(){
+																getAssociatedTabs("associated_tabs");
+															});
+														});
+													</script>
+												</select>
+											</td>
+										</tr>
+									</table>
+									<br/>
 									<div class="panel panel-default">
 										<div class="panel-heading clearfix">
-											<table width="100%"><tr>
-											<td><h1 class="panel-title">Associated Tabs</h1></td>
-											<td align="right"><div class="pull-right"><Button class="btn btn-default" id="refresh_ass_tab">
-											<span class="glyphicon glyphicon-refresh"></span></Button></div></td>
-											</tr></table>
+											<table width="100%">
+												<tr>
+													<td><h1 class="panel-title">Associated Tabs</h1></td>
+													<td align="right">
+														<Button class="btn btn-default" id="refresh_ass_tab">
+															<span class="glyphicon glyphicon-refresh"></span>
+														</Button>
+													</td>
+												</tr>
+											</table>			
 										</div>
 										
-										<div style="max-height: 300px;min-height:300px;overflow: hidden;overflow-y: auto;
+										<div style="max-height: 350px;min-height:350px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;">
 											<table class="table table-striped" id="associated_tabs">
 											
@@ -745,6 +767,45 @@
 									</div>
 								</div>
 								<div class="col-sm-6">
+									<table width="100%">
+										<tr>
+											<td>
+												<label class="control-label" for="choose_ou2">Organisation Unit:</label>
+											</td>
+											<td>
+												<select class="form-control" id="choose_ou2" >
+													<script type="text/JavaScript">
+														$(document).ready(function(){
+														viewOrgUnits("dropdown","choose_ou2","all");
+														//getAssociatedTabs("associated_tabs");
+															$("#choose_ou2").change(function(){
+																	getRoles("choose_role2",$("#choose_ou2").val());
+															});
+															getRoles("choose_role2",$("#choose_ou2").val());
+														});
+													</script>
+												</select>
+											</td>
+										</tr>
+										<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+										<tr>
+											<td>
+												<label class="control-label" for="choose_role2">Select Role:</label>
+											</td>
+											<td>
+												<select class="form-control" id="choose_role2" >
+													<script type="text/JavaScript">
+														$(document).ready(function(){
+															getRoles("choose_role2",$("#choose_ou2").val());
+															$("#choose_role2").change(function(){
+															});
+														});
+													</script>
+												</select>
+											</td>
+										</tr>
+									</table>
+									<br/>
 									<div class="panel panel-default">
 										<div class="panel-heading clearfix">
 											<table width="100%">
@@ -759,7 +820,7 @@
 											</tr>
 											</table>		
 										</div>
-										<div style="max-height:300px;min-height:300px; overflow:hidden; overflow-x:auto;overflow-y:auto;">
+										<div style="max-height:350px;min-height:300px; overflow:hidden; overflow-x:auto;overflow-y:auto;">
 											<table class="table table-striped" id="list_of_tabs">
 											<script type="text/JavaScript">
 												$(document).ready(function(){
@@ -773,109 +834,12 @@
 											</table>
 										</div>
 									</div>
-									<div class="pull-right">
-										Index:
-											<Button class="btn btn-warning" type="button"
-												style="width: 3px;height: 3px; border-radius: 50%;">
-												<!--<span class='glyphicon glyphicon-chevron-left'></span>-->
-											</Button> Not OU specific tabs.
-										
-											<Button style="width: 3px;height: 3px; border-radius: 50%;" 
-												class="btn btn-success" type="button">
-												<!--<span class='glyphicon glyphicon-chevron-left'></span>-->
-											</Button> OU specific tabs.
-									</div>
 								</div>									
 							</div>
 						</div>
 					</form>		
 				</div>
 			</div>	
-		</div>
-	</div>
-</div>
-
-
-
-<!-- Modal for Associating Role to Tab 
-Tabs are created in this section-->
-<div class="modal fade" id="assocRole2Tab" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Create OU Specific Tabs</h4>
-				<!--Associate Role to Tab-->
-			</div>
-			<div class="modal-body"><div class="panel panel-default">
-				<form class="form-horizontal">	
-					<table border="0" align="center" class="table">
-						<tr>
-							<td>
-								<label>Organisation Unit:</label>
-								<select class="form-control" id="sel_org_unit_role_tab">
-									<script type="text/JavaScript">
-										$(document).ready(function(){
-											viewOrgUnits("dropdown","sel_org_unit_role_tab","all");/*displaying dropdown list of organisation unit*/
-										});
-									</script>
-								</select>
-							</td>
-							<td><label>Roles</label>
-								<select class="form-control" id="sel_roles">
-								</select>	
-							</td>
-							<td><label>Number of Tabs</label>
-								<select class="form-control" id="no_of_tabs" >
-									<option>1</option><option>2</option><option>3</option><option>4</option>
-								</select>
-							</td>								
-						</tr>
-						<tr>
-							<td colspan="2"><span id="saveAsscRole2TabResponse"></span></td>
-							<td align="right">
-								<Button class="btn btn-default" id="saveAsscRole2Tab" style="width:60px">Save</Button>
-							</td>
-						</tr>
-					</table>
-				</form>
-				</div>
-			</div>	
-		</div>
-	</div>
-</div>
-
-<!-- Modal for Associating Tab to TabTemplates -->
-<div class="modal fade" id="assocTab2Template" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="titleForTab2TemplateAssn">Update OU specific Tabs</h4><!--Associate Tab to Tab Templates-->
-			</div>
-			<div class="modal-body">
-				<form class="form-horizontal">
-					<center><div class="panel panel-default"><table class="table table-striped" border="0">
-						<tr><td>Organisation Unit: <select class="form-control" id="orgUnitSelect">
-														<script type="text/JavaScript">
-															$(document).ready(function(){
-																	/*displaying dropdown list of organisation unit*/
-																viewOrgUnits("dropdown","orgUnitSelect","all");
-															});
-														</script>
-													</select></td>
-							<td>Role: <select class="form-control" id="roleSelect" style="float:right"></select>
-							</td>
-							<td align="right">
-								<br/><Button type="submit" class="btn btn-default" id="getTabsTemplate">Show Tabs and Templates</Button>
-							</td>
-						</tr>
-					</table></div></center>
-				</form>
-				
-				<form><div id="tabs_template_result"></div></form>				
-			</div>
 		</div>
 	</div>
 </div>

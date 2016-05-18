@@ -580,7 +580,10 @@ function get_token(){
 	}
 	//function to get a list of bookmarks
 	function getBookmarks($conn,$user_id){
-		$query="select * from Bookmark where UserId='$user_id' order by BookmarkAt desc";
+		$query="select Posts.* from Bookmark,Posts 
+				where Posts.Id=Bookmark.PostId
+				and Bookmark.UserId='$user_id' 
+				order by BookmarkAt desc";
 		$res = $conn->query($query);
 		$output=null;
 		while($row = $res->fetch(PDO::FETCH_ASSOC)){

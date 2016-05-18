@@ -5,12 +5,13 @@ include('tabgen_php_functions.php');
 include('connect_db.php');
 $rolaname = $_POST['rolaname'];
 $ousel = $_POST['ousel'];
-//$access = $_POST['access'];
+$ou_specific = $_POST['ou_specific'];
 $role_type = $_POST['role_type'];
 
 if($rolaname!='' && $ousel!=''){
 	$data = array(
-	   "organisationUnit"  => $ousel,	
+	   "organisationUnit"  => $ousel,
+	   "universalRole" => $ou_specific,	
 		"role_name" => $rolaname 
 	);
 	//"universalRole" => $access,
