@@ -221,12 +221,12 @@
 									<input type="text" class="form-control" value="" name="orgname" id="orgname" placeholder="Organization name">
 								</div>
 							</div>
-							<div class="form-group">
+							<!--<div class="form-group">
 								<label for="display_name" class="col-sm-4  control-label">Display Name</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control" value="" placeholder="Display Name" name="display_name" id="display_name">
 								</div>
-							</div>
+							</div>-->
 						</div>
 						<div class="panel-footer clearfix">
 							<label id="error1" class="col-sm-offset-2 col-sm-8"></label>
@@ -251,20 +251,20 @@
 					<div class="panel-body">
 						<form class="form-horizontal" method="post">
 							<div class="form-group">
-								<label for="orgunit" class="col-sm-4  control-label">Organization Unit Name</label>
-								<div class="col-sm-8">
+								<label for="orgunit" class="col-sm-6  control-label">Organization Unit Name</label>
+								<div class="col-sm-6">
 									<input type="text" class="form-control" value="" id="orgunit" name="orgunit" placeholder="Organization name" required>
 								</div>
 							</div>
-							<div class="form-group">
+							<!--<div class="form-group">
 								<label for="displaynameunit" class="col-sm-4  control-label">Display Name</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control" value="" id="displaynameunit"  placeholder="Display Name" required>
 								</div>
-							</div>
+							</div>-->
 							<div class="form-group">
-								<label class="col-sm-4  control-label">Organization</label>
-								<div class="col-sm-8">
+								<label class="col-sm-6  control-label">Organization</label>
+								<div class="col-sm-6">
 									<select id="orgnamesel" class="form-control">
 										<script type="text/JavaScript">
 											$(document).ready(function(){
@@ -342,7 +342,7 @@
 						
 					</div>
 					<h3 align="center"> 
-					<a href="#" data-toggle="collapse" class='btn btn-default' data-target="#create_role_collapsible">
+					<a href="#" data-toggle="collapse" class='btn btn-link' data-target="#create_role_collapsible">
 					<span class="glyphicon glyphicon-plus"></span> Click here to create a new role</a></h3>
 					
 					<div id="create_role_collapsible" class="collapse">
@@ -951,15 +951,20 @@ Tabs are created in this section-->
 <div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<!--<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Logout Confirmation</h4>
-			</div>
+			</div>-->
 			<div class="modal-body">
 				<div class="alert alert-danger">
 				  <center><strong>Logout! &nbsp;</strong> Are you sure?</center>
 				</div>
-				<center><a href="logout.php" class="btn btn-default" style="width:20%" id="YesLogout">Yes</a></center>
+				<center>
+					<button type="button" style='width:60px' class="btn btn-default" data-dismiss="modal" aria-label="Close">No</button>
+					&nbsp;&nbsp;
+					<a href="logout.php"  style='width:60px' class="btn btn-default" style="width:20%" id="YesLogout">Yes</a>
+				</center>
 			</div>	
 		</div>
 	</div>

@@ -182,13 +182,13 @@ $(document).ready(function(){
             $(document).ready(function (){
                 $('#submit').click(function() {
                     var orgname=$("#orgname").val();
-					var display_name =$("#display_name").val();
+					//var display_name =$("#display_name").val();
 					$("#error1").css('color', 'black');
                     $("#error1").html("<img src='img/loading.gif'/> Wait a moment please...");
                     $.ajax({
                         type: "POST",
                         url: "createorg.php",
-                        data: "orgname="+orgname+"&display_name="+display_name,
+                        data: "orgname="+orgname,
                     
                         success: function(s){  
 							//alert(s);						  
@@ -250,10 +250,11 @@ $(document).ready(function (){
 						$.ajax({          
 							type: "POST",
 							url: "createorgunit.php",
-							data: "orgnamesel="+orgnamesel+"&displaynameunit="+displaynameunit+"&orgunit="+orgunit,
+							data: "orgnamesel="+orgnamesel+"&orgunit="+orgunit,
 						
 							success: function(e){  
-							//alert(e);      
+							//alert(e); 
+							//"&displaynameunit="+displaynameunit+     
 								if(e.trim()=="true")
 								{
 									$("#error2").css('color', 'green');
@@ -448,7 +449,7 @@ $(document).ready(function (){
 							limit=(json_arr.length>4?4:json_arr.length);
 						}
 						if(method=="list"){
-							view="<tr><th>Name</th><th>Organisation Name</th><th>Created on</th><th colspan='2'>Last Updated on</th></tr>";
+							view="<tr><th>Organisation Unit Name</th><th>Organisation Name</th><th colspan='2'>Created on</th></tr>";
 							for(var i=0;i<limit;i++){
 								var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);
@@ -458,14 +459,17 @@ $(document).ready(function (){
 									created_date.getFullYear()+
 									"<br/>Time: "+getHumanReadableTime(created_date)+
 								'</td>'+
-								'<td>Date: '+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
-									updated_date.getFullYear()+
-									'<br/>Time: '+getHumanReadableTime(updated_date)+
-								'</td>'+
 								'<td align="right">'+
 								'<Button type="button" class="btn btn-default"'+
 								' onclick="setDelAction4OrgUnit(\''+json_arr[i].id+'\',\''+json_arr[i].organisation_unit+'\')" id="del_org_unit'+i+'">'+
 								'<span class="glyphicon glyphicon-trash"></span></Button></td></tr>';
+								/*
+								 * 
+								'<td>Date: '+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
+									updated_date.getFullYear()+
+									'<br/>Time: '+getHumanReadableTime(updated_date)+
+								'</td>'+
+								 * */
 							}
 							if(i==0)
 								view="<h3 align='center' style='color:#FE642E'>"+
@@ -545,7 +549,7 @@ $(document).ready(function (){
 							limit=json_arr.length>4?4:json_arr.length;
 						}
 						if(method=="list"){
-							view="<tr><th>Name</th><th>Created on</th><th>Last updated on</th><th></th></tr>";
+							view="<tr><th>Organisation Name</th><th>Created on</th><th></th></tr>";
 							for(var i=0;i<limit;i++){
 								var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);
@@ -554,14 +558,17 @@ $(document).ready(function (){
 									created_date.getFullYear()+
 									"<br/>Time: "+getHumanReadableTime(created_date)+
 								'</td>'+
-								'<td>Date: '+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
-									updated_date.getFullYear()+
-									"<br/>Time: "+getHumanReadableTime(updated_date)+
-								'</td>'+
 								"<td align='right'>"+
 								"<Button type='button' class='btn btn-default'"+
 								"onclick='setDelAction4Org(\""+json_arr[i].id+"\",\""+json_arr[i].name+"\"); return false;' id='del_org"+i+"'>"+
 								"<span class='glyphicon glyphicon-trash'></span></Button></td></tr>";
+							/*
+							 * 
+								'<td>Date: '+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
+									updated_date.getFullYear()+
+									"<br/>Time: "+getHumanReadableTime(updated_date)+
+								'</td>'+
+							 * */
 							}
 							if(i==0)
 								view="<h3 align='center' style='color:#FE642E'>"+
@@ -795,7 +802,9 @@ $(document).ready(function(){
 							btn_class="btn btn-success";
 						}
 						prev_tab_name[i] = 	json_arr[i].Name;
-						popup_content_form="<form class='form-horizontal' role='form'>"+
+						if(json_arr[i].Template_Name=="Chat Template"){
+							popup_content_form="<form class='form-horizontal' role='form'"+
+								"style='max-width:300px;min-width:280px'>"+
 									"<div>"+
 										"<table>"+
 											"<tr>"+
@@ -804,18 +813,37 @@ $(document).ready(function(){
 														"<label>Tab Name</label>"+
 														"<input type='text' value='"+json_arr[i].Name+"'"+
 														"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
-													"</div>"+
-													"<br/><button type='button' class='btn btn-info'"+ 
+													
+														"<button type='button' class='btn btn-info'"+ 
 														"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
 															"\",\""+json_arr[i].Template_Name+"\")'"+
 														"id='saveTabName"+i+"'"+
 														"style='float:right'>Save</button>"+
+													"</div>"+
 												"</td>"+
 											"</tr>"+
 											"<tr><td colspan='2'><span id='upadate_tab_resp"+i+"'></span></td></tr>"+
 										"</table>"+
 									"</div>"+
 								"</form>";
+						}
+						else{
+							popup_content_form="<form class='form-horizontal' role='form' "+
+								"style='max-width:400px;min-width:350px'>"+
+								"<div>"+
+									"<label>Tab Name</label>"+
+										"<input type='text' value='"+json_arr[i].Name+"'"+
+											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
+								"</div>"+
+								"<div>"+
+									"<label>Contents</label>"+
+									"<textarea rows='4' cols='50' class='form-control'>"+
+										"Paste your html contents here"+
+									"</textarea>"+
+								"</div>"+
+								
+							"</form>";
+						}
 						layout+= "<tr><td>"+
 						"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
 						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
@@ -829,7 +857,7 @@ $(document).ready(function(){
 						"<td align='right'>"+
 							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
 							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
-							"<div class='container' style='width:2px'>"+
+							"<div class='container' style='width:20px'>"+
 								"<div class='hide' id='popover-content"+i+"'>"+
 									popup_content_form+
 								"</div>"+
@@ -966,7 +994,7 @@ $(document).ready(function(){
 					var layout=" ";
 					//alert("Length of Array: "+resp_array.length);
 					for(var i=0;i<resp_array.length;i++){
-						layout+="<tr><td valign='middle'><div style='height:40px;padding-top:10px'>"+
+						layout+="<tr><td valign='middle'><div>"+
 									resp_array[i].Name+"</div>"+
 									"<div><b>OU:</b> "+resp_array[i].OU+
 									"<br/><b>Role:</b> "+resp_array[i].RoleName+

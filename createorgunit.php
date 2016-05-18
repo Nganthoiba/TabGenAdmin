@@ -8,12 +8,12 @@ include ('ConnectAPI.php');
 include('connect_db.php');
 include('tabgen_php_functions.php');
 $orgunit = $_POST['orgunit'];
-$displaynameunit = $_POST['displaynameunit'];
+//$displaynameunit = $_POST['displaynameunit'];
 $orgnamesel = $_POST['orgnamesel'];
 	if($orgunit!='' && $orgnamesel!=''){
 		//setting data for creating organistion unit
+		//"name"=>$displaynameunit,
 		$data = array(
-		"name"=>$displaynameunit,
 		"email"=>$user_details->email,
 		"organisation" => $orgnamesel,
 		"organisation_unit" => $orgunit,

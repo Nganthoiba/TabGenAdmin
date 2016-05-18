@@ -6,8 +6,8 @@ if(isset($_SESSION['user_details'])){
 $user_details = json_decode($_SESSION['user_details']);
 if(!empty($_POST)){
 	$org = $_POST['orgname'];
-	$dis = $_POST['display_name'];
-	if($org!='' && $dis!=''){
+	//$dis = $_POST['display_name'];
+	if($org!=''){
 				
 		$data = array(
 			"name" => $org,
