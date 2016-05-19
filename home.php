@@ -926,13 +926,13 @@
 				<h4 class="modal-title" id="myModalLabel">Logout Confirmation</h4>
 			</div>-->
 			<div class="modal-body">
-				<div>
+				<div class="alert alert-danger">
 				  <center><strong>Logout! &nbsp;</strong> Are you sure?</center>
 				</div>
 				<center>
-					<button type="button" style='width:60px' class="btn btn-default" data-dismiss="modal" aria-label="Close">No</button>
+					<button type="button" style='width:45%' class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
 					&nbsp;&nbsp;
-					<a href="logout.php"  style='width:60px' class="btn btn-default" style="width:20%" id="YesLogout">Yes</a>
+					<a href="logout.php"  style='width:45%' class="btn btn-warning" style="width:20%" id="YesLogout">Yes</a>
 				</center>
 			</div>	
 		</div>
