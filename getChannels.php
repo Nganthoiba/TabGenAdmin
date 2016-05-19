@@ -31,7 +31,11 @@ if(!empty($_GET['user_id'])){
 										and RoleTabAsson.RoleId = '$role_id')
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
-							group by Channels.Id
+							group by Channels.Id";
+				//and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
+				/*
+				 * 
+				 
 							
 							union
 							
@@ -44,8 +48,8 @@ if(!empty($_GET['user_id'])){
 															and Tab.DeleteAt=0)								
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
-							group by Channels.Id";
-				//and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
+							group by Channels.Id
+				 * */
 				$res = $conn->query($query);
 				if($res){
 					$count=0;
