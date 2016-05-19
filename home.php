@@ -926,7 +926,7 @@
 				<h4 class="modal-title" id="myModalLabel">Logout Confirmation</h4>
 			</div>-->
 			<div class="modal-body">
-				<div class="alert alert-danger">
+				<div>
 				  <center><strong>Logout! &nbsp;</strong> Are you sure?</center>
 				</div>
 				<center>
