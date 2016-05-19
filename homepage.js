@@ -720,12 +720,22 @@ $(document).ready(function(){
 							"<tr>"+
 								"<th>Role Name</th>"+
 								"<th>Role Type</th>"+
+								"<th>OU Specific</th>"+
 							"</tr>";
 						var i=0;
 						for(i=0;i<arr.length;i++){
+							var ou_specific=" ";
+							if(arr[i].UniversalRole.trim()=="true"){
+								ou_specific="Yes";
+							}
+							else{
+								ou_specific="No";
+							}
 							roleList+="<tr><td>"+arr[i].RoleName+
 								"</td>"+
-							"<td>"+arr[i].RoleType+"</td></tr>";
+								"<td>"+arr[i].RoleType+"</td>"+
+								"<td>"+ou_specific+"</td>"+
+							"</tr>";
 							//roleList+="<div class='col-sm-4'><p>Name: "+arr[i].RoleName+"<br/>Type: "+arr[i].RoleType+"</p></div>";
 						}
 						roleList+="</table></div>";
