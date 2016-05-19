@@ -88,6 +88,7 @@ function create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific){
 	}
 	else{
 		if($conn->query($query)){
+			associateTabToRole($conn,$role_id,$id);
 			echo json_encode(array("status"=>true,"message"=>"Tab created successfully"));
 		}
 		else{ 

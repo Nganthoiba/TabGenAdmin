@@ -648,4 +648,25 @@ function get_token(){
 		$row = $res->fetch(PDO::FETCH_ASSOC);
 		return $row['RoleName'];
 	}
+	
+	//function to associate a tab to a particular role
+	function associateTabToRole($conn,$role_id,$tab_id){
+		$query = "insert into RoleTabAsson values('$role_id','$tab_id')";
+		if($role_id!=null){
+			if(!isTabAlreadyAssociated($conn,$role_id,$tab_id)){
+				if($conn->query($query)){
+					echo json_encode(array("status"=>true,"message"=>"Successfully associated."));
+				}
+				else {
+					echo json_encode(array("status"=>false,"message"=>"Unable to associate, an internal problem occurs."));
+				}
+			}
+			else{
+				echo json_encode(array("status"=>false,"message"=>"Tab is already associated!"));
+			}		
+		}
+		else 
+			echo json_encode(array("status"=>false,"message"=>"Role does not exist!"));
+		
+	}
 ?>
