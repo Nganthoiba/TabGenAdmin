@@ -69,7 +69,7 @@
                 $user_email= $user_data->email;
 						
 	?>
-	<nav class="navbar navbar-inverse navbar-fixed-top" 
+	<nav class="navbar navbar-default navbar-fixed-top" 
 		style="height:60px;padding-top:10px;padding-bottom:10px;
 		background-color:#819FF7;color:#f7f7f7;position:fixed;width:100%" >
 		<!--class="navbar navbar-default navbar-fixed-top"
