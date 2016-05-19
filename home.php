@@ -111,10 +111,6 @@
 				<div style="background-color:#2D79D7; color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
 					<?php echo $user_name; ?>
 				</div>
-				<div style="background-color:#2D79D7; color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-bottom:10px">
-					<?php echo $user_role; ?>
-					<br/><?php echo $user_email; ?>
-				</div>
 				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
 				<ul class="nav nav-tabs nav-stacked" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
 															-webkit-box-shadow: 0px 2px 2px rgba(0.2, 0.3, 0, 0.3);
@@ -754,7 +750,7 @@
 												//getAssociatedTabs("associated_tabs");
 												$("#associated_tabs").html("<h1 align='center'>Click Refresh button "+
 												"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
-												"style='height:100px;width:100px;border-radius:50%'"+
+												"style='height:50px;width:50px;border-radius:50%'"+
 												"onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
 												"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
 												" to display all the associated tabs</h1>");
@@ -829,7 +825,7 @@
 													//getTabs("list_of_tabs");
 													$("#list_of_tabs").html("<h1 align='center'>Click Refresh button "+
 													"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
-													"style='height:100px;width:100px;border-radius:50%'"+
+													"style='height:50px;width:50px;border-radius:50%'"+
 													"onclick='getTabs(\""+"list_of_tabs"+"\");'>"+
 													"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
 													" to display all the list of tabs</h1>");

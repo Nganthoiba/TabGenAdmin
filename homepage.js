@@ -794,8 +794,10 @@ $(document).ready(function(){
 					document.getElementById(id).innerHTML="<h1>Oops! Session expired, Please Login again.</h1>";
 				}
 				else if(resp.trim()=="null"){
-					layout="<p><h1 align='center'>No tab exists for this role</h1><p>";
-					document.getElementById(id).innerHTML=layout;
+					document.getElementById(id).innerHTML="<br/><div>"+
+					"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
+					"<br/>No tab exists for this role</h1></div>";
+					document.getElementById(id).style.color="#FE642E";
 				}
 				else{
 					var json_arr = JSON.parse(resp);
