@@ -696,7 +696,6 @@
 														//getAssociatedTabs("associated_tabs");
 															$("#choose_ou").change(function(){
 																	getRoles("choose_role",$("#choose_ou").val());
-																	getAssociatedTabs("associated_tabs");
 															});
 														});
 													</script>
@@ -775,7 +774,6 @@
 														//getAssociatedTabs("associated_tabs");
 															$("#choose_ou2").change(function(){
 																getRoles("choose_role2",$("#choose_ou2").val());
-																getTabs("list_of_tabs");
 															});
 														});
 													</script>
@@ -791,7 +789,6 @@
 												<select class="form-control" id="choose_role2" >
 													<script type="text/JavaScript">
 														$(document).ready(function(){
-															getRoles("choose_role2",$("#choose_ou2").val());
 															$("#choose_role2").change(function(){
 																getTabs("list_of_tabs");
 															});
