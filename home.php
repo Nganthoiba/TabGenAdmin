@@ -144,7 +144,7 @@
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
 						onclick='getRoles("choose_role",$("#choose_ou").val());
-								 getRoles("choose_role2",$("#choose_ou2").val());'>Associate Tabs to Role</a></li>
+								 getRoles("choose_role2",$("#choose_ou2").val())'>Associate Tabs to Role</a></li>
 					<!--<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
 						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Update Tabs</a>
 					</li>-->
@@ -822,11 +822,18 @@
 											</tr>
 											</table>		
 										</div>
-										<div style="max-height:350px;min-height:300px; overflow:hidden; overflow-x:auto;overflow-y:auto;">
+										<div style="max-height:350px;min-height:350px; overflow:hidden; overflow-x:auto;overflow-y:auto;">
 											<table class="table table-striped" id="list_of_tabs">
 											<script type="text/JavaScript">
 												$(document).ready(function(){
-													getTabs("list_of_tabs");
+													//getTabs("list_of_tabs");
+													$("#list_of_tabs").html("<h1 align='center'>Click Refresh button "+
+													"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
+													"style='height:100px;width:100px;border-radius:50%'"+
+													"onclick='getTabs(\""+"list_of_tabs"+"\");'>"+
+													"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
+													" to display all the list of tabs</h1>");
+													$("#list_of_tabs").css('color','#A4A4A4');
 													$("#refresh_tab_list").click(function(){
 														getTabs("list_of_tabs");
 														return false;

@@ -780,10 +780,12 @@ $(document).ready(function(){
 		document.getElementById(id).style.color="#A4A4A4";
 		
 		var ou = document.getElementById("choose_ou2").value;
-		var role = document.getElementById("choose_role2").value;
+		var role_name = document.getElementById("choose_role2").value;
 		//alert(ou);
 		$.ajax({
 			url: "getTabs.php",
+			type: "GET",
+			data: {"ou":ou,"role_name":role_name},
 			success: function(resp){
 				if(resp.trim()=="false"){
 					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
@@ -791,11 +793,16 @@ $(document).ready(function(){
 				else if(resp.trim()=="sesssion_expired!"){
 					document.getElementById(id).innerHTML="<h1>Oops! Session expired, Please Login again.</h1>";
 				}
+				else if(resp.trim()=="null"){
+					layout="<p><h1 align='center'>No tab exists for this role</h1><p>";
+					document.getElementById(id).innerHTML=layout;
+				}
 				else{
 					var json_arr = JSON.parse(resp);
 					var layout=" ";
 					var popup_content_form=" ";
-					for(var i=0;i<json_arr.length;i++){
+					var i;
+					for(i=0;i<json_arr.length;i++){
 						var btn_class;
 						var OU = json_arr[i].OU;
 						var RoleName = json_arr[i].RoleName;
@@ -882,6 +889,7 @@ $(document).ready(function(){
 						"</td>"+
 						 * */
 					}
+											
 					document.getElementById(id).innerHTML=layout;
 					
 					for(var i=0;i<json_arr.length;i++){

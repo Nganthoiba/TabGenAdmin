@@ -5,12 +5,17 @@ session_start();
 if(isset($_SESSION['user_details'])){
 	$user_details = json_decode($_SESSION['user_details']);
 	$created_by = $user_details->username;
+	$ou = $_GET['ou'];
+	$role_name = $_GET['role_name'];
+	
 	if($conn){
+			$role_id = findRoleId($conn,$ou,$role_name);
 			$query = "SELECT Tab.*,TabTemplate.Name as Template_Name 
 						FROM Tab,TabTemplate
 						where Tab.TabTemplate=TabTemplate.Id and
 							Tab.CreatedBy='$created_by' and
-							Tab.DeleteAt=0
+							Tab.DeleteAt=0 and
+							Tab.RoleId='$role_id'
 						order by Tab.CreateAt desc";
 			$res = $conn->query($query);
 			while($row = $res->fetch(PDO::FETCH_ASSOC)){
@@ -22,7 +27,10 @@ if(isset($_SESSION['user_details'])){
 				"OU"=>getOUbyRole($conn,$row['RoleId']));
 				//$row;''
 			}
-			echo json_encode($output);
+			if(sizeof($output)==0)
+				echo "null";
+			else
+				echo json_encode($output);
 	}
 	else echo "false";
 }
