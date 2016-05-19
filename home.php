@@ -21,6 +21,22 @@
 		 var templates_arr=""; /*list of templates*/
 		 var tabs=[];
 		 var json_arr;
+		 /*
+		 $(document).ready(function(){
+			function alignModal(){
+				var modalDialog = $(this).find(".modal-dialog");
+				
+				// Applying the top margin on modal dialog to align it vertically center
+				modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+			}
+			// Align modal when it is displayed
+			$(".modal").on("shown.bs.modal", alignModal);
+			
+			// Align modal when user resize the window
+			$(window).on("resize", function(){
+				$(".modal:visible").each(alignModal);
+			});   
+		});*/
 	</script>
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
 	<style type="text/css">		
@@ -327,6 +343,10 @@
 											});
 											$('#ousel').change(function(){
 												displayRoles("role_lists",$("#ousel").val());
+												$('#rolaname').val(" ");
+												//$("#rolaname").attr("placeholder", "Type Role Name").placeholder();
+												$("#rolaname").attr("placeholder", "Type Role Name");
+												$('#error3').html(" ");
 												return false;
 											});
 										});
