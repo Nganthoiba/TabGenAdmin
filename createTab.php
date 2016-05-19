@@ -88,7 +88,7 @@ function create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific){
 	}
 	else{
 		if($conn->query($query)){
-			associateTabToRole($conn,$role_id,$id);
+			$conn->query("insert into RoleTabAsson values('$role_id','$id')");//automatically associating default tab
 			echo json_encode(array("status"=>true,"message"=>"Tab created successfully"));
 		}
 		else{ 
