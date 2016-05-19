@@ -393,6 +393,10 @@ $(document).ready(function (){
 							$("#error4").css('color','red');
 							$("#error4").text("Oops Some Goes Wrong Please Try Agian");
 						}
+						else if(e=="Invalid username"){
+							$("#error4").css('color','red');
+							$("#error4").text("Invalid username: blank is not allowed in the middle of username, use lowercase letters.");
+						}
 						else{
 							$("#error4").css('color','red');
 							$("#error4").text(e);
