@@ -120,7 +120,8 @@
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#create_tab_modal">Create Tabs</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#create_tab_modal"
+						onclick='getRoles("role_selector",$("#ou_selector").val());'>Create Tabs</a></li>
 					<!--<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
 						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Create OU Specific Tabs</a>
 					</li>-->
@@ -574,9 +575,6 @@
 		$("#ou_selector").change(function(){
 			getRoles("role_selector",$("#ou_selector").val());
 		});
-		$("#ou_selector").click(function(){
-			getRoles("role_selector",$("#ou_selector").val());
-		});
 		
 		/*$('#ou_specific_yes').click(function(){	
 			//alert("Yes");
@@ -614,7 +612,7 @@
 			
 			var ou_name = $("#ou_selector").val();
 			var role_name = $("#role_selector").val();
-			if(role_name==null){
+			if(role_name==null || role_name.length==0){
 				document.getElementById("createTabResponse").innerHTML="<center>Select a role.</center>";
 				document.getElementById("createTabResponse").style.color="red";
 				//alert("Select a role.");
