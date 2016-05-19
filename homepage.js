@@ -1056,7 +1056,7 @@ $(document).ready(function(){
 	
 	function deleteAssociatedTab(tab_id){
 		//alert(tab_id);
-		var confirmation = confirm("Are you sure to drop this tab?");
+		var confirmation = true;//confirm("Are you sure to drop this tab?");
 		if(confirmation){
 			var ou_name = $("#choose_ou").val();
 			var role_name = $("#choose_role").val();
