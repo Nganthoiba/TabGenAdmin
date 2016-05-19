@@ -820,11 +820,14 @@ $(document).ready(function(){
 						var btn_class;
 						var OU = json_arr[i].OU;
 						var RoleName = json_arr[i].RoleName;
+						var ou_specific=" ";
 						if(parseInt(json_arr[i].OU_Specific) == 0){
 							btn_class="btn btn-warning";
+							ou_specific="No";
 						}	
 						else{
 							btn_class="btn btn-success";
+							ou_specific="Yes";
 						}
 						prev_tab_name[i] = 	json_arr[i].Name;
 						if(json_arr[i].Template_Name=="Chat Template"){
@@ -881,6 +884,7 @@ $(document).ready(function(){
 							"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 							"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
 							"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+							"<br/><b>OU Specific:</b> "+ou_specific+
 							"</div>"+
 						"</td>"+
 						"<td align='right'>"+
@@ -1022,13 +1026,20 @@ $(document).ready(function(){
 				}else {
 					var resp_array = JSON.parse(resp);
 					var layout=" ";
+					var ou_specific=" ";
 					//alert("Length of Array: "+resp_array.length);
 					for(var i=0;i<resp_array.length;i++){
+						if(parseInt(resp_array[i].OU_Specific)==0){
+							ou_specific="No";
+						}else{
+							ou_specific="Yes";
+						}
 						layout+="<tr><td valign='middle'><div>"+
 									resp_array[i].Name+"</div>"+
 									"<div><b>OU:</b> "+resp_array[i].OU+
 									"<br/><b>Role:</b> "+resp_array[i].RoleName+
 									"<br/><b>Template:</b> "+resp_array[i].Template_Name+
+									"<br/><b>OU Specific:</b> "+ou_specific+
 									"</div>"+
 									"</td>"+
 									"<td align='right' ><Button type='button' class='btn btn-default' "+
