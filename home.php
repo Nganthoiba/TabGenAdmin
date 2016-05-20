@@ -891,7 +891,7 @@
 				</h4>
 			</div>
 			<div class="modal-body"
-				style="max-height:450px;min-height:350px; overflow:hidden; 
+				style="max-height:500px;min-height:350px; overflow:hidden; 
 										overflow-x:auto;overflow-y:auto;">
 						<script type="text/JavaScript">
 							function find(){
