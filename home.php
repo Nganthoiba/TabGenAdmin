@@ -178,7 +178,10 @@
 								</button>
 							</form>-->
 						</div>	
-					<table  class='table table-striped' cellspacing="10" id="showOrgUnits" border="0" style="padding-top:20px">
+					<table  class='table table-striped' cellspacing="10" 
+						style="max-height:500px;min-height:450px; overflow:hidden; 
+										overflow-x:auto;overflow-y:auto;"
+						id="showOrgUnits" border="0" style="padding-top:20px">
 						<script>
 							$(document).ready(function(){
 								document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -203,7 +206,10 @@
 							</button>
 						</form>-->
 					</div>
-					<table  class='table table-striped' cellspacing="10" id="showOrgsList" border='0' style="padding-top:20px">
+					<table  class='table table-striped' cellspacing="10" 
+						style="max-height:500px;min-height:450px; overflow:hidden; 
+										overflow-x:auto;overflow-y:auto;"
+						id="showOrgsList" border='0' style="padding-top:20px">
 						<script>
 							$(document).ready(function(){
 								document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -599,25 +605,7 @@
 		$("#ou_selector").change(function(){
 			getRoles("role_selector",$("#ou_selector").val());
 		});
-		
-		/*$('#ou_specific_yes').click(function(){	
-			//alert("Yes");
-			$('#ou_selector_region').html("<label class='col-sm-4  control-label' for='ou_selector'>Select an Organisation Unit:</label>"+
-				"<div class='col-sm-8'><select id='ou_selector' class='form-control'></select></div>");
-			$('#role_selector_region').html("<label class='col-sm-4 control-label'>Select a Role:</label>"+
-				"<div class='col-sm-8'><select id='role_selector' class='form-control'></select></div>");
-			
-		});*/
-		
-		//If the tab to be created is not OU specific
-		/*$('#ou_specific_no').click(function(){
-			
-			//alert("No");
-			$('#ou_selector_region').html(" ");
-			$('#role_selector_region').html(" ");
-		
-		});*/
-		
+				
 		//javascript for creating tab
 		$('#createTab').click(function(){
 			document.getElementById("createTabResponse").innerHTML="<center>Wait please....</center>";
@@ -837,7 +825,8 @@
 											</tr>
 											</table>		
 										</div>
-										<div style="max-height:350px;min-height:350px; overflow:hidden; overflow-x:auto;overflow-y:auto;">
+										<div style="max-height:350px;min-height:350px; overflow:hidden; 
+										overflow-x:auto;overflow-y:auto;">
 											<table class="table table-striped" id="list_of_tabs">
 											<script type="text/JavaScript">
 												$(document).ready(function(){
