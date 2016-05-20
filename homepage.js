@@ -1162,48 +1162,52 @@ $(document).ready(function(){
 			document.getElementById(display_id).innerHTML="<h1 align='center'>No user found</h1>";
 		}
 		else{
-			var layout="<table class='table' width='100%'>";
+			var layout="<table class='table' width='100%'"+
+					"style='overflow:hidden;"+
+						"min-width:120px;"+ 
+						"overflow-x:auto;overflow-y:auto;'"+
+				">";
 			var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 			for(var i=0;i<resp_arr.length;i++){
 				var created_date = new Date(parseFloat(resp_arr[i].CreateAt));
 				var updated_date = new Date(parseFloat(resp_arr[i].UpdateAt));
 				layout+="<tr>"+
-							"<td>"+
+							"<td width='10%'>"+
 								"<img src='img/user.png' class='circular' alt='No profile Image found'/>"+
 							"</td>"+
-							"<td>"+
+							"<td width='60%'>"+
 								"<form class='form-horizontal'>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>ID : </label>"+
-										"<div class='col-sm-6'><div>"+resp_arr[i].Id+"</div></div>"+
+										"<div class='col-sm-4'><div>"+resp_arr[i].Id+"</div></div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Display Name : </label>"+
-										"<div class='col-sm-6' id='user_display_name"+i+"'>"+resp_arr[i].FirstName+"</div>"+
+										"<div class='col-sm-4' id='user_display_name"+i+"'>"+resp_arr[i].FirstName+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Username : </label>"+
-										"<div class='col-sm-6' id='user_name"+i+"'>"+resp_arr[i].Username+"</div>"+
+										"<div class='col-sm-4' id='user_name"+i+"'>"+resp_arr[i].Username+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Email : </label>"+
-										"<div class='col-sm-6' id='user_email"+i+"'>"+resp_arr[i].Email+"</div>"+
+										"<div class='col-sm-4' id='user_email"+i+"'>"+resp_arr[i].Email+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Role : </label>"+
-										"<div class='col-sm-6'>"+resp_arr[i].Roles+"</div>"+
+										"<div class='col-sm-4'>"+resp_arr[i].Roles+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Organisation Unit : </label>"+
-										"<div class='col-sm-6'>"+resp_arr[i].OrganisationUnit+"</div>"+
+										"<div class='col-sm-4'>"+resp_arr[i].OrganisationUnit+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Organisation Name : </label>"+
-										"<div class='col-sm-6'>"+resp_arr[i].Organisation+"</div>"+
+										"<div class='col-sm-4'>"+resp_arr[i].Organisation+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Has access across all other OU : </label>"+
-										"<div class='col-sm-6'>"+yesOrNo(resp_arr[i].UniversalAccess)+"</div>"+
+										"<div class='col-sm-4'>"+yesOrNo(resp_arr[i].UniversalAccess)+"</div>"+
 									"</div>"+
 								"</form>"+
 							"</td>"+
@@ -1237,6 +1241,9 @@ $(document).ready(function(){
 									"</form>"+
 								"</div>"+
 							"</td>"+
+						"</tr>";
+						/*
+						 * 
 							"<td align='right'>"+
 								"<div>"+
 								"<label><b>Created on :</b></label> "+created_date.getDate()+" - "+months[created_date.getMonth()]+" - "+
@@ -1247,7 +1254,7 @@ $(document).ready(function(){
 								"<label><b>Time: </b>&nbsp;</label>"+getHumanReadableTime(updated_date)+"<br/>"+
 								"</div>"+
 							"</td>"+
-						"</tr>";
+						 * */
 			}
 			layout+="</table>";
 			document.getElementById(display_id).innerHTML=layout;

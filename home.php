@@ -41,8 +41,8 @@
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
 	<style type="text/css">		
 		.circular {
-					width: 100px;
-					height: 100px;
+					width: 60px;
+					height: 60px;
 					border-radius: 150px;
 					-webkit-border-radius: 150px;
 					-moz-border-radius: 150px;
@@ -891,8 +891,10 @@
 				</h4>
 			</div>
 			<div class="modal-body"
-				style="max-height:500px;min-height:350px; overflow:hidden; 
-										overflow-x:auto;overflow-y:auto;">
+				style="max-height:500px;
+						min-height:350px; overflow:hidden;
+						min-width:120px; 
+						overflow-x:auto;overflow-y:auto;">
 						<script type="text/JavaScript">
 							function find(){
 								$("#user_display_content").html("<center><p>Wait Please...</p></center>");
