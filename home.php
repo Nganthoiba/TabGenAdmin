@@ -182,11 +182,13 @@
 						<script>
 							$(document).ready(function(){
 								document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
-								viewOrgUnits("list","showOrgUnits","few");
+								viewOrgUnits("list","showOrgUnits","all");
 							});					
 						</script>	
 					</table>			
-					<div class="pull-right"><Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button></div>	
+					<!--<div class="pull-right">
+						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
+					</div>-->	
 				</div>
 				<div class="box">	
 					<div class="heading">
@@ -205,11 +207,13 @@
 						<script>
 							$(document).ready(function(){
 								document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
-								viewOrgs("list","showOrgsList","few");
+								viewOrgs("list","showOrgsList","all");
 							});
 						</script>	
 					</table>
-					<div class="pull-right"><Button type="button" id="viewAllOrgLists" class="btn btn-link">VIEW ALL</Button></div>					
+					<!--<div class="pull-right">
+						<Button type="button" id="viewAllOrgLists" class="btn btn-link">VIEW ALL</Button>
+					</div>	-->				
 				</div>
 			</div>
 		</div>

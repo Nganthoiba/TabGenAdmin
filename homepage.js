@@ -497,12 +497,12 @@ $(document).ready(function (){
 			});
 			return false;
 	}
-	$(document).ready(function(){
+	/*$(document).ready(function(){
 		$("#viewAllOrgUnitLists").click(function(){
 			document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
 			viewOrgUnits("list","showOrgUnits","all");
 		});
-	});
+	});*/
 	function setDelAction4OrgUnit(id,ou_name){
 		var confirm_val = confirm("Are you sure to delete "+ou_name+"?");
 		if(confirm_val==true)
@@ -597,12 +597,12 @@ $(document).ready(function (){
 			});
 			return false;
 	}
-	$(document).ready(function(){
+	/*$(document).ready(function(){
 		$("#viewAllOrgLists").click(function(){
 			document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
 			viewOrgs("list","showOrgsList","all");
 		});
-	});
+	});*/
 	function setDelAction4Org(id,org_name){
 		var confirm_val = confirm("Are you sure to delete "+org_name+"?");
 		if(confirm_val==true)
