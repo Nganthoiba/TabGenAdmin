@@ -600,9 +600,9 @@ function get_token(){
 			$output->posts->$row['Id']->original_id=$row['OriginalId'];
 			$output->posts->$row['Id']->message=$row['Message'];
 			$output->posts->$row['Id']->type=$row['Type'];
-			$output->posts->$row['Id']->props=(object)$row['Props'];
+			$output->posts->$row['Id']->props=(unset)$row['Props'];
 			$output->posts->$row['Id']->hashtags=$row['Hashtags'];
-			$output->posts->$row['Id']->filenames=(array)$row['Filenames'];
+			$output->posts->$row['Id']->filenames=(unset)$row['Filenames'];
 			$output->posts->$row['Id']->no_of_reply=getNoOfReplies($conn,$row['Id']);
 			$output->posts->$row['Id']->no_of_likes=getNoOfLikes($conn,$row['Id']);
 			$output->posts->$row['Id']->isLikedByYou=isAlreadyLiked($conn,$row['Id'],$user_id);
