@@ -600,7 +600,7 @@ function get_token(){
 			$output->posts->$row['Id']->original_id=$row['OriginalId'];
 			$output->posts->$row['Id']->message=$row['Message'];
 			$output->posts->$row['Id']->type=$row['Type'];
-			$output->posts->$row['Id']->props=$row['Props'];
+			$output->posts->$row['Id']->props=json_decode($row['Props']);
 			$output->posts->$row['Id']->hashtags=$row['Hashtags'];
 			$output->posts->$row['Id']->filenames=json_decode($row['Filenames']);
 			$output->posts->$row['Id']->no_of_reply=getNoOfReplies($conn,$row['Id']);
