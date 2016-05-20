@@ -587,7 +587,26 @@ function get_token(){
 		$res = $conn->query($query);
 		$output=null;
 		while($row = $res->fetch(PDO::FETCH_ASSOC)){
-			$output[]=$row;
+			//$output[]=$row;
+			$output->order[]=$row['Id'];
+			$output->posts->$row['Id']->id=$row['Id'];
+			$output->posts->$row['Id']->create_at=(double)$row['CreateAt'];
+			$output->posts->$row['Id']->update_at=(double)$row['UpdateAt'];
+			$output->posts->$row['Id']->delete_at=(double)$row['DeleteAt'];
+			$output->posts->$row['Id']->user_id=$row['UserId'];
+			$output->posts->$row['Id']->channel_id=$row['ChannelId'];
+			$output->posts->$row['Id']->root_id=$row['RootId'];
+			$output->posts->$row['Id']->parent_id=$row['ParentId'];
+			$output->posts->$row['Id']->original_id=$row['OriginalId'];
+			$output->posts->$row['Id']->message=$row['Message'];
+			$output->posts->$row['Id']->type=$row['Type'];
+			$output->posts->$row['Id']->props=$row['Props'];
+			$output->posts->$row['Id']->hashtags=$row['Hashtags'];
+			$output->posts->$row['Id']->filenames=$row['Filenames'];
+			$output->posts->$row['Id']->no_of_reply=getNoOfReplies($conn,$row['Id']);
+			$output->posts->$row['Id']->no_of_likes=getNoOfLikes($conn,$row['Id']);
+			$output->posts->$row['Id']->isLikedByYou=isAlreadyLiked($conn,$row['Id'],$user_id);
+			$output->posts->$row['Id']->isBookmarkedByYou=isAlreadyBookmarked($conn,$row['Id'],$user_id);
 		}
 		return json_encode($output);
 	}
