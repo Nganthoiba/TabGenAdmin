@@ -1031,12 +1031,15 @@ $(document).ready(function(){
 					var resp_array = JSON.parse(resp);
 					var layout=" ";
 					var ou_specific=" ";
+					var btn_class=" ";
 					//alert("Length of Array: "+resp_array.length);
 					for(var i=0;i<resp_array.length;i++){
 						if(parseInt(resp_array[i].OU_Specific)==0){
 							ou_specific="No";
+							btn_class="btn btn-warning";
 						}else{
 							ou_specific="Yes";
+							btn_class="btn btn-success";
 						}
 						layout+="<tr><td valign='middle'><div>"+
 									resp_array[i].Name+"</div>"+
@@ -1046,9 +1049,9 @@ $(document).ready(function(){
 									"<br/><b>OU Specific:</b> "+ou_specific+
 									"</div>"+
 									"</td>"+
-									"<td align='right' ><Button type='button' class='btn btn-default' "+
+									"<td align='right' ><Button type='button'"+
 									"style='width: 40px;height: 40px;border-radius: 50%;'"+
-									"onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
+									"class='"+btn_class+"' onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
 									"return false;'>"+
 									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";	
 					}

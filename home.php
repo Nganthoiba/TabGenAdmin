@@ -41,8 +41,8 @@
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
 	<style type="text/css">		
 		.circular {
-					width: 60px;
-					height: 60px;
+					width: 70px;
+					height: 70px;
 					border-radius: 150px;
 					-webkit-border-radius: 150px;
 					-moz-border-radius: 150px;
@@ -65,7 +65,7 @@
 		h4 {font-family:calibri}
 		table th {background-color:#F2F2F2}
 		td {vertical-align:middle;font-size:13px}
-		a {color:#F8FAFC}
+		a {color:#F2F2F2}
 	</style>
 	
 </head>
@@ -85,7 +85,7 @@
                 $user_email= $user_data->email;
 						
 	?>
-	<nav class="navbar navbar-default navbar-fixed-top" 
+	<nav class="navbar navbar-inverse navbar-fixed-top" 
 		style="height:60px;padding-top:10px;padding-bottom:10px;
 		background-color:#819FF7;color:#f7f7f7;position:fixed;width:100%" >
 		<!--class="navbar navbar-default navbar-fixed-top"
@@ -130,7 +130,7 @@
 				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
 				<ul class="nav nav-tabs nav-stacked" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
 															-webkit-box-shadow: 0px 2px 2px rgba(0.2, 0.3, 0, 0.3);
-															background-color: #569FF8;padding-top:10px;
+															background-color: #424242;padding-top:10px;
 															width:100%;
 														box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
@@ -861,7 +861,7 @@
 
 <!-- Modal for displaying Users-->
 <div class="modal fade" id="displayUsers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document" style="width:75%;min-height:50%;overflow-x:auto">
+	<div class="modal-dialog modal-lg" role="document" style="width:80%;min-height:50%;overflow-x:auto">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="myModalLabel">List of Users Created:
