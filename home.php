@@ -166,8 +166,7 @@
 				</ul>
 			</div>
 			<div class="col-md-10"><!--class="col-md-8"-->	
-				<div class="box">
-						<div class="heading">Organisation Units
+				<div class="heading">Organisation Units
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;padding-top:0px"
@@ -177,10 +176,12 @@
 								  <span class="glyphicon glyphicon-search"></span>
 								</button>
 							</form>-->
-						</div>	
+				</div>
+				<div class="box" style="max-height:400px;min-height:350px; overflow:hidden; width:100%;
+										overflow-x:auto;overflow-y:auto;">
+							
 					<table  class='table table-striped' cellspacing="10" 
-						style="max-height:500px;min-height:450px; overflow:hidden; 
-										overflow-x:auto;overflow-y:auto;"
+						
 						id="showOrgUnits" border="0" style="padding-top:20px">
 						<script>
 							$(document).ready(function(){
@@ -193,8 +194,9 @@
 						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
 					</div>-->	
 				</div>
-				<div class="box">	
-					<div class="heading">
+			</div>
+			<div class="col-md-10">
+				<div class="heading">
 						Organisation
 						<!--
 						style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
@@ -205,10 +207,10 @@
 								 <span class="glyphicon glyphicon-search"></span>
 							</button>
 						</form>-->
-					</div>
+				</div>
+				<div class="box" style="max-height:400px;min-height:350px; overflow:hidden; width:100%;
+										overflow-x:auto;overflow-y:auto;">	
 					<table  class='table table-striped' cellspacing="10" 
-						style="max-height:500px;min-height:450px; overflow:hidden; 
-										overflow-x:auto;overflow-y:auto;"
 						id="showOrgsList" border='0' style="padding-top:20px">
 						<script>
 							$(document).ready(function(){
