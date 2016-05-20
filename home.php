@@ -890,7 +890,9 @@
 					</div>
 				</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body"
+				style="max-height:450px;min-height:350px; overflow:hidden; 
+										overflow-x:auto;overflow-y:auto;">
 						<script type="text/JavaScript">
 							function find(){
 								$("#user_display_content").html("<center><p>Wait Please...</p></center>");
