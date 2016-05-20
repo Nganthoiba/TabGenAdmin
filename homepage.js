@@ -1238,7 +1238,7 @@ $(document).ready(function(){
 								"</div>"+
 							"</td>"+
 							"<td align='right'>"+
-								"<div class='account-wall'>"+
+								"<div>"+
 								"<label><b>Created on :</b></label> "+created_date.getDate()+" - "+months[created_date.getMonth()]+" - "+
 															created_date.getFullYear()+"<br/>"+
 								"<label><b>Time: </b>&nbsp;</label>"+getHumanReadableTime(created_date)+"<br/>"+
