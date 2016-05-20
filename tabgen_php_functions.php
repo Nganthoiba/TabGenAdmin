@@ -1,31 +1,36 @@
 <?php
-/* function for creating tabs */
-function createTabs($conn,$start,$no_of_tabs,$org_unit,$role_name,$createdBy){
-	for($i=$start;$i<=$no_of_tabs;$i++){
-		$tab_name = strtolower($org_unit)."_".strtolower($role_name)."_tab".$i;
-		$id = randId(26);//creating unique id
-		$role_id = findRoleId($conn,$org_unit,$role_name);
-		$ou_id = findOUId($conn,$org_unit);
-		$createAt = time()*1000;
-		if($ou_id!=null){
-			if($role_id!=null){
-				$timestamp = time();
-				$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,DeleteAt,Name,RoleName,CreatedBy,RoleId)
-						values('$id','$createAt','$timestamp',0,'$tab_name','$role_name','$createdBy','$role_id')";
-				try{
-					$result = $conn->query($query);
-					if($result){
-						echo $tab_name." Saved successfully.<br/>";
-					}
-					else echo $tab_name." Could not be saved.<br/>";
-				}
-				catch(Exception $e){
-					echo $tab_name." Could not be saved: ".$e->getMessage()."<br/>";
-				}
-			}
-			else echo $tab_name." failed to create, it seems role does not exist. Create it first.<br/>";
-		}else echo $tab_name." Organisation Unit does not exist, create it first.<br/>";
+/* function for creating a tab */	
+function create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific){
+	$id = randId(26);//creating unique id
+	$createAt = time()*1000;
+	$query=null;
+	
+	$ou_name = $_POST['ou_name'];
+	$role_name = $_POST['role_name'];
+	$role_id = findRoleId($conn,$ou_name,$role_name);
+	
+	if($ou_specific == "true"){//check if the tab to be created is OU specific or not
+		$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,DeleteAt,Name,RoleName,CreatedBy,TabTemplate,RoleId,OU_Specific)
+				values('$id','$createAt','$createAt',0,'$tab_name','$role_name','$createdBy','$template_id','$role_id',1)";
 	}
+	else{
+		$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,DeleteAt,Name,RoleName,CreatedBy,TabTemplate,RoleId,OU_Specific)
+				values('$id','$createAt','$createAt',0,'$tab_name','$role_name','$createdBy','$template_id','$role_id',0)";	
+	}
+	
+	if($role_id==null){
+		echo json_encode(array("status"=>false,"message"=>"Oops! Role does not exist. Please refresh the page and try again."));
+	}
+	else{
+		if($conn->query($query)){
+			$conn->query("insert into RoleTabAsson values('$role_id','$id')");//automatically associating default tab
+			echo json_encode(array("status"=>true,"message"=>"Tab created successfully"));
+		}
+		else{ 
+			echo json_encode(array("status"=>false,"message"=>"Oops! Something is not right, try again later"));
+		}
+	}
+	
 }
 //to update user role
 function updateUserRole($userId,$con,$role){

@@ -64,39 +64,7 @@ if(isset($_SESSION['user_details'])){
 }
 else 
 	echo json_encode(array("status"=>false,"message"=>"Session expired, please login again."));
-//creating tab	
-function create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific){
-	$id = randId(26);//creating unique id
-	$createAt = time()*1000;
-	$query=null;
-	
-	$ou_name = $_POST['ou_name'];
-	$role_name = $_POST['role_name'];
-	$role_id = findRoleId($conn,$ou_name,$role_name);
-	
-	if($ou_specific == "true"){//check if the tab to be created is OU specific or not
-		$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,DeleteAt,Name,RoleName,CreatedBy,TabTemplate,RoleId,OU_Specific)
-				values('$id','$createAt','$createAt',0,'$tab_name','$role_name','$createdBy','$template_id','$role_id',1)";
-	}
-	else{
-		$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,DeleteAt,Name,RoleName,CreatedBy,TabTemplate,RoleId,OU_Specific)
-				values('$id','$createAt','$createAt',0,'$tab_name','$role_name','$createdBy','$template_id','$role_id',0)";	
-	}
-	
-	if($role_id==null){
-		echo json_encode(array("status"=>false,"message"=>"Oops! Role does not exist. Please refresh the page and try again."));
-	}
-	else{
-		if($conn->query($query)){
-			$conn->query("insert into RoleTabAsson values('$role_id','$id')");//automatically associating default tab
-			echo json_encode(array("status"=>true,"message"=>"Tab created successfully"));
-		}
-		else{ 
-			echo json_encode(array("status"=>false,"message"=>"Oops! Something is not right, try again later"));
-		}
-	}
-	
-}
+
 
 ?>
 
