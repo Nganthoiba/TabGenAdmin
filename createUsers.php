@@ -66,7 +66,10 @@ if(validateUserDetails()==true){
 				else 
 					echo "Oops! There may be a problem at the server. Try again later.";
 			}
-			else echo "Session expired, please login again.";
+			else{
+				 //echo "Session expired, please login again.";
+				  header('Location: index.html');
+			 }
 		}
 	}
 	catch(Exception $e){
