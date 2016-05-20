@@ -350,8 +350,23 @@ $(document).ready(function (){
 				document.getElementById("error4").style.color="red";
 				return false;
 			}
-			if(username.length==0){
+			else if(user_displayname.length<5){
+				document.getElementById("error4").innerHTML="Full name is too short, make it at least 5 characters long.";
+				document.getElementById("error4").style.color="red";
+				return false;
+			}
+			else if(username.length==0){
 				document.getElementById("error4").innerHTML="Username is blank";
+				document.getElementById("error4").style.color="red";
+				return false;
+			}
+			else if(username.length<5){
+				document.getElementById("error4").innerHTML="Username is too short, make it atleast 5 characters long.";
+				document.getElementById("error4").style.color="red";
+				return false;
+			}
+			else if(hasWhiteSpace(username)){
+				document.getElementById("error4").innerHTML="Invalid Username! No blank space is allowed in the middle of the text while entering username.";
 				document.getElementById("error4").style.color="red";
 				return false;
 			}
@@ -393,10 +408,6 @@ $(document).ready(function (){
 							$("#error4").css('color','red');
 							$("#error4").text("Oops Some Goes Wrong Please Try Agian");
 						}
-						else if(e=="Invalid username"){
-							$("#error4").css('color','red');
-							$("#error4").text("Invalid username: blank is not allowed in the middle of username, use lowercase letters.");
-						}
 						else{
 							$("#error4").css('color','red');
 							$("#error4").text(e);
@@ -408,6 +419,10 @@ $(document).ready(function (){
 		});
 	
 	});
+/*Javascript function to check for white spaces in a text*/
+function hasWhiteSpace(s) {
+  return /\s/g.test(s);
+}
 	
 /*JavaScript for finding organisation */		
 	$(document).ready(function(){
