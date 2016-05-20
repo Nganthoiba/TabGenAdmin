@@ -602,7 +602,7 @@ function get_token(){
 			$output->posts->$row['Id']->type=$row['Type'];
 			$output->posts->$row['Id']->props=$row['Props'];
 			$output->posts->$row['Id']->hashtags=$row['Hashtags'];
-			$output->posts->$row['Id']->filenames=$row['Filenames'];
+			$output->posts->$row['Id']->filenames=json_decode($row['Filenames']);
 			$output->posts->$row['Id']->no_of_reply=getNoOfReplies($conn,$row['Id']);
 			$output->posts->$row['Id']->no_of_likes=getNoOfLikes($conn,$row['Id']);
 			$output->posts->$row['Id']->isLikedByYou=isAlreadyLiked($conn,$row['Id'],$user_id);
