@@ -128,7 +128,7 @@
 					<?php echo $user_name; ?>
 				</div>
 				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
-				<ul class="nav nav-tabs nav-stacked" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
+				<ul class="nav nav-tabs nav-stacked nav-fixed" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
 															-webkit-box-shadow: 0px 2px 2px rgba(0.2, 0.3, 0, 0.3);
 															background-color: #424242;padding-top:10px;
 															width:100%;
@@ -742,7 +742,7 @@
 												<tr>
 													<td><h1 class="panel-title">Associated Tabs</h1></td>
 													<td align="right">
-														<Button class="btn btn-default" id="refresh_ass_tab">
+														<Button class="btn btn-info" id="refresh_ass_tab">REFRESH
 															<span class="glyphicon glyphicon-refresh"></span>
 														</Button>
 													</td>
@@ -820,7 +820,7 @@
 												<td><h1 class="panel-title">List of Tabs</h1></td>
 												<td align="right">
 													<div class="pull-right">
-														<Button class="btn btn-default" id="refresh_tab_list">
+														<Button class="btn btn-info" id="refresh_tab_list">REFRESH
 														<span class="glyphicon glyphicon-refresh"></span></Button>
 													</div>
 												</td>
