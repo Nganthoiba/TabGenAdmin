@@ -166,7 +166,10 @@
 				</ul>
 			</div>
 			<div class="col-md-5"><!--class="col-md-8"-->	
-				<div class="heading">Organisation Units
+				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<div>Organisation Units
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;padding-top:0px"
@@ -176,49 +179,56 @@
 								  <span class="glyphicon glyphicon-search"></span>
 								</button>
 							</form>-->
-				</div>
-				<div class="box" style="max-height:600px;min-height:550px; overflow:hidden; width:100%;
-										overflow-x:auto;overflow-y:auto;">
+						</div>
+					</div>
+					<div class="panel-body"
+						style="max-height:500px;min-height:500px; overflow:hidden; width:100%;
+										overflow-x:auto;overflow-y:auto;">		
+						<table  class='table' cellspacing="10" 
 							
-					<table  class='table table-striped' cellspacing="10" 
-						
-						id="showOrgUnits" border="0" style="padding-top:20px">
-						<script>
-							$(document).ready(function(){
-								document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
-								viewOrgUnits("list","showOrgUnits","all");
-							});					
-						</script>	
-					</table>			
+							id="showOrgUnits" border="0" style="padding-top:20px">
+							<script>
+								$(document).ready(function(){
+									document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
+									viewOrgUnits("list","showOrgUnits","all");
+								});					
+							</script>	
+						</table>
+					</div>			
 					<!--<div class="pull-right">
 						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
 					</div>-->	
 				</div>
 			</div>
 			<div class="col-md-5">
-				<div class="heading">
-						Organisation
-						<!--
-						style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
-										-webkit-align-content: center; align-content: center;padding-top:0px"
-						<form class="navbar-form navbar-right">
-							<input type="text" class="form-control" placeholder="Search...">
-							<button type="button" class="btn btn-default">
-								 <span class="glyphicon glyphicon-search"></span>
-							</button>
-						</form>-->
-				</div>
-				<div class="box" style="max-height:600px;min-height:550px; overflow:hidden; width:100%;
-										overflow-x:auto;overflow-y:auto;">	
-					<table  class='table table-striped' cellspacing="10" 
-						id="showOrgsList" border='0' style="padding-top:20px">
-						<script>
-							$(document).ready(function(){
-								document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
-								viewOrgs("list","showOrgsList","all");
-							});
-						</script>	
-					</table>
+				<div class="panel panel-primary">	
+					<div class="panel-heading">
+						<div>
+							Organisations
+							<!--
+							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
+											-webkit-align-content: center; align-content: center;padding-top:0px"
+							<form class="navbar-form navbar-right">
+								<input type="text" class="form-control" placeholder="Search...">
+								<button type="button" class="btn btn-default">
+									 <span class="glyphicon glyphicon-search"></span>
+								</button>
+							</form>-->
+						</div>
+					</div>
+					<div class="panel-body"
+						style="max-height:500px;min-height:500px; overflow:hidden; width:100%;
+										overflow-x:auto;overflow-y:auto;">
+						<table  class='table' cellspacing="10" 
+							id="showOrgsList" border='0' style="padding-top:20px">
+							<script>
+								$(document).ready(function(){
+									document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
+									viewOrgs("list","showOrgsList","all");
+								});
+							</script>	
+						</table>
+					</div>
 					<!--<div class="pull-right">
 						<Button type="button" id="viewAllOrgLists" class="btn btn-link">VIEW ALL</Button>
 					</div>	-->				
