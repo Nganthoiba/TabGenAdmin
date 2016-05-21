@@ -468,7 +468,8 @@ function hasWhiteSpace(s) {
 							limit=(json_arr.length>4?4:json_arr.length);
 						}
 						if(method=="list"){
-							view="<tr><th>Organisation Unit Name</th></tr>";
+							view=" ";
+							//view="<tr><th>Organisation Unit Name</th></tr>";
 							for(var i=0;i<limit;i++){
 								var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);
@@ -572,7 +573,8 @@ function hasWhiteSpace(s) {
 							limit=json_arr.length>4?4:json_arr.length;
 						}
 						if(method=="list"){
-							view="<tr><th>Organisation Name</th></tr>";
+							//view="<tr><th>Organisation Name</th></tr>";
+							view=" ";
 							for(var i=0;i<limit;i++){
 								var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);

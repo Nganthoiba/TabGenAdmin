@@ -177,7 +177,7 @@
 								</button>
 							</form>-->
 				</div>
-				<div class="box" style="height:100%; overflow:hidden; width:100%;
+				<div class="box" style="max-height:600px;min-height:550px; overflow:hidden; width:100%;
 										overflow-x:auto;overflow-y:auto;">
 							
 					<table  class='table table-striped' cellspacing="10" 
@@ -208,7 +208,7 @@
 							</button>
 						</form>-->
 				</div>
-				<div class="box" style="height:100%; overflow:hidden; width:100%;
+				<div class="box" style="max-height:600px;min-height:550px; overflow:hidden; width:100%;
 										overflow-x:auto;overflow-y:auto;">	
 					<table  class='table table-striped' cellspacing="10" 
 						id="showOrgsList" border='0' style="padding-top:20px">
