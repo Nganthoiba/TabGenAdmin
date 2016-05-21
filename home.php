@@ -131,7 +131,7 @@
 				<ul class="nav nav-tabs nav-stacked nav-fixed" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
 															-webkit-box-shadow: 0px 2px 2px rgba(0.2, 0.3, 0, 0.3);
 															background-color: #424242;padding-top:10px;
-															width:100%;
+															width:100%;height:100%
 														box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
@@ -177,7 +177,7 @@
 								</button>
 							</form>-->
 				</div>
-				<div class="box" style="max-height:400px;min-height:350px; overflow:hidden; width:100%;
+				<div class="box" style="height:100%; overflow:hidden; width:100%;
 										overflow-x:auto;overflow-y:auto;">
 							
 					<table  class='table table-striped' cellspacing="10" 
@@ -208,7 +208,7 @@
 							</button>
 						</form>-->
 				</div>
-				<div class="box" style="max-height:400px;min-height:350px; overflow:hidden; width:100%;
+				<div class="box" style="height:100%; overflow:hidden; width:100%;
 										overflow-x:auto;overflow-y:auto;">	
 					<table  class='table table-striped' cellspacing="10" 
 						id="showOrgsList" border='0' style="padding-top:20px">
