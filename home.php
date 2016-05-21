@@ -499,8 +499,10 @@
 							<div class="form-group">
 								<label class="col-sm-4  control-label">Has access across all other OU</label>
 								<div class="col-sm-8">
-									<label class="radio-inline"><input type="radio" name="optradio" id="universal_access_yes" checked>Yes</label>
-									<label class="radio-inline"><input type="radio" name="optradio" id="universal_access_no">No</label>
+									<label class="radio-inline">
+										<input type="radio" name="optradio" id="universal_access_yes" checked>Yes</label>
+									<label class="radio-inline">
+										<input type="radio" name="optradio" id="universal_access_no">No</label>
 								</div>
 							</div>
 						</div>
@@ -583,14 +585,14 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-4  control-label">Organisation Unit Specific:</label>
+							<label class="col-sm-4  control-label">OU Specific:</label>
 							<div class="col-sm-8">
-								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_yes" value="Yes"/>Yes</label>
-								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_no" value="No"/>No</label>
+								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_yes" checked>Yes</label>
+								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_no">No</label>
 							</div>
 						</div>
 						<div class="form-group" id="ou_selector_region">
-							<label class='col-sm-4  control-label' for='ou_selector'>Select an Organisation Unit:</label>
+							<label class='col-sm-4  control-label' for='ou_selector'>Select an OU:</label>
 							<div class='col-sm-8'><select id='ou_selector' class='form-control'></select></div>
 						</div>
 						<div class="form-group" id="role_selector_region">

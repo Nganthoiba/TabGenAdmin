@@ -375,6 +375,11 @@ $(document).ready(function (){
 				document.getElementById("error4").style.color="red";
 				return false;
 			}
+			else if(password.length<8){
+				document.getElementById("error4").innerHTML="Password is too short, make it at least 8 characters long.";
+				document.getElementById("error4").style.color="red";
+				return false;
+			}
 			else if(conf_pwd.length==0){
 				document.getElementById("error4").innerHTML="Confirm Password is blank";
 				document.getElementById("error4").style.color="red";
