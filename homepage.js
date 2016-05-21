@@ -468,15 +468,15 @@ function hasWhiteSpace(s) {
 							limit=(json_arr.length>4?4:json_arr.length);
 						}
 						if(method=="list"){
-							view="<tr><th>Organisation Unit Name</th><th>Organisation Name</th></tr>";
+							view="<tr><th>Organisation Unit Name</th></tr>";
 							for(var i=0;i<limit;i++){
 								var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);
 								view+='<tr><td>'+json_arr[i].organisation_unit+'</td>'+
-								'<td>'+json_arr[i].organisation+'</td>'+
 								'</tr>';
 								/*
-								 * 
+								 *
+								'<td>'+json_arr[i].organisation+'</td>'+ 
 								 * 
 								'<td>Date: '+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+
 									created_date.getFullYear()+
