@@ -165,7 +165,7 @@
 					<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
 				</ul>
 			</div>
-			<div class="col-md-4"><!--class="col-md-8"-->	
+			<div class="col-md-5"><!--class="col-md-8"-->	
 				<div class="heading">Organisation Units
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
@@ -195,7 +195,7 @@
 					</div>-->	
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-5">
 				<div class="heading">
 						Organisation
 						<!--
