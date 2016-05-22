@@ -873,7 +873,7 @@
 
 <!-- Modal for displaying Users-->
 <div class="modal fade" id="displayUsers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document" style="width:80%;min-height:50%;overflow-x:auto">
+	<div class="modal-dialog modal-lg" role="document" style="width:90%;min-height:50%;overflow-x:auto">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="myModalLabel">List of Users Created:
@@ -956,9 +956,9 @@
 				  <center><strong>Logout! &nbsp;</strong> Are you sure?</center>
 				</div>
 				<center>
-					<button type="button" style='width:45%' class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
+					<button type="button" style='width:45%' class="btn btn-default" data-dismiss="modal" aria-label="Close">No</button>
 					&nbsp;&nbsp;
-					<a href="logout.php"  style='width:45%' class="btn btn-warning" style="width:20%" id="YesLogout">Yes</a>
+					<a href="logout.php"  style='width:45%' class="btn btn-default" style="width:20%" id="YesLogout">Yes</a>
 				</center>
 			</div>	
 		</div>
