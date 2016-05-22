@@ -8,6 +8,7 @@
 	<!--<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/npm.js"></script>
@@ -131,7 +132,7 @@
 				<ul class="nav nav-tabs nav-stacked nav-fixed" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
 															-webkit-box-shadow: 0px 2px 2px rgba(0.2, 0.3, 0, 0.3);
 															background-color: #424242;padding-top:10px;
-															width:100%;height:100%
+															width:100%;height:100%;
 														box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);">
 					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
@@ -167,8 +168,8 @@
 			</div>
 			<div class="col-md-5"><!--class="col-md-8"-->	
 				
-				<div class="panel panel-primary">
-					<div class="panel-heading">
+				<div class="box">
+					<div class="heading">
 						<div>Organisation Units
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
@@ -181,8 +182,7 @@
 							</form>-->
 						</div>
 					</div>
-					<div class="panel-body"
-						style="max-height:500px;min-height:500px; overflow:hidden; width:100%;
+					<div style="max-height:500px;min-height:500px; overflow:hidden; width:100%;
 										overflow-x:auto;overflow-y:auto;">		
 						<table  class='table' cellspacing="10" 
 							
@@ -201,8 +201,8 @@
 				</div>
 			</div>
 			<div class="col-md-5">
-				<div class="panel panel-primary">	
-					<div class="panel-heading">
+				<div class="box">	
+					<div class="heading">
 						<div>
 							Organisations
 							<!--
@@ -216,7 +216,7 @@
 							</form>-->
 						</div>
 					</div>
-					<div class="panel-body"
+					<div
 						style="max-height:500px;min-height:500px; overflow:hidden; width:100%;
 										overflow-x:auto;overflow-y:auto;">
 						<table  class='table' cellspacing="10" 
