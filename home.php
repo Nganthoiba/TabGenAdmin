@@ -166,8 +166,7 @@
 					<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
 				</ul>
 			</div>
-			<div class="col-md-5"><!--class="col-md-8"-->	
-				
+			<div><!--class="col-md-8"-->	
 				<div class="box">
 					<div class="heading">
 						<div>Organisation Units
@@ -182,8 +181,7 @@
 							</form>-->
 						</div>
 					</div>
-					<div style="max-height:500px;min-height:500px; overflow:hidden; width:100%;
-										overflow-x:auto;overflow-y:auto;">		
+					<div class="inner_box">		
 						<table  class='table' cellspacing="10" 
 							
 							id="showOrgUnits" border="0" style="padding-top:20px">
@@ -200,7 +198,7 @@
 					</div>-->	
 				</div>
 			</div>
-			<div class="col-md-5">
+			<div>
 				<div class="box">	
 					<div class="heading">
 						<div>
@@ -216,9 +214,7 @@
 							</form>-->
 						</div>
 					</div>
-					<div
-						style="max-height:500px;min-height:500px; overflow:hidden; width:100%;
-										overflow-x:auto;overflow-y:auto;">
+					<div class="inner_box">
 						<table  class='table' cellspacing="10" 
 							id="showOrgsList" border='0' style="padding-top:20px">
 							<script>

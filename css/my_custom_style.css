@@ -149,9 +149,14 @@ body {
 .box {
     float: left;
     margin: 5px;
-    width: 100%;
+    width: 40%;
     border-radius:2px;
     border: 1px solid #BDBDBD;
+    background-color:#CEE3F6
+}
+.inner_box{
+	height:100%; overflow:hidden; width:100%;
+	overflow-x:auto;overflow-y:auto;
 }
 .outer_box {
     float: left;
