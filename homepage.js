@@ -180,27 +180,27 @@ $(document).ready(function(){
 function refresh_all_entries(){
 	/*refershing entries for creating organisation*/
 	document.getElementById("error1").innerHTML=" ";
-	document.getElementById("orgname").innerHTML=" ";
+	document.getElementById("orgname").value=" ";
 	
 	/*refreshing entries for creating OU*/
 	document.getElementById("error2").innerHTML=" ";
-	document.getElementById("orgunit").innerHTML=" ";
+	document.getElementById("orgunit").value=" ";
 	
 	/*refreshing entries for creating role*/
 	document.getElementById("error3").innerHTML=" ";
-	document.getElementById("rolaname").innerHTML=" ";
+	document.getElementById("rolaname").value=" ";
 	
 	/*refreshing entries for creating users*/
 	document.getElementById("error4").innerHTML=" ";
-	document.getElementById("user_displayname").innerHTML=" ";
-	document.getElementById("username").innerHTML=" ";
-	document.getElementById("password").innerHTML=" ";
-	document.getElementById("conf_pwd").innerHTML=" ";
-	document.getElementById("email").innerHTML=" ";
+	document.getElementById("user_displayname").value=" ";
+	document.getElementById("username").value=" ";
+	document.getElementById("password").value=" ";
+	document.getElementById("conf_pwd").value=" ";
+	document.getElementById("email").value=" ";
 	
 	/*refreshing entries for creating tab*/
 	document.getElementById("createTabResponse").innerHTML=" ";
-	document.getElementById("tab_name").innerHTML=" ";
+	document.getElementById("tab_name").value=" ";
 }
 
 $(document).ready(function(){
