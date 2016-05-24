@@ -454,9 +454,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="conf_pwd" class="col-sm-4  control-label">Conform Password</label>
+								<label for="conf_pwd" class="col-sm-4  control-label">Confirm Password</label>
 								<div class="col-sm-8">
-									<input type="password" class="form-control"  placeholder="Conform Password" id="conf_pwd">
+									<input type="password" class="form-control"  placeholder="Confirm Password" id="conf_pwd">
 								</div>
 							</div>
 							<div class="form-group">
