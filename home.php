@@ -69,7 +69,7 @@
 	</style>
 	
 </head>
-<body>
+<body style="background-color:#BDBDBD">
 	<?php
 
         session_start();
@@ -129,9 +129,9 @@
 				</div>
 				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
 				<ul class="nav nav-tabs nav-stacked nav-fixed" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
-															-webkit-box-shadow: 0px 2px 2px rgba(0.2, 0.3, 0, 0.3);
 															padding-top:10px;
 															width:100%;height:100%;
+															background-color:#FFFFFF;
 														box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);">
 					<li><a href="#" data-toggle="modal" data-target="#createorg" 
 						onclick="refresh_all_entries();">Create Organization</a></li>
@@ -170,8 +170,7 @@
 			</div>
 			<div><!--class="col-md-8"-->	
 				<div class="box">
-					<div class="heading">
-						<div>Organisation Units
+					<div class="heading">Organisation Units
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;padding-top:0px"
@@ -181,7 +180,6 @@
 								  <span class="glyphicon glyphicon-search"></span>
 								</button>
 							</form>-->
-						</div>
 					</div>
 					<div class="inner_box">		
 						<table  class='table' cellspacing="10" 
@@ -199,11 +197,9 @@
 						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
 					</div>-->	
 				</div>
-			</div>
-			<div>
+			
 				<div class="box">	
 					<div class="heading">
-						<div>
 							Organisations
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
@@ -214,7 +210,6 @@
 									 <span class="glyphicon glyphicon-search"></span>
 								</button>
 							</form>-->
-						</div>
 					</div>
 					<div class="inner_box">
 						<table  class='table' cellspacing="10" 
