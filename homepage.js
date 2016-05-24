@@ -176,7 +176,95 @@ $(document).ready(function(){
 			getRoles("roleSelect",$("#orgUnitSelect").val());
 		});
 });
+//refresh function
+function refresh_all_entries(){
+	/*refershing entries for creating organisation*/
+	document.getElementById("error1").innerHTML=" ";
+	document.getElementById("orgname").innerHTML=" ";
+	
+	/*refreshing entries for creating OU*/
+	document.getElementById("error2").innerHTML=" ";
+	document.getElementById("orgunit").innerHTML=" ";
+	
+	/*refreshing entries for creating role*/
+	document.getElementById("error3").innerHTML=" ";
+	document.getElementById("rolaname").innerHTML=" ";
+	
+	/*refreshing entries for creating users*/
+	document.getElementById("error4").innerHTML=" ";
+	document.getElementById("user_displayname").innerHTML=" ";
+	document.getElementById("username").innerHTML=" ";
+	document.getElementById("password").innerHTML=" ";
+	document.getElementById("conf_pwd").innerHTML=" ";
+	document.getElementById("email").innerHTML=" ";
+	
+	/*refreshing entries for creating tab*/
+	document.getElementById("createTabResponse").innerHTML=" ";
+	document.getElementById("tab_name").innerHTML=" ";
+}
 
+$(document).ready(function(){
+		//If the tab to be created is OU specific
+		viewOrgUnits("dropdown","ou_selector","all");
+			
+		$("#ou_selector").change(function(){
+			getRoles("role_selector",$("#ou_selector").val());
+		});
+				
+		//javascript for creating tab
+		$('#createTab').click(function(){
+			document.getElementById("createTabResponse").innerHTML="<center>Wait please....</center>";
+			document.getElementById("createTabResponse").style.color="black";
+			var tab_name = $("#tab_name").val();
+			var template_name = $("#choose_templates").val();
+			var ou_specific = document.getElementById("ou_specific_yes").checked;
+			var post_data;//data to be posted
+			
+			//alert("org_unit="+org_unit+"&role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name);
+			if(tab_name.length==0){
+				document.getElementById("createTabResponse").innerHTML="<center>Give a Tab name</center>";
+				document.getElementById("createTabResponse").style.color="red";
+				return false;
+			}
+			
+			var ou_name = $("#ou_selector").val();
+			var role_name = $("#role_selector").val();
+			if(role_name==null || role_name.length==0){
+				document.getElementById("createTabResponse").innerHTML="<center>Select a role.</center>";
+				document.getElementById("createTabResponse").style.color="red";
+				//alert("Select a role.");
+				return false;
+			}
+			else post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,
+						"ou_name":ou_name,"role_name":role_name};
+						
+			if(document.getElementById("ou_specific_yes").checked==true || document.getElementById("ou_specific_no").checked==true){
+				
+				$.ajax({
+						type: "POST",
+						url: "createTab.php",
+						data: post_data,
+						success: function(resp){
+							//alert("Response: "+resp);
+							var resp_arr = JSON.parse(resp);
+							if(resp_arr.status==true){
+								getTabs("list_of_tabs");
+								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
+								document.getElementById("createTabResponse").style.color="black";
+							}
+							else{
+								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
+								document.getElementById("createTabResponse").style.color="red";
+							}
+						}
+				});
+			}else{
+				document.getElementById("createTabResponse").innerHTML="<center>You have to select whether the tab should be OU specific or not.</center>";
+				document.getElementById("createTabResponse").style.color="red";
+			}
+			return false;
+		});
+	});
 
 /* script for creating organisation*/
             $(document).ready(function (){
@@ -195,7 +283,7 @@ $(document).ready(function(){
                             if(s.trim()=="true")
                             {
 								$("#error1").css('color', 'green');
-								$("#error1").text("Organization Created ");
+								$("#error1").html("<center>Organization Created</center>");
 								viewOrgs("dropdown","orgnamesel","all");/*this will display drop down list of 
 								organisation at the popup dialog for creating Organisation Units*/
 								viewOrgs("list","showOrgsList","few");
@@ -233,6 +321,7 @@ function validate_ou_name(ou_name)
 	}
 	else return true;
 }
+
 $(document).ready(function (){
     $('#createorgunitbtn').click(function() {
 				//alert('hh');	
@@ -243,8 +332,8 @@ $(document).ready(function (){
 				var displaynameunit =$("#displaynameunit").val();
 				var orgnamesel =$("#orgnamesel").val();
 				if(orgunit.length<4){
-				$("#error2").css('color', 'red');
-				$("#error2").text("Name of organisation unit should be at least 4 characters length");
+					$("#error2").css('color', 'red');
+					$("#error2").text("Name of organisation unit should be at least 4 characters length");
 				}
 				else{
 						$.ajax({          
@@ -258,7 +347,7 @@ $(document).ready(function (){
 								if(e.trim()=="true")
 								{
 									$("#error2").css('color', 'green');
-									$("#error2").text("Organization Unit Created ");
+									$("#error2").html("<center>Organization Unit Created</center>");
 									viewOrgUnits("list","showOrgUnits","few");
 									viewOrgUnits("dropdown","ousel","all");/*this will display drop down list of 
 									organisation units at the popup dialog for creating role*/

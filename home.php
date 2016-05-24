@@ -66,7 +66,6 @@
 		h4 {font-family:calibri}
 		table th {background-color:#F2F2F2}
 		td {vertical-align:middle;font-size:13px}
-		a {color:#F2F2F2}
 	</style>
 	
 </head>
@@ -131,14 +130,17 @@
 				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
 				<ul class="nav nav-tabs nav-stacked nav-fixed" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
 															-webkit-box-shadow: 0px 2px 2px rgba(0.2, 0.3, 0, 0.3);
-															background-color: #424242;padding-top:10px;
+															padding-top:10px;
 															width:100%;height:100%;
 														box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);">
-					<li><a href="#" data-toggle="modal" data-target="#createorg">Create Organization</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#createorgunit">Create Organization Unit</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#createrole">	Create Roles</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#createorg" 
+						onclick="refresh_all_entries();">Create Organization</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#createorgunit"
+						onclick="refresh_all_entries();">Create Organization Unit</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#createrole"
+						onclick="refresh_all_entries();">Create Roles</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#create_tab_modal"
-						onclick='getRoles("role_selector",$("#ou_selector").val());'>Create Tabs</a></li>
+						onclick='getRoles("role_selector",$("#ou_selector").val());refresh_all_entries();'>Create Tabs</a></li>
 					<!--<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
 						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Create OU Specific Tabs</a>
 					</li>-->
@@ -147,7 +149,7 @@
 						  <span class="caret"></span></a>
 						  <ul class="dropdown-menu">
 							<li><a href="#" data-toggle="modal" data-target="#createuser" 
-								onclick='getRoles("UserRole",$("#OrgUnitList").val());return false;'>Create Users</a></li>
+								onclick='getRoles("UserRole",$("#OrgUnitList").val());refresh_all_entries();return false;'>Create Users</a></li>
 							<li role="presentation" class="divider"></li>
 							<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show Users</a></li>
 						  </ul>
@@ -598,80 +600,15 @@
 					</div>	
 					<div class="panel-footer clearfix">
 						<div class="pull-right"><Button type="submit" class="btn btn-default" id="createTab">
-							Create</Button></div>
-					<span id="createTabResponse"></span></div>
-					
+							Create</Button>
+					</div>
+					<span id="createTabResponse"></span></div>	
 				</form>
 				</div>	
 			</div>	
 		</div>
 	</div>
 </div>
-<script type="text/JavaScript">
-	$(document).ready(function(){
-		//If the tab to be created is OU specific
-		viewOrgUnits("dropdown","ou_selector","all");
-			
-		$("#ou_selector").change(function(){
-			getRoles("role_selector",$("#ou_selector").val());
-		});
-				
-		//javascript for creating tab
-		$('#createTab').click(function(){
-			document.getElementById("createTabResponse").innerHTML="<center>Wait please....</center>";
-			document.getElementById("createTabResponse").style.color="black";
-			var tab_name = $("#tab_name").val();
-			var template_name = $("#choose_templates").val();
-			var ou_specific = document.getElementById("ou_specific_yes").checked;
-			var post_data;//data to be posted
-			
-			//alert("org_unit="+org_unit+"&role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name);
-			if(tab_name.length==0){
-				document.getElementById("createTabResponse").innerHTML="<center>Give a Tab name</center>";
-				document.getElementById("createTabResponse").style.color="red";
-				return false;
-			}
-			
-			var ou_name = $("#ou_selector").val();
-			var role_name = $("#role_selector").val();
-			if(role_name==null || role_name.length==0){
-				document.getElementById("createTabResponse").innerHTML="<center>Select a role.</center>";
-				document.getElementById("createTabResponse").style.color="red";
-				//alert("Select a role.");
-				return false;
-			}
-			else post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,
-						"ou_name":ou_name,"role_name":role_name};
-						
-			if(document.getElementById("ou_specific_yes").checked==true || document.getElementById("ou_specific_no").checked==true){
-				
-				$.ajax({
-						type: "POST",
-						url: "createTab.php",
-						data: post_data,
-						success: function(resp){
-							//alert("Response: "+resp);
-							var resp_arr = JSON.parse(resp);
-							if(resp_arr.status==true){
-								getTabs("list_of_tabs");
-								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
-								document.getElementById("createTabResponse").style.color="black";
-							}
-							else{
-								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
-								document.getElementById("createTabResponse").style.color="red";
-							}
-						}
-				});
-			}else{
-				document.getElementById("createTabResponse").innerHTML="<center>You have to select whether the tab should be OU specific or not.</center>";
-				document.getElementById("createTabResponse").style.color="red";
-			}
-			return false;
-		});
-	});
-</script>
-
 
 <!--popup dialog header for editing role -->
 <div class='hide' id="edit_role_header">

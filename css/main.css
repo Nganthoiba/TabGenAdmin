@@ -12,7 +12,7 @@
 			margin-left: 8em !important;
 			width: 50% !important
 		}
-/*input {
+input {
     border: 0  !important;
     outline: 0 !important;
     background: transparent;
@@ -23,9 +23,9 @@
 
 ul li{
 
-		padding:20px !important;
+		
 		border-bottom: 0px solid #ccc !important
-}*/
+}
 	.borderbox{
 		border:1px solid #000;
 		width: 100%;
