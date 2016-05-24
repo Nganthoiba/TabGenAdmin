@@ -11,12 +11,13 @@
 			$_SESSION['user_details']="";
 			unset($_SESSION['user_details']);
 			session_destroy();
-			echo "You have successfully log out.</P>";
-			echo "<a href='index.html' class='btn btn-link'>Click here to Log in</a></center>";
+			/*echo "You have successfully log out.</P>";
+			echo "<a href='index.html' class='btn btn-link'>Click here to Log in</a></center>";*/
 		
 		 }
 		 else echo "<P align='center' class='alert alert-error'> Session expired, 
 			<a href='index.html' class='btn btn-link'>Login again</a></P>";
+		header('Location:index.html');
 		?>
 	</body>
 </html>
