@@ -85,7 +85,7 @@
                 $user_email= $user_data->email;
 						
 	?>
-	<nav  
+	<nav  class="navbar navbar-inverse navbar-fixed-top"
 		style="height:60px;padding-top:10px;padding-bottom:10px;
 		background-color:#FFFFFF;color:#f7f7f7;position:fixed;width:100%" >
 		<!--class="navbar navbar-default navbar-fixed-top"
@@ -259,7 +259,7 @@
 						</div>
 						<div class="panel-footer clearfix">
 							<label id="error1" class="col-sm-offset-2 col-sm-8"></label>
-							<div class="pull-right"><button type="submit" class="btn btn-default" id="submit">Create </button></div>
+							<div class="pull-right"><button type="submit" class="btn btn-info" id="submit">Create </button></div>
 						</div>
 					</div>
 				</form>
@@ -314,7 +314,7 @@
 					<div class="panel-footer clearfix">
 						<label id="error2" class="col-sm-offset-2 col-sm-8"></label>
 						<div class="pull-right">
-							<button type="submit" class="btn btn-default" id="createorgunitbtn">Create </button>
+							<button type="submit" class="btn btn-info" id="createorgunitbtn">Create</button>
 						</div>
 					</div>
 				</div>
@@ -412,7 +412,7 @@
 							<div class="panel-footer clearfix">
 								<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
 								<div class="pull-right">
-									<button type="submit" class="btn btn-default" id="btnrole">Create </button>
+									<button type="submit" class="btn btn-info" id="btnrole">Create </button>
 								</div>
 							</div>
 						</div>
@@ -502,7 +502,7 @@
 						<div class="panel-footer clearfix">
 							<center><label id="error4" class="col-sm-offset-2 col-sm-8"></label></center>
 							<div class="pull-right">
-									<button type="submit" class="btn btn-default" id="CreateUser">Create </button>
+									<button type="submit" class="btn btn-info" id="CreateUser">Create </button>
 							</div>
 						</div>
 					</div>
@@ -538,7 +538,7 @@
 						</div>
 						<div class="panel-footer clearfix">
 							<label id="createTemplateResponse"></label>
-							<div class="pull-right"><Button type="submit" class="btn btn-default" id="createTemplate">Create</Button></div>
+							<div class="pull-right"><Button type="submit" class="btn btn-info" id="createTemplate">Create</Button></div>
 						</div>
 					</div>
 				</form>
@@ -594,7 +594,7 @@
 						</div>
 					</div>	
 					<div class="panel-footer clearfix">
-						<div class="pull-right"><Button type="submit" class="btn btn-default" id="createTab">
+						<div class="pull-right"><Button type="submit" class="btn btn-info" id="createTab">
 							Create</Button>
 					</div>
 					<span id="createTabResponse"></span></div>	
@@ -809,13 +809,13 @@
 						<form method="GET">
 						<table width="100%">
 							<tr>
-								<td>Find a user: &nbsp;</td>
+								<td><h4>Find a user: &nbsp;</h4></td>
 								<td>
 									<input type="text" class="form-control" id="search_user" onkeyup="find()" 
 										placeholder="Type a Username Here"/>
 								</td>
 								<td>
-									<button type="submit" class="btn btn-default" id="findUser">
+									<button type="submit" class="btn btn-primary" id="findUser">
 									<span class="glyphicon glyphicon-search"></span>
 									</button>
 								</td>
@@ -870,6 +870,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- Modal for logout -->
 <div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-sm" role="document">
@@ -892,7 +893,6 @@
 		</div>
 	</div>
 </div>
-
 <?php } ?>
 </body>
 </html>
