@@ -194,8 +194,8 @@ function refresh_all_entries(){
 	document.getElementById("error4").innerHTML=" ";
 	document.getElementById("user_displayname").value=" ";
 	document.getElementById("username").value=" ";
-	document.getElementById("password").value=" ";
-	document.getElementById("conf_pwd").value=" ";
+	document.getElementById("password").value="";
+	document.getElementById("conf_pwd").value="";
 	document.getElementById("email").value=" ";
 	
 	/*refreshing entries for creating tab*/
