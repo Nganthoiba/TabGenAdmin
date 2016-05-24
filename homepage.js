@@ -249,8 +249,9 @@ $(document).ready(function(){
 							var resp_arr = JSON.parse(resp);
 							if(resp_arr.status==true){
 								getTabs("list_of_tabs");
-								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
-								document.getElementById("createTabResponse").style.color="black";
+								document.getElementById("createTabResponse").innerHTML="<center><b>"+
+									resp_arr.message+"</b></center>";
+								document.getElementById("createTabResponse").style.color="green";
 							}
 							else{
 								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
