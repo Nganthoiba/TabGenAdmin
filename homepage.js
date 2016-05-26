@@ -274,6 +274,10 @@ $(document).ready(function(){
 					//var display_name =$("#display_name").val();
 					$("#error1").css('color', 'black');
                     $("#error1").html("<img src='img/loading.gif'/> Wait a moment please...");
+                    if(orgname.length<=0){
+						$("#error1").css('color', 'red');
+						$("#error1").html("<center><b>Please fill up with an organisation name.</b></center>");
+					}
                     $.ajax({
                         type: "POST",
                         url: "createorg.php",
@@ -287,7 +291,7 @@ $(document).ready(function(){
 								$("#error1").html("<center>Organization Created</center>");
 								viewOrgs("dropdown","orgnamesel","all");/*this will display drop down list of 
 								organisation at the popup dialog for creating Organisation Units*/
-								viewOrgs("list","showOrgsList","few");
+								viewOrgs("list","showOrgsList","all");
                                 
                             }else if(s.trim()=="false"){
 								$("#error1").css('color', 'red');
