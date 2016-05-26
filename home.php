@@ -705,9 +705,9 @@
 										<script type="text/JavaScript">
 											$(document).ready(function(){
 												//getAssociatedTabs("associated_tabs");
-												$("#associated_tabs").html("<h1 align='center'>Click Refresh button "+
+												$("#associated_tabs").html("<h3 align='center'>Click Refresh button "+
 												"<br/>"+
-												" to display all the associated tabs</h1>");
+												" to display all the associated tabs</h3>");
 												/*
 													"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
 												"style='height:50px;width:50px;border-radius:50%'"+
@@ -783,9 +783,9 @@
 											<script type="text/JavaScript">
 												$(document).ready(function(){
 													//getTabs("list_of_tabs");
-													$("#list_of_tabs").html("<h1 align='center'>Click Refresh button "+
+													$("#list_of_tabs").html("<h3 align='center'>Click Refresh button "+
 													"<br/>"+
-													" to display all the list of tabs</h1>");
+													" to display all the list of tabs</h3>");
 													/*
 														"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
 													"style='height:50px;width:50px;border-radius:50%'"+
