@@ -274,9 +274,15 @@ $(document).ready(function(){
 					//var display_name =$("#display_name").val();
 					$("#error1").css('color', 'black');
                     $("#error1").html("<img src='img/loading.gif'/> Wait a moment please...");
-                    if(orgname.length<=0){
+                    if(orgname.length==0){
 						$("#error1").css('color', 'red');
 						$("#error1").html("<center><b>Please fill up with an organisation name.</b></center>");
+						return false;
+					}
+					else if(orgname.length<3){
+						$("#error1").css('color', 'red');
+						$("#error1").html("<center><b>Organisation name is too short,name must be at least 3 characters length.</b></center>");
+						return false;
 					}
                     $.ajax({
                         type: "POST",
