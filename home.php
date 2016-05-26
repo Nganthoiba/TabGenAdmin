@@ -160,7 +160,9 @@
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
 						onclick='getRoles("choose_role",$("#choose_ou").val());
-								 getRoles("choose_role2",$("#choose_ou2").val())'>Associate Tabs to Role</a></li>
+								 getRoles("choose_role2",$("#choose_ou2").val());
+								 getTabs("list_of_tabs");
+								 getAssociatedTabs("associated_tabs");'>Associate Tabs to Role</a></li>
 					<!--<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
 						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Update Tabs</a>
 					</li>-->
@@ -700,12 +702,13 @@
 											$(document).ready(function(){
 												//getAssociatedTabs("associated_tabs");
 												$("#associated_tabs").html("<h1 align='center'>Click Refresh button "+
-												"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
+												"<br/>"+
 												" to display all the associated tabs</h1>");
 												/*
 													"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
 												"style='height:50px;width:50px;border-radius:50%'"+
 												"onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
+												"<span class='glyphicon glyphicon-refresh'></span></Button>"+
 												*/
 												
 												$("#associated_tabs").css('color','#A4A4A4');
@@ -777,12 +780,13 @@
 												$(document).ready(function(){
 													//getTabs("list_of_tabs");
 													$("#list_of_tabs").html("<h1 align='center'>Click Refresh button "+
-													"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
+													"<br/>"+
 													" to display all the list of tabs</h1>");
 													/*
 														"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
 													"style='height:50px;width:50px;border-radius:50%'"+
 													"onclick='getTabs(\""+"list_of_tabs"+"\");'>"+
+													"<span class='glyphicon glyphicon-refresh'></span></Button>"
 													*/
 													$("#list_of_tabs").css('color','#A4A4A4');
 													$("#refresh_tab_list").click(function(){
