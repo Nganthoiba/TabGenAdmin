@@ -10,9 +10,17 @@
 		//echo "Hi";
 		//echo $tab_id." ".$new_tab_name." ".$template_name." ".$old_tab_name;
 		if($conn){
-			if($template_name!="Chat Template"){
-				updateTab($conn,$tab_id,$new_tab_name);	
-			}else{
+			if($template_name=="Latest News Template" || $template_name=="News Template"){
+				$details=$_POST['news_details'];
+				if(updateNews($conn,$old_tab_name,$new_tab_name,$details)){	
+					updateTab($conn,$tab_id,$new_tab_name);
+				}
+				else{
+					echo json_encode(array("status"=>false,
+					"message"=>"Failed to update news"));
+				}
+			}
+			else if($template_name=="Chat Template"){
 				$token_id = get_token();
 				//echo json_encode(array("status"=>false,"message"=>$token_id));
 				if($token_id!=null){
@@ -66,6 +74,9 @@
 					echo json_encode(array("status"=>false,"message"=>"Login again please, your session is expired."));
 				}
 			}
+			else{
+				updateTab($conn,$tab_id,$new_tab_name);
+			}
 		}
 		else{
 			echo json_encode(array("status"=>false,"message"=>"Database connection failed"));
@@ -84,5 +95,13 @@
 		else{
 			echo json_encode(array("status"=>false,"message"=>"Oops! Unable to update tab name."));
 		}
+	}
+	//function to update news
+	function updateNews($conn,$old_news_title,$latest_news_title,$details){
+		$query = "update News set
+					title='$latest_news_title',
+					Details='$details'
+				  where Id=(select Id from News where title='$old_news_title')";
+		return $conn->query($query);
 	}
 ?>

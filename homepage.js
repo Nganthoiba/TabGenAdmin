@@ -981,7 +981,7 @@ $(document).ready(function(){
 									"</div>"+
 								"</form>";
 						}
-						else{
+						else if(json_arr[i].Template_Name=="Latest News Template" || json_arr[i].Template_Name=="News Template"){
 							popup_content_form="<form class='form-horizontal' role='form'>"+
 								"<div>"+
 									"<label>Tab Name</label>"+
@@ -990,8 +990,9 @@ $(document).ready(function(){
 								"</div>"+
 								"<div>"+
 									"<label>Contents</label>"+
-									"<textarea rows='4' cols='50' class='form-control'>"+
-										"Paste your html contents here"+
+									"<textarea rows='4' cols='50' class='form-control' id='contents_id"+i+"'"+
+										"placeholder='Paste your html contents here'>"+
+										json_arr[i].news_details+
 									"</textarea>"+
 								"</div>"+
 								"<div><br/>"+
@@ -1005,6 +1006,27 @@ $(document).ready(function(){
 									"<br/><span id='upadate_tab_resp"+i+"'></span>"+
 								"</div>"+
 							"</form>";
+						}
+						else{
+							popup_content_form="<form class='form-horizontal' role='form'"+
+								"style='max-width:300px;min-width:250px'>"+
+									"<div>"+
+											"<label>Tab Name</label>"+
+											"<input type='text' value='"+json_arr[i].Name+"'"+
+											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
+													
+									"</div>"+
+									"<div><br/>"+
+											"<button type='button' class='btn btn-info'"+ 
+														"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
+															"\",\""+json_arr[i].Template_Name+"\")'"+
+														"id='saveTabName"+i+"'"+
+														"style='float:right'>Save</button>"+
+									"</div>"+
+									"<div style='height:50px'>"+
+										"<br/><span id='upadate_tab_resp"+i+"'></span>"+
+									"</div>"+
+								"</form>";
 						}
 						layout+= "<tr><td>"+
 						"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
@@ -1068,7 +1090,7 @@ $(document).ready(function(){
 		return $("#popover-content"+index).html();
 	}
 	//function to update a tab name
-	function updateTab(i,tab_id,template_name){
+	function updateTab(i,tab_id,C){
 		//alert("Tab index:"+i+" Tab Id: "+tab_id+" Template Name: "+template_name);
 		document.getElementById("upadate_tab_resp"+i).innerHTML="<br/><p>Wait please...</p>";
 		document.getElementById("upadate_tab_resp"+i).style.color="#A4A4A4";
@@ -1076,10 +1098,25 @@ $(document).ready(function(){
 		var old_tab_name = prev_tab_name[i];
 		//alert(old_tab_name);
 		//alert("New tab: "+tab_name);
+		var post_data=null;
+		if(template_name=="Latest News Template" || template_name=="News Template"){
+			var news_details=$("#contents_id"+i).val();
+			post_data={	"tab_id":tab_id,
+						"old_tab_name":old_tab_name,
+						"new_tab_name":new_tab_name,
+						"news_details":news_details,
+						"template_name":template_name};
+		}
+		else{
+			post_data={"tab_id":tab_id,
+					   "old_tab_name":old_tab_name,
+					   "new_tab_name":new_tab_name,
+					   "template_name":template_name};
+		}
 		$.ajax({
 			type: "POST",
 			url: "updateTab.php",
-			data: {"tab_id":tab_id,"old_tab_name":old_tab_name,"new_tab_name":new_tab_name,"template_name":template_name},
+			data: post_data,
 			success: function(resp){
 				//alert(resp);
 				var resp_arr = JSON.parse(resp);
