@@ -700,11 +700,14 @@
 											$(document).ready(function(){
 												//getAssociatedTabs("associated_tabs");
 												$("#associated_tabs").html("<h1 align='center'>Click Refresh button "+
-												"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
-												"style='height:50px;width:50px;border-radius:50%'"+
-												"onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
 												"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
 												" to display all the associated tabs</h1>");
+												/*
+													"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
+												"style='height:50px;width:50px;border-radius:50%'"+
+												"onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
+												*/
+												
 												$("#associated_tabs").css('color','#A4A4A4');
 												$("#refresh_ass_tab").click(function(){
 													getAssociatedTabs("associated_tabs");
@@ -774,11 +777,13 @@
 												$(document).ready(function(){
 													//getTabs("list_of_tabs");
 													$("#list_of_tabs").html("<h1 align='center'>Click Refresh button "+
-													"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
-													"style='height:50px;width:50px;border-radius:50%'"+
-													"onclick='getTabs(\""+"list_of_tabs"+"\");'>"+
 													"<span class='glyphicon glyphicon-refresh'></span></Button><br/>"+
 													" to display all the list of tabs</h1>");
+													/*
+														"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
+													"style='height:50px;width:50px;border-radius:50%'"+
+													"onclick='getTabs(\""+"list_of_tabs"+"\");'>"+
+													*/
 													$("#list_of_tabs").css('color','#A4A4A4');
 													$("#refresh_tab_list").click(function(){
 														getTabs("list_of_tabs");
