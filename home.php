@@ -161,8 +161,12 @@
 					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
 						onclick='getRoles("choose_role",$("#choose_ou").val());
 								 getRoles("choose_role2",$("#choose_ou2").val());
-								 getTabs("list_of_tabs");
-								 getAssociatedTabs("associated_tabs");'>Associate Tabs to Role</a></li>
+								 '>Associate Tabs to Role</a></li>
+								 
+					<!--
+						getTabs("list_of_tabs");
+						getAssociatedTabs("associated_tabs");
+					-->
 					<!--<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
 						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Update Tabs</a>
 					</li>-->
