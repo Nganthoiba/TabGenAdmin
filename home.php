@@ -198,7 +198,7 @@
 							id="showOrgUnits" border="0" style="padding-top:20px">
 							<script>
 								$(document).ready(function(){
-									document.getElementById("showOrgUnits").innerHTML="<center><img src='img/loading_data.gif'/></center>";
+									document.getElementById("showOrgUnits").innerHTML="<br/><br/><center><img src='img/loading_data.gif'/></center>";
 									viewOrgUnits("list","showOrgUnits","all");
 								});					
 							</script>	
@@ -227,7 +227,7 @@
 							id="showOrgsList" border='0' style="padding-top:20px">
 							<script>
 								$(document).ready(function(){
-									document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
+									document.getElementById("showOrgsList").innerHTML="<br/><br/><center><img src='img/loading_data.gif'/></center>";
 									viewOrgs("list","showOrgsList","all");
 								});
 							</script>	
