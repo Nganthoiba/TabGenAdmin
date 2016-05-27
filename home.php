@@ -149,10 +149,14 @@
 						  <a href='#' type="button" data-toggle="collapse" data-target="#user_options">Users
 						  <span class="caret"></span></a>
 						  <div id="user_options" class="collapse">
+						  <ul class="nav nav-tabs nav-stacked nav-fixed">
 							<li><a href="#" data-toggle="modal" data-target="#createuser" 
-								onclick='getRoles("UserRole",$("#OrgUnitList").val());refresh_all_entries();return false;'>Create Users</a></li>
-							<li role="presentation" class="divider"></li>
+								onclick='getRoles("UserRole",$("#OrgUnitList").val());refresh_all_entries();return false;'>
+								Create Users</a></li>
+							<!--<li role="presentation" class="divider"></li>-->
+							<hr/>
 							<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show Users</a></li>
+						  </ul>
 						  </div>
 						
 					</li>
@@ -161,8 +165,8 @@
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
 						onclick='getRoles("choose_role",$("#choose_ou").val());
-								 getRoles("choose_role2",$("#choose_ou2").val());
-								 '>Associate Tabs to Role</a></li>
+								 getRoles("choose_role2",$("#choose_ou2").val());'>
+								 Associate Tabs to Role</a></li>
 								 
 					<!--
 						getTabs("list_of_tabs");
