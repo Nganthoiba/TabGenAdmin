@@ -92,13 +92,14 @@
 		style="height:60px;padding-top:10px;padding-bottom:10px;background-color:#819FF7;color:#f7f7f7;position:fixed-top"-->
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <!--<span class="sr-only">Toggle navigation</span>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" 
+			aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar">ABC</span>
             <span class="icon-bar">XYZ</span>
-            <span class="icon-bar"></span>-->
+            <span class="icon-bar"></span>
           </button>
-          <a href="#" class="navbar-brand"><h1>H Circle</h1></a>
+          <a href="#" class="navbar-brand">H Circle</a>
           <!--class="navbar-brand"-->
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -522,7 +523,9 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 				<h4 class="modal-title" id="myModalLabel">Create Tabs Template</h4>
 			</div>
 			<div class="modal-body">

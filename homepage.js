@@ -764,7 +764,7 @@ $(document).ready(function(){
 				url:"createTemplate.php",
 				data: "template_name="+template_name+"&template="+template,
 				success: function(resp){
-					$("#createTemplateResponse").text(resp);
+					$("#createTemplateResponse").html("<center><b>"+resp+"</b></center>");
 					//viewTemplates("dropdown","SelectTemplate","all");
 					//window.alert(resp);
 					setAssocRole2TabLayout();
