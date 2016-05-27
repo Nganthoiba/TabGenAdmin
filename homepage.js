@@ -1228,6 +1228,9 @@ $(document).ready(function(){
 					}
 					document.getElementById(id).innerHTML=layout;
 				}
+			},
+			error: function(x,y,z){
+				alert(x);
 			}
 		});
 	}
