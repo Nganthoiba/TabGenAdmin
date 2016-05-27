@@ -1241,58 +1241,7 @@ $(document).ready(function(){
 		var role_name = $("#choose_role").val(); 
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
-		$.ajax({
-			type: "GET",
-			url: "getAssociatedTabs.php",
-			data: "ou_name="+ou_name+"&role_name="+role_name,
-			success: function(resp){
-				//alert(resp);
-				if(resp=="problem"){
-					alert(resp);
-					document.getElementById(id).innerHTML="Something Goes Wrong!";
-				}else if(resp.trim()=="null"){
-					document.getElementById(id).innerHTML="<br/><div>"+
-					"<h1 align='center'><span class='glyphicon glyphicon-alert' "+
-					"style='height:80px;width:80px'></span><br/>No Record Found</h1></div>";
-					document.getElementById(id).style.color="#FE642E";
-				}
-				else 
-				{
-					var resp_array = JSON.parse(resp);
-					var tab_layout=" ";
-					var ou_specific=" ";
-					var btn_class=" ";
-					//alert("Length of Array: "+resp_array.length);
-					for(var i=0;i<resp_array.length;i++){
-						if(parseInt(resp_array[i].OU_Specific)==0){
-							ou_specific="No";
-							btn_class="btn btn-warning";
-						}else{
-							ou_specific="Yes";
-							btn_class="btn btn-success";
-						}
-						tab_layout+="<tr><td valign='middle'><div>"+
-									resp_array[i].Name+"</div>"+
-									"<div><b>OU:</b> "+resp_array[i].OU+
-									"<br/><b>Role:</b> "+resp_array[i].RoleName+
-									"<br/><b>Template:</b> "+resp_array[i].Template_Name+
-									"<br/><b>OU Specific:</b> "+ou_specific+
-									"</div>"+
-									"</td>"+
-									"<td align='right' ><Button type='button'"+
-									"style='width: 40px;height: 40px;border-radius: 50%;'"+
-									"class='"+btn_class+"' onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
-									"return false;'>"+
-									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";	
-					}
-					document.getElementById(id).innerHTML=tab_layout;
-				}
-			},
-			error: function(x,y,z){
-				document.getElementById(id).innerHTML="Something Goes Wrong! "+z;
-				document.getElementById(id).style.color="#FE642E";
-			}
-		});
+		alert("Hi");
 	}
 	
 	function deleteAssociatedTab(tab_id){
