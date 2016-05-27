@@ -709,7 +709,9 @@
 											<table class="table table-striped" id="associated_tabs">
 											
 											</table>
+											<div>&nbsp;</div>
 										</div>
+										<div>&nbsp;</div>
 										<script type="text/JavaScript">
 											$(document).ready(function(){
 												//getAssociatedTabs("associated_tabs");
@@ -807,7 +809,9 @@
 												});
 											</script>
 											</table>
+											<div>&nbsp;</div>
 										</div>
+										<div>&nbsp;</div>
 									</div>
 								</div>									
 							</div>
