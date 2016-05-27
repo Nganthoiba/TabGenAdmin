@@ -45,7 +45,6 @@ if(isset($_SESSION['user_details'])){
 						}							
 					}
 					else if($template_name=="Latest News Template" || $template_name=="News Template"){
-						
 						if(createNews($conn,$tab_name)){
 							create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific);
 						}
@@ -80,7 +79,11 @@ function createNews($conn,$title){
 	$id = randId(26);//creating unique id
 	$createAt = $time()*1000;
 	$query = "insert into News (Id,CreateAt,title) values('$id','$createAt','$title')";
-	return $conn->query($query);
+	if($conn->query($query)){
+		return true;
+	}else{
+		return false;
+	}
 }
 ?>
 
