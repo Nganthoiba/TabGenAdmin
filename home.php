@@ -696,7 +696,8 @@
 												<tr>
 													<td><h1 class="panel-title">Associated Tabs</h1></td>
 													<td align="right">
-														<Button class="btn btn-info" id="refresh_ass_tab">REFRESH
+														<Button type="submit" class="btn btn-info" id="refresh_ass_tab" 
+														onclick='getAssociatedTabs("associated_tabs");return false;'>REFRESH
 															<span class="glyphicon glyphicon-refresh"></span>
 														</Button>
 													</td>
@@ -714,8 +715,7 @@
 											$(document).ready(function(){
 												//getAssociatedTabs("associated_tabs");
 												$("#associated_tabs").html("<h3 align='center'>Click Refresh button "+
-												"<br/>"+
-												" to display all the associated tabs</h3>");
+												"<br/> to display all the associated tabs</h3>");
 												/*
 													"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
 												"style='height:50px;width:50px;border-radius:50%'"+
@@ -724,10 +724,10 @@
 												*/
 												
 												$("#associated_tabs").css('color','#A4A4A4');
-												$("#refresh_ass_tab").click(function(){
+												/*$("#refresh_ass_tab").click(function(){
 													getAssociatedTabs("associated_tabs");
 													return false;
-												});
+												});*/
 											});
 										</script>
 									</div>
