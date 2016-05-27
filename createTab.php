@@ -45,7 +45,7 @@ if(isset($_SESSION['user_details'])){
 						}							
 					}
 					else if($template_name=="Latest News Template" || $template_name=="News Template"){
-						$news_details=$_POST['news_details'];
+						
 						if(createNews($conn,$tab_name)){
 							create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific);
 						}
