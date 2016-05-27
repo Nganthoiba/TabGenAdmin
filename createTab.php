@@ -77,7 +77,7 @@ else
 //php function to create News
 function createNews($conn,$title){
 	$id = randId(26);//creating unique id
-	$createAt = $time()*1000;
+	$createAt = time()*1000;
 	$query = "insert into News (Id,CreateAt,title) values('$id','$createAt','$title')";
 	if($conn->query($query)){
 		return true;
