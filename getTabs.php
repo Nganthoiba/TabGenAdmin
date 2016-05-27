@@ -20,12 +20,13 @@ if(isset($_SESSION['user_details'])){
 			$res = $conn->query($query);
 			while($row = $res->fetch(PDO::FETCH_ASSOC)){
 				if($row['TabTemplate']=="Latest News Template" || $row['TabTemplate']=="News Template"){
+					$news_details=getNewsDetails($conn,$row['Name'])==null?"Enter news here":getNewsDetails($conn,$row['Name']);
 					$output[]=array("Id"=>$row['Id'],"CreateAt"=>$row['CreateAt'],"UpdateAt"=>$row['UpdateAt'],
 						"DeleteAt"=>$row['DeleteAt'],"Name"=>$row['Name'],"RoleName"=>$row['RoleName'],"CreatedBy"=>$row['CreatedBy'],
 						"TabTemplate"=>$row['TabTemplate'],"RoleId"=>$row['RoleId'],"OU_Specific"=>$row['OU_Specific'],
 						"RoleName"=>getRoleNamebyId($conn,$row['RoleId']),
 						"Template_Name"=>$row['Template_Name'],
-						"news_details"=>getNewsDetails($conn,$row['Name']),
+						"news_details"=>$news_details,
 						"OU"=>getOUbyRole($conn,$row['RoleId']));
 				}
 				else{
