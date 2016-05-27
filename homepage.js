@@ -235,10 +235,8 @@ $(document).ready(function(){
 				//alert("Select a role.");
 				return false;
 			}
-			else {
-				 post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,
+			post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,
 						"ou_name":ou_name,"role_name":role_name};	
-			}
 						
 			if(document.getElementById("ou_specific_yes").checked==true || document.getElementById("ou_specific_no").checked==true){
 				
