@@ -17,7 +17,6 @@ if(!empty($_GET['user_id'])){
 		for($i=0;$i<sizeof($teams);$i++){//finding all the possible channels for a team
 			$team_name = $teams[$i]['team_name'];
 			//echo $team_name."<br/>";
-			
 				//Getting OU specific channels
 				$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
 							from Channels,ChannelMembers
@@ -34,9 +33,7 @@ if(!empty($_GET['user_id'])){
 							group by Channels.Id";
 				//and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
 				/*
-				 * 
-				 
-							
+				 * 		
 							union
 							
 						select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
@@ -84,11 +81,8 @@ if(!empty($_GET['user_id'])){
 		else{
 			$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
 			print json_encode($final_array);
-		}
-		
+		}	
 	}
-	
-	
 }
 
 //function to get non OU specific tabs

@@ -98,7 +98,7 @@
             <span class="icon-bar">XYZ</span>
             <span class="icon-bar"></span>-->
           </button>
-          <a href="#" class="navbar-brand">H Circle</a>
+          <a href="#" class="navbar-brand"><h1>H Circle</h1></a>
           <!--class="navbar-brand"-->
         </div>
         <div id="navbar" class="navbar-collapse collapse">
