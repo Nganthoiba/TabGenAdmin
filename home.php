@@ -69,7 +69,7 @@
 	</style>
 	
 </head>
-<body style="background-color:#BDBDBD">
+<body style="background-color:#819FF7">
 	<?php
 
         session_start();
@@ -85,11 +85,12 @@
                 $user_email= $user_data->email;
 						
 	?>
-	<nav  class="navbar navbar-inverse navbar-fixed-top"
+	
+	<!--<nav  class="navbar navbar-inverse navbar-fixed-top"
 		style="height:60px;padding-top:10px;padding-bottom:10px;
 		background-color:#FFFFFF;color:#f7f7f7;position:fixed;width:100%" >
-		<!--class="navbar navbar-default navbar-fixed-top"
-		style="height:60px;padding-top:10px;padding-bottom:10px;background-color:#819FF7;color:#f7f7f7;position:fixed-top"-->
+		class="navbar navbar-default navbar-fixed-top"
+		style="height:60px;padding-top:10px;padding-bottom:10px;background-color:#819FF7;color:#f7f7f7;position:fixed-top"
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" 
@@ -100,7 +101,7 @@
             <span class="icon-bar"></span>
           </button>
           <a href="#" class="navbar-brand">H Circle</a>
-          <!--class="navbar-brand"-->
+          
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -111,8 +112,8 @@
           
         </div>
       </div>
-    </nav>
-	<div class="container-fluid" ><br/><br/><br/>
+    </nav>-->
+	<div class="container-fluid" ><br/>
 		<div class="row"><!--class="row"-->
 			<div class="col-sm-3 col-md-2 sidebar">
 			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
@@ -154,7 +155,6 @@
 								onclick='getRoles("UserRole",$("#OrgUnitList").val());refresh_all_entries();return false;'>
 								Create Users</a></li>
 							<!--<li role="presentation" class="divider"></li>-->
-							<hr/>
 							<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show Users</a></li>
 						  </ul>
 						  </div>
@@ -179,36 +179,7 @@
 					<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
 				</ul>
 			</div>
-			<div><!--class="col-md-8"-->	
-				<div class="box">
-					<div class="heading">Organisation Units
-							<!--
-							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
-										-webkit-align-content: center; align-content: center;padding-top:0px"
-							<form class="navbar-form navbar-right">
-								<input type="text" class="form-control" placeholder="Search...">
-								<button type="button" class="btn btn-default">
-								  <span class="glyphicon glyphicon-search"></span>
-								</button>
-							</form>-->
-					</div>
-					<div class="inner_box">		
-						<table  class='table' cellspacing="10" 
-							
-							id="showOrgUnits" border="0" style="padding-top:20px">
-							<script>
-								$(document).ready(function(){
-									document.getElementById("showOrgUnits").innerHTML="<br/><br/><center><img src='img/loading_data.gif'/></center>";
-									viewOrgUnits("list","showOrgUnits","all");
-								});					
-							</script>	
-						</table>
-					</div>			
-					<!--<div class="pull-right">
-						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
-					</div>-->	
-				</div>
-			
+			<div><!--class="col-md-8"-->
 				<div class="box">	
 					<div class="heading">
 							Organisations
@@ -236,6 +207,34 @@
 					<!--<div class="pull-right">
 						<Button type="button" id="viewAllOrgLists" class="btn btn-link">VIEW ALL</Button>
 					</div>	-->				
+				</div>	
+				<div class="box">
+					<div class="heading">Organisation Units
+							<!--
+							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
+										-webkit-align-content: center; align-content: center;padding-top:0px"
+							<form class="navbar-form navbar-right">
+								<input type="text" class="form-control" placeholder="Search...">
+								<button type="button" class="btn btn-default">
+								  <span class="glyphicon glyphicon-search"></span>
+								</button>
+							</form>-->
+					</div>
+					<div class="inner_box">		
+						<table  class='table' cellspacing="10" 
+							
+							id="showOrgUnits" border="0" style="padding-top:20px">
+							<script>
+								$(document).ready(function(){
+									document.getElementById("showOrgUnits").innerHTML="<br/><br/><center><img src='img/loading_data.gif'/></center>";
+									viewOrgUnits("list","showOrgUnits","all");
+								});					
+							</script>	
+						</table>
+					</div>			
+					<!--<div class="pull-right">
+						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
+					</div>-->	
 				</div>
 			</div>
 		</div>
