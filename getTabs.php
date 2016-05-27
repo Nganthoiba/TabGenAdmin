@@ -19,7 +19,7 @@ if(isset($_SESSION['user_details'])){
 						order by Tab.CreateAt desc";
 			$res = $conn->query($query);
 			while($row = $res->fetch(PDO::FETCH_ASSOC)){
-				if($row['TabTemplate']=="Latest News Template" || $row['TabTemplate']=="News Template"){
+				if($row['Template_Name']=="Latest News Template" || $row['Template_Name']=="News Template"){
 					$news_details=getNewsDetails($conn,$row['Name'])==null?"Enter news here":getNewsDetails($conn,$row['Name']);
 					$output[]=array("Id"=>$row['Id'],"CreateAt"=>$row['CreateAt'],"UpdateAt"=>$row['UpdateAt'],
 						"DeleteAt"=>$row['DeleteAt'],"Name"=>$row['Name'],"RoleName"=>$row['RoleName'],"CreatedBy"=>$row['CreatedBy'],
