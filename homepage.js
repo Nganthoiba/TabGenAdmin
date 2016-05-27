@@ -1192,9 +1192,13 @@ $(document).ready(function(){
 					document.getElementById(id).innerHTML="Something Goes Wrong!";
 				}else if(resp.trim()=="null"){
 					document.getElementById(id).innerHTML="<br/><div>"+
-					"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span><br/>No Record Found</h1></div>";
+					"<h1 align='center'><span class='glyphicon glyphicon-alert' "+
+					"style='height:80px;width:80px'></span><br/>No Record Found</h1></div>";
 					document.getElementById(id).style.color="#FE642E";
-				}else {
+				}
+				else 
+				{
+					alert(resp);
 					var resp_array = JSON.parse(resp);
 					var layout=" ";
 					var ou_specific=" ";

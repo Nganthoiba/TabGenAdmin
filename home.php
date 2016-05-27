@@ -696,8 +696,7 @@
 												<tr>
 													<td><h1 class="panel-title">Associated Tabs</h1></td>
 													<td align="right">
-														<Button type="submit" class="btn btn-info" id="refresh_ass_tab" 
-														onclick='getAssociatedTabs("associated_tabs");return false;'>REFRESH
+														<Button type="submit" class="btn btn-info" id="refresh_ass_tab">REFRESH
 															<span class="glyphicon glyphicon-refresh"></span>
 														</Button>
 													</td>
@@ -724,10 +723,10 @@
 												*/
 												
 												$("#associated_tabs").css('color','#A4A4A4');
-												/*$("#refresh_ass_tab").click(function(){
+												$("#refresh_ass_tab").click(function(){
 													getAssociatedTabs("associated_tabs");
 													return false;
-												});*/
+												});
 											});
 										</script>
 									</div>
