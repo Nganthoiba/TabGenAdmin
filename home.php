@@ -146,14 +146,14 @@
 						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Create OU Specific Tabs</a>
 					</li>-->
 					<li>
-						  <a href='#' type="button" data-toggle="dropdown">Users
+						  <a href='#' type="button" data-toggle="collapse" data-target="#user_options">Users
 						  <span class="caret"></span></a>
-						  <ul class="dropdown-menu">
+						  <div id="user_options" class="collapse">
 							<li><a href="#" data-toggle="modal" data-target="#createuser" 
 								onclick='getRoles("UserRole",$("#OrgUnitList").val());refresh_all_entries();return false;'>Create Users</a></li>
 							<li role="presentation" class="divider"></li>
 							<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show Users</a></li>
-						  </ul>
+						  </div>
 						
 					</li>
 					
