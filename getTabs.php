@@ -35,6 +35,7 @@ if(isset($_SESSION['user_details'])){
 					"TabTemplate"=>$row['TabTemplate'],"RoleId"=>$row['RoleId'],"OU_Specific"=>$row['OU_Specific'],
 					"RoleName"=>getRoleNamebyId($conn,$row['RoleId']),
 					"Template_Name"=>$row['Template_Name'],
+					"news_details"=>" ",
 					"OU"=>getOUbyRole($conn,$row['RoleId']));
 				}
 				//$row;''
