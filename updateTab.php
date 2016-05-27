@@ -101,7 +101,7 @@
 		$query = "update News set
 					title='$latest_news_title',
 					Details='$details'
-				  where Id=(select Id from News where title='$old_news_title')";
+				  where title='$old_news_title'";
 		return $conn->query($query);
 	}
 ?>
