@@ -546,7 +546,7 @@
 							</div>
 						</div>
 						<div class="panel-footer clearfix">
-							<label id="createTemplateResponse"></label>
+							<center><label id="createTemplateResponse"></label></center>
 							<div class="pull-right"><Button type="submit" class="btn btn-info" id="createTemplate">Create</Button></div>
 						</div>
 					</div>

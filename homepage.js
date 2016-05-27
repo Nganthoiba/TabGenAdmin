@@ -759,6 +759,10 @@ $(document).ready(function(){
 			$("#createTemplateResponse").html("<img src='img/loading_data.gif'/>");
 			var template_name = $("#templateName").val();
 			var	template = $("#template").val();
+			if(template_name.length==0){
+				$("#createTemplateResponse").html("<center><b>Please don't leave the template name blank</b></center>");
+				return false;
+			}
 			$.ajax({
 				type:"POST",
 				url:"createTemplate.php",
