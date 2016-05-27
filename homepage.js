@@ -981,7 +981,7 @@ $(document).ready(function(){
 									"</div>"+
 								"</form>";
 						}
-						else if(json_arr[i].Template_Name=="Latest News Template" || json_arr[i].Template_Name=="News Template"){
+						else if(json_arr[i].Template_Name=="Latest News Template" || json_arr[i].Template_Name=="Latest News Template"){
 							popup_content_form="<form class='form-horizontal' role='form'>"+
 								"<div>"+
 									"<label>Tab Name</label>"+
@@ -1090,7 +1090,7 @@ $(document).ready(function(){
 		return $("#popover-content"+index).html();
 	}
 	//function to update a tab name
-	function updateTab(i,tab_id,C){
+	function updateTab(i,tab_id,template_name){
 		//alert("Tab index:"+i+" Tab Id: "+tab_id+" Template Name: "+template_name);
 		document.getElementById("upadate_tab_resp"+i).innerHTML="<br/><p>Wait please...</p>";
 		document.getElementById("upadate_tab_resp"+i).style.color="#A4A4A4";
