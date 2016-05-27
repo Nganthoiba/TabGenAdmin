@@ -992,7 +992,7 @@ $(document).ready(function(){
 									"<label>Contents</label>"+
 									"<textarea rows='4' cols='50' class='form-control' id='contents_id"+i+"'"+
 										"placeholder='Paste your html contents here'>"+
-										resp+
+										json_arr[i].news_details+
 									"</textarea>"+
 								"</div>"+
 								"<div><br/>"+
