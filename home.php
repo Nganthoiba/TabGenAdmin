@@ -194,7 +194,7 @@
 							</form>-->
 					</div>
 					<div class="inner_box">
-						<table  class='table table-striped' cellspacing="10" 
+						<table  class='table' cellspacing="10" 
 							id="showOrgsList" border='0' style="padding-top:20px">
 							<script>
 								$(document).ready(function(){
@@ -203,6 +203,7 @@
 								});
 							</script>	
 						</table>
+						<div> &nbsp; </div>
 					</div>
 					<!--<div class="pull-right">
 						<Button type="button" id="viewAllOrgLists" class="btn btn-link">VIEW ALL</Button>
@@ -221,7 +222,7 @@
 							</form>-->
 					</div>
 					<div class="inner_box">		
-						<table  class='table table-striped' cellspacing="10" 
+						<table  class='table' cellspacing="10" 
 							
 							id="showOrgUnits" border="0" style="padding-top:20px">
 							<script>
@@ -231,6 +232,7 @@
 								});					
 							</script>	
 						</table>
+						<div> &nbsp; </div>
 					</div>			
 					<!--<div class="pull-right">
 						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
