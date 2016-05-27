@@ -425,9 +425,7 @@ function get_token(){
 						}
 						else{
 							return json_encode(array("status"=>false,"message"=>$delete_channel_response->message));
-						}
-						
-						
+						}	
 					}else{
 						return json_encode(array("status"=>false,"message"=>"No channel exists with the earlier tab name"));
 					}
@@ -437,6 +435,12 @@ function get_token(){
 						return json_encode(array("status"=>false,"message"=>"Token not found. Login again."));
 				}
 						
+			}
+			else if($tab_details['Template_Name']=="Latest News Template"){
+				$query = "delete from News where title=(select Name from Tab where Id='$tab_id')";
+				if($conn->query($query)){
+					return deleteTab($conn,$tab_id);
+				}
 			}else{
 				//deleting Tabs which is not chat template
 				return deleteTab($conn,$tab_id);
