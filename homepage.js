@@ -1200,7 +1200,7 @@ $(document).ready(function(){
 				else 
 				{
 					var resp_array = JSON.parse(resp);
-					var layout=" ";
+					var tab_layout=" ";
 					var ou_specific=" ";
 					var btn_class=" ";
 					//alert("Length of Array: "+resp_array.length);
@@ -1212,7 +1212,7 @@ $(document).ready(function(){
 							ou_specific="Yes";
 							btn_class="btn btn-success";
 						}
-						layout+="<tr><td valign='middle'><div>"+
+						tab_layout+="<tr><td valign='middle'><div>"+
 									resp_array[i].Name+"</div>"+
 									"<div><b>OU:</b> "+resp_array[i].OU+
 									"<br/><b>Role:</b> "+resp_array[i].RoleName+
@@ -1226,7 +1226,7 @@ $(document).ready(function(){
 									"return false;'>"+
 									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";	
 					}
-					document.getElementById(id).innerHTML=layout;
+					document.getElementById(id).innerHTML=tab_layout;
 				}
 			},
 			error: function(x,y,z){
@@ -1259,7 +1259,7 @@ $(document).ready(function(){
 				else 
 				{
 					var resp_array = JSON.parse(resp);
-					var layout=" ";
+					var tab_layout=" ";
 					var ou_specific=" ";
 					var btn_class=" ";
 					//alert("Length of Array: "+resp_array.length);
@@ -1271,7 +1271,7 @@ $(document).ready(function(){
 							ou_specific="Yes";
 							btn_class="btn btn-success";
 						}
-						layout+="<tr><td valign='middle'><div>"+
+						tab_layout+="<tr><td valign='middle'><div>"+
 									resp_array[i].Name+"</div>"+
 									"<div><b>OU:</b> "+resp_array[i].OU+
 									"<br/><b>Role:</b> "+resp_array[i].RoleName+
@@ -1285,7 +1285,7 @@ $(document).ready(function(){
 									"return false;'>"+
 									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";	
 					}
-					document.getElementById(id).innerHTML=layout;
+					document.getElementById(id).innerHTML=tab_layout;
 				}
 			},
 			error: function(x,y,z){
