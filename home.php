@@ -724,9 +724,7 @@
 												
 												$("#associated_tabs").css('color','#A4A4A4');
 												$("#refresh_ass_tab").click(function(){
-													//getAssociatedTabs("associated_tabs");
-													//alert("Hi");
-													getAssTabs("associated_tabs");
+													getAssociatedTabs("associated_tabs");
 													return false;
 												});
 											});

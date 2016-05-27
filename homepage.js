@@ -1236,26 +1236,6 @@ $(document).ready(function(){
 		});
 	}
 	
-	function getAssTabs(id){
-		var ou_name = $("#choose_ou").val();
-		var role_name = $("#choose_role").val(); 
-		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
-		document.getElementById(id).style.color="#A4A4A4";
-		alert("Hi");
-		$.ajax({
-			type: "POST",
-			url: "getAssociatedTabs.php",
-			data: "ou_name="+ou_name+"&role_name="+role_name,
-			success: function(resp){
-				alert(resp);
-			},
-			error: function(x,y,z){
-				document.getElementById(id).innerHTML="Something Goes Wrong! "+z;
-				document.getElementById(id).style.color="#FE642E";
-			}
-		});
-	}
-	
 	function deleteAssociatedTab(tab_id){
 		//alert(tab_id);
 		var confirmation = true;//confirm("Are you sure to drop this tab?");
