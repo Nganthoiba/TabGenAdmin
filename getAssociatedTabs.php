@@ -1,8 +1,8 @@
 <?php 
 	include('connect_db.php');
 	include('tabgen_php_functions.php');// all the function/ methodes are in this php file
-	$ou_name = $_GET['ou_name'];
-	$role_name = $_GET['role_name'];
+	$ou_name = $_POST['ou_name'];
+	$role_name = $_POST['role_name'];
 	if($conn){
 		$role_id = findRoleId($conn,$ou_name,$role_name);
 					

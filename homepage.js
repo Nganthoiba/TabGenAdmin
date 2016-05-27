@@ -1182,7 +1182,7 @@ $(document).ready(function(){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
 		$.ajax({
-			type: "GET",
+			type: "POST",
 			url: "getAssociatedTabs.php",
 			data: "ou_name="+ou_name+"&role_name="+role_name,
 			success: function(resp){
@@ -1243,7 +1243,7 @@ $(document).ready(function(){
 		document.getElementById(id).style.color="#A4A4A4";
 		alert("Hi");
 		$.ajax({
-			type: "GET",
+			type: "POST",
 			url: "getAssociatedTabs.php",
 			data: "ou_name="+ou_name+"&role_name="+role_name,
 			success: function(resp){
