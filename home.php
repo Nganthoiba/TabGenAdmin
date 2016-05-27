@@ -194,7 +194,7 @@
 							</form>-->
 					</div>
 					<div class="inner_box">
-						<table  class='table' cellspacing="10" 
+						<table  class='table table-striped' cellspacing="10" 
 							id="showOrgsList" border='0' style="padding-top:20px">
 							<script>
 								$(document).ready(function(){
@@ -221,7 +221,7 @@
 							</form>-->
 					</div>
 					<div class="inner_box">		
-						<table  class='table' cellspacing="10" 
+						<table  class='table table-striped' cellspacing="10" 
 							
 							id="showOrgUnits" border="0" style="padding-top:20px">
 							<script>
