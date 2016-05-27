@@ -1257,7 +1257,6 @@ $(document).ready(function(){
 				}
 				else 
 				{
-					alert(resp);
 					var resp_array = JSON.parse(resp);
 					var layout=" ";
 					var ou_specific=" ";
