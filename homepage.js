@@ -1190,6 +1190,7 @@ $(document).ready(function(){
 				if(resp=="problem"){
 					alert(resp);
 					document.getElementById(id).innerHTML="Something Goes Wrong!";
+					document.getElementById(id).style.color="#FE642E";
 				}else if(resp.trim()=="null"){
 					document.getElementById(id).innerHTML="<br/><div>"+
 					"<h1 align='center'><span class='glyphicon glyphicon-alert' "+
@@ -1198,7 +1199,6 @@ $(document).ready(function(){
 				}
 				else 
 				{
-					alert(resp);
 					var resp_array = JSON.parse(resp);
 					var layout=" ";
 					var ou_specific=" ";
@@ -1230,7 +1230,8 @@ $(document).ready(function(){
 				}
 			},
 			error: function(x,y,z){
-				alert(x);
+				document.getElementById(id).innerHTML="Something Goes Wrong! "+z;
+				document.getElementById(id).style.color="#FE642E";
 			}
 		});
 	}
@@ -1288,7 +1289,8 @@ $(document).ready(function(){
 				}
 			},
 			error: function(x,y,z){
-				alert(x);
+				document.getElementById(id).innerHTML="Something Goes Wrong! "+z;
+				document.getElementById(id).style.color="#FE642E";
 			}
 		});
 	}
