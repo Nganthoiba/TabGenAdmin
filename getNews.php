@@ -40,17 +40,16 @@ if(!empty($_GET['user_id'])){
 					}	
 					if($count>0){
 						//$output[]=array($team_name=>$channels);
+						//$accessible_teams[]=$team_name;
+						$output->$team_list=$team_name;
 						$output->$team_name=$channels;
-						$accessible_teams[]=$team_name;
 					}
 				}		
 				
 		}
 		
 		//$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
-		$final_array->team_list=$accessible_teams;
-		$final_array->channels=$output;
-		print json_encode($final_array);
+		print json_encode($output);
 	}	
 }
 
