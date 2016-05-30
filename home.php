@@ -69,9 +69,8 @@
 	</style>
 	
 </head>
-<body style="background-color:#819FF7">
+<body>
 	<?php
-
         session_start();
 	
         if(!isset($_SESSION['user_details'])){
@@ -88,10 +87,10 @@
 	
 	<!--<nav  class="navbar navbar-inverse navbar-fixed-top"
 		style="height:60px;padding-top:10px;padding-bottom:10px;
-		background-color:#FFFFFF;color:#f7f7f7;position:fixed;width:100%" >
-		class="navbar navbar-default navbar-fixed-top"
-		style="height:60px;padding-top:10px;padding-bottom:10px;background-color:#819FF7;color:#f7f7f7;position:fixed-top"
-      <div class="container-fluid">
+		background-color:#FFFFFF;color:#f7f7f7;width:100%" >-->
+		<!--class="navbar navbar-default navbar-fixed-top"
+		style="height:60px;padding-top:10px;padding-bottom:10px;background-color:#819FF7;color:#f7f7f7;position:fixed-top"-->
+      <!--<div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" 
 			aria-expanded="false" aria-controls="navbar">
@@ -100,25 +99,25 @@
             <span class="icon-bar">XYZ</span>
             <span class="icon-bar"></span>
           </button>
-          <a href="#" class="navbar-brand">H Circle</a>
-          
+          <a href="#" class="navbar-brand">H Circle</a>  
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Settings</a></li>
             <li><a href="#">FAQ</a></li>
             <li><a href="#">Help</a></li>
-          </ul>  
-          
+          </ul>    
         </div>
       </div>
     </nav>-->
 	<div class="container-fluid" ><br/>
 		<div class="row"><!--class="row"-->
 			<div class="col-sm-3 col-md-2 sidebar">
-			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">-->
+			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">
+				background-color:#DEDFE1;
+			-->
 				<div class="nav nav-header" 
-					style="background-color:#DEDFE1;padding-top:10px;padding-bottom:10px;height:100%;
+					style="padding-top:10px;padding-bottom:10px;height:100%;background-color:#DEDFE1;
 					width:100%">
 					<center>
 						<div class="col-md-4">
@@ -161,7 +160,7 @@
 						
 					</li>
 					
-					<li><a href="#">Create Tabs Strips</a></li>
+					<!--<li><a href="#">Create Tabs Strips</a></li>-->
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
 						onclick='getRoles("choose_role",$("#choose_ou").val());

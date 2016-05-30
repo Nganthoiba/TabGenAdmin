@@ -122,8 +122,9 @@ label {color:#848484; font-weight:normal}
  * 
  * background-color:#FAFAFA; */
 body {
+	background-color:#819FF7;
    font-family: Arial, Helvetica, sans-serif, calibri;
-   font-size: 15px;
+   font-size: 15px;padding-top:3px;
 }
 
 
