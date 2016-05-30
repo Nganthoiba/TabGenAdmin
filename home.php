@@ -203,11 +203,11 @@
 								});
 							</script>	
 						</table>
-						<div> &nbsp; </div>
 					</div>
 					<!--<div class="pull-right">
 						<Button type="button" id="viewAllOrgLists" class="btn btn-link">VIEW ALL</Button>
-					</div>	-->				
+					</div>	-->	
+					<div> &nbsp; </div>			
 				</div>	
 				<div class="box">
 					<div class="heading">Organisation Units
@@ -232,11 +232,11 @@
 								});					
 							</script>	
 						</table>
-						<div> &nbsp; </div>
 					</div>			
 					<!--<div class="pull-right">
 						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
-					</div>-->	
+					</div>-->
+					<div> &nbsp; </div>	
 				</div>
 			</div>
 		</div>
@@ -709,9 +709,7 @@
 											<table class="table table-striped" id="associated_tabs">
 											
 											</table>
-											<div>&nbsp;</div>
 										</div>
-										<div>&nbsp;</div>
 										<script type="text/JavaScript">
 											$(document).ready(function(){
 												//getAssociatedTabs("associated_tabs");
@@ -809,9 +807,7 @@
 												});
 											</script>
 											</table>
-											<div>&nbsp;</div>
 										</div>
-										<div>&nbsp;</div>
 									</div>
 								</div>									
 							</div>

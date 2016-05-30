@@ -359,7 +359,7 @@ $(document).ready(function (){
 								{
 									$("#error2").css('color', 'green');
 									$("#error2").html("<center>Organization Unit Created</center>");
-									viewOrgUnits("list","showOrgUnits","few");
+									viewOrgUnits("list","showOrgUnits","all");
 									viewOrgUnits("dropdown","ousel","all");/*this will display drop down list of 
 									organisation units at the popup dialog for creating role*/
 									viewOrgUnits("dropdown","OrgUnitList","all");/*this will display drop down list of 
