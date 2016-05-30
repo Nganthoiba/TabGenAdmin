@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
 	<!--<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/simple-sidebar.css">
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="js/jquery.min.js"></script>
@@ -41,16 +42,7 @@
 	</script>
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
 	<style type="text/css">		
-		.circular {
-					width: 70px;
-					height: 70px;
-					border-radius: 150px;
-					-webkit-border-radius: 150px;
-					-moz-border-radius: 150px;
-					box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-					-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-					-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-		}
+		
 		.my_background {
 			background-color:#90C6F3; color:#292928;padding-top:5px;width:100%;
 				padding-bottom:5px;padding-left:10px;padding-right:10px;border-radius:3px
@@ -84,80 +76,77 @@
                 $user_email= $user_data->email;
 						
 	?>
-	
-	<nav  class="navbar navbar-inverse navbar-fixed-top"
-		style="height:60px;padding-top:10px;padding-bottom:10px;
-		background-color:#FFFFFF;color:#f7f7f7;width:100%" >
-		<!--class="navbar navbar-default navbar-fixed-top"
-		style="height:60px;padding-top:10px;padding-bottom:10px;background-color:#819FF7;color:#f7f7f7;position:fixed-top"-->
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" 
-			aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar">ABC</span>
-            <span class="icon-bar">XYZ</span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="#" class="navbar-brand">H Circle</a>  
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Edit Profiles</a></li>
-			<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
-          </ul>    
-        </div>
-      </div>
-    </nav>
-	<div class="container-fluid" ><br/>
-		<div class="row"><!--class="row"-->
-			<div class="col-sm-3 col-md-2 sidebar">
-			<!--<div class="col-md-2"style="background-color:#F2F2F2;border-radius:5px">
-				background-color:#DEDFE1;
-			-->
-				<div class="nav nav-header" 
-					style="padding-top:10px;padding-bottom:10px;height:100%;background-color:#DEDFE1;
-					width:100%">
-					<center>
-						<div class="col-md-4">
-							<img src="img/user.png" class="circular" alt="No profile Image found"/>			
-						</div>
-					</center>	
-				</div>
-				<div style="background-color:#2D79D7; color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
-					<?php echo $user_name; ?>
-				</div>
-				<!--nav nav-sidebar class="nav nav-tabs nav-stacked"-->
-				<ul class="nav nav-tabs nav-stacked nav-fixed" style="-moz-box-shadow: 0px 2px 2px rgba(0.3, 0, 0, 0.3);
-															padding-top:10px;
-															width:100%;height:100%;
-															background-color:#FFFFFF;
-														box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);">
-					<li><a href="#" data-toggle="modal" data-target="#createorg" 
-						onclick="refresh_all_entries();">Create Organization</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#createorgunit"
-						onclick="refresh_all_entries();">Create Organization Unit</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#createrole"
-						onclick="refresh_all_entries();">Create Roles</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#create_tab_modal"
-						onclick='getRoles("role_selector",$("#ou_selector").val());refresh_all_entries();'>Create Tabs</a></li>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+	  <div class="container-fluid">	
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">HCircle</a>
+		</div>
+		<!--
+			<ul class="nav navbar-nav">
+			  <li class="active"><a href="#">Home</a></li>
+			  <li><a href="#">Page 1</a></li>
+			  <li><a href="#">Page 2</a></li> 
+			</ul>cdca
+		-->
+		<ul class="nav navbar-nav navbar-right">
+		  <li><a href="#">
+			  <span class="glyphicon glyphicon-user"></span>
+			  Edit Profiles</a>
+		  </li>
+		  <li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">
+			  <span class="glyphicon glyphicon-log-out"></span>logout</a>
+		  </li>
+		</ul>
+	  </div>
+	</nav>
+	<div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li>
+                    <div style="padding-top:10px">
+						<img src="img/user.png" class="circular" alt="No profile Image found"/>
+                    </div>
+                </li>
+                <li>
+					<div style="color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
+						<?php echo $user_name; ?>
+					</div>
+                </li>
+                <li>
+					<a href="#" data-toggle="modal" data-target="#createorg" 
+						onclick="refresh_all_entries();">Create Organization</a>
+				</li>
+				<li>
+					<a href="#" data-toggle="modal" data-target="#createorgunit"
+						onclick="refresh_all_entries();">Create Organization Unit</a>
+				</li>
+				<li>
+					<a href="#" data-toggle="modal" data-target="#createrole"
+						onclick="refresh_all_entries();">Create Roles</a>
+				</li>
+				<li>
+					<a href="#" data-toggle="modal" data-target="#create_tab_modal"
+						onclick='getRoles("role_selector",$("#ou_selector").val());refresh_all_entries();'>Create Tabs</a>
+				</li>
 					<!--<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
 						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Create OU Specific Tabs</a>
 					</li>-->
-					<li>
-						  <a href='#' type="button" data-toggle="collapse" data-target="#user_options">Users
-						  <span class="caret"></span></a>
-						  <div id="user_options" class="collapse">
-						  <ul class="nav nav-tabs nav-stacked nav-fixed">
+				<li>
+					<a href='#' type="button" data-toggle="collapse" data-target="#user_options">Users
+						  <span class="caret"></span>
+					</a>
+					<div id="user_options" class="collapse">
+						<ul class="nav nav-tabs nav-stacked nav-fixed">
 							<li><a href="#" data-toggle="modal" data-target="#createuser" 
 								onclick='getRoles("UserRole",$("#OrgUnitList").val());refresh_all_entries();return false;'>
-								Create Users</a></li>
-							<!--<li role="presentation" class="divider"></li>-->
+									Create Users</a></li>
+								<!--<li role="presentation" class="divider"></li>-->
 							<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show Users</a></li>
-						  </ul>
-						  </div>
-						
-					</li>
+						</ul>
+					</div>	
+				</li>
 					
 					<!--<li><a href="#">Create Tabs Strips</a></li>-->
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
@@ -165,20 +154,14 @@
 						onclick='getRoles("choose_role",$("#choose_ou").val());
 								 getRoles("choose_role2",$("#choose_ou2").val());'>
 								 Associate Tabs to Role</a></li>
-								 
-					<!--
-						getTabs("list_of_tabs");
-						getAssociatedTabs("associated_tabs");
-					-->
-					<!--<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
-						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Update Tabs</a>
-					</li>-->
-					
-				</ul>
-			</div>
-			<div><!--class="col-md-8"-->
-				<div class="box">	
-					<div class="heading">
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="box">	
+				<div class="heading">
 							Organisations
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
@@ -189,9 +172,9 @@
 									 <span class="glyphicon glyphicon-search"></span>
 								</button>
 							</form>-->
-					</div>
-					<div class="inner_box">
-						<table  class='table' cellspacing="10" 
+				</div>
+				<div>
+					<table  class='table' cellspacing="10" 
 							id="showOrgsList" border='0' style="padding-top:20px">
 							<script>
 								$(document).ready(function(){
@@ -199,15 +182,15 @@
 									viewOrgs("list","showOrgsList","all");
 								});
 							</script>	
-						</table>
-					</div>
+					</table>
+				</div>
 					<!--<div class="pull-right">
 						<Button type="button" id="viewAllOrgLists" class="btn btn-link">VIEW ALL</Button>
 					</div>	-->	
 					<div> &nbsp; </div>			
-				</div>	
-				<div class="box">
-					<div class="heading">Organisation Units
+			</div>
+			<div class="box">
+				<div class="heading">Organisation Units
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;padding-top:0px"
@@ -217,27 +200,29 @@
 								  <span class="glyphicon glyphicon-search"></span>
 								</button>
 							</form>-->
-					</div>
-					<div class="inner_box">		
-						<table  class='table' cellspacing="10" 
+				</div>
+				<div>		
+					<table  class='table' cellspacing="10" 
 							
-							id="showOrgUnits" border="0" style="padding-top:20px">
-							<script>
+						id="showOrgUnits" border="0" style="padding-top:20px">
+						<script>
 								$(document).ready(function(){
 									document.getElementById("showOrgUnits").innerHTML="<br/><br/><center><img src='img/loading_data.gif'/></center>";
 									viewOrgUnits("list","showOrgUnits","all");
 								});					
-							</script>	
-						</table>
-					</div>			
+						</script>	
+					</table>
+				</div>			
 					<!--<div class="pull-right">
 						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
 					</div>-->
-					<div> &nbsp; </div>	
-				</div>
+				<div> &nbsp; </div>	
 			</div>
-		</div>
-	</div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
 
 <!--- popup start for each one -->
 <!-- Modal for create Organization -->

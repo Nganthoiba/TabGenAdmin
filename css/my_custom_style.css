@@ -115,14 +115,14 @@ label {color:#848484; font-weight:normal}
 	cursor: pointer
 }
 /*
- * Base structure
+ * Base structure cdacaca
  */
 
 /* Move down content because we have a fixed navbar that is 50px tall
  * 
  * background-color:#FAFAFA; */
 body {
-	background-color:#819FF7;
+	background-color:#F7F7F7;
    font-family: Arial, Helvetica, sans-serif, calibri;
    font-size: 15px;padding-top:45px;
 }
@@ -159,7 +159,7 @@ body {
 .box {
     float: left;
     margin: 5px;
-    width: 40%;
+    width: 100%;
     border-radius:5px;
     border: 0px solid #FFFFFF;
     background-color:#FFFFFF
@@ -182,4 +182,19 @@ body {
    width: 300px;
    height: 300px;
    border: 1px solid black;
+}
+.circular {
+					width: 70px;
+					height: 70px;
+					border-radius: 150px;
+					-webkit-border-radius: 150px;
+					-moz-border-radius: 150px;
+					box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+					-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+					-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+		}
+.small_circular_image {
+	width: 30px;
+	height: 30px;
+	border-radius: 150px;
 }
