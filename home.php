@@ -85,12 +85,12 @@
 						
 	?>
 	
-	<!--<nav  class="navbar navbar-inverse navbar-fixed-top"
+	<nav  class="navbar navbar-inverse navbar-fixed-top"
 		style="height:60px;padding-top:10px;padding-bottom:10px;
-		background-color:#FFFFFF;color:#f7f7f7;width:100%" >-->
+		background-color:#FFFFFF;color:#f7f7f7;width:100%" >
 		<!--class="navbar navbar-default navbar-fixed-top"
 		style="height:60px;padding-top:10px;padding-bottom:10px;background-color:#819FF7;color:#f7f7f7;position:fixed-top"-->
-      <!--<div class="container-fluid">
+      <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" 
 			aria-expanded="false" aria-controls="navbar">
@@ -103,13 +103,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Help</a></li>
+            <li><a href="#">Edit Profiles</a></li>
+			<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
           </ul>    
         </div>
       </div>
-    </nav>-->
+    </nav>
 	<div class="container-fluid" ><br/>
 		<div class="row"><!--class="row"-->
 			<div class="col-sm-3 col-md-2 sidebar">
@@ -174,8 +173,7 @@
 					<!--<li><a href="#" data-toggle="modal" data-target="#assocTab2Template"
 						onclick='getRoles("roleSelect",$("#orgUnitSelect").val());return false;'>Update Tabs</a>
 					</li>-->
-					<li><a href="#">Edit Profiles</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">logout</a></li>
+					
 				</ul>
 			</div>
 			<div><!--class="col-md-8"-->
