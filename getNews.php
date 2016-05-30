@@ -41,7 +41,7 @@ if(!empty($_GET['user_id'])){
 					if($count>0){
 						//$output[]=array($team_name=>$channels);
 						//$accessible_teams[]=$team_name;
-						$output->team_list=$team_name;
+						$output->team_list[]=$team_name;
 						$output->$team_name=$channels;
 					}
 				}		
