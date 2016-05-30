@@ -48,9 +48,9 @@ if(!empty($_GET['user_id'])){
 		}
 		
 		//$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
-		/*$final_array->team_list=$accessible_teams;
-		$final_array->channels=$output;*/
-		print json_encode($output);
+		$final_array->team_list=$accessible_teams;
+		$final_array->channels=$output;
+		print json_encode($final_array);
 	}	
 }
 
