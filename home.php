@@ -110,15 +110,22 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
+			<center>
+				<div style="padding-top:10px"><img src="img/user.png" class="circular" alt="No profile Image found"/></div>
+			</center>
+				<!--<div style="color:#f7f7f7;background-color:#5061DC;width:100%; 
+						padding-left:5px;padding-right:5px;padding-top:10px;padding-bottom:10px;" id="userID" >
+					<?php /*echo $user_name;*/?>
+				</div>-->
+			
             <ul class="sidebar-nav">
-				<li class="sidebar-brand">
-					<div style="padding-top:10px"><img src="img/user.png" class="circular" alt="No profile Image found"/></div>
-				</li>
+				<br/><br/><br/>
 				<li class="sidebar-brand">
 				</li>
 				<li class="sidebar-brand">
-					<div style="color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
-						<?php echo $user_name;?>
+					<div style="color:#f7f7f7;background-color:#5061DC;width:100%; 
+						padding-left:5px;padding-right:5px;">
+							<?php echo $user_name;?>
 					</div>
 				</li>
                 <li>
@@ -278,7 +285,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
 				<h4 class="modal-title" id="myModalLabel">Create Organization Unit</h4>
 			</div>
 			<div class="modal-body">
@@ -336,7 +343,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
 				<h4 class="modal-title" id="myModalLabel">Create Role</h4>
 			</div>
 			<div class="modal-body">
@@ -434,7 +441,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
 				<h4 class="modal-title" id="myModalLabel">Create User</h4>
 			</div>
 			<div class="modal-body">
@@ -442,9 +449,9 @@
 					<div class="panel panel-info">
 						<div class="panel-body">
 							<div class="form-group">
-								<label for="displayname" class="col-sm-4  control-label">Display Name</label>
+								<label for="displayname" class="col-sm-4  control-label">Full Name</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control"  placeholder="User full name" id="user_displayname">
+									<input type="text" class="form-control"  placeholder="Full name" id="user_displayname">
 								</div>
 							</div>
 							<div class="form-group">
@@ -523,7 +530,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
+					<span class="glyphicon glyphicon-remove"></span>
 				</button>
 				<h4 class="modal-title" id="myModalLabel">Create Tabs Template</h4>
 			</div>
@@ -560,7 +567,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
 				<h4 class="modal-title" id="myModalLabel">Create Tabs</h4>
 			</div>
 			<div class="modal-body">
@@ -636,7 +643,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span></button>
+					<span class="glyphicon glyphicon-remove"></span></button>
 				<h3 class="modal-title" id="myModalLabel">Associate Tabs to Roles</h3>
 			</div>
 			<div class="modal-body">
@@ -836,7 +843,8 @@
 								<td>&nbsp;&nbsp;&nbsp;</td>
 								<td>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span></button>
+										<span class="glyphicon glyphicon-remove"></span>
+									</button>
 								</td>
 							</tr>
 						</table>
@@ -893,11 +901,6 @@
 <div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
-			<!--<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Logout Confirmation</h4>
-			</div>-->
 			<div class="modal-body">
 				<div class="alert alert-danger">
 				  <center><strong>Logout! &nbsp;</strong> Are you sure?</center>

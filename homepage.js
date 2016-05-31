@@ -393,7 +393,7 @@ $(document).ready(function (){
 			$("#error3").text(" ");
 		});
         $('#btnrole').click(function() {
-			var rolaname=$("#rolaname").val();
+			var rolaname=($("#rolaname").val()).trim();
 			var ousel =$("#ousel").val();
 			var access =document.getElementById("access_yes").checked;
 			//var access =$("#access_yes").val();
@@ -437,8 +437,8 @@ $(document).ready(function (){
 /*JavaScript for creating users*/
 	$(document).ready(function(){
 		$('#CreateUser').click(function(){
-			var user_displayname = $("#user_displayname").val();
-			var username = $("#username").val();
+			var user_displayname = ($("#user_displayname").val()).trim();
+			var username = ($("#username").val()).trim();
 			var password = $("#password").val();
 			var conf_pwd = $("#conf_pwd").val();
 			var email = $("#email").val();
@@ -447,27 +447,28 @@ $(document).ready(function (){
 			var is_universal = document.getElementById("universal_access_yes").checked;//if the user has access across all other OU
 			//var type = true;
 			if(user_displayname.length==0){
-				document.getElementById("error4").innerHTML="Give the full name";
+				document.getElementById("error4").innerHTML="<b>Full name is blank</b>";
 				document.getElementById("error4").style.color="red";
 				return false;
 			}
 			else if(user_displayname.length<5){
-				document.getElementById("error4").innerHTML="Full name is too short, make it at least 5 characters long.";
+				document.getElementById("error4").innerHTML="<b>Full name is too short, make it at least 5 characters long.</b>";
 				document.getElementById("error4").style.color="red";
 				return false;
 			}
 			else if(username.length==0){
-				document.getElementById("error4").innerHTML="Username is blank";
+				document.getElementById("error4").innerHTML="<b>Username is blank</b>";
 				document.getElementById("error4").style.color="red";
 				return false;
 			}
 			else if(username.length<5){
-				document.getElementById("error4").innerHTML="Username is too short, make it atleast 5 characters long.";
+				document.getElementById("error4").innerHTML="<b>Username is too short, make it atleast 5 characters long.</b>";
 				document.getElementById("error4").style.color="red";
 				return false;
 			}
 			else if(hasWhiteSpace(username)){
-				document.getElementById("error4").innerHTML="Invalid Username! No blank space is allowed in the middle of the text while entering username.";
+				document.getElementById("error4").innerHTML="<b>Invalid Username! No blank space is allowed in the"+
+					" middle of the text while entering username.</b>";
 				document.getElementById("error4").style.color="red";
 				return false;
 			}
