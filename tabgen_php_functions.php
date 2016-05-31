@@ -338,7 +338,7 @@ function getChannelByName($conn,$channel_name){
 
 //function to check if tab name already exists
 function isTabExist($conn,$tab_name){
-	$query = "select count(*) as count from Tab where Name='$tab_name'";
+	$query = "select count(*) as count from Tab where Name='$tab_name' and DeleteAt=0";
 	$res = $conn->query($query);
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	if((int)$row['count']>0){

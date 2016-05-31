@@ -79,7 +79,14 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
 	  <div class="container-fluid">	
 		<div class="navbar-header">
-		  <a class="navbar-brand" href="#">HCircle</a>
+			<a class="navbar-brand" href="#">
+			  <!--<img src="img/user.png" class="small_circular_image" alt="No profile Image found"/>-->
+			</a>
+			<a class="navbar-brand" href="#">
+				<!--<div style="color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
+					<?php /*echo $user_name;*/ ?>
+				</div>-->
+			</a>
 		</div>
 		<!--
 			<ul class="nav navbar-nav">
@@ -91,10 +98,10 @@
 		<ul class="nav navbar-nav navbar-right">
 		  <li><a href="#">
 			  <span class="glyphicon glyphicon-user"></span>
-			  Edit Profiles</a>
+			   Edit Profiles</a>
 		  </li>
 		  <li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">
-			  <span class="glyphicon glyphicon-log-out"></span>logout</a>
+			  <span class="glyphicon glyphicon-log-out"></span> logout</a>
 		  </li>
 		</ul>
 	  </div>
@@ -104,16 +111,11 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li>
-                    <div style="padding-top:10px">
-						<img src="img/user.png" class="circular" alt="No profile Image found"/>
-                    </div>
-                </li>
-                <li>
-					<div style="color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
-						<?php echo $user_name; ?>
-					</div>
-                </li>
+				<li class="sidebar-brand">
+					<div style="padding-top:10px"><img src="img/user.png" class="circular" alt="No profile Image found"/></div>
+				</li>
+				<li class="sidebar-brand">
+				</li>
                 <li>
 					<a href="#" data-toggle="modal" data-target="#createorg" 
 						onclick="refresh_all_entries();">Create Organization</a>
@@ -128,25 +130,29 @@
 				</li>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#create_tab_modal"
-						onclick='getRoles("role_selector",$("#ou_selector").val());refresh_all_entries();'>Create Tabs</a>
+						onclick='getRoles("role_selector",$("#ou_selector").val());refresh_all_entries();'>Create a tab</a>
 				</li>
-					<!--<li><a href="#" data-toggle="modal" data-target="#assocRole2Tab"
-						onclick='getRoles("sel_roles",$("#sel_org_unit_role_tab").val());return false;'>Create OU Specific Tabs</a>
-					</li>-->
+					
 				<li>
+					<a href="#" data-toggle="modal" data-target="#">Show tabs</a>
+				</li>
+				<li><a href="#" data-toggle="modal" data-target="#createuser" 
+								onclick='getRoles("UserRole",$("#OrgUnitList").val());refresh_all_entries();return false;'>
+									Create a user</a>
+				</li>
+								<!--<li role="presentation" class="divider"></li>-->
+				<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show users</a></li>
+					
+				<!--<li>
 					<a href='#' type="button" data-toggle="collapse" data-target="#user_options">Users
 						  <span class="caret"></span>
 					</a>
 					<div id="user_options" class="collapse">
 						<ul class="nav nav-tabs nav-stacked nav-fixed">
-							<li><a href="#" data-toggle="modal" data-target="#createuser" 
-								onclick='getRoles("UserRole",$("#OrgUnitList").val());refresh_all_entries();return false;'>
-									Create Users</a></li>
-								<!--<li role="presentation" class="divider"></li>-->
-							<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show Users</a></li>
+							
 						</ul>
 					</div>	
-				</li>
+				</li>-->
 					
 					<!--<li><a href="#">Create Tabs Strips</a></li>-->
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
@@ -231,7 +237,8 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span></button>
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
 				<h4 class="modal-title" id="myModalLabel">Create Organization</h4>
 			</div>
 			<div class="modal-body">
@@ -845,7 +852,11 @@
 								{
 									$("#user_display_content").html("<center><p>Type a username</p></center>");
 								}
-								else findUsers("user_display_content",user_name);
+								else {
+									findUsers("user_display_content",user_name);
+								}
+								$("#view_all_users_display").html("<Button class='btn btn-default' "+
+										"id='view_all_users' onclick='getAll()';>VIEW ALL</Button>");
 							}
 							$(document).ready(function(){
 								getAllUsers("user_display_content");
@@ -854,20 +865,20 @@
 									find();
 									return false;
 								});
-								
-								$("#view_all_users").click(function(){
-									$("#user_display_content").html("<center><p>Wait Please...</p></center>");
-									getAllUsers("user_display_content");
-									return false;
-								});
 							});
+							function getAll(){
+								$("#user_display_content").html("<center><p>Wait Please...</p></center>");
+								getAllUsers("user_display_content");
+								$("#view_all_users_display").html(" ");
+								return false;
+							}
 						</script>
 					<div id="user_display_content" style="max-width:100%; min-height:50%; overflow:hidden;overflow-x:auto">
 								Content goes here....
 					</div>	
 			</div>
 			<div class='modal-footer'>
-				<div class="pull-right"><Button class="btn btn-link" id="view_all_users">VIEW ALL</Button></div>
+				<div class="pull-right" id="view_all_users_display"> </div>
 			</div>
 		</div>
 	</div>
