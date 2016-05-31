@@ -1353,16 +1353,19 @@ $(document).ready(function(){
 			for(var i=0;i<resp_arr.length;i++){
 				var created_date = new Date(parseFloat(resp_arr[i].CreateAt));
 				var updated_date = new Date(parseFloat(resp_arr[i].UpdateAt));
+				/*
+				 * for displaying user id
+				 * "<div class='form-group'>"+
+										"<label class='col-sm-4'>ID : </label>"+
+										"<div class='col-sm-4'><div>"+resp_arr[i].Id+"</div></div>"+
+									"</div>"+
+				*/
 				layout+="<tr>"+
 							"<td width='10%'>"+
 								"<img src='img/user.png' class='circular' alt='No profile Image found'/>"+
 							"</td>"+
 							"<td width='60%'>"+
 								"<form class='form-horizontal'>"+
-									"<div class='form-group'>"+
-										"<label class='col-sm-4'>ID : </label>"+
-										"<div class='col-sm-4'><div>"+resp_arr[i].Id+"</div></div>"+
-									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Display Name : </label>"+
 										"<div class='col-sm-4' id='user_display_name"+i+"'>"+resp_arr[i].FirstName+"</div>"+
