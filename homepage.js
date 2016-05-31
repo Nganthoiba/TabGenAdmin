@@ -1044,6 +1044,9 @@ $(document).ready(function(){
 							"<br/><b>OU Specific:</b> "+ou_specific+
 							"</div>"+
 						"</td>"+
+						"</tr>";
+						/*
+						   
 						"<td align='right'>"+
 							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
 							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
@@ -1056,8 +1059,8 @@ $(document).ready(function(){
 						"<td align='right'>"+
 								"<Button type='button' style='height: 40px;' class='btn btn-link' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
 								"<span class='glyphicon glyphicon-remove'></span></Button>"+
-						"</td></tr>";
-						/*
+						"</td>"+
+						 * 
 						 * 
 						"<td>"+
 							"<div>"+json_arr[i].Template_Name+"</div>"+
