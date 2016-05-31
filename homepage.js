@@ -1359,6 +1359,21 @@ $(document).ready(function(){
 										"<label class='col-sm-4'>ID : </label>"+
 										"<div class='col-sm-4'><div>"+resp_arr[i].Id+"</div></div>"+
 									"</div>"+
+									* 
+				  for displaying Org, OU, and accessibility
+				  * 
+				  * "<div class='form-group'>"+
+										"<label class='col-sm-4'>Organisation Unit : </label>"+
+										"<div class='col-sm-4'>"+resp_arr[i].OrganisationUnit+"</div>"+
+									"</div>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4'>Organisation Name : </label>"+
+										"<div class='col-sm-4'>"+resp_arr[i].Organisation+"</div>"+
+									"</div>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4'>Has access across all other OU : </label>"+
+										"<div class='col-sm-4'>"+yesOrNo(resp_arr[i].UniversalAccess)+"</div>"+
+									"</div>"+ 
 				*/
 				layout+="<tr>"+
 							"<td width='10%'>"+
@@ -1381,18 +1396,6 @@ $(document).ready(function(){
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Role : </label>"+
 										"<div class='col-sm-4'>"+resp_arr[i].Roles+"</div>"+
-									"</div>"+
-									"<div class='form-group'>"+
-										"<label class='col-sm-4'>Organisation Unit : </label>"+
-										"<div class='col-sm-4'>"+resp_arr[i].OrganisationUnit+"</div>"+
-									"</div>"+
-									"<div class='form-group'>"+
-										"<label class='col-sm-4'>Organisation Name : </label>"+
-										"<div class='col-sm-4'>"+resp_arr[i].Organisation+"</div>"+
-									"</div>"+
-									"<div class='form-group'>"+
-										"<label class='col-sm-4'>Has access across all other OU : </label>"+
-										"<div class='col-sm-4'>"+yesOrNo(resp_arr[i].UniversalAccess)+"</div>"+
 									"</div>"+
 								"</form>"+
 							"</td>"+
