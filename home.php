@@ -116,6 +116,11 @@
 				</li>
 				<li class="sidebar-brand">
 				</li>
+				<li class="sidebar-brand">
+					<div style="color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
+						<?php echo $user_name;?>
+					</div>
+				</li>
                 <li>
 					<a href="#" data-toggle="modal" data-target="#createorg" 
 						onclick="refresh_all_entries();">Create Organization</a>
