@@ -1,16 +1,11 @@
 <?php
 include('connect_db.php');
 include('tabgen_php_functions.php');
-session_start();
-if(isset($_SESSION['user_details'])){
-	$user_details = json_decode($_SESSION['user_details']);
-	$created_by = $user_details->username;
-	
+
 	if($conn){
 			$query = "SELECT Tab.*,TabTemplate.Name as Template_Name 
 						FROM Tab,TabTemplate
 						where Tab.TabTemplate=TabTemplate.Id and
-							Tab.CreatedBy='$created_by' and
 							Tab.DeleteAt=0
 						order by Tab.CreateAt desc";
 			$res = $conn->query($query);
@@ -42,8 +37,6 @@ if(isset($_SESSION['user_details'])){
 				echo json_encode($output);
 	}
 	else echo "false";
-}
-else 
-	echo "Sesssion_expired";
+
 
 ?>
