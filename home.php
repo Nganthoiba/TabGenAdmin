@@ -39,6 +39,12 @@
 				$(".modal:visible").each(alignModal);
 			});   
 		});*/
+		$(document).ready(function(){
+			$("#menu-toggle").click(function(e) {
+				e.preventDefault();
+				$("#wrapper").toggleClass("toggled");
+			});
+		});
 	</script>
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
 	<style type="text/css">		
@@ -76,38 +82,38 @@
                 $user_email= $user_data->email;
 						
 	?>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-	  <div class="container-fluid">	
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">
-			  <!--<img src="img/user.png" class="small_circular_image" alt="No profile Image found"/>-->
-			</a>
-			<a class="navbar-brand" href="#">
-				<!--<div style="color:#f7f7f7;width:100%; padding-left:5px;padding-right:5px;padding-top:10px" id="userID" >
-					<?php /*echo $user_name;*/ ?>
-				</div>-->
-			</a>
-		</div>
-		<!--
-			<ul class="nav navbar-nav">
-			  <li class="active"><a href="#">Home</a></li>
-			  <li><a href="#">Page 1</a></li>
-			  <li><a href="#">Page 2</a></li> 
-			</ul>cdca
-		-->
-		<ul class="nav navbar-nav navbar-right">
-		  <li><a href="#">
-			  <span class="glyphicon glyphicon-user"></span>
-			   Edit Profiles</a>
-		  </li>
-		  <li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">
-			  <span class="glyphicon glyphicon-log-out"></span> logout</a>
-		  </li>
-		</ul>
-	  </div>
-	</nav>
+    
 	<div id="wrapper">
-
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+		  <div class="container-fluid">					 
+			<div class="navbar-header"> 
+				<a class="navbar-brand" href="#">
+				  <!--<img src="img/user.png" class="small_circular_image" alt="No profile Image found"/>
+						<a class="btn btn-default" href="#menu-toggle" id="menu-toggle">
+								<span class="glyphicon glyphicon-align-justify"></span>
+						</a>
+				  -->
+					<span class="glyphicon glyphicon-align-justify" href="#menu-toggle" id="menu-toggle"></span>
+				</a>
+			</div>
+			<!--
+				<ul class="nav navbar-nav">
+				  <li class="active"><a href="#">Home</a></li>
+				  <li><a href="#">Page 1</a></li>
+				  <li><a href="#">Page 2</a></li> 
+				</ul>cdca
+			-->
+			<ul class="nav navbar-nav navbar-right">
+			  <li><a href="#">
+				  <span class="glyphicon glyphicon-user"></span>
+				   Edit Profiles</a>
+			  </li>
+			  <li><a href="#" data-toggle="modal" data-target="#logoutConfirmation">
+				  <span class="glyphicon glyphicon-log-out"></span> logout</a>
+			  </li>
+			</ul>
+		  </div>
+		</nav>
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
 			<center>
@@ -178,6 +184,7 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
+			<div class="container-fluid">
             <div class="box">	
 				<div class="heading">
 							Organisations
@@ -195,7 +202,7 @@
 					<table  class='table' cellspacing="10" 
 							id="showOrgsList" border='0' style="padding-top:20px">
 							<script>
-								$(document).ready(function(){
+								$(document).ready(function(){									
 									document.getElementById("showOrgsList").innerHTML="<br/><br/><center><img src='img/loading_data.gif'/></center>";
 									viewOrgs("list","showOrgsList","all");
 								});
@@ -235,6 +242,7 @@
 						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
 					</div>-->
 				<div> &nbsp; </div>	
+			</div>
 			</div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -836,7 +844,7 @@
 										placeholder="Type a Username Here"/>
 								</td>
 								<td>
-									<button type="submit" class="btn btn-primary" id="findUser">
+									<button type="submit" class="btn btn-default" id="findUser">
 									<span class="glyphicon glyphicon-search"></span>
 									</button>
 								</td>
