@@ -947,11 +947,18 @@
 <div class="modal fade" id="display_tab_layout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
-			<div class="modal-body">
-				<div class="modal-header">
-				  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
 				<h4 class="modal-title" id="myModalLabel">List of Tabs created:</h4>
-				</div>
+			</div>
+			<div class="modal-body">
+				<table class="table table-striped" id="get_all_tabs">
+					<script type="text/JavaScript">
+						$(document).ready(function(){
+							getAllTabs("get_all_tabs");
+						});
+					</script>						
+				</table>
 			</div>	
 		</div>
 	</div>

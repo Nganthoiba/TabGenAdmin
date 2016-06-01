@@ -922,7 +922,7 @@ $(document).ready(function(){
 	function getEditRolePopupContent(index){
 		return $("#edit_role_popover"+index).html();
 	}
-	
+	/* function to get tabs for seleted OU and Role */
 	function getTabs(id){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
@@ -1094,6 +1094,156 @@ $(document).ready(function(){
 			}
 		});
 	}
+	
+	function getAllTabs(id){
+		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
+		document.getElementById(id).style.color="#A4A4A4";
+		
+		var ou = document.getElementById("choose_ou2").value;
+		var role_name = document.getElementById("choose_role2").value;
+		//alert(ou);
+		$.ajax({
+			url: "getAllTabs.php",
+			type: "GET",
+			success: function(resp){
+				if(resp.trim()=="false"){
+					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
+				}
+				else if(resp.trim()=="sesssion_expired!"){
+					document.getElementById(id).innerHTML="<h1>Oops! Session expired, Please Login again.</h1>";
+				}
+				else if(resp.trim()=="null"){
+					document.getElementById(id).innerHTML="<br/><div>"+
+					"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
+					"<br/>No tab exists for this role</h1></div>";
+					document.getElementById(id).style.color="#FE642E";
+				}
+				else{
+					var json_arr = JSON.parse(resp);
+					var layout=" ";
+					var popup_content_form=" ";
+					var i;
+					for(i=0;i<json_arr.length;i++){
+						var btn_class;
+						var OU = json_arr[i].OU;
+						var RoleName = json_arr[i].RoleName;
+						var ou_specific=" ";
+						if(parseInt(json_arr[i].OU_Specific) == 0){
+							btn_class="btn btn-warning";
+							ou_specific="No";
+						}	
+						else{
+							btn_class="btn btn-success";
+							ou_specific="Yes";
+						}
+						prev_tab_name[i] = 	json_arr[i].Name;
+						if(json_arr[i].Template_Name=="Chat Template"){
+							popup_content_form="<form class='form-horizontal' role='form'"+
+								"style='max-width:300px;min-width:250px'>"+
+									"<div>"+
+											"<label>Tab Name</label>"+
+											"<input type='text' value='"+json_arr[i].Name+"'"+
+											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
+													
+									"</div>"+
+									"<div><br/>"+
+											"<button type='button' class='btn btn-info'"+ 
+														"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
+															"\",\""+json_arr[i].Template_Name+"\")'"+
+														"id='saveTabName"+i+"'"+
+														"style='float:right'>Save</button>"+
+									"</div>"+
+									"<div style='height:50px'>"+
+										"<br/><span id='upadate_tab_resp"+i+"'></span>"+
+									"</div>"+
+								"</form>";
+						}
+						else if(json_arr[i].Template_Name=="Latest News Template" || json_arr[i].Template_Name=="Latest News Template"){
+							popup_content_form="<form class='form-horizontal' role='form'>"+
+								"<div>"+
+									"<label>Tab Name</label>"+
+										"<input type='text' value='"+json_arr[i].Name+"'"+
+											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
+								"</div>"+
+								"<div>"+
+									"<label>Contents</label>"+
+									"<textarea rows='4' cols='50' class='form-control' id='contents_id"+i+"'"+
+										"placeholder='Paste your html contents here'>"+
+										json_arr[i].news_details+
+									"</textarea>"+
+								"</div>"+
+								"<div><br/>"+
+									"<button type='button' class='btn btn-info'"+ 
+											"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
+															"\",\""+json_arr[i].Template_Name+"\")'"+
+											"id='saveTabName"+i+"'"+
+											"style='float:right'>Save</button>"+
+								"</div>"+
+								"<div style='height:50px'>"+
+									"<br/><span id='upadate_tab_resp"+i+"'></span>"+
+								"</div>"+
+							"</form>";
+						}
+						else{
+							popup_content_form="<form class='form-horizontal' role='form'"+
+								"style='max-width:300px;min-width:250px'>"+
+									"<div>"+
+											"<label>Tab Name</label>"+
+											"<input type='text' value='"+json_arr[i].Name+"'"+
+											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
+													
+									"</div>"+
+									"<div><br/>"+
+											"<button type='button' class='btn btn-info'"+ 
+														"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
+															"\",\""+json_arr[i].Template_Name+"\")'"+
+														"id='saveTabName"+i+"'"+
+														"style='float:right'>Save</button>"+
+									"</div>"+
+									"<div style='height:50px'>"+
+										"<br/><span id='upadate_tab_resp"+i+"'></span>"+
+									"</div>"+
+								"</form>";
+						}
+						layout+= "<tr>"+
+						"<td>"+
+							"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+							"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
+							"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+							"<br/><b>OU Specific:</b> "+ou_specific+
+							"</div>"+
+						"</td>"+
+						"<td align='right'>"+
+							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
+							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
+							"<div class='container' style='width:20px'>"+
+								"<div class='hide' style='max-width:300px;min-width:250px' id='popover-content"+i+"'>"+
+									popup_content_form+
+								"</div>"+
+							"</div>"+
+						"</td>"+
+						"<td align='right'>"+
+								"<Button type='button' style='height: 40px;' class='btn btn-link' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+								"<span class='glyphicon glyphicon-remove'></span></Button>"+
+						"</td>"+
+						"</tr>";
+					}
+											
+					document.getElementById(id).innerHTML=layout;
+					
+					for(var i=0;i<json_arr.length;i++){
+						$("[data-toggle='popover"+i+"']").popover({
+							html: true,
+							title: "Edit tab here:",
+							placement: "left", 
+							content: getPopupContent(i)	
+						});
+					}
+				}
+			}
+		});
+	}
+	
 	//getting popup content according to the index
 	function getPopupContent(index){
 		return $("#popover-content"+index).html();
@@ -1133,6 +1283,7 @@ $(document).ready(function(){
 					//prev_tab_name[i]=new_tab_name;
 					getTabs("list_of_tabs");//refreshing the tab list
 					getAssociatedTabs("associated_tabs");
+					getAllTabs("get_all_tabs");
 				}
 				else{
 					//alert(resp_arr.message);
@@ -1277,6 +1428,7 @@ $(document).ready(function(){
 					if(resp_arr.status==true){
 						getTabs("list_of_tabs");//refreshing the tab list
 						getAssociatedTabs("associated_tabs");
+						getAllTabs("get_all_tabs");
 					}
 					else{
 						alert(resp_arr.message);
