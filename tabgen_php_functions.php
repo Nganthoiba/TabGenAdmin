@@ -697,4 +697,12 @@ function get_token(){
 			echo json_encode(array("status"=>false,"message"=>"Role does not exist!"));
 		
 	}
+	
+//function to get news details
+function getNewsDetails($conn,$tab_name){
+	$query = "select * from News where title='$tab_name'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['Details'];
+}
 ?>

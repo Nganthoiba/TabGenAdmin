@@ -190,7 +190,7 @@
 				</li>
 					
 				<li>
-					<a href="#" data-toggle="modal" data-target="#">Show tabs</a>
+					<a href="#" data-toggle="modal" data-target="#display_tab_layout">Show tabs</a>
 				</li>
 				<li><a href="#" data-toggle="modal" data-target="#createuser" 
 								onclick='getRoles("UserRole",$("#OrgUnitList").val());refresh_all_entries();return false;'>
@@ -690,7 +690,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span class="glyphicon glyphicon-remove"></span></button>
-				<h3 class="modal-title" id="myModalLabel">Associate Tabs to Roles</h3>
+				<h4 class="modal-title" id="myModalLabel">Associate Tabs to Roles</h4>
 			</div>
 			<div class="modal-body">
 				<div class="panel panel-default">
@@ -939,6 +939,20 @@
 			<div class='modal-footer'>
 				<div class="pull-right" id="view_all_users_display"> </div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal for displaying tabs -->
+<div class="modal fade" id="display_tab_layout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+				<h4 class="modal-title" id="myModalLabel">List of Tabs created:</h4>
+				</div>
+			</div>	
 		</div>
 	</div>
 </div>
