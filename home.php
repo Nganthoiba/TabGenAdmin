@@ -91,7 +91,9 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		  </button>
-		  <a class="navbar-brand" href="#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-align-justify"></span></a>
+		  <a class="navbar-brand" href="#menu-toggle" id="menu-toggle">
+			  <span class="glyphicon glyphicon-align-justify"></span>
+		  </a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		  <ul class="nav navbar-nav">
@@ -947,7 +949,7 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="alert alert-danger">
-				  <center><strong>Logout! &nbsp;</strong> Are you sure?</center>
+				  <center><strong>Logout &nbsp;</strong> Are you sure?</center>
 				</div>
 				<center>
 					<button type="button" style='width:45%' class="btn btn-default" data-dismiss="modal" aria-label="Close">No</button>
