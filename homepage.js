@@ -500,11 +500,28 @@ $(document).ready(function (){
 			else{
 				document.getElementById("error4").innerHTML="<div><img src='img/loading.gif'/></div> Wait Please....";
 				document.getElementById("error4").style.color="green";
+				//alert(JSON.stringify(role_list));
+				var role_id=null;
+				for(var i=0;i<role_list.length;i++){
+					//roleList+="<option>"+arr[i].RoleName+"</option>";
+					if(role_list[i].RoleName==user_role)
+					{
+						role_id=role_list[i].Id;
+						//alert("Role Id: "+role_id);
+						break;
+					}
+				}
+				if(role_id==null){
+					document.getElementById("error4").innerHTML="<b>Sorry, Invalid Role. Please select other.</b>";
+					document.getElementById("error4").style.color="red";
+					return false;
+				}
+				//else alert("Role Id: "+role_id);
 				$.ajax({
 					type: "POST",
 					url: "createUsers.php",
 					data: "user_displayname="+user_displayname+"&username="+username+"&password="+password+"&conf_pwd="+conf_pwd+
-							"&email="+email+"&org_unit="+org_unit+"&Role="+user_role+"&type="+is_universal,    
+							"&email="+email+"&org_unit="+org_unit+"&Role="+user_role+"&role_id="+role_id+"&type="+is_universal,    
 					success: function(e){  
 						if(e.trim()=="true")
 						{
@@ -822,6 +839,7 @@ $(document).ready(function(){
 					}
 					else{
 						var arr = JSON.parse(data);
+						role_list = JSON.parse(data);
 						var roleList=" ";
 						for(var i=0;i<arr.length;i++){
 							roleList+="<option>"+arr[i].RoleName+"</option>";
@@ -831,7 +849,6 @@ $(document).ready(function(){
 				},
 				error: function(x,y,z){
 					document.getElementById(id).innerHTML="<option></option>";
-					//alert("Error in connecting server. Try again later.");
 				}
 			});
 			return false;
@@ -864,10 +881,10 @@ $(document).ready(function(){
 						for(i=0;i<arr.length;i++){
 							var ou_specific=" ";
 							if(arr[i].UniversalRole.trim()=="true"){
-								ou_specific="Yes";
+								ou_specific="No";
 							}
 							else{
-								ou_specific="No";
+								ou_specific="Yes";
 							}
 							roleList+="<tr><td>"+arr[i].RoleName+
 								"</td>"+
@@ -966,74 +983,6 @@ $(document).ready(function(){
 							ou_specific="Yes";
 						}
 						prev_tab_name[i] = 	json_arr[i].Name;
-						if(json_arr[i].Template_Name=="Chat Template"){
-							popup_content_form="<form class='form-horizontal' role='form'"+
-								"style='max-width:300px;min-width:250px'>"+
-									"<div>"+
-											"<label>Tab Name</label>"+
-											"<input type='text' value='"+json_arr[i].Name+"'"+
-											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
-													
-									"</div>"+
-									"<div><br/>"+
-											"<button type='button' class='btn btn-info'"+ 
-														"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
-															"\",\""+json_arr[i].Template_Name+"\")'"+
-														"id='saveTabName"+i+"'"+
-														"style='float:right'>Save</button>"+
-									"</div>"+
-									"<div style='height:50px'>"+
-										"<br/><span id='upadate_tab_resp"+i+"'></span>"+
-									"</div>"+
-								"</form>";
-						}
-						else if(json_arr[i].Template_Name=="Latest News Template" || json_arr[i].Template_Name=="Latest News Template"){
-							popup_content_form="<form class='form-horizontal' role='form'>"+
-								"<div>"+
-									"<label>Tab Name</label>"+
-										"<input type='text' value='"+json_arr[i].Name+"'"+
-											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
-								"</div>"+
-								"<div>"+
-									"<label>Contents</label>"+
-									"<textarea rows='4' cols='50' class='form-control' id='contents_id"+i+"'"+
-										"placeholder='Paste your html contents here'>"+
-										json_arr[i].news_details+
-									"</textarea>"+
-								"</div>"+
-								"<div><br/>"+
-									"<button type='button' class='btn btn-info'"+ 
-											"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
-															"\",\""+json_arr[i].Template_Name+"\")'"+
-											"id='saveTabName"+i+"'"+
-											"style='float:right'>Save</button>"+
-								"</div>"+
-								"<div style='height:50px'>"+
-									"<br/><span id='upadate_tab_resp"+i+"'></span>"+
-								"</div>"+
-							"</form>";
-						}
-						else{
-							popup_content_form="<form class='form-horizontal' role='form'"+
-								"style='max-width:300px;min-width:250px'>"+
-									"<div>"+
-											"<label>Tab Name</label>"+
-											"<input type='text' value='"+json_arr[i].Name+"'"+
-											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
-													
-									"</div>"+
-									"<div><br/>"+
-											"<button type='button' class='btn btn-info'"+ 
-														"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
-															"\",\""+json_arr[i].Template_Name+"\")'"+
-														"id='saveTabName"+i+"'"+
-														"style='float:right'>Save</button>"+
-									"</div>"+
-									"<div style='height:50px'>"+
-										"<br/><span id='upadate_tab_resp"+i+"'></span>"+
-									"</div>"+
-								"</form>";
-						}
 						layout+= "<tr><td>"+
 						"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
 						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
@@ -1046,27 +995,6 @@ $(document).ready(function(){
 							"</div>"+
 						"</td>"+
 						"</tr>";
-						/*
-						   
-						"<td align='right'>"+
-							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
-							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
-							"<div class='container' style='width:20px'>"+
-								"<div class='hide' style='max-width:300px;min-width:250px' id='popover-content"+i+"'>"+
-									popup_content_form+
-								"</div>"+
-							"</div>"+
-						"</td>"+
-						"<td align='right'>"+
-								"<Button type='button' style='height: 40px;' class='btn btn-link' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-								"<span class='glyphicon glyphicon-remove'></span></Button>"+
-						"</td>"+
-						 * 
-						 * 
-						"<td>"+
-							"<div>"+json_arr[i].Template_Name+"</div>"+
-						"</td>"+
-						 * */
 					}
 											
 					document.getElementById(id).innerHTML=layout;
@@ -1281,9 +1209,9 @@ $(document).ready(function(){
 				var resp_arr = JSON.parse(resp);
 				if(resp_arr.status==true){
 					//prev_tab_name[i]=new_tab_name;
+					getAllTabs("get_all_tabs");
 					getTabs("list_of_tabs");//refreshing the tab list
 					getAssociatedTabs("associated_tabs");
-					getAllTabs("get_all_tabs");
 				}
 				else{
 					//alert(resp_arr.message);
@@ -1426,9 +1354,9 @@ $(document).ready(function(){
 					var resp_arr = JSON.parse(resp);
 					//alert(resp);
 					if(resp_arr.status==true){
+						getAllTabs("get_all_tabs");
 						getTabs("list_of_tabs");//refreshing the tab list
 						getAssociatedTabs("associated_tabs");
-						getAllTabs("get_all_tabs");
 					}
 					else{
 						alert(resp_arr.message);

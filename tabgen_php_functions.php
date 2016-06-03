@@ -32,13 +32,14 @@ function create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific){
 	}
 	
 }
-//to update user role
-function updateUserRole($userId,$con,$role){
-	$query="UPDATE Users SET Roles='$role' WHERE Id='$userId'";
+//to update user role and display name
+function updateUserRoleAndDisplayName($userId,$con,$role,$user_displayname){
+	$query="UPDATE Users SET Roles='$role',FirstName='$user_displayname' WHERE Id='$userId'";
 	if($con->query($query)){
-		echo "true";
+		return true;
 	}
-	else echo "Role ".$role." could not be updated";;
+	else 
+		return false;
 }
 //function to set either the user has access right accross all other OU or not
 function userUniversalAccess($conn,$user_id,$yes_no){
@@ -97,9 +98,9 @@ function findRoleId($conn,$org_unit,$role_name){
 	else return null;
 }
 
-function mapUserwithOU($conn,$user_id,$ou_id){
-	$query = "insert into User_OU_Mapping values('$user_id','$ou_id')";
-	$conn->query($query);
+function mapUserwithOU($conn,$user_id,$ou_id,$role_id,$type){
+	$query = "insert into User_OU_Mapping values('$user_id','$ou_id','$role_id','$type')";
+	return($conn->query($query));
 }
 //to get template Id
 function findTemplateId($conn,$template_name){

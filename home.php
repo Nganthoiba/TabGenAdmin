@@ -23,6 +23,7 @@
 		 var templates_arr=""; /*list of templates*/
 		 var tabs=[];
 		 var json_arr;
+		 var role_list;
 		 /*
 		 $(document).ready(function(){
 			function alignModal(){
@@ -38,7 +39,8 @@
 			$(window).on("resize", function(){
 				$(".modal:visible").each(alignModal);
 			});   
-		});*/
+		});
+		*/
 		$(document).ready(function(){
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
@@ -64,8 +66,7 @@
 		h4 {font-family:calibri}
 		table th {background-color:#F2F2F2}
 		td {vertical-align:middle;font-size:13px}
-	</style>
-	
+	</style>	
 </head>
 <body>
 	<?php
@@ -417,7 +418,7 @@
 											});
 											$('#ousel').change(function(){
 												displayRoles("role_lists",$("#ousel").val());
-												$('#rolaname').val(" ");
+												$('#rolaname').val("");
 												//$("#rolaname").attr("placeholder", "Type Role Name").placeholder();
 												$("#rolaname").attr("placeholder", "Type Role Name");
 												$('#error3').html(" ");

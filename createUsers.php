@@ -16,6 +16,11 @@ include('ConnectAPI.php');
 include('connect_db.php');
 include('tabgen_php_functions.php');
 $user_displayname = $_POST['user_displayname'];
+$role=$_POST['Role'];
+$role_id=$_POST['role_id'];
+$type = $_POST['type']=="true"?1:0;
+//echo "Has access other OU: ".$type;
+//echo "Role: ".$role." Id: ".$role_id;
 
 if(validateUserDetails()==true){
 	$id=null;
@@ -23,7 +28,6 @@ if(validateUserDetails()==true){
 	try{
 		if($conn){
 			//$res = $conn->query("SELECT Id,Name from Teams where Name='$org_unit_name'");
-			
 			session_start();
 			if(isset($_SESSION['user_details'])){
 				
@@ -47,13 +51,20 @@ if(validateUserDetails()==true){
 						$responseData = json_decode($result);
 						if($connect->httpResponseCode==200){
 							$role=$_POST['Role'];
-								
-							updateUserRole($responseData->id,$conn,$role);
-							//updateUserFirstName($conn,$responseData->id,$user_displayname);
-							$conn->query("UPDATE Users set FirstName='$user_displayname ' where Id='$responseData->id'");
-							userUniversalAccess($conn,$responseData->id,$_POST['type']);
-							$ou_id = findOUId($conn,$org_unit_name);
-							mapUserwithOU($conn,$responseData->id,$ou_id);
+							$role_id=$_POST['role_id'];	
+							if(updateUserRoleAndDisplayName($responseData->id,$conn,$role,$user_displayname)){
+								userUniversalAccess($conn,$responseData->id,$_POST['type']);
+								$ou_id = findOUId($conn,$org_unit_name);
+								if(mapUserwithOU($conn,$responseData->id,$ou_id,$role_id,$type))
+									echo "true";
+								else{
+									echo "Internal Server error: Unable to map User with OU, 
+										please contact the system administrator";
+								}
+							}
+							else{
+								echo "false";
+							}
 						}else if($connect->httpResponseCode==0){
 							echo "Unable to communicate with the API";
 						}
@@ -67,8 +78,8 @@ if(validateUserDetails()==true){
 					echo "Oops! There may be a problem at the server. Try again later.";
 			}
 			else{
-				 //echo "Session expired, please login again.";
-				  header('Location: index.html');
+				 echo "Session expired, please login again.";
+				  //header('Location: index.html');
 			 }
 		}
 	}
@@ -77,6 +88,7 @@ if(validateUserDetails()==true){
 	}
 	
 }
+
 
 function validateUserDetails(){
 	if(empty($_POST['username'])){

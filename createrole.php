@@ -7,11 +7,12 @@ $rolaname = $_POST['rolaname'];
 $ousel = $_POST['ousel'];
 $ou_specific = $_POST['ou_specific'];
 $role_type = $_POST['role_type'];
+$universal_role=$ou_specific=="true"?"false":"true";
 
 if($rolaname!='' && $ousel!=''){
 	$data = array(
 	   "organisationUnit"  => $ousel,
-	   "universalRole" => $ou_specific,	
+	   "universalRole" => $universal_role,	
 		"role_name" => $rolaname 
 	);
 	//"universalRole" => $access,
