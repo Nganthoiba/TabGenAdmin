@@ -3,8 +3,10 @@
 	include('tabgen_php_functions.php');// all the function/ methodes are in this php file
 	$ou_name = $_POST['ou_name'];
 	$role_name = $_POST['role_name'];
+	$role_id = $_POST['role_id'];
+	
 	if($conn){
-		$role_id = findRoleId($conn,$ou_name,$role_name);
+		//$role_id = findRoleId($conn,$ou_name,$role_name);
 					
 		$query="select Tab.*,TabTemplate.Name as Template_Name 
 				from RoleTabAsson,Tab,TabTemplate 

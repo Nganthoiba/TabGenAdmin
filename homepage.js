@@ -202,7 +202,19 @@ function refresh_all_entries(){
 	document.getElementById("createTabResponse").innerHTML="";
 	document.getElementById("tab_name").value="";
 }
-
+function getRoleId(role_name,role_list){
+	var role_id=null;
+	for(var i=0;i<role_list.length;i++){
+					//roleList+="<option>"+arr[i].RoleName+"</option>";
+		if(role_list[i].RoleName==role_name)
+		{
+			role_id=role_list[i].Id;
+			//alert("Role Id: "+role_id);
+			break;
+		}
+	}
+	return role_id;
+}
 $(document).ready(function(){
 		//If the tab to be created is OU specific
 		viewOrgUnits("dropdown","ou_selector","all");
@@ -229,17 +241,23 @@ $(document).ready(function(){
 			
 			var ou_name = $("#ou_selector").val();
 			var role_name = $("#role_selector").val();
+			var role_id = getRoleId(role_name,role_list);
+			//alert(role_id);
 			if(role_name==null || role_name.length==0){
 				document.getElementById("createTabResponse").innerHTML="<center>Select a role.</center>";
 				document.getElementById("createTabResponse").style.color="red";
-				//alert("Select a role.");
+				return false;
+			}
+			if(role_id==null){
+				document.getElementById("createTabResponse").innerHTML="<center>Invalid Role! Select another role.</center>";
+				document.getElementById("createTabResponse").style.color="red";
 				return false;
 			}
 			post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,
-						"ou_name":ou_name,"role_name":role_name};	
+						"ou_name":ou_name,"role_name":role_name,"role_id":role_id};	
 						
 			if(document.getElementById("ou_specific_yes").checked==true || document.getElementById("ou_specific_no").checked==true){
-				
+				/*
 				$.ajax({
 						type: "POST",
 						url: "createTab.php",
@@ -259,7 +277,7 @@ $(document).ready(function(){
 								document.getElementById("createTabResponse").style.color="red";
 							}
 						}
-				});
+				});*/
 			}else{
 				document.getElementById("createTabResponse").innerHTML="<center>You have to select whether the tab should be OU specific or not.</center>";
 				document.getElementById("createTabResponse").style.color="red";
@@ -946,11 +964,18 @@ $(document).ready(function(){
 		
 		var ou = document.getElementById("choose_ou2").value;
 		var role_name = document.getElementById("choose_role2").value;
+		var role_id = getRoleId(role_name,role_list);
+		
+		if(role_id==null){
+			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, we have a problem with the role you have selected. Kindly refresh the page.</h1></p>";
+			document.getElementById(id).style.color="#A4A4A4";
+			return false;
+		}
 		//alert(ou);
 		$.ajax({
 			url: "getTabs.php",
 			type: "GET",
-			data: {"ou":ou,"role_name":role_name},
+			data: {"ou":ou,"role_name":role_name,"role_id":role_id},
 			success: function(resp){
 				if(resp.trim()=="false"){
 					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
@@ -1227,9 +1252,11 @@ $(document).ready(function(){
 	}
 	
 	function associate(tab_id){
+		var ou_right = document.getElementById("choose_ou2").value;
 		
 		var ou_name = $("#choose_ou").val();
 		var role_name = $("#choose_role").val();
+		var role_id = getRoleId(role_name,role_list);
 		if(ou_name.length==0){
 			alert("Choose an OU");
 			return;
@@ -1238,11 +1265,21 @@ $(document).ready(function(){
 			alert("Choose a role");
 			return;
 		}
+		if(role_id==null){
+			alert("Invalid role, role id does not exists, choose another role");
+			return;
+		}
 		//alert("Tab Id: "+tab_id);
+		//alert(role_id);
+		
 		$.ajax({
 			type: "POST",
 			url: "associateTab_to_Role.php",
-			data: {"ou_name":ou_name,"role_name":role_name,"tab_id":tab_id},
+			data: {"ou_name":ou_name,
+					"role_name":role_name,
+					"role_id":role_id,
+					"tab_id":tab_id,
+					"ou_right":ou_right},
 			success: function(resp){
 				//alert(resp);
 				var resp_json = JSON.parse(resp);
@@ -1256,19 +1293,24 @@ $(document).ready(function(){
 			error: function(x,y,z){
 				alert("Something goes wrong. Please try again later..");
 			}
-			
 		});
 	}
 	
 	function getAssociatedTabs(id){
 		var ou_name = $("#choose_ou").val();
-		var role_name = $("#choose_role").val(); 
+		var role_name = $("#choose_role").val();
+		var role_id =  getRoleId(role_name,role_list);
+		if(role_id==null){
+			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, we have an error. Please refresh the page.</h1></p>";
+			document.getElementById(id).style.color="#A4A4A4";
+			return false;
+		}
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
 		$.ajax({
 			type: "POST",
 			url: "getAssociatedTabs.php",
-			data: "ou_name="+ou_name+"&role_name="+role_name,
+			data: "ou_name="+ou_name+"&role_name="+role_name+"&role_id="+role_id,
 			success: function(resp){
 				//alert(resp);
 				if(resp=="problem"){

@@ -72,15 +72,22 @@
 	<?php
         session_start();
 	
-        if(!isset($_SESSION['user_details'])){
+        if(!isset($_SESSION['user_details']) && !isset($_COOKIE['user_details'])){
                 //echo "<p align='center'>You have to <a href='index.html'>login</a> first<br/>";
                 header('Location: index.html');
         }
         else {
+			$user_data = null;
+			if(isset($_SESSION['user_details'])){
                 $user_data = json_decode($_SESSION['user_details']);
-                $user_name = $user_data->username;
-                $user_role = $user_data->roles;
-                $user_email= $user_data->email;
+			}
+            else if(isset($_COOKIE['user_details'])){
+				$user_data = json_decode($_COOKIE['user_details']);
+			}
+			if($user_data!=null){
+				$user_role = $user_data->roles;
+				$user_email= $user_data->email;
+				$user_name = $user_data->username;
 						
 	?>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -982,6 +989,12 @@
 		</div>
 	</div>
 </div>
-<?php } ?>
+<?php 
+	}else{
+		echo "<p><center>Sorry! NO user session available, try login again.</center></p>";
+	}
+}
+
+ ?>
 </body>
 </html>

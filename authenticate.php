@@ -25,7 +25,9 @@
 								if($conn->httpResponseCode==200){
 									session_start();
 									$_SESSION['user_details'] = $responseJsonData;
+									setcookie("user_details", $$responseJsonData, time() + (86400 * 30), "/");
 									$_SESSION['login_header_response'] = $conn->httpHeaderResponse;
+									setcookie("login_header_response",$conn->httpHeaderResponse, time() + (86400 * 30), "/");
 									
 									if($data->roles =="system_admin" || $data->roles =="admin")
 										//header('Location:home.php');$conn->httpHeaderResponse

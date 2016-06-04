@@ -7,9 +7,9 @@ if(isset($_SESSION['user_details'])){
 	$created_by = $user_details->username;
 	$ou = $_GET['ou'];
 	$role_name = $_GET['role_name'];
-	
+	$role_id = $_GET['role_id'];
 	if($conn){
-			$role_id = findRoleId($conn,$ou,$role_name);
+			//$role_id = findRoleId($conn,$ou,$role_name);
 			$query = "SELECT Tab.*,TabTemplate.Name as Template_Name 
 						FROM Tab,TabTemplate
 						where Tab.TabTemplate=TabTemplate.Id and

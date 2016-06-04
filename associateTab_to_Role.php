@@ -5,8 +5,9 @@
 		$ou_name = $_POST['ou_name'];
 		$role_name = $_POST['role_name'];
 		$tab_id = $_POST['tab_id'];
+		$role_id = $_POST['role_id'];
 		if($conn) {
-			$role_id = findRoleId($conn,$ou_name,$role_name);
+			//$role_id = findRoleId($conn,$ou_name,$role_name);
 			if(isTabOUSpecific($conn,$tab_id)){
 				if(getOUbyRole($conn,$role_id)==getOUbyRole($conn,getRolebyTab($conn,$tab_id))){
 					//if the tab is to associated in the same OU under which tab was created
@@ -22,8 +23,6 @@
 		}
 		else echo json_encode(array("status"=>false,"message"=>"Database Connection failed!"));
 	}
-	else echo json_encode(array("status"=>false,"message"=>"Invalid parameter passed!"));
-	
-	
-		
+	else 
+		echo json_encode(array("status"=>false,"message"=>"Invalid parameter passed!"));	
 ?>

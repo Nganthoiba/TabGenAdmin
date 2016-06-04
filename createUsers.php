@@ -29,9 +29,15 @@ if(validateUserDetails()==true){
 		if($conn){
 			//$res = $conn->query("SELECT Id,Name from Teams where Name='$org_unit_name'");
 			session_start();
+			$user_details=null;
+			
 			if(isset($_SESSION['user_details'])){
-				
 				$user_details = json_decode($_SESSION['user_details']);
+			}
+			else if(isset($_COOKIE['user_details'])){
+				$user_details = json_decode($_COOKIE['user_details']);
+			}
+			if($user_details!=null){	
 				$id = $user_details->team_id;
 				$data = array(
 				   "team_id" => $id,

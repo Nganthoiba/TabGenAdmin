@@ -7,7 +7,8 @@ function create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific){
 	
 	$ou_name = $_POST['ou_name'];
 	$role_name = $_POST['role_name'];
-	$role_id = findRoleId($conn,$ou_name,$role_name);
+	//$role_id = findRoleId($conn,$ou_name,$role_name);
+	$role_id = $_POST['role_id'];
 	
 	if($ou_specific == "true"){//check if the tab to be created is OU specific or not
 		$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,DeleteAt,Name,RoleName,CreatedBy,TabTemplate,RoleId,OU_Specific)
@@ -357,6 +358,19 @@ function get_token(){
 		if(isset($_SESSION['login_header_response'])){
 			$connect = new ConnectAPI();
 			$header = $_SESSION['login_header_response'];
+			$header_array = $connect->http_parse_headers($header);
+					
+			foreach ($header_array as $name => $value) {
+				//echo "The value of '$name' is '$value'<br>";
+				if($name=="Token"){
+					$token = $value;
+					break;
+				}
+			}
+		}
+		else if(isset($_COOKIE['login_header_response'])){
+			$connect = new ConnectAPI();
+			$header = $_COOKIE['login_header_response'];
 			$header_array = $connect->http_parse_headers($header);
 					
 			foreach ($header_array as $name => $value) {
