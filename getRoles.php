@@ -4,9 +4,9 @@
 	$only_ou_roles = $_GET['only_ou_roles'];//
 	if(empty($only_ou_roles) || $only_ou_roles=="no")
 	{
-		$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0
+		$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0 order by RoleName
 				union 
-				select * from Role where UniversalRole='true' and DeleteAt=0";
+				select * from Role where UniversalRole='true' and DeleteAt=0 order by RoleName";
 		if($conn){
 			$res = $conn->query($query);					
 			if($res){
@@ -23,7 +23,7 @@
 		}
 	}
 	else if($only_ou_roles=="yes"){
-		$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0";
+		$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0 order by RoleName";
 		if($conn){
 			$res = $conn->query($query);					
 			if($res){
