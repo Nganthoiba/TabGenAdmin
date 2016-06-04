@@ -877,7 +877,7 @@ $(document).ready(function(){
 			$.ajax({
 				type:"GET",
 				url: "getRoles.php",
-				data: "org_unit="+orgunit,
+				data: "org_unit="+orgunit+"&only_ou_roles=yes",
 				success: function(data){
 					if(data.trim()=="false"){
 						document.getElementById(id).innerHTML="<center>No role exists. You can create a new role by clicking the link below.</center>";
