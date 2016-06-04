@@ -850,7 +850,7 @@ $(document).ready(function(){
 			$.ajax({
 				type:"GET",
 				url: "getRoles.php",
-				data: "org_unit="+orgunit,
+				data: "org_unit="+orgunit+"&only_ou_roles=no",
 				success: function(data){
 					if(data.trim()=="false"){
 						document.getElementById(id).innerHTML="<option></option>";
