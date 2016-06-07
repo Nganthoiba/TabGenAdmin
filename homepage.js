@@ -4,7 +4,7 @@ $(document).ready(function(){
 	//for creating local tabs
 	$("#saveAsscRole2Tab").click(function(){
 		$("#saveAsscRole2TabResponse").html("<img src='img/loading.gif'/> Wait Please...");
-		var orgunit = $("#sel_org_unit_role_tab").val();
+		var orgunit = ($("#sel_org_unit_role_tab").val()).trim();
 		var role = $("#sel_roles").val();
 		var tabs = parseInt($("#no_of_tabs").val()); 
 		$.ajax({
@@ -17,11 +17,7 @@ $(document).ready(function(){
 			});
 		return false;
 	});	
-	//for creating global tabs
-	$("#saveGlobalTab").click(function(){
-		document.getElementById("saveGlobalTabResponse").innerHTML="<p>Under development...</p>";
-		return false;
-	});
+	
 });
 
 /*JavaScript function for setting template to a layout by giving Ids*/
@@ -152,16 +148,11 @@ function updateTemplate(i,tab_id,org_unit){
 	});
 }
 /*Automatic display for tab to template association when any of the folling event occurs*/
-$(document).ready(function (){
+/*$(document).ready(function (){
 	$('#getTabsTemplate').click(function() {
 		setTabTemplateLayout();
 		return false;
 	});
-	/*$('#orgUnitSelect').change(function(){
-		getRoles("roleSelect",$("orgUnitSelect").val());
-		//setTabTemplateLayout();	
-		return false;
-	});*/
 	$('#roleSelect').change(function(){
 		setTabTemplateLayout();
 		return false;
@@ -169,13 +160,13 @@ $(document).ready(function (){
 	$("#sel_org_unit_role_tab").change(function(){
 		getRoles("sel_roles",$("#sel_org_unit_role_tab").val());
 	});
-});
-$(document).ready(function(){
+});*/
+/*$(document).ready(function(){
 		
 		$("#orgUnitSelect").change(function(){
 			getRoles("roleSelect",$("#orgUnitSelect").val());
 		});
-});
+});*/
 //refresh function
 function refresh_all_entries(){
 	/*refershing entries for creating organisation*/
@@ -220,7 +211,7 @@ $(document).ready(function(){
 		viewOrgUnits("dropdown","ou_selector","all");
 			
 		$("#ou_selector").change(function(){
-			getRoles("role_selector",$("#ou_selector").val());
+			getRoles("role_selector",$("#ou_selector").val(),"createTabResponse");
 		});
 				
 		//javascript for creating tab
@@ -484,9 +475,9 @@ $(document).ready(function (){
 						$("#error3").html("<center>Role Created</center>");
 						viewOrgUnits("dropdown","OrgUnitList","all");/*this will display drop down list of 
 						organisation units at the popup dialog for creating users*/
-						getRoles("sel_roles",$("#sel_org_unit_role_tab").val());//to display role in Associate Role to Tab
-						getRoles("roleSelect",$("#orgUnitSelect").val());//to display role at Tab to TabTemplate
-                        getRoles("UserRole",$("#OrgUnitList").val()); //to display role in creating user 
+						//getRoles("sel_roles",$("#sel_org_unit_role_tab").val());//to display role in Associate Role to Tab
+						//getRoles("roleSelect",$("#orgUnitSelect").val());//to display role at Tab to TabTemplate
+                        getRoles("UserRole",$("#OrgUnitList").val(),"error4"); //to display role in creating user 
 						//displayRoles("role_lists",$("#select_ou_4_role").val());
                     }else if(e.trim()=="false"){
 						$("#error3").css('color','red');
@@ -916,7 +907,7 @@ $(document).ready(function(){
 			return false;
 	}
 	/*Javascript function to set list of role in combo box*/
-	function getRoles(id,orgunit){
+	function getRoles(id,orgunit,resp_layout){
 			$.ajax({
 				type:"GET",
 				url: "getRoles.php",
@@ -929,10 +920,17 @@ $(document).ready(function(){
 						var arr = JSON.parse(data);
 						role_list = JSON.parse(data);
 						var roleList=" ";
-						for(var i=0;i<arr.length;i++){
+						var i;
+						for(i=0;i<arr.length;i++){
 							roleList+="<option>"+arr[i].RoleName+"</option>";
 						}
 						document.getElementById(id).innerHTML=roleList;
+						if(i==0){
+							document.getElementById(resp_layout).innerHTML="<center>No role exists.</center>";
+						}
+						else{
+							document.getElementById(resp_layout).innerHTML=" ";
+						}
 					}
 				},
 				error: function(x,y,z){

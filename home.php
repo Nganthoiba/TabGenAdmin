@@ -194,14 +194,15 @@
 				</li>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#create_tab_modal"
-						onclick='getRoles("role_selector",$("#ou_selector").val());refresh_all_entries();getOUandRole();'>Create a tab</a>
+						onclick='getRoles("role_selector",$("#ou_selector").val(),"createTabResponse");refresh_all_entries();getOUandRole();'>
+						Create a tab</a>
 				</li>
 					
 				<li>
 					<a href="#" data-toggle="modal" data-target="#display_tab_layout">Show tabs</a>
 				</li>
 				<li><a href="#" data-toggle="modal" data-target="#createuser" 
-								onclick='getRoles("UserRole",$("#OrgUnitList").val());refresh_all_entries();return false;'>
+								onclick='getRoles("UserRole",$("#OrgUnitList").val(),"error4");refresh_all_entries();return false;'>
 									Create a user</a>
 				</li>
 								<!--<li role="presentation" class="divider"></li>-->
@@ -221,8 +222,8 @@
 					<!--<li><a href="#">Create Tabs Strips</a></li>-->
 					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
-						onclick='getRoles("choose_role",$("#choose_ou").val());
-								 getRoles("choose_role2",$("#choose_ou2").val());'>
+						onclick='getRoles("choose_role",$("#choose_ou").val(),"associated_tabs");
+								 getRoles("choose_role2",$("#choose_ou2").val(),"list_of_tabs");'>
 								 Associate Tabs to Role</a></li>
             </ul>
         </div>
@@ -573,7 +574,7 @@
 											$(document).ready(function(){
 												viewOrgUnits("dropdown","OrgUnitList","all");
 												$("#OrgUnitList").change(function(){
-													getRoles("UserRole",$("#OrgUnitList").val());
+													getRoles("UserRole",$("#OrgUnitList").val(),"error4");
 												});
 											});
 										</script>
@@ -672,7 +673,7 @@
 								<select class="form-control" id="choose_templates" >
 									<script type="text/JavaScript">
 										$(document).ready(function(){
-												setTemplateList("choose_templates");
+											setTemplateList("choose_templates");
 										});
 									</script>
 								</select>
@@ -723,7 +724,7 @@
 							}
 							function setRole(){
 								var orgunit=($("#ou_selector").val()).trim();
-								getRoles("role_selector",orgunit);
+								getRoles("role_selector",orgunit,"createTabResponse");
 							}
 							function getOUandRole(){
 								var org_name=($("#choose_org").val()).trim();
@@ -740,7 +741,7 @@
 											}
 											document.getElementById("ou_selector").innerHTML=list;
 											var orgunit=($("#ou_selector").val()).trim();
-											getRoles("role_selector",orgunit);
+											getRoles("role_selector",orgunit,"createTabResponse");
 										}
 										else{
 											document.getElementById("ou_selector").innerHTML=" ";
@@ -816,7 +817,7 @@
 														viewOrgUnits("dropdown","choose_ou","all");
 														//getAssociatedTabs("associated_tabs");
 															$("#choose_ou").change(function(){
-																	getRoles("choose_role",$("#choose_ou").val());
+																	getRoles("choose_role",$("#choose_ou").val(),"associated_tabs");
 															});
 														});
 													</script>
@@ -897,7 +898,7 @@
 														viewOrgUnits("dropdown","choose_ou2","all");
 														//getAssociatedTabs("associated_tabs");
 															$("#choose_ou2").change(function(){
-																getRoles("choose_role2",$("#choose_ou2").val());
+																getRoles("choose_role2",$("#choose_ou2").val(),"list_of_tabs");
 															});
 														});
 													</script>
