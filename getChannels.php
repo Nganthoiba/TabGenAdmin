@@ -24,13 +24,13 @@ if(!empty($_GET['user_id'])){
 									(SELECT Tab.Name
 										FROM Tab,RoleTabAsson,Role
 										where Tab.Id=RoleTabAsson.TabId
-										and Tab.RoleId =Role.Id
                                         and Role.OrganisationUnit='$team_name'
 										and Tab.DeleteAt=0
 										and RoleTabAsson.RoleId = '$role_id')
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
 							group by Channels.Id";
+							//and Tab.RoleId =Role.Id
 				//and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
 				/*
 				 * 		

@@ -54,7 +54,7 @@ function userUniversalAccess($conn,$user_id,$yes_no){
 }
 // function to test whether the user has Universal access right
 function isUserUniversalAccessRight($conn,$user_id){
-	$query="select * from UserUniversalAccessibility where UserId='$user_id'";
+	$query="select * from User_OU_Mapping where UserId='$user_id'";
 	$result = $conn->query($query);
 	$row = $result->fetch(PDO::FETCH_ASSOC);
 	$flag = (int)$row['UniversalAccess'];
@@ -167,14 +167,15 @@ function getParentOuId($conn,$ou_id){
 }
 // function to get OU Id (which the user belong) by providing user Id
 function getOuIdByUserId($conn,$user_id){
-	$query="select Users.Id as user_id,Users.Username,Teams.Id as Team_id,Teams.Name as team_name,OrganisationUnit.Id as org_unit_id,OrganisationUnit.OrganisationUnit
+	/*$query="select Users.Id as user_id,Users.Username,Teams.Id as Team_id,Teams.Name as team_name,OrganisationUnit.Id as org_unit_id,OrganisationUnit.OrganisationUnit
 			from Users,Teams,OrganisationUnit
 			where Teams.Id=Users.TeamId 
 			and Teams.Name=OrganisationUnit.OrganisationUnit
-			and Users.Id='$user_id'";
+			and Users.Id='$user_id'";*/
+	$query = "select * from User_OU_Mapping where user_id='$user_id'";
 	$res = $conn->query($query);
 	$row = $res->fetch(PDO::FETCH_ASSOC);
-	return $row['org_unit_id'];
+	return $row['OU_id'];
 }
 //function to get user role by providing user id
 function getRoleByUserId($conn,$user_id){
@@ -186,17 +187,18 @@ function getRoleByUserId($conn,$user_id){
 
 //function to find role id by user id
 function findRoleIdByUser_id($conn,$user_id){
-	$query="select Role.Id as role_id,Roles,OrganisationUnit.OrganisationUnit
+	/*$query="select Role.Id as role_id,Roles,OrganisationUnit.OrganisationUnit
 	from Users,User_OU_Mapping,OrganisationUnit,Role
 	where Users.Id=User_OU_Mapping.user_id and
 		OrganisationUnit.Id=User_OU_Mapping.OU_id and
 		Role.RoleName=Roles and
 		Role.OrganisationUnit=OrganisationUnit.OrganisationUnit and 
-		Users.Id='$user_id'";
+		Users.Id='$user_id'";*/
+	$query = "select * from User_OU_Mapping where user_id='$user_id'";
 	$res = $conn->query($query);
 	if($res){
 		$row = $res->fetch(PDO::FETCH_ASSOC);
-		return $row['role_id'];
+		return $row['RoleId'];
 	}else{
 		return null;
 	}
