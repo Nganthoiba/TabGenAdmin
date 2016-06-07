@@ -72,16 +72,16 @@ if(!empty($_GET['user_id'])){
 				}		
 				
 		}
-		$others = getOtherChannels($conn,$user_id,$role_id);
+		/*$others = getOtherChannels($conn,$user_id,$role_id);
 		if($others!=null){
 			$final_array = array("team_list"=>concate_array(array("Others"),$accessible_teams),
 			"channels"=>concate_array($others,$output));
 			print json_encode($final_array);
 		}
-		else{
+		else{*/
 			$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
 			print json_encode($final_array);
-		}	
+		//}	
 	}
 }
 
