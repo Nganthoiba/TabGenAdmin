@@ -206,7 +206,7 @@ function getRoleId(role_name,role_list){
 	var role_id=null;
 	for(var i=0;i<role_list.length;i++){
 					//roleList+="<option>"+arr[i].RoleName+"</option>";
-		if(role_list[i].RoleName==role_name)
+		if((role_list[i].RoleName).trim()==role_name)
 		{
 			role_id=role_list[i].Id;
 			//alert("Role Id: "+role_id);
@@ -225,10 +225,15 @@ $(document).ready(function(){
 				
 		//javascript for creating tab
 		$('#createTab').click(function(){
+			createTab();
+			return false;
+		});
+	});
+function createTab(){
 			document.getElementById("createTabResponse").innerHTML="<center>Wait please....</center>";
 			document.getElementById("createTabResponse").style.color="black";
-			var tab_name = $("#tab_name").val();
-			var template_name = $("#choose_templates").val();
+			var tab_name = ($("#tab_name").val()).trim();
+			var template_name = ($("#choose_templates").val()).trim();
 			var ou_specific = document.getElementById("ou_specific_yes").checked;
 			var post_data;//data to be posted
 			
@@ -238,11 +243,27 @@ $(document).ready(function(){
 				document.getElementById("createTabResponse").style.color="red";
 				return false;
 			}
+			var org_name=($("#choose_org").val()).trim();
 			
-			var ou_name = $("#ou_selector").val();
-			var role_name = $("#role_selector").val();
-			var role_id = getRoleId(role_name,role_list);
 			//alert(role_id);
+			if(org_name==null || org_name.length==0){
+				document.getElementById("createTabResponse").innerHTML="<center>Select an organisation.</center>";
+				document.getElementById("createTabResponse").style.color="red";
+				return false;
+			}
+			
+			post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name,
+						"ou_name":ou_name,"role_name":role_name,"role_id":role_id};	
+		if(document.getElementById("ou_specific_yes").checked==false && document.getElementById("ou_specific_no").checked==false){
+			document.getElementById("createTabResponse").innerHTML="<center><b>Please select whether OU specific or not.</b></center>";
+			document.getElementById("createTabResponse").style.color="red";
+			return false;
+		}
+						
+		if(document.getElementById("ou_specific_yes").checked==true){
+			var ou_name = ($("#ou_selector").val()).trim();
+			var role_name = ($("#role_selector").val()).trim();
+			var role_id = getRoleId(role_name,role_list);
 			if(role_name==null || role_name.length==0){
 				document.getElementById("createTabResponse").innerHTML="<center>Select a role.</center>";
 				document.getElementById("createTabResponse").style.color="red";
@@ -253,11 +274,33 @@ $(document).ready(function(){
 				document.getElementById("createTabResponse").style.color="red";
 				return false;
 			}
-			post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,
-						"ou_name":ou_name,"role_name":role_name,"role_id":role_id};	
-						
-			if(document.getElementById("ou_specific_yes").checked==true || document.getElementById("ou_specific_no").checked==true){
-				/*
+			post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name,
+						"ou_name":ou_name,"role_name":role_name,"role_id":role_id};
+			$.ajax({
+						type: "POST",
+						url: "createTab.php",
+						data: post_data,
+						success: function(resp){
+							//alert("Response: "+resp);
+							var resp_arr = JSON.parse(resp);
+							if(resp_arr.status==true){
+								getTabs("list_of_tabs");
+								getAssociatedTabs("associated_tabs");
+								getAllTabs("get_all_tabs");
+								document.getElementById("createTabResponse").innerHTML="<center><b>"+
+									resp_arr.message+"</b></center>";
+								document.getElementById("createTabResponse").style.color="green";
+							}
+							else{
+								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
+								document.getElementById("createTabResponse").style.color="red";
+							}
+						}
+				});
+		}
+		else if(document.getElementById("ou_specific_no").checked==true){
+			post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name};
+				
 				$.ajax({
 						type: "POST",
 						url: "createTab.php",
@@ -268,6 +311,7 @@ $(document).ready(function(){
 							if(resp_arr.status==true){
 								getTabs("list_of_tabs");
 								getAssociatedTabs("associated_tabs");
+								getAllTabs("get_all_tabs");
 								document.getElementById("createTabResponse").innerHTML="<center><b>"+
 									resp_arr.message+"</b></center>";
 								document.getElementById("createTabResponse").style.color="green";
@@ -277,14 +321,10 @@ $(document).ready(function(){
 								document.getElementById("createTabResponse").style.color="red";
 							}
 						}
-				});*/
-			}else{
-				document.getElementById("createTabResponse").innerHTML="<center>You have to select whether the tab should be OU specific or not.</center>";
-				document.getElementById("createTabResponse").style.color="red";
-			}
-			return false;
-		});
-	});
+				});
+		}
+	return false;
+}
 
 /* script for creating organisation*/
             $(document).ready(function (){
@@ -360,7 +400,7 @@ $(document).ready(function (){
 				$("#error2").html("<div><img src='img/loading.gif'/></div> Wait Please...");
 				$("#error2").css('color', 'black');
 				var displaynameunit =$("#displaynameunit").val();
-				var orgnamesel =$("#orgnamesel").val();
+				var orgnamesel =($("#orgnamesel").val()).trim();
 				if(orgunit.length<4){
 					$("#error2").css('color', 'red');
 					$("#error2").text("Name of organisation unit should be at least 4 characters length");
@@ -411,22 +451,32 @@ $(document).ready(function (){
 			$("#error3").text(" ");
 		});
         $('#btnrole').click(function() {
-			var rolaname=($("#rolaname").val()).trim();
-			var ousel =$("#ousel").val();
+			var rolaname=($("#rolaname").val()).trim();	
 			var access =document.getElementById("access_yes").checked;
+			var org_name = $("#select_org_for_role").val();
 			//var access =$("#access_yes").val();
+			var ousel="";
+			var post_data="";
 			var role_type=$("#roletype").val();
 			if(rolaname.trim().length==0){
 				$("#error3").css('color','red');
 				$("#error3").html("<center>Please fill up role name.</center>");
 				return false;
 			}
+			if(access==true)
+			{
+				ousel =$("#select_ou_4_role").val();
+				post_data = "rolaname="+rolaname+"&ousel="+ousel+"&role_type="+role_type+"&ou_specific="+access+"&org_name="+org_name;
+			}
+			else{
+				post_data = "rolaname="+rolaname+"&role_type="+role_type+"&ou_specific="+access+"&org_name="+org_name;
+			}
 			$("#error3").html("<center><img src='img/loading.gif'/></center>");
 			$("#error3").css('color','black');
 			$.ajax({
                 type: "POST",
                 url: "createrole.php",
-                data: "rolaname="+rolaname+"&ousel="+ousel+"&role_type="+role_type+"&ou_specific="+access,    
+                data: post_data,    
                 success: function(e){ 
 					if(e.trim()=="true")
                     {
@@ -437,7 +487,7 @@ $(document).ready(function (){
 						getRoles("sel_roles",$("#sel_org_unit_role_tab").val());//to display role in Associate Role to Tab
 						getRoles("roleSelect",$("#orgUnitSelect").val());//to display role at Tab to TabTemplate
                         getRoles("UserRole",$("#OrgUnitList").val()); //to display role in creating user 
-						displayRoles("role_lists",$("#ousel").val());
+						//displayRoles("role_lists",$("#select_ou_4_role").val());
                     }else if(e.trim()=="false"){
 						$("#error3").css('color','red');
 						$("#error3").html("<center>Oops Some Goes Wrong Please Try Agian</center>");
@@ -657,6 +707,26 @@ function hasWhiteSpace(s) {
 				}
 			});
 			return false;
+	}
+	function getOUlists(org_name,target_id){
+		$.ajax({
+			type: "GET",
+			url: "orgUnitList.php",
+			data: {"org_name":org_name},
+			success: function(data){
+				if(data.trim()!="null"){
+					var ou_list = JSON.parse(data);
+					var list=" ";
+					for(var i=0;i<ou_list.length;i++){
+						list+="<option>"+ou_list[i].OrganisationUnit+"</option>";
+					}
+					document.getElementById(target_id).innerHTML=list;
+				}
+				else{
+					document.getElementById(target_id).innerHTML=" ";
+				}
+			} 
+		});										
 	}
 	/*$(document).ready(function(){
 		$("#viewAllOrgUnitLists").click(function(){

@@ -194,7 +194,7 @@
 				</li>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#create_tab_modal"
-						onclick='getRoles("role_selector",$("#ou_selector").val());refresh_all_entries();'>Create a tab</a>
+						onclick='getRoles("role_selector",$("#ou_selector").val());refresh_all_entries();getOUandRole();'>Create a tab</a>
 				</li>
 					
 				<li>
@@ -402,7 +402,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post">
-					<div class="panel panel-default">
+					<!--<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="form-group">
 								<label class="col-sm-4  control-label" for="ousel">Organization Unit</label>
@@ -437,20 +437,17 @@
 								
 							</div>
 						</div>
-					</div>
+					</div>-->
 					
 					<div id="role_lists">
 						
 					</div>
-					<h3 align="center"> 
+					<!--<h3 align="center"> 
 					<a href="#" data-toggle="collapse" class='btn btn-link' data-target="#create_role_collapsible">
-					<span class="glyphicon glyphicon-plus"></span> Click here to create a new role</a></h3>
+					<span class="glyphicon glyphicon-plus"></span> Click here to create a new role</a></h3>-->
 					
-					<div id="create_role_collapsible" class="collapse">
+					<!--<div id="create_role_collapsible" class="collapse">-->
 						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h1 class="panel-title">Role details:</h1>
-							</div>
 							<div class="panel-body">
 								<div class="form-group">
 									<label for="rolaname" class="col-sm-4  control-label">Role Name</label>
@@ -460,7 +457,7 @@
 								</div>
 							
 								<div class="form-group">
-									<label for="roletype" class="col-sm-4  control-label">Role Type</label>
+									<label for="roletype" class="col-sm-4  control-label">Role Type:</label>
 									<div class="col-sm-8">
 										<select class="form-control" name="role_type" id="roletype">
 											<option>Doctor</option>
@@ -469,11 +466,46 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<label class="col-sm-4  control-label">Organisation:</label>
+									<div class="col-sm-8">
+										<select class="form-control" id="select_org_for_role">
+											<script type="text/javaScript">
+												$(document).ready(function(){
+													viewOrgs("dropdown","select_org_for_role","all");
+													
+													$("#select_org_for_role").change(function(){
+														var org = $("#select_org_for_role").val();
+														getOUlists(org,"select_ou_4_role");
+													});
+												});
+											</script>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
 									<label class="col-sm-4  control-label">OU Specific</label>
 									<div class="col-sm-4">
-										<label class="radio-inline"><input type="radio" name="optradio" id="access_yes" checked>Yes</label>
-										<label class="radio-inline"><input type="radio" name="optradio" id="access_no">No</label>
+										<label class="radio-inline"><input type="radio" name="optradio" 
+											onclick="disp_ou_selector();" id="access_yes">Yes</label>
+										<label class="radio-inline"><input type="radio" name="optradio" 
+											onclick="hide_ou_selector();" id="access_no">No</label>
+										<script type="text/JavaScript">
+											function disp_ou_selector(){
+												document.getElementById("ou_section_for_creating_role").innerHTML=""+
+												"<label class='col-sm-4 control-label'>Select an OU:</label>"+
+												"<div class='col-sm-8'>"+
+													"<select class='form-control' id='select_ou_4_role'></select>"+
+												"</div>";
+												var org = $("#select_org_for_role").val();
+												getOUlists(org,"select_ou_4_role");
+											}
+											function hide_ou_selector(){
+												document.getElementById("ou_section_for_creating_role").innerHTML=" ";
+											}	
+										</script>
 									</div>
+								</div>
+								<div class="form-group" id="ou_section_for_creating_role">
 								</div>
 							</div>
 							<div class="panel-footer clearfix">
@@ -483,7 +515,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					<!--</div>-->
 				</form>
 			</div>	
 		</div>
@@ -646,13 +678,78 @@
 								</select>
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4  control-label">Organisation:</label>
+							<div class="col-sm-8">
+								<select class="form-control" id="choose_org" onchange="getOUandRole();">
+									<script type="text/JavaScript">
+										$(document).ready(function(){
+											viewOrgs("dropdown","choose_org","all");
+										});
+									</script>
+								</select>
+							</div>
+						</div>
+						
 						<div class="form-group">
 							<label class="col-sm-4  control-label">OU Specific:</label>
 							<div class="col-sm-8">
-								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_yes" checked>Yes</label>
-								<label class="radio-inline"><input type="radio" name="optradio" id="ou_specific_no">No</label>
+								<label class="radio-inline"><input type="radio" name="optradio" 
+									onclick="disp_ou_role_selector_region();" id="ou_specific_yes" checked>Yes</label>
+								<label class="radio-inline"><input type="radio" name="optradio" 
+									onclick="hide_ou_role_selector_region();" id="ou_specific_no">No</label>
 							</div>
 						</div>
+						<script type="text/JavaScript">
+							function disp_ou_role_selector_region(){
+								document.getElementById("ou_selector_region").innerHTML=""+
+													"<label class='col-sm-4 control-label'>Select an OU:</label>"+
+													"<div class='col-sm-8'>"+
+														"<select class='form-control' id='ou_selector' onchange='setRole();'></select>"+
+													"</div>";
+								document.getElementById("role_selector_region").innerHTML=""+
+													"<label class='col-sm-4 control-label'>Select a Role:</label>"+
+													"<div class='col-sm-8'>"+
+														"<select class='form-control' id='role_selector'></select>"+
+													"</div>";
+								/*var org = $("#choose_org").val();
+								getOUlists(org,"ou_selector");*/
+								getOUandRole();
+							}
+							function hide_ou_role_selector_region(){
+								document.getElementById("ou_selector_region").innerHTML=" ";
+								document.getElementById("role_selector_region").innerHTML=" ";
+							}
+							function setRole(){
+								var orgunit=($("#ou_selector").val()).trim();
+								getRoles("role_selector",orgunit);
+							}
+							function getOUandRole(){
+								var org_name=($("#choose_org").val()).trim();
+								$.ajax({
+									type: "GET",
+									url: "orgUnitList.php",
+									data: {"org_name":org_name},
+									success: function(data){
+										if(data.trim()!="null"){
+											var ou_list = JSON.parse(data);
+											var list=" ";
+											for(var i=0;i<ou_list.length;i++){
+												list+="<option>"+ou_list[i].OrganisationUnit+"</option>";
+											}
+											document.getElementById("ou_selector").innerHTML=list;
+											var orgunit=($("#ou_selector").val()).trim();
+											getRoles("role_selector",orgunit);
+										}
+										else{
+											document.getElementById("ou_selector").innerHTML=" ";
+										}
+									}
+								});
+								return false;
+							}	
+						</script>
 						<div class="form-group" id="ou_selector_region">
 							<label class='col-sm-4  control-label' for='ou_selector'>Select an OU:</label>
 							<div class='col-sm-8'><select id='ou_selector' class='form-control'></select></div>
@@ -663,7 +760,8 @@
 						</div>
 					</div>	
 					<div class="panel-footer clearfix">
-						<div class="pull-right"><Button type="submit" class="btn btn-info" id="createTab">
+						<div class="pull-right"><Button type="button" class="btn btn-info" id="createTab"
+							>
 							Create</Button>
 					</div>
 					<span id="createTabResponse"></span></div>	
