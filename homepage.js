@@ -1046,6 +1046,19 @@ $(document).ready(function(){
 		}*/
 		//alert(ou);
 		//	data: {"ou":ou,"role_name":role_name,"role_id":role_id},
+		var ou_name=($("#choose_ou").val()).trim();
+		var or_name=($("#org_lists").val()).trim();
+		if(ou_specific_tab==false){
+			if(or_name.length==0){
+				document.getElementById(id).innerHTML="<p><center>No Organisation selected!</center></p>";
+				return false;
+			}
+		}else{
+			if(ou_name.length==0){
+				document.getElementById(id).innerHTML="<p><center>No OU exists for the selected Organisation!</center></p>";
+				return false;
+			}
+		}
 		$.ajax({
 			url: "getTabs.php",
 			type: "GET",
@@ -1059,37 +1072,43 @@ $(document).ready(function(){
 				else if(resp.trim()=="null"){
 					document.getElementById(id).innerHTML="<br/><div>"+
 					"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
-					"<br/>No tab exists for this role</h1></div>";
+					"<br/>No tab exists.</h1></div>";
 					document.getElementById(id).style.color="#FE642E";
 				}
 				else{
 					var json_arr = JSON.parse(resp);
 					var layout=" ";
-					var popup_content_form=" ";
+					var popup_content_form=" ";		
+					var i;
 					var ou_name=($("#choose_ou").val()).trim();
 					var or_name=($("#org_lists").val()).trim();
-					var i;
+					if(ou_specific_tab==false){
+						if(or_name.length==0){
+							document.getElementById(id).innerHTML="<p><center>No Organisation selected!</center></p>";
+							return false;
+						}
+					}else{
+						if(ou_name.length==0){
+							document.getElementById(id).innerHTML="<p><center>No OU exists for the selected Organisation!</center></p>";
+							return false;
+						}
+					}
+					var ou_specific_count=0;
+					var not_ou_specific_count=0;
 					for(i=0;i<json_arr.length;i++){
 						var btn_class;
 						var OU = (json_arr[i].OU).trim();
 						var ORG = (json_arr[i].Org).trim();
 						var RoleName = json_arr[i].RoleName;
 						var ou_specific=" ";
-						
-						/*if(parseInt(json_arr[i].OU_Specific) == 0){
-							btn_class="btn btn-warning";
-							ou_specific="No";
-						}	
-						else{
-							btn_class="btn btn-success";
-							ou_specific="Yes";
-						}*/
 						prev_tab_name[i] = 	json_arr[i].Name;
 						if(ou_specific_tab==false){
+							
 							if(parseInt(json_arr[i].OU_Specific)==0 && or_name==ORG){
 								//alert(ORG);
 								btn_class="btn btn-warning";
 								ou_specific="No";
+								not_ou_specific_count++;
 								layout+= "<tr><td>"+
 								"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
 								"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
@@ -1108,7 +1127,7 @@ $(document).ready(function(){
 							if(parseInt(json_arr[i].OU_Specific)==1 && ou_name==OU){
 								btn_class="btn btn-success";
 								ou_specific="Yes";
-								
+								ou_specific_count++;
 								layout+= "<tr><td>"+
 								"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
 								"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
@@ -1126,7 +1145,15 @@ $(document).ready(function(){
 					}
 											
 					document.getElementById(id).innerHTML=layout;
-					
+					if(ou_specific_tab==false){
+						if(not_ou_specific_count==0){
+							document.getElementById(id).innerHTML="<p><center>No record found!</center></p>";
+						}
+					}else{
+						if(ou_specific_count==0){
+							document.getElementById(id).innerHTML="<p><center>No record found!</center></p>";
+						}
+					}
 					for(var i=0;i<json_arr.length;i++){
 						$("[data-toggle='popover"+i+"']").popover({
 							html: true,
