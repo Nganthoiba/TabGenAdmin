@@ -1073,6 +1073,7 @@ $(document).ready(function(){
 					var or_name=($("#org_lists").val()).trim();
 					var ou_specific_count=0;
 					var not_ou_specific_count=0;
+					
 					if(ou_specific_tab==false){
 						if(or_name.length==0){
 							document.getElementById(id).innerHTML="<br/><div>"+
@@ -1082,7 +1083,6 @@ $(document).ready(function(){
 							
 						}
 						else{
-							
 							for(i=0;i<json_arr.length;i++){
 								var btn_class;
 								var OU = (json_arr[i].OU).trim();
@@ -1151,7 +1151,50 @@ $(document).ready(function(){
 							}
 						}
 					}
-											
+					/*for(i=0;i<json_arr.length;i++){
+								var btn_class;
+								var OU = (json_arr[i].OU).trim();
+								var ORG = (json_arr[i].Org).trim();
+								var RoleName = json_arr[i].RoleName;
+								var ou_specific=" ";
+								prev_tab_name[i] = 	json_arr[i].Name;
+								
+								if(parseInt(json_arr[i].OU_Specific)==1){
+									btn_class="btn btn-success";
+									ou_specific="Yes";
+									ou_specific_count++;
+									layout+= "<tr><td>"+
+										"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
+										"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+										"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
+										"<td>"+
+											"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+											"<div><b>OU:</b> "+OU+
+											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+											"<br/><b>OU Specific:</b> "+ou_specific+
+											"</div>"+
+										"</td>"+
+										"</tr>";
+								}
+								else{
+									btn_class="btn btn-warning";
+									ou_specific="No";
+									ou_specific_count++;
+									layout+= "<tr><td>"+
+										"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
+										"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+										"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
+										"<td>"+
+											"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+											"<div><b>Organisation:</b> "+ORG+
+											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+											"<br/><b>OU Specific:</b> "+ou_specific+
+											"</div>"+
+										"</td>"+
+										"</tr>";
+								}
+								
+							}*/						
 					document.getElementById(id).innerHTML=layout;
 					if(ou_specific_tab==false){
 						if(not_ou_specific_count==0){
@@ -1466,14 +1509,9 @@ $(document).ready(function(){
 						if(parseInt(resp_array[i].OU_Specific)==0){
 							ou_specific="No";
 							btn_class="btn btn-warning";
-						}else{
-							ou_specific="Yes";
-							btn_class="btn btn-success";
-						}
-						tab_layout+="<tr><td valign='middle'><div>"+
+							tab_layout+="<tr><td valign='middle'><div>"+
 									resp_array[i].Name+"</div>"+
-									"<div><b>OU:</b> "+resp_array[i].OU+
-									"<br/><b>Role:</b> "+resp_array[i].RoleName+
+									"<div><b>Organisation:</b> "+resp_array[i].Org+
 									"<br/><b>Template:</b> "+resp_array[i].Template_Name+
 									"<br/><b>OU Specific:</b> "+ou_specific+
 									"</div>"+
@@ -1482,7 +1520,24 @@ $(document).ready(function(){
 									"style='width: 40px;height: 40px;border-radius: 50%;'"+
 									"class='"+btn_class+"' onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
 									"return false;'>"+
-									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";	
+									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";
+						}else{
+							ou_specific="Yes";
+							btn_class="btn btn-success";
+							tab_layout+="<tr><td valign='middle'><div>"+
+									resp_array[i].Name+"</div>"+
+									"<div><b>OU:</b> "+resp_array[i].OU+
+									"<br/><b>Template:</b> "+resp_array[i].Template_Name+
+									"<br/><b>OU Specific:</b> "+ou_specific+
+									"</div>"+
+									"</td>"+
+									"<td align='right' ><Button type='button'"+
+									"style='width: 40px;height: 40px;border-radius: 50%;'"+
+									"class='"+btn_class+"' onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
+									"return false;'>"+
+									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";
+						}
+							
 					}
 					document.getElementById(id).innerHTML=tab_layout;
 				}
