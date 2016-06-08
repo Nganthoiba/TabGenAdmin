@@ -4,9 +4,10 @@ session_start();
 include('connect_db.php');
 include('tabgen_php_functions.php');// all the function/ methodes are in this php file
 include('ConnectAPI.php');
-
+//$ou_specific = $_POST['ou_specific'];
 if(isset($_SESSION['user_details'])){
 	$user_details = json_decode($_SESSION['user_details']);
+	
 	if(!empty($_POST['ou_specific'])){
 		
 		$ou_specific = $_POST['ou_specific'];
@@ -66,13 +67,16 @@ if(isset($_SESSION['user_details'])){
 			}
 		}
 		else echo json_encode(array("status"=>true,"message"=>"Unable to connect database"));
+		
 	}
 	else{
-		echo json_encode(array("status"=>false,"message"=>"Invalid perameter passed..!"));
+		echo json_encode(array("status"=>false,"message"=>"Please select whether the tab is OU specific or not..!"));
 	}
+	
 }
 else 
 	echo json_encode(array("status"=>false,"message"=>"Session expired, please login again."));
+//echo json_encode(array("status"=>true,"message"=>$ou_specific));
 
 //php function to create News
 function createNews($conn,$title){

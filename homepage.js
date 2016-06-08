@@ -217,7 +217,6 @@ $(document).ready(function(){
 		//javascript for creating tab
 		$('#createTab').click(function(){
 			createTab();
-			return false;
 		});
 	});
 function createTab(){
@@ -227,34 +226,31 @@ function createTab(){
 			var template_name = ($("#choose_templates").val()).trim();
 			var ou_specific = document.getElementById("ou_specific_yes").checked;
 			var post_data;//data to be posted
-			
+			var org_name=($("#choose_org").val()).trim();
 			//alert("org_unit="+org_unit+"&role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name);
 			if(tab_name.length==0){
 				document.getElementById("createTabResponse").innerHTML="<center>Give a Tab name</center>";
 				document.getElementById("createTabResponse").style.color="red";
 				return false;
-			}
-			var org_name=($("#choose_org").val()).trim();
-			
+			}	
 			//alert(role_id);
 			if(org_name==null || org_name.length==0){
 				document.getElementById("createTabResponse").innerHTML="<center>Select an organisation.</center>";
 				document.getElementById("createTabResponse").style.color="red";
 				return false;
 			}
-			
-			post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name,
-						"ou_name":ou_name,"role_name":role_name,"role_id":role_id};	
+				
 		if(document.getElementById("ou_specific_yes").checked==false && document.getElementById("ou_specific_no").checked==false){
 			document.getElementById("createTabResponse").innerHTML="<center><b>Please select whether OU specific or not.</b></center>";
 			document.getElementById("createTabResponse").style.color="red";
 			return false;
 		}
 						
-		if(document.getElementById("ou_specific_yes").checked==true){
+		if(ou_specific==true){
 			var ou_name = ($("#ou_selector").val()).trim();
 			var role_name = ($("#role_selector").val()).trim();
 			var role_id = getRoleId(role_name,role_list);
+			
 			if(role_name==null || role_name.length==0){
 				document.getElementById("createTabResponse").innerHTML="<center>Select a role.</center>";
 				document.getElementById("createTabResponse").style.color="red";
@@ -265,47 +261,48 @@ function createTab(){
 				document.getElementById("createTabResponse").style.color="red";
 				return false;
 			}
-			post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name,
-						"ou_name":ou_name,"role_name":role_name,"role_id":role_id};
 			$.ajax({
 						type: "POST",
 						url: "createTab.php",
-						data: post_data,
+						data: {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name,
+						"ou_name":ou_name,"role_name":role_name,"role_id":role_id},
 						success: function(resp){
 							//alert("Response: "+resp);
 							var resp_arr = JSON.parse(resp);
 							if(resp_arr.status==true){
-								getTabs("list_of_tabs");
-								getAssociatedTabs("associated_tabs");
-								getAllTabs("get_all_tabs");
 								document.getElementById("createTabResponse").innerHTML="<center><b>"+
 									resp_arr.message+"</b></center>";
 								document.getElementById("createTabResponse").style.color="green";
+								var  ou_spec=document.getElementById("ou_specific_tab_yes").checked;
+								getTabs("list_of_tabs",ou_spec);
+								//getTabs("list_of_tabs");
+								getAssociatedTabs("associated_tabs");
+								getAllTabs("get_all_tabs");
+								
 							}
 							else{
 								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
 								document.getElementById("createTabResponse").style.color="red";
 							}
 						}
-				});
+			});
 		}
-		else if(document.getElementById("ou_specific_no").checked==true){
-			post_data = {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name};
-				
+		else {	
 				$.ajax({
 						type: "POST",
 						url: "createTab.php",
-						data: post_data,
+						data: {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name},
 						success: function(resp){
 							//alert("Response: "+resp);
 							var resp_arr = JSON.parse(resp);
 							if(resp_arr.status==true){
-								getTabs("list_of_tabs");
-								getAssociatedTabs("associated_tabs");
-								getAllTabs("get_all_tabs");
 								document.getElementById("createTabResponse").innerHTML="<center><b>"+
 									resp_arr.message+"</b></center>";
 								document.getElementById("createTabResponse").style.color="green";
+								var  ou_spec=document.getElementById("ou_specific_tab_yes").checked;
+								getTabs("list_of_tabs",ou_spec);
+								getAssociatedTabs("associated_tabs");
+								getAllTabs("get_all_tabs");
 							}
 							else{
 								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
