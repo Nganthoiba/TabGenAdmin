@@ -44,7 +44,9 @@ if(validateUserDetails()==true){
 					"email" => $_POST['email'],
 					"username" => $_POST['username'], 
 					"password" => $_POST['password'],
-					"name" => $_POST['org_unit']	
+					"name" => $_POST['org_unit'],
+					"roles"=>$_POST['Role'],
+					"first_name"=>$user_displayname	
 				);
 				
 				$url_send ="http://".IP.":8065/api/v1/users/create";
@@ -58,14 +60,16 @@ if(validateUserDetails()==true){
 						if($connect->httpResponseCode==200){
 							$role=$_POST['Role'];
 							$role_id=$_POST['role_id'];	
+							userUniversalAccess($conn,$responseData->id,$_POST['type']);
+							$ou_id = findOUId($conn,$org_unit_name);
+							
 							if(updateUserRoleAndDisplayName($responseData->id,$conn,$role,$user_displayname)){
-								userUniversalAccess($conn,$responseData->id,$_POST['type']);
-								$ou_id = findOUId($conn,$org_unit_name);
-								if(mapUserwithOU($conn,$responseData->id,$ou_id,$role_id,$type))
+								if(mapUserwithOU($conn,$responseData->id,$ou_id,$role_id,$type)){
 									echo "true";
+								}
 								else{
 									echo "Internal Server error: Unable to map User with OU, 
-										please contact the system administrator";
+											please contact the system administrator";
 								}
 							}
 							else{

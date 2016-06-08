@@ -1166,12 +1166,12 @@ $(document).ready(function(){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
 		
-		var ou = document.getElementById("choose_ou2").value;
-		var role_name = document.getElementById("choose_role2").value;
+		/*var ou = document.getElementById("choose_ou2").value;
+		var role_name = document.getElementById("choose_role2").value;*/
 		//alert(ou);
 		$.ajax({
-			url: "getAllTabs.php",
-			type: "GET",
+			url:"getAllTabs.php",
+			type:"GET",
 			success: function(resp){
 				if(resp.trim()=="false"){
 					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
@@ -1193,16 +1193,10 @@ $(document).ready(function(){
 					for(i=0;i<json_arr.length;i++){
 						var btn_class;
 						var OU = json_arr[i].OU;
+						var ORG = json_arr[i].Org;
 						var RoleName = json_arr[i].RoleName;
 						var ou_specific=" ";
-						if(parseInt(json_arr[i].OU_Specific) == 0){
-							btn_class="btn btn-warning";
-							ou_specific="No";
-						}	
-						else{
-							btn_class="btn btn-success";
-							ou_specific="Yes";
-						}
+						
 						prev_tab_name[i] = 	json_arr[i].Name;
 						if(json_arr[i].Template_Name=="Chat Template"){
 							popup_content_form="<form class='form-horizontal' role='form'"+
@@ -1272,28 +1266,63 @@ $(document).ready(function(){
 									"</div>"+
 								"</form>";
 						}
-						layout+= "<tr>"+
-						"<td>"+
-							"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-							"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
-							"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-							"<br/><b>OU Specific:</b> "+ou_specific+
-							"</div>"+
-						"</td>"+
-						"<td align='right'>"+
-							"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+"' type='button' id='edit_tab"+i+"'>"+
-							"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
-							"<div class='container' style='width:20px'>"+
-								"<div class='hide' style='max-width:300px;min-width:250px' id='popover-content"+i+"'>"+
-									popup_content_form+
-								"</div>"+
-							"</div>"+
-						"</td>"+
-						"<td align='right'>"+
-								"<Button type='button' style='height: 40px;' class='btn btn-link' onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-								"<span class='glyphicon glyphicon-remove'></span></Button>"+
-						"</td>"+
-						"</tr>";
+						if(parseInt(json_arr[i].OU_Specific) == 0){
+							//btn_class="btn btn-warning";
+							ou_specific="No";
+							layout+= "<tr>"+
+								"<td>"+
+									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+									"<div><b>Organisation:</b> "+ORG+
+									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+									"<br/><b>OU Specific:</b> "+ou_specific+
+									"</div>"+
+								"</td>"+
+								"<td align='right'>"+
+									"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+
+									"' type='button' id='edit_tab"+i+"'>"+
+									"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
+									"<div class='container' style='width:20px'>"+
+										"<div class='hide' style='max-width:300px;min-width:250px' id='popover-content"+i+"'>"+
+											popup_content_form+
+										"</div>"+
+									"</div>"+
+								"</td>"+
+								"<td align='right'>"+
+										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
+										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+										"<span class='glyphicon glyphicon-remove'></span></Button>"+
+								"</td>"+
+								"</tr>";
+						}	
+						else{
+							//btn_class="btn btn-success";
+							ou_specific="Yes";
+							layout+= "<tr>"+
+								"<td>"+
+									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+									"<div><b>OU:</b> "+OU+
+									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+									"<br/><b>OU Specific:</b> "+ou_specific+
+									"</div>"+
+								"</td>"+
+								"<td align='right'>"+
+									"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+
+									"' type='button' id='edit_tab"+i+"'>"+
+									"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
+									"<div class='container' style='width:20px'>"+
+										"<div class='hide' style='max-width:300px;min-width:250px' id='popover-content"+i+"'>"+
+											popup_content_form+
+										"</div>"+
+									"</div>"+
+								"</td>"+
+								"<td align='right'>"+
+										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
+										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+										"<span class='glyphicon glyphicon-remove'></span></Button>"+
+								"</td>"+
+								"</tr>";
+						}
+						
 					}
 											
 					document.getElementById(id).innerHTML=layout;
@@ -1307,6 +1336,12 @@ $(document).ready(function(){
 						});
 					}
 				}
+			},
+			error:function(err_data){
+				document.getElementById(id).innerHTML="<br/><div>"+
+					"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
+					"<br/>Oops! an unknown problem with the server. Please try again later.</h1></div>";
+				document.getElementById(id).style.color="#FE642E";
 			}
 		});
 	}

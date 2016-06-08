@@ -18,7 +18,9 @@ include('tabgen_php_functions.php');
 						"RoleName"=>getRoleNamebyId($conn,$row['RoleId']),
 						"Template_Name"=>$row['Template_Name'],
 						"news_details"=>$news_details,
-						"OU"=>getOUbyRole($conn,$row['RoleId']));
+						"Org"=>$row['Organisation'],
+						"OU"=>$row['OrganisationUnit']);
+						//"OU"=>getOUbyRole($conn,$row['RoleId']));
 				}
 				else{
 					$output[]=array("Id"=>$row['Id'],"CreateAt"=>$row['CreateAt'],"UpdateAt"=>$row['UpdateAt'],
@@ -27,7 +29,9 @@ include('tabgen_php_functions.php');
 					"RoleName"=>getRoleNamebyId($conn,$row['RoleId']),
 					"Template_Name"=>$row['Template_Name'],
 					"news_details"=>" ",
-					"OU"=>getOUbyRole($conn,$row['RoleId']));
+					"Org"=>$row['Organisation'],
+					"OU"=>$row['OrganisationUnit']);
+					//"OU"=>getOUbyRole($conn,$row['RoleId']));
 				}
 				//$row;''
 			}

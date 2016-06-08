@@ -165,10 +165,6 @@
 			<center>
 				<div style="padding-top:10px"><img src="img/user.png" class="circular" alt="No profile Image found"/></div>
 			</center>
-				<!--<div style="color:#f7f7f7;background-color:#5061DC;width:100%; 
-						padding-left:5px;padding-right:5px;padding-top:10px;padding-bottom:10px;" id="userID" >
-					<?php /*echo $user_name;*/?>
-				</div>-->
 			
             <ul class="sidebar-nav">
 				<br/><br/><br/>
@@ -177,7 +173,9 @@
 				<li class="sidebar-brand">
 					<div style="color:#f7f7f7;background-color:#5061DC;width:100%; 
 						padding-left:5px;padding-right:5px;" id="user_detail_section">
-							<?php echo $user_name;?>
+							<?php
+								echo $user_name;
+								/*echo get_token();*/?>
 					</div>
 				</li>
                 <li>
@@ -392,42 +390,6 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post">
-					<!--<div class="panel panel-default">
-						<div class="panel-body">
-							<div class="form-group">
-								<label class="col-sm-4  control-label" for="ousel">Organization Unit</label>
-								<div class="col-sm-4">
-									<select class="form-control" id="ousel" style="float:center">
-										<script type="text/JavaScript">
-											$(document).ready(function(){
-												viewOrgUnits("dropdown","ousel","all");
-											});
-										</script>
-									</select>
-								</div>
-								<div class="col-sm-4">
-									<button type="submit" class="btn btn-default" id="disp_role" style="float:right">Show Existing Roles </button>
-									<script type="text/JavaScript">
-										$(document).ready(function(){
-											$('#disp_role').click(function(){
-												displayRoles("role_lists",$("#ousel").val());
-												return false;
-											});
-											$('#ousel').change(function(){
-												displayRoles("role_lists",$("#ousel").val());
-												$('#rolaname').val("");
-												//$("#rolaname").attr("placeholder", "Type Role Name").placeholder();
-												$("#rolaname").attr("placeholder", "Type Role Name");
-												$('#error3').html(" ");
-												return false;
-											});
-										});
-									</script>
-								</div>
-								
-							</div>
-						</div>
-					</div>-->
 					
 					<div id="role_lists">
 						
@@ -1083,7 +1045,7 @@
 		</div>
 	</div>
 </div>
-<?php 
+<?php  //echo get_token();
 	}else{
 		echo "<p><center>Sorry! NO user session available, try login again.</center></p>";
 	}
