@@ -870,6 +870,8 @@
 																	//getRoles("choose_role",$("#choose_ou").val());
 																	$("#choose_role").change(function(){
 																		getAssociatedTabs("associated_tabs");
+																		var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+																		getTabs("list_of_tabs",ou_specific);
 																	});
 																});
 															</script>
