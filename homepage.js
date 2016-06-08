@@ -273,7 +273,7 @@ function createTab(){
 								document.getElementById("createTabResponse").innerHTML="<center><b>"+
 									resp_arr.message+"</b></center>";
 								document.getElementById("createTabResponse").style.color="green";
-								var  ou_spec=document.getElementById("ou_specific_tab_yes").checked;
+								var ou_spec=document.getElementById("ou_specific_tab_yes").checked;
 								getTabs("list_of_tabs",ou_spec);
 								//getTabs("list_of_tabs");
 								getAssociatedTabs("associated_tabs");
@@ -1034,6 +1034,18 @@ $(document).ready(function(){
 		
 		var ou_name=($("#choose_ou").val()).trim();
 		var or_name=($("#org_lists").val()).trim();
+		var role_name = ($("#choose_role").val()).trim();
+		if(role_name.length==0){
+			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry,No role exists for the selected OU.</h1></p>";
+			document.getElementById(id).style.color="#A4A4A4";
+			return false;
+		}
+		var role_id =  getRoleId(role_name,role_list);
+		if(role_id==null){
+			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, we have an error, unable to get Role ID. Please refresh the page.</h1></p>";
+			document.getElementById(id).style.color="#A4A4A4";
+			return false;
+		}
 		if(ou_specific_tab==false){
 			if(or_name.length==0){
 				document.getElementById(id).innerHTML="<p><center>No Organisation selected!</center></p>";
@@ -1052,8 +1064,8 @@ $(document).ready(function(){
 		$.ajax({
 			url: "getTabs.php",
 			type: "GET",
+			data: {"ou_specific_tab":ou_specific_tab,"role_id":role_id,"org":or_name,"ou":ou_name},
 			success: function(resp){
-				
 				if(resp.trim()=="false"){
 					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
 				}
@@ -1125,14 +1137,14 @@ $(document).ready(function(){
 						if(not_ou_specific_count==0){
 							document.getElementById(id).innerHTML="<br/><div>"+
 							"<h3 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
-							"<br/>No tab exists for the selected Organisation: <b>"+or_name+"</b>.</h3></div>";
+							"<br/>No tab or no more unassociated tab exists for the selected Organisation: <b>"+or_name+"</b>.</h3></div>";
 							document.getElementById(id).style.color="#FE642E";
 						}
 					}else{
 						if(ou_specific_count==0){
 							document.getElementById(id).innerHTML="<br/><div>"+
 							"<h3 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
-							"<br/>No tab exists for the selected OU: <b>"+ou_name+"</b>.</h3></div>";
+							"<br/>No tab or no more unassociated tab exists for the selected OU: <b>"+ou_name+"</b>.</h3></div>";
 							document.getElementById(id).style.color="#FE642E";
 						}
 					}
@@ -1386,6 +1398,8 @@ $(document).ready(function(){
 				var resp_json = JSON.parse(resp);
 				if(resp_json.status==true){
 					getAssociatedTabs("associated_tabs");
+					var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+					getTabs("list_of_tabs",ou_specific);
 				}
 				else{
 					alert(resp_json.message);
@@ -1495,6 +1509,8 @@ $(document).ready(function(){
 						var resp_arr = JSON.parse(response);
 						if(resp_arr.status==true){
 							getAssociatedTabs("associated_tabs");
+							var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+							getTabs("list_of_tabs",ou_specific);
 						}
 						else {
 							alert(resp_arr.message);
@@ -1516,7 +1532,8 @@ $(document).ready(function(){
 					//alert(resp);
 					if(resp_arr.status==true){
 						getAllTabs("get_all_tabs");
-						getTabs("list_of_tabs");//refreshing the tab list
+						var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+						getTabs("list_of_tabs",ou_specific);
 						getAssociatedTabs("associated_tabs");
 					}
 					else{

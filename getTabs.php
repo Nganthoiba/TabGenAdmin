@@ -2,19 +2,23 @@
 include('connect_db.php');
 include('tabgen_php_functions.php');
 session_start();
-if(isset($_SESSION['user_details'])){
+/*if(isset($_SESSION['user_details'])){
 	$user_details = json_decode($_SESSION['user_details']);
-	$created_by = $user_details->username;
-	/*
+	$created_by = $user_details->username;*/
+	$ou_specific_tab=$_GET['ou_specific_tab'];
+	$org=$_GET['org'];
 	$ou = $_GET['ou'];
-	$role_name = $_GET['role_name'];
-	$role_id = $_GET['role_id'];*/
+	$role_id = $_GET['role_id'];
+	$flag = $ou_specific_tab=="true"?1:0;
+	//echo $role_id." ".$ou." ".$org." ".$flag;
 	if($conn){
 			//$role_id = findRoleId($conn,$ou,$role_name);
 			$query = "SELECT Tab.*,TabTemplate.Name as Template_Name 
 						FROM Tab,TabTemplate
 						where Tab.TabTemplate=TabTemplate.Id and
-							Tab.CreatedBy='$created_by' and
+							Tab.OU_Specific='$flag' and
+							Tab.Id not in(select TabId from RoleTabAsson where 
+										RoleId='$role_id') and
 							Tab.DeleteAt=0
 						order by Tab.CreateAt desc";
 			$res = $conn->query($query);
@@ -50,9 +54,9 @@ if(isset($_SESSION['user_details'])){
 				echo json_encode($output);
 	}
 	else echo "false";
-}
+/*}
 else 
-	echo "Sesssion_expired";
+	echo "Sesssion_expired";*/
 
 
 
