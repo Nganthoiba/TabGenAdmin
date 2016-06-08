@@ -1049,6 +1049,7 @@ $(document).ready(function(){
 			url: "getTabs.php",
 			type: "GET",
 			success: function(resp){
+				
 				if(resp.trim()=="false"){
 					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
 				}
@@ -1061,147 +1062,62 @@ $(document).ready(function(){
 					"<br/>No tab exists.</h1></div>";
 					document.getElementById(id).style.color="#FE642E";
 				}
-				else{
+				else{						
 					var json_arr = JSON.parse(resp);
-					var layout=" ";
-					var popup_content_form=" ";		
-					var i;
-					var ou_name=($("#choose_ou").val()).trim();
-					var or_name=($("#org_lists").val()).trim();
-					var ou_specific_count=0;
+					var layout = "";
+					//alert(json_arr.length);
 					var not_ou_specific_count=0;
-					
-					if(ou_specific_tab==false){
-						if(or_name.length==0){
-							document.getElementById(id).innerHTML="<br/><div>"+
-								"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
-								"<br/>No Organisation selected!</h1></div>";
-								document.getElementById(id).style.color="#FE642E";
-							
+					var ou_specific_count=0;
+					for(i=0;i<json_arr.length;i++){
+						var btn_class;
+						var OU = json_arr[i].OU;
+						var ORG = json_arr[i].Org;
+						var RoleName = json_arr[i].RoleName;
+						var ou_specific=" ";
+						prev_tab_name[i] = 	json_arr[i].Name;
+						if(ou_specific_tab==false){
+							if(parseInt(json_arr[i].OU_Specific)==0 && or_name==ORG.trim()){
+								btn_class="btn btn-warning";
+								ou_specific="No";
+								not_ou_specific_count++;
+								layout+= "<tr><td>"+
+											"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
+											"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+											"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
+											"<td>"+
+												"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+												"<div><b>Organisation:</b> "+ORG+
+												"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+												"<br/><b>OU Specific:</b> "+ou_specific+
+												"</div>"+
+											"</td>"+
+											"</tr>";
+							}
 						}
-						else{
-							for(i=0;i<json_arr.length;i++){
-								var btn_class;
-								var OU = (json_arr[i].OU).trim();
-								var ORG = (json_arr[i].Org).trim();
-								var RoleName = json_arr[i].RoleName;
-								var ou_specific=" ";
-								prev_tab_name[i] = 	json_arr[i].Name;
-								
 									
-								if(parseInt(json_arr[i].OU_Specific)==0 && or_name==ORG){
-									btn_class="btn btn-warning";
-									ou_specific="No";
-									not_ou_specific_count++;
-									layout+= "<tr><td>"+
-										"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
-										"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
-										"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-										"<td>"+
-											"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-											"<div><b>Organisation:</b> "+ORG+
-											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-											"<br/><b>OU Specific:</b> "+ou_specific+
-											"</div>"+
-										"</td>"+
-										"</tr>";
-								}
-								
-							}
-							
-						}
-					}else{
-						if(ou_name.length==0){
-							document.getElementById(id).innerHTML="<br/><div>"+
-								"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
-								"<br/>No OU exists for the selected Organisation!</h1></div>";
-							document.getElementById(id).style.color="#FE642E";
-						}
-						else{
-							
-							for(i=0;i<json_arr.length;i++){
-								var btn_class;
-								var OU = (json_arr[i].OU).trim();
-								var ORG = (json_arr[i].Org).trim();
-								var RoleName = json_arr[i].RoleName;
-								var ou_specific=" ";
-								prev_tab_name[i] = 	json_arr[i].Name;
-								
-								if(parseInt(json_arr[i].OU_Specific)==1 && ou_name==OU){
-									btn_class="btn btn-success";
-									ou_specific="Yes";
-									ou_specific_count++;
-									layout+= "<tr><td>"+
-										"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
-										"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
-										"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-										"<td>"+
-											"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-											"<div><b>OU:</b> "+OU+
-											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-											"<br/><b>OU Specific:</b> "+ou_specific+
-											"</div>"+
-										"</td>"+
-										"</tr>";
-								}
-								
+						else {
+							if(parseInt(json_arr[i].OU_Specific)==1 && ou_name==OU.trim()){
+								btn_class="btn btn-success";
+								ou_specific="Yes";
+								ou_specific_count++;
+								layout+= "<tr><td>"+
+											"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
+											"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+											"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
+											"<td>"+
+												"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+												"<div><b>OU:</b> "+OU+
+												"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+												"<br/><b>OU Specific:</b> "+ou_specific+
+												"</div>"+
+											"</td>"+
+											"</tr>";
 							}
 						}
+								
 					}
-					/*for(i=0;i<json_arr.length;i++){
-								var btn_class;
-								var OU = (json_arr[i].OU).trim();
-								var ORG = (json_arr[i].Org).trim();
-								var RoleName = json_arr[i].RoleName;
-								var ou_specific=" ";
-								prev_tab_name[i] = 	json_arr[i].Name;
-								
-								if(parseInt(json_arr[i].OU_Specific)==1){
-									btn_class="btn btn-success";
-									ou_specific="Yes";
-									ou_specific_count++;
-									layout+= "<tr><td>"+
-										"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
-										"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
-										"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-										"<td>"+
-											"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-											"<div><b>OU:</b> "+OU+
-											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-											"<br/><b>OU Specific:</b> "+ou_specific+
-											"</div>"+
-										"</td>"+
-										"</tr>";
-								}
-								else{
-									btn_class="btn btn-warning";
-									ou_specific="No";
-									ou_specific_count++;
-									layout+= "<tr><td>"+
-										"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
-										"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
-										"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-										"<td>"+
-											"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-											"<div><b>Organisation:</b> "+ORG+
-											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-											"<br/><b>OU Specific:</b> "+ou_specific+
-											"</div>"+
-										"</td>"+
-										"</tr>";
-								}
-								
-							}*/						
 					document.getElementById(id).innerHTML=layout;
-					if(ou_specific_tab==false){
-						if(not_ou_specific_count==0){
-							document.getElementById(id).innerHTML="<p><center>No record found!</center></p>";
-						}
-					}else{
-						if(ou_specific_count==0){
-							document.getElementById(id).innerHTML="<p><center>No record found!</center></p>";
-						}
-					}
+					/*
 					for(var i=0;i<json_arr.length;i++){
 						$("[data-toggle='popover"+i+"']").popover({
 							html: true,
@@ -1209,7 +1125,7 @@ $(document).ready(function(){
 							placement: "left", 
 							content: getPopupContent(i)	
 						});
-					}
+					}*/
 				}
 			}
 		});
