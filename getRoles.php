@@ -1,12 +1,14 @@
 <?php
 	include('connect_db.php');
+	include('tabgen_php_functions.php');
 	$org_unit = $_GET['org_unit'];
 	$only_ou_roles = $_GET['only_ou_roles'];//
+	$organisation=getOrgbyOU($conn,$org_unit);
 	if(empty($only_ou_roles) || $only_ou_roles=="no")
 	{
-		$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0 order by RoleName";
-				/*union 
-				select * from Role where UniversalRole='true' and DeleteAt=0 order by RoleName";*/
+		$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0 
+				union 
+				select * from Role where UniversalRole='true' and OrganisationName='$organisation' and DeleteAt=0 order by RoleName";
 		if($conn){
 			$res = $conn->query($query);					
 			if($res){
