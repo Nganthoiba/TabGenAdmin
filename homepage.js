@@ -1041,7 +1041,11 @@ $(document).ready(function(){
 			}
 		}else{
 			if(ou_name.length==0){
-				document.getElementById(id).innerHTML="<p><center>No OU exists for the selected Organisation!</center></p>";
+				document.getElementById(id).innerHTML="<br/><div>"+
+					"<h3 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
+					"<br/>No OU exists for the selected Organisation!</h3></div>";
+				document.getElementById(id).style.color="#FE642E";
+				//document.getElementById(id).innerHTML="<p><center>No OU exists for the selected Organisation!</center></p>";
 				return false;
 			}
 		}
@@ -1058,8 +1062,8 @@ $(document).ready(function(){
 				}
 				else if(resp.trim()=="null"){
 					document.getElementById(id).innerHTML="<br/><div>"+
-					"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
-					"<br/>No tab exists.</h1></div>";
+					"<h3 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
+					"<br/>No tab exists.</h3></div>";
 					document.getElementById(id).style.color="#FE642E";
 				}
 				else{						
@@ -1117,6 +1121,21 @@ $(document).ready(function(){
 								
 					}
 					document.getElementById(id).innerHTML=layout;
+					if(ou_specific_tab==false){
+						if(not_ou_specific_count==0){
+							document.getElementById(id).innerHTML="<br/><div>"+
+							"<h3 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
+							"<br/>No tab exists for the selected Organisation: <b>"+or_name+"</b>.</h3></div>";
+							document.getElementById(id).style.color="#FE642E";
+						}
+					}else{
+						if(ou_specific_count==0){
+							document.getElementById(id).innerHTML="<br/><div>"+
+							"<h3 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
+							"<br/>No tab exists for the selected OU: <b>"+ou_name+"</b>.</h3></div>";
+							document.getElementById(id).style.color="#FE642E";
+						}
+					}
 					/*
 					for(var i=0;i<json_arr.length;i++){
 						$("[data-toggle='popover"+i+"']").popover({
@@ -1407,8 +1426,8 @@ $(document).ready(function(){
 					document.getElementById(id).style.color="#FE642E";
 				}else if(resp.trim()=="null"){
 					document.getElementById(id).innerHTML="<br/><div>"+
-					"<h1 align='center'><span class='glyphicon glyphicon-alert' "+
-					"style='height:80px;width:80px'></span><br/>No Record Found</h1></div>";
+					"<h3 align='center'><span class='glyphicon glyphicon-alert' "+
+					"style='height:80px;width:80px'></span><br/>No Record Found</h3></div>";
 					document.getElementById(id).style.color="#FE642E";
 				}
 				else 
