@@ -1071,7 +1071,8 @@ $(document).ready(function(){
 					var i;
 					for(i=0;i<json_arr.length;i++){
 						var btn_class;
-						var OU = json_arr[i].OU;
+						var OU = (json_arr[i].OU).trim();
+						var ORG = (json_arr[i].Org).trim();
 						var RoleName = json_arr[i].RoleName;
 						var ou_specific=" ";
 						
@@ -1085,7 +1086,8 @@ $(document).ready(function(){
 						}*/
 						prev_tab_name[i] = 	json_arr[i].Name;
 						if(ou_specific_tab==false){
-							if(parseInt(json_arr[i].OU_Specific) == 0){
+							if(parseInt(json_arr[i].OU_Specific)==0 && or_name==ORG){
+								//alert(ORG);
 								btn_class="btn btn-warning";
 								ou_specific="No";
 								layout+= "<tr><td>"+
@@ -1094,7 +1096,7 @@ $(document).ready(function(){
 								"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
 								"<td>"+
 									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-									"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
+									"<div><b>Organisation:</b> "+ORG+
 									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
 									"<br/><b>OU Specific:</b> "+ou_specific+
 									"</div>"+
@@ -1102,8 +1104,8 @@ $(document).ready(function(){
 								"</tr>";
 							}
 						}
-						else{
-							if(parseInt(json_arr[i].OU_Specific) == 1){
+						else if(ou_specific_tab==true){
+							if(parseInt(json_arr[i].OU_Specific)==1 && ou_name==OU){
 								btn_class="btn btn-success";
 								ou_specific="Yes";
 								
@@ -1113,7 +1115,7 @@ $(document).ready(function(){
 								"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
 								"<td>"+
 									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-									"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
+									"<div><b>OU:</b> "+OU+
 									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
 									"<br/><b>OU Specific:</b> "+ou_specific+
 									"</div>"+

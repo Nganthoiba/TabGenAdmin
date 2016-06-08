@@ -27,7 +27,9 @@ if(isset($_SESSION['user_details'])){
 						"RoleName"=>getRoleNamebyId($conn,$row['RoleId']),
 						"Template_Name"=>$row['Template_Name'],
 						"news_details"=>$news_details,
-						"OU"=>getOUbyRole($conn,$row['RoleId']));
+						"Org"=>$row['Organisation'],
+						"OU"=>$row['OrganisationUnit']);
+						//"OU"=>getOUbyRole($conn,$row['RoleId']));
 				}
 				else{
 					$output[]=array("Id"=>$row['Id'],"CreateAt"=>$row['CreateAt'],"UpdateAt"=>$row['UpdateAt'],
@@ -36,7 +38,9 @@ if(isset($_SESSION['user_details'])){
 					"RoleName"=>getRoleNamebyId($conn,$row['RoleId']),
 					"Template_Name"=>$row['Template_Name'],
 					"news_details"=>" ",
-					"OU"=>getOUbyRole($conn,$row['RoleId']));
+					"Org"=>$row['Organisation'],
+					"OU"=>$row['OrganisationUnit']);
+					//"OU"=>getOUbyRole($conn,$row['RoleId']));
 				}
 				//$row;''
 			}
