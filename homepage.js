@@ -1034,18 +1034,7 @@ $(document).ready(function(){
 	function getTabs(id,ou_specific_tab){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
-		/*
-		var ou = document.getElementById("choose_ou2").value;
-		var role_name = document.getElementById("choose_role2").value;
-		var role_id = getRoleId(role_name,role_list);
 		
-		if(role_id==null){
-			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, we have a problem with the role you have selected. Kindly refresh the page.</h1></p>";
-			document.getElementById(id).style.color="#A4A4A4";
-			return false;
-		}*/
-		//alert(ou);
-		//	data: {"ou":ou,"role_name":role_name,"role_id":role_id},
 		var ou_name=($("#choose_ou").val()).trim();
 		var or_name=($("#org_lists").val()).trim();
 		if(ou_specific_tab==false){
@@ -1082,64 +1071,83 @@ $(document).ready(function(){
 					var i;
 					var ou_name=($("#choose_ou").val()).trim();
 					var or_name=($("#org_lists").val()).trim();
+					var ou_specific_count=0;
+					var not_ou_specific_count=0;
 					if(ou_specific_tab==false){
 						if(or_name.length==0){
-							document.getElementById(id).innerHTML="<p><center>No Organisation selected!</center></p>";
-							return false;
+							document.getElementById(id).innerHTML="<br/><div>"+
+								"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
+								"<br/>No Organisation selected!</h1></div>";
+								document.getElementById(id).style.color="#FE642E";
+							
+						}
+						else{
+							
+							for(i=0;i<json_arr.length;i++){
+								var btn_class;
+								var OU = (json_arr[i].OU).trim();
+								var ORG = (json_arr[i].Org).trim();
+								var RoleName = json_arr[i].RoleName;
+								var ou_specific=" ";
+								prev_tab_name[i] = 	json_arr[i].Name;
+								
+									
+								if(parseInt(json_arr[i].OU_Specific)==0 && or_name==ORG){
+									btn_class="btn btn-warning";
+									ou_specific="No";
+									not_ou_specific_count++;
+									layout+= "<tr><td>"+
+										"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
+										"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+										"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
+										"<td>"+
+											"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+											"<div><b>Organisation:</b> "+ORG+
+											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+											"<br/><b>OU Specific:</b> "+ou_specific+
+											"</div>"+
+										"</td>"+
+										"</tr>";
+								}
+								
+							}
+							
 						}
 					}else{
 						if(ou_name.length==0){
-							document.getElementById(id).innerHTML="<p><center>No OU exists for the selected Organisation!</center></p>";
-							return false;
+							document.getElementById(id).innerHTML="<br/><div>"+
+								"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
+								"<br/>No OU exists for the selected Organisation!</h1></div>";
+							document.getElementById(id).style.color="#FE642E";
 						}
-					}
-					var ou_specific_count=0;
-					var not_ou_specific_count=0;
-					for(i=0;i<json_arr.length;i++){
-						var btn_class;
-						var OU = (json_arr[i].OU).trim();
-						var ORG = (json_arr[i].Org).trim();
-						var RoleName = json_arr[i].RoleName;
-						var ou_specific=" ";
-						prev_tab_name[i] = 	json_arr[i].Name;
-						if(ou_specific_tab==false){
+						else{
 							
-							if(parseInt(json_arr[i].OU_Specific)==0 && or_name==ORG){
-								//alert(ORG);
-								btn_class="btn btn-warning";
-								ou_specific="No";
-								not_ou_specific_count++;
-								layout+= "<tr><td>"+
-								"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
-								"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
-								"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-								"<td>"+
-									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-									"<div><b>Organisation:</b> "+ORG+
-									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-									"<br/><b>OU Specific:</b> "+ou_specific+
-									"</div>"+
-								"</td>"+
-								"</tr>";
-							}
-						}
-						else if(ou_specific_tab==true){
-							if(parseInt(json_arr[i].OU_Specific)==1 && ou_name==OU){
-								btn_class="btn btn-success";
-								ou_specific="Yes";
-								ou_specific_count++;
-								layout+= "<tr><td>"+
-								"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
-								"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
-								"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-								"<td>"+
-									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-									"<div><b>OU:</b> "+OU+
-									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-									"<br/><b>OU Specific:</b> "+ou_specific+
-									"</div>"+
-								"</td>"+
-								"</tr>";
+							for(i=0;i<json_arr.length;i++){
+								var btn_class;
+								var OU = (json_arr[i].OU).trim();
+								var ORG = (json_arr[i].Org).trim();
+								var RoleName = json_arr[i].RoleName;
+								var ou_specific=" ";
+								prev_tab_name[i] = 	json_arr[i].Name;
+								
+								if(parseInt(json_arr[i].OU_Specific)==1 && ou_name==OU){
+									btn_class="btn btn-success";
+									ou_specific="Yes";
+									ou_specific_count++;
+									layout+= "<tr><td>"+
+										"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
+										"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+										"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
+										"<td>"+
+											"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+											"<div><b>OU:</b> "+OU+
+											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+											"<br/><b>OU Specific:</b> "+ou_specific+
+											"</div>"+
+										"</td>"+
+										"</tr>";
+								}
+								
 							}
 						}
 					}
@@ -1162,17 +1170,6 @@ $(document).ready(function(){
 							content: getPopupContent(i)	
 						});
 					}
-					
-					/*
-					 * $("[data-toggle='popover']").popover({
-							html: true,
-							title: "Update tab here",
-							placement: "left", 
-							content: function() {
-								return $('#popover-content'+i).html();
-							}		
-						});
-					 * */
 				}
 			}
 		});

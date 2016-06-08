@@ -817,7 +817,7 @@
 																getTabs("list_of_tabs",ou_specific);
 															}
 															else{
-																document.getElementById("choose_ou").innerHTML=" ";
+																document.getElementById("choose_ou").innerHTML="<option></option>";
 															}
 														}
 													});
