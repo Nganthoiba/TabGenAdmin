@@ -778,9 +778,9 @@ function hasWhiteSpace(s) {
 						if(method=="list"){
 							//view="<tr><th>Organisation Name</th></tr>";
 							view=" ";
-							for(var i=0;i<limit;i++){
-								var created_date = new Date(json_arr[i].create_at);
-								var updated_date = new Date(json_arr[i].update_at);
+							for(var i=limit-1;i>=0;i--){
+								/*var created_date = new Date(json_arr[i].create_at);
+								var updated_date = new Date(json_arr[i].update_at);*/
 								view+="<tr><td><div class='div_bg'>"+json_arr[i].name+"</div></td>"+
 								'</tr>';
 							/*	
@@ -800,7 +800,7 @@ function hasWhiteSpace(s) {
 								'</td>'+
 							 * */
 							}
-							if(i==0)
+							if(limit==0)
 								view="<h3 align='center' style='color:#FE642E'>"+
 								"<span class='glyphicon glyphicon-alert' style='height:80px;width:80px;padding-top:40px;color:#FE642E'></span>"+
 								"No Organisation exists, create a new one.</h3></div>";
@@ -915,22 +915,27 @@ $(document).ready(function(){
 				success: function(data){
 					if(data.trim()=="false"){
 						document.getElementById(id).innerHTML="<option></option>";
+						document.getElementById(resp_layout).innerHTML="<center>No role exists.</center>";
+						document.getElementById(resp_layout).style.color="red";
 					}
 					else{
+						document.getElementById(resp_layout).innerHTML=" ";
 						var arr = JSON.parse(data);
 						role_list = JSON.parse(data);
 						var roleList=" ";
 						var i;
+						var count=0;
 						for(i=0;i<arr.length;i++){
 							roleList+="<option>"+arr[i].RoleName+"</option>";
+							count++;
 						}
 						document.getElementById(id).innerHTML=roleList;
-						if(i==0){
-							document.getElementById(resp_layout).innerHTML="<center>No role exists.</center>";
+						/*if(count==0){
+							
 						}
 						else{
 							document.getElementById(resp_layout).innerHTML=" ";
-						}
+						}*/
 					}
 				},
 				error: function(x,y,z){
@@ -1026,10 +1031,10 @@ $(document).ready(function(){
 		return $("#edit_role_popover"+index).html();
 	}
 	/* function to get tabs for seleted OU and Role */
-	function getTabs(id){
+	function getTabs(id,ou_specific_tab){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
-		
+		/*
 		var ou = document.getElementById("choose_ou2").value;
 		var role_name = document.getElementById("choose_role2").value;
 		var role_id = getRoleId(role_name,role_list);
@@ -1038,12 +1043,12 @@ $(document).ready(function(){
 			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, we have a problem with the role you have selected. Kindly refresh the page.</h1></p>";
 			document.getElementById(id).style.color="#A4A4A4";
 			return false;
-		}
+		}*/
 		//alert(ou);
+		//	data: {"ou":ou,"role_name":role_name,"role_id":role_id},
 		$.ajax({
 			url: "getTabs.php",
 			type: "GET",
-			data: {"ou":ou,"role_name":role_name,"role_id":role_id},
 			success: function(resp){
 				if(resp.trim()=="false"){
 					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
@@ -1061,33 +1066,61 @@ $(document).ready(function(){
 					var json_arr = JSON.parse(resp);
 					var layout=" ";
 					var popup_content_form=" ";
+					var ou_name=($("#choose_ou").val()).trim();
+					var or_name=($("#org_lists").val()).trim();
 					var i;
 					for(i=0;i<json_arr.length;i++){
 						var btn_class;
 						var OU = json_arr[i].OU;
 						var RoleName = json_arr[i].RoleName;
 						var ou_specific=" ";
-						if(parseInt(json_arr[i].OU_Specific) == 0){
+						
+						/*if(parseInt(json_arr[i].OU_Specific) == 0){
 							btn_class="btn btn-warning";
 							ou_specific="No";
 						}	
 						else{
 							btn_class="btn btn-success";
 							ou_specific="Yes";
-						}
+						}*/
 						prev_tab_name[i] = 	json_arr[i].Name;
-						layout+= "<tr><td>"+
-						"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
-						"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
-						"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
-						"<td>"+
-							"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-							"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
-							"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-							"<br/><b>OU Specific:</b> "+ou_specific+
-							"</div>"+
-						"</td>"+
-						"</tr>";
+						if(ou_specific_tab==false){
+							if(parseInt(json_arr[i].OU_Specific) == 0){
+								btn_class="btn btn-warning";
+								ou_specific="No";
+								layout+= "<tr><td>"+
+								"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
+								"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+								"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
+								"<td>"+
+									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+									"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
+									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+									"<br/><b>OU Specific:</b> "+ou_specific+
+									"</div>"+
+								"</td>"+
+								"</tr>";
+							}
+						}
+						else{
+							if(parseInt(json_arr[i].OU_Specific) == 1){
+								btn_class="btn btn-success";
+								ou_specific="Yes";
+								
+								layout+= "<tr><td>"+
+								"<Button style='width: 40px;height: 40px;border-radius: 50%;' "+
+								"class='"+btn_class+"' onclick='associate(\""+json_arr[i].Id+"\");return false;'>"+
+								"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
+								"<td>"+
+									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+									"<div><b>OU:</b> "+OU+"<br/><b>Role:</b> "+RoleName+
+									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+									"<br/><b>OU Specific:</b> "+ou_specific+
+									"</div>"+
+								"</td>"+
+								"</tr>";
+							}
+						}
 					}
 											
 					document.getElementById(id).innerHTML=layout;
@@ -1320,7 +1353,7 @@ $(document).ready(function(){
 	}
 	
 	function associate(tab_id){
-		var ou_right = document.getElementById("choose_ou2").value;
+		//var ou_right = document.getElementById("choose_ou2").value;
 		
 		var ou_name = $("#choose_ou").val();
 		var role_name = $("#choose_role").val();
@@ -1346,8 +1379,7 @@ $(document).ready(function(){
 			data: {"ou_name":ou_name,
 					"role_name":role_name,
 					"role_id":role_id,
-					"tab_id":tab_id,
-					"ou_right":ou_right},
+					"tab_id":tab_id},
 			success: function(resp){
 				//alert(resp);
 				var resp_json = JSON.parse(resp);
@@ -1362,11 +1394,17 @@ $(document).ready(function(){
 				alert("Something goes wrong. Please try again later..");
 			}
 		});
+		return false;
 	}
 	
 	function getAssociatedTabs(id){
 		var ou_name = $("#choose_ou").val();
-		var role_name = $("#choose_role").val();
+		var role_name = ($("#choose_role").val()).trim();
+		if(role_name.length==0){
+			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry,No role exists for the selected OU.</h1></p>";
+			document.getElementById(id).style.color="#A4A4A4";
+			return false;
+		}
 		var role_id =  getRoleId(role_name,role_list);
 		if(role_id==null){
 			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, we have an error. Please refresh the page.</h1></p>";

@@ -9,7 +9,8 @@
 		if($conn) {
 			//$role_id = findRoleId($conn,$ou_name,$role_name);
 			if(isTabOUSpecific($conn,$tab_id)){
-				if(getOUbyRole($conn,$role_id)==getOUbyRole($conn,getRolebyTab($conn,$tab_id))){
+				if($ou_name==getOUbyRole($conn,getRolebyTab($conn,$tab_id))){
+					/*getOUbyRole($conn,$role_id)*/
 					//if the tab is to associated in the same OU under which tab was created
 					associateTabToRole($conn,$role_id,$tab_id);
 				}

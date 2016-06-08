@@ -726,4 +726,11 @@ function getNewsDetails($conn,$tab_name){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['Details'];
 }
+
+function getOrgbyOU($conn,$ou){
+	$query = "select * from OrganisationUnit where OrganisationUnit='$ou'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['Organisation'];
+}
 ?>

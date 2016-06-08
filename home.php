@@ -176,7 +176,7 @@
 				</li>
 				<li class="sidebar-brand">
 					<div style="color:#f7f7f7;background-color:#5061DC;width:100%; 
-						padding-left:5px;padding-right:5px;">
+						padding-left:5px;padding-right:5px;" id="user_detail_section">
 							<?php echo $user_name;?>
 					</div>
 				</li>
@@ -208,22 +208,11 @@
 								<!--<li role="presentation" class="divider"></li>-->
 				<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show users</a></li>
 					
-				<!--<li>
-					<a href='#' type="button" data-toggle="collapse" data-target="#user_options">Users
-						  <span class="caret"></span>
-					</a>
-					<div id="user_options" class="collapse">
-						<ul class="nav nav-tabs nav-stacked nav-fixed">
-							
-						</ul>
-					</div>	
-				</li>-->
-					
 					<!--<li><a href="#">Create Tabs Strips</a></li>-->
-					<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
-						onclick='getRoles("choose_role",$("#choose_ou").val(),"associated_tabs");
-								 getRoles("choose_role2",$("#choose_ou2").val(),"list_of_tabs");'>
+				<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
+						onclick='getRoles("choose_role",$("#choose_ou").val(),"role_result");
+						getAssociatedTabs("associated_tabs");'>
 								 Associate Tabs to Role</a></li>
             </ul>
         </div>
@@ -792,7 +781,7 @@
 </div>
 <!-- Modal for Associating Tabs to role (a simple design)-->
 <div class="modal fade" id="associate_tabs_to_role" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document" style="width:90%; min-height:50%">
+	<div class="modal-dialog modal-lg" role="document" style="width:70%; min-height:50%">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -800,50 +789,65 @@
 				<h4 class="modal-title" id="myModalLabel">Associate Tabs to Roles</h4>
 			</div>
 			<div class="modal-body">
-				<div class="panel panel-default">
 					<form class="form-horizontal">
-						<div class="panel-body">	
+							<div class="form-group">
+								<label class='col-sm-4 control-label'>Select an Organisation:</label> 
+								<div class="col-sm-6">
+									<select class="form-control" id="org_lists">
+										<script type="text/JavaScript">
+											$(document).ready(function(){
+												viewOrgs("dropdown","org_lists","all");
+												$("#org_lists").change(function(){
+													var org_name=($("#org_lists").val()).trim();
+													$.ajax({
+														type: "GET",
+														url: "orgUnitList.php",
+														data: {"org_name":org_name},
+														success: function(data){
+															if(data.trim()!="null"){
+																var ou_list = JSON.parse(data);
+																var list=" ";
+																for(var i=0;i<ou_list.length;i++){
+																	list+="<option>"+ou_list[i].OrganisationUnit+"</option>";
+																}
+																document.getElementById("choose_ou").innerHTML=list;
+																var orgunit=($("#choose_ou").val()).trim();
+																getRoles("choose_role",orgunit,"associated_tabs");
+																var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+																getTabs("list_of_tabs",ou_specific);
+															}
+															else{
+																document.getElementById("choose_ou").innerHTML=" ";
+															}
+														}
+													});
+													return false;
+												});
+											});
+										</script>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="choose_ou">Select an Organisation Unit:</label>
+								<div class="col-sm-6">
+									<select class="form-control" id="choose_ou" >
+										<script type="text/JavaScript">
+											$(document).ready(function(){
+												viewOrgUnits("dropdown","choose_ou","all");
+												//getAssociatedTabs("associated_tabs");
+												$("#choose_ou").change(function(){
+													getRoles("choose_role",$("#choose_ou").val(),"associated_tabs");
+													var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+													getTabs("list_of_tabs",ou_specific);
+												});
+											});
+										</script>
+									</select>
+								</div>
+							</div>	
 							<div class="form-group">
 								<div class="col-sm-6">
-									<table width="100%">
-										<tr>
-											<td>
-												<label class="control-label" for="choose_ou">Organisation Unit:</label>
-											</td>
-											<td>
-												<select class="form-control" id="choose_ou" >
-													<script type="text/JavaScript">
-														$(document).ready(function(){
-														viewOrgUnits("dropdown","choose_ou","all");
-														//getAssociatedTabs("associated_tabs");
-															$("#choose_ou").change(function(){
-																	getRoles("choose_role",$("#choose_ou").val(),"associated_tabs");
-															});
-														});
-													</script>
-												</select>
-											</td>
-										</tr>
-										<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-										<tr>
-											<td>
-												<label class="control-label" for="choose_role">Select Role:</label>
-											</td>
-											<td>
-												<select class="form-control" id="choose_role" >
-													<script type="text/JavaScript">
-														$(document).ready(function(){
-															//getRoles("choose_role",$("#choose_ou").val());
-															$("#choose_role").change(function(){
-																getAssociatedTabs("associated_tabs");
-															});
-														});
-													</script>
-												</select>
-											</td>
-										</tr>
-									</table>
-									<br/>
 									<div class="panel panel-default">
 										<div class="panel-heading clearfix">
 											<table width="100%">
@@ -855,7 +859,24 @@
 														</Button>
 													</td>
 												</tr>
-											</table>			
+											</table>
+											<br/>
+											<div class="form-group">
+												<label class="col-sm-4 control-label" for="choose_role">Select Role:</label>
+												<div class="col-sm-6">
+													<select id="choose_role" class="form-control">
+															<script type="text/JavaScript">
+																$(document).ready(function(){
+																	//getRoles("choose_role",$("#choose_ou").val());
+																	$("#choose_role").change(function(){
+																		getAssociatedTabs("associated_tabs");
+																	});
+																});
+															</script>
+													</select>
+												</div>
+											</div>
+											<span id="role_result"></span>			
 										</div>
 										
 										<div style="max-height: 350px;min-height:350px;overflow: hidden;overflow-y: auto;
@@ -869,13 +890,7 @@
 												//getAssociatedTabs("associated_tabs");
 												$("#associated_tabs").html("<h3 align='center'>Click Refresh button "+
 												"<br/> to display all the associated tabs</h3>");
-												/*
-													"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
-												"style='height:50px;width:50px;border-radius:50%'"+
-												"onclick='getAssociatedTabs(\""+"associated_tabs"+"\");'>"+
-												"<span class='glyphicon glyphicon-refresh'></span></Button>"+
-												*/
-												
+																								
 												$("#associated_tabs").css('color','#A4A4A4');
 												$("#refresh_ass_tab").click(function(){
 													getAssociatedTabs("associated_tabs");
@@ -886,57 +901,41 @@
 									</div>
 								</div>
 								<div class="col-sm-6">
-									<table width="100%">
-										<tr>
-											<td>
-												<label class="control-label" for="choose_ou2">Organisation Unit:</label>
-											</td>
-											<td>
-												<select class="form-control" id="choose_ou2" >
-													<script type="text/JavaScript">
-														$(document).ready(function(){
-														viewOrgUnits("dropdown","choose_ou2","all");
-														//getAssociatedTabs("associated_tabs");
-															$("#choose_ou2").change(function(){
-																getRoles("choose_role2",$("#choose_ou2").val(),"list_of_tabs");
-															});
-														});
-													</script>
-												</select>
-											</td>
-										</tr>
-										<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-										<tr>
-											<td>
-												<label class="control-label" for="choose_role2">Select Role:</label>
-											</td>
-											<td>
-												<select class="form-control" id="choose_role2" >
-													<script type="text/JavaScript">
-														$(document).ready(function(){
-															$("#choose_role2").change(function(){
-																getTabs("list_of_tabs");
-															});
-														});
-													</script>
-												</select>
-											</td>
-										</tr>
-									</table>
-									<br/>
 									<div class="panel panel-default">
 										<div class="panel-heading clearfix">
 											<table width="100%">
-											<tr>
-												<td><h1 class="panel-title">List of Tabs</h1></td>
-												<td align="right">
-													<div class="pull-right">
-														<Button class="btn btn-info" id="refresh_tab_list">REFRESH
-														<span class="glyphicon glyphicon-refresh"></span></Button>
+												<tr>
+													<td><h1 class="panel-title">List of all Tabs</h1></td>
+													<td align="right">
+														<div class="pull-right">
+															<Button class="btn btn-info" id="refresh_tab_list">REFRESH
+															<span class="glyphicon glyphicon-refresh"></span></Button>
+														</div>
+													</td>
+												</tr>
+											</table>
+											<br/>
+											<div class="form-group">
+													<label class="col-sm-4 control-label">OU Specific:</label>
+													<div  class="col-sm-6">
+														<label class="radio-inline"><input type="radio" name="ou_specific_tab" 
+																	id="ou_specific_tab_yes" checked>Yes</label>
+														<label class="radio-inline"><input type="radio" name="ou_specific_tab" 
+																	id="ou_specific_tab_no">No</label>
+														<script type="text/JavaScript">
+															$(document).ready(function(){
+																$("#ou_specific_tab_yes").click(function(){
+																	var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+																	getTabs("list_of_tabs",ou_specific);
+																});
+																$("#ou_specific_tab_no").click(function(){
+																	var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+																	getTabs("list_of_tabs",ou_specific);
+																});
+															});
+														</script>
 													</div>
-												</td>
-											</tr>
-											</table>		
+											</div>		
 										</div>
 										<div style="max-height:350px;min-height:350px; overflow:hidden; 
 										overflow-x:auto;overflow-y:auto;">
@@ -947,15 +946,11 @@
 													$("#list_of_tabs").html("<h3 align='center'>Click Refresh button "+
 													"<br/>"+
 													" to display all the list of tabs</h3>");
-													/*
-														"<br/><Button class='btn btn-primary btn-lg btn-round' type='button' "+
-													"style='height:50px;width:50px;border-radius:50%'"+
-													"onclick='getTabs(\""+"list_of_tabs"+"\");'>"+
-													"<span class='glyphicon glyphicon-refresh'></span></Button>"
-													*/
 													$("#list_of_tabs").css('color','#A4A4A4');
 													$("#refresh_tab_list").click(function(){
-														getTabs("list_of_tabs");
+														//getTabs("list_of_tabs");
+														var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+														getTabs("list_of_tabs",ou_specific);
 														return false;
 													});
 												});
@@ -965,9 +960,7 @@
 									</div>
 								</div>									
 							</div>
-						</div>
-					</form>		
-				</div>
+					</form>
 			</div>	
 		</div>
 	</div>
