@@ -6,14 +6,15 @@ if(!empty($_GET['user_id'])){
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
 	if($conn){
+		//echo "Hi ".$user_id;
 		$teams=getOUs($conn,$user_id);//getting a list of user accessible OUs
 		$output=null;
 		$query=null;
-		
-		//echo "hi Size: ".sizeof($teams);
 		$role_id = findRoleIdByUser_id($conn,$user_id);
 		$role_name = getRoleByUserId($conn,$user_id);
+		
 		$accessible_teams=null;
+		
 		for($i=0;$i<sizeof($teams);$i++){//finding all the possible channels for a team
 			$team_name = $teams[$i]['team_name'];
 			//echo $team_name."<br/>";
@@ -56,6 +57,7 @@ if(!empty($_GET['user_id'])){
 							//$channels[]=$row;
 							$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$row['Channel_name'],
 							"members_count"=>getMembersCount($conn,$row['Channel_ID']));
+							
 						}
 						else{
 							//getting the other user in the private message channel
@@ -72,16 +74,19 @@ if(!empty($_GET['user_id'])){
 				}		
 				
 		}
-		/*$others = getOtherChannels($conn,$user_id,$role_id);
+		$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
+		print json_encode($final_array);
+		/*
+		$others = getOtherChannels($conn,$user_id,$role_id);
 		if($others!=null){
 			$final_array = array("team_list"=>concate_array(array("Others"),$accessible_teams),
 			"channels"=>concate_array($others,$output));
 			print json_encode($final_array);
 		}
-		else{*/
+		else{
 			$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
 			print json_encode($final_array);
-		//}	
+		}*/	
 	}
 }
 

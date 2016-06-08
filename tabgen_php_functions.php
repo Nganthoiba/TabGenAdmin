@@ -54,7 +54,7 @@ function userUniversalAccess($conn,$user_id,$yes_no){
 }
 // function to test whether the user has Universal access right
 function isUserUniversalAccessRight($conn,$user_id){
-	$query="select * from User_OU_Mapping where UserId='$user_id'";
+	$query="select * from User_OU_Mapping where user_id='$user_id'";
 	$result = $conn->query($query);
 	$row = $result->fetch(PDO::FETCH_ASSOC);
 	$flag = (int)$row['UniversalAccess'];
@@ -245,7 +245,7 @@ function getTeams($conn,$user_id){
 function getOUs($conn,$user_id){
 	$output=null;
 	if(isUserUniversalAccessRight($conn,$user_id)){//checks whether the user is universal access right
-		$query="select OrganisationUnit as team_name from OrganisationUnit order by team_name";
+		$query="select OrganisationUnit as team_name from OrganisationUnit  where DeleteAt=0 order by team_name ";
 		$res = $conn->query($query);
 		if($res){
 			$count=0;

@@ -13,7 +13,7 @@ while($row = $res->fetch(PDO::FETCH_ASSOC)){
 		echo "Updated Successfully for user id = ".$user_id." <br/>";
 	}
 	else{
-		echo "Update failed for user id = ".$user_id." <br/>";
+		echo "Update failed for User id = ".$user_id." <br/>";
 	}
 
 }
