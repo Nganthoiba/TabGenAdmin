@@ -13,7 +13,7 @@
 				where Tab.Id=TabId and
 					Tab.TabTemplate=TabTemplate.Id and
 					RoleTabAsson.RoleId='$role_id'
-				order by Tab.CreateAt desc";
+				order by Tab.Name";
 		$res = $conn->query($query);
 		if($res){
 			$count=0;
