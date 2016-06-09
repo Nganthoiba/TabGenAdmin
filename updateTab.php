@@ -21,7 +21,7 @@
 				}
 			}
 			else if($template_name=="Chat Template"){
-				$token_id = get_token();
+				$token_id = $_POST['token'];//get_token();
 				//echo json_encode(array("status"=>false,"message"=>$token_id));
 				if($token_id!=null){
 					/*getting channel details for the channel having same name as the earlier tab name*/
@@ -71,7 +71,7 @@
 						echo json_encode(array("status"=>false,"message"=>"No channel exists with the earlier tab name"));
 					}
 				}else{
-					echo json_encode(array("status"=>false,"message"=>"Login again please, your session is expired."));
+					echo json_encode(array("status"=>false,"message"=>"Login again please, your token id is expired."));
 				}
 			}
 			else{

@@ -8,7 +8,10 @@
 	{
 		$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0 
 				union 
-				select * from Role where UniversalRole='true' and OrganisationName='$organisation' and DeleteAt=0 order by RoleName";
+				select * from Role where UniversalRole='true' and 
+					OrganisationName='$organisation' and 
+					DeleteAt=0 
+				order by RoleName";
 		if($conn){
 			$res = $conn->query($query);					
 			if($res){

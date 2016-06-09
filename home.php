@@ -24,6 +24,7 @@
 		 var tabs=[];
 		 var json_arr;
 		 var role_list;
+		 var user_session;
 		 /*
 		 $(document).ready(function(){
 			function alignModal(){
@@ -46,7 +47,48 @@
 				e.preventDefault();
 				$("#wrapper").toggleClass("toggled");
 			});
+			$.ajax({
+				url: "getUserSession.php",
+				type: "GET",
+				success:function(data){
+					if(data.trim()=="null"){
+						user_session=null;
+					}
+					else{
+						user_session=JSON.parse(data);
+					}
+					//alert("Token: "+user_session.token+" User id: "+user_session.id);
+				},
+				error:function(error_data,y,z){
+					user_session=null;
+					alert(error_data+" "+y+" "+z);
+				}
+			});
 		});
+		function keepAliveSession(){
+			setInterval(
+				function(){
+						//alert("Hello"); 
+						$.ajax({
+						url: "getUserSession.php",
+						type: "GET",
+						success:function(data){
+							if(data.trim()=="null"){
+								user_session=null;
+							}
+							else{
+								user_session=JSON.parse(data);
+							}
+							//alert("Token: "+user_session.token+" User id: "+user_session.id);
+						},
+						error:function(error_data,y,z){
+							user_session=null;
+							alert(error_data+" "+y+" "+z);
+						}
+					});
+				}, 10000);
+			/**/
+		}
 	</script>
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
 	<style type="text/css">		
@@ -68,7 +110,7 @@
 		td {vertical-align:middle;font-size:13px}
 	</style>	
 </head>
-<body>
+<body onload="keepAliveSession()">
 	<?php
         session_start();
 	
@@ -180,11 +222,11 @@
 				</li>
                 <li>
 					<a href="#" data-toggle="modal" data-target="#createorg" 
-						onclick="refresh_all_entries();">Create Organization</a>
+						onclick="refresh_all_entries();">Create Organisation</a>
 				</li>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#createorgunit"
-						onclick="refresh_all_entries();">Create Organization Unit</a>
+						onclick="refresh_all_entries();">Create Organisation Unit</a>
 				</li>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#createrole"

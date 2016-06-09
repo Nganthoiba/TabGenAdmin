@@ -23,22 +23,13 @@ $type = $_POST['type']=="true"?1:0;
 //echo "Role: ".$role." Id: ".$role_id;
 
 if(validateUserDetails()==true){
-	$id=null;
+	$id=$_POST['team_id'];
 	$org_unit_name = $_POST['org_unit'];
 	try{
 		if($conn){
 			//$res = $conn->query("SELECT Id,Name from Teams where Name='$org_unit_name'");
-			session_start();
-			$user_details=null;
 			
-			if(isset($_SESSION['user_details'])){
-				$user_details = json_decode($_SESSION['user_details']);
-			}
-			else if(isset($_COOKIE['user_details'])){
-				$user_details = json_decode($_COOKIE['user_details']);
-			}
-			if($user_details!=null){	
-				$id = $user_details->team_id;
+			//$id = $user_details->team_id;
 				$data = array(
 				   "team_id" => $id,
 					"email" => $_POST['email'],
@@ -86,11 +77,22 @@ if(validateUserDetails()==true){
 				}
 				else 
 					echo "Oops! There may be a problem at the server. Try again later.";
+			/*session_start();
+			$user_details=null;
+			
+			if(isset($_SESSION['user_details'])){
+				$user_details = json_decode($_SESSION['user_details']);
+			}
+			else if(isset($_COOKIE['user_details'])){
+				$user_details = json_decode($_COOKIE['user_details']);
+			}
+			if($user_details!=null){	
+				
 			}
 			else{
 				 echo "Session expired, please login again.";
 				  //header('Location: index.html');
-			 }
+			}*/
 		}
 	}
 	catch(Exception $e){
@@ -119,6 +121,10 @@ function validateUserDetails(){
 	}
 	else if(empty($_POST['Role'])){
 		echo "Select a role";
+		return false;
+	}
+	else if(empty($_POST['team_id'])){
+		echo "Team id not available.";
 		return false;
 	}
 	else 

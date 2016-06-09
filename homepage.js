@@ -341,7 +341,7 @@ function createTab(){
                             if(s.trim()=="true")
                             {
 								$("#error1").css('color', 'green');
-								$("#error1").html("<center>Organization Created</center>");
+								$("#error1").html("<center><b>Organisation Created</b></center>");
 								viewOrgs("dropdown","orgnamesel","all");/*this will display drop down list of 
 								organisation at the popup dialog for creating Organisation Units*/
 								viewOrgs("list","showOrgsList","all");
@@ -405,7 +405,7 @@ $(document).ready(function (){
 								if(e.trim()=="true")
 								{
 									$("#error2").css('color', 'green');
-									$("#error2").html("<center>Organization Unit Created</center>");
+									$("#error2").html("<center><b>Organisation Unit Created</b></center>");
 									viewOrgUnits("list","showOrgUnits","all");
 									viewOrgUnits("dropdown","ousel","all");/*this will display drop down list of 
 									organisation units at the popup dialog for creating role*/
@@ -500,6 +500,7 @@ $(document).ready(function (){
 			var email = $("#email").val();
 			var org_unit = $("#OrgUnitList").val();
 			var user_role = $("#UserRole").val();
+			var team_id=user_session.team_id;
 			var is_universal = document.getElementById("universal_access_yes").checked;//if the user has access across all other OU
 			//var type = true;
 			if(user_displayname.length==0){
@@ -577,7 +578,8 @@ $(document).ready(function (){
 					type: "POST",
 					url: "createUsers.php",
 					data: "user_displayname="+user_displayname+"&username="+username+"&password="+password+"&conf_pwd="+conf_pwd+
-							"&email="+email+"&org_unit="+org_unit+"&Role="+user_role+"&role_id="+role_id+"&type="+is_universal,    
+							"&email="+email+"&org_unit="+org_unit+"&Role="+user_role+"&role_id="+role_id+
+							"&type="+is_universal+"&team_id="+team_id,    
 					success: function(e){  
 						if(e.trim()=="true")
 						{
@@ -1439,16 +1441,18 @@ $(document).ready(function(){
 		if(template_name=="Latest News Template" || template_name=="News Template"){
 			var news_details=$("#contents_id"+i).val();
 			post_data={	"tab_id":tab_id,
+						"token":user_session.token,
 						"old_tab_name":old_tab_name,
 						"new_tab_name":new_tab_name,
 						"news_details":news_details,
 						"template_name":template_name};
 		}
 		else{
-			post_data={"tab_id":tab_id,
-					   "old_tab_name":old_tab_name,
-					   "new_tab_name":new_tab_name,
-					   "template_name":template_name};
+			post_data={ "tab_id":tab_id,
+						"token":user_session.token,
+						"old_tab_name":old_tab_name,
+						"new_tab_name":new_tab_name,
+						"template_name":template_name};
 		}
 		$.ajax({
 			type: "POST",
@@ -1721,8 +1725,9 @@ $(document).ready(function(){
 				">";
 			var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 			for(var i=0;i<resp_arr.length;i++){
+				/*
 				var created_date = new Date(parseFloat(resp_arr[i].CreateAt));
-				var updated_date = new Date(parseFloat(resp_arr[i].UpdateAt));
+				var updated_date = new Date(parseFloat(resp_arr[i].UpdateAt));*/
 				/*
 				 * for displaying user id
 				 * "<div class='form-group'>"+
