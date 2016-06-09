@@ -192,3 +192,10 @@ body {
 	height: 30px;
 	border-radius: 150px;
 }
+.header_bg{
+	height:60px;
+	padding-top:15px;
+	background-color:#FAFAFA;
+	color:#FFFFFF;
+	border: 0px solid #1BBAA9
+}

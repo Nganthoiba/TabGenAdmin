@@ -898,9 +898,9 @@
 														</Button>
 													</td>
 												</tr>
-											</table>
-											<br/>
-											<div class="form-group">
+											</table>		
+										</div>
+											<div class="header_bg">
 												<label class="col-sm-4 control-label" for="choose_role">Select Role:</label>
 												<div class="col-sm-6">
 													<select id="choose_role" class="form-control">
@@ -914,11 +914,8 @@
 																});
 															</script>
 													</select>
-												</div>
+												</div><span id="role_result"></span>
 											</div>
-											<span id="role_result"></span>			
-										</div>
-										
 										<div style="max-height: 350px;min-height:350px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;">
 											<table class="table table-striped" id="associated_tabs">
@@ -968,9 +965,9 @@
 														</div>
 													</td>
 												</tr>
-											</table>
-											<br/>
-											<div class="form-group">
+											</table>		
+										</div>
+											<div class="header_bg">
 													<label class="col-sm-4 control-label">OU Specific:</label>
 													<div  class="col-sm-6">
 														<label class="radio-inline"><input type="radio" name="ou_specific_tab" 
@@ -988,8 +985,7 @@
 															});
 														</script>
 													</div>
-											</div>		
-										</div>
+											</div>
 										<div style="max-height:350px;min-height:350px; overflow:hidden; 
 										overflow-x:auto;overflow-y:auto;">
 											<table class="table table-striped" id="list_of_tabs">
