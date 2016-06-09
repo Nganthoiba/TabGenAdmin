@@ -250,10 +250,11 @@
 					
 					<!--<li><a href="#">Create Tabs Strips</a></li>-->
 				<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
-					onclick='viewOrgListWithOUsRoles("org_lists","choose_ou","choose_role","associated_tabs")'>
+				<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role">
 					Associate Tabs to Role</a></li>
 					<!--
+					
+					onclick='viewOrgListWithOUsRoles("org_lists","choose_ou","choose_role","associated_tabs")'
 					onclick='getRoles("choose_role",$("#choose_ou").val(),"role_result");
 						getAssociatedTabs("associated_tabs");'
 					-->
