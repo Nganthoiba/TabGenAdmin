@@ -775,7 +775,7 @@ function hasWhiteSpace(s) {
 						if(method=="list"){
 							//view="<tr><th>Organisation Name</th></tr>";
 							view=" ";
-							for(var i=limit-1;i>=0;i--){
+							for(var i=0;i<limit;i++){
 								/*var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);*/
 								view+="<tr><td><div class='div_bg'>"+json_arr[i].name+"</div></td>"+
@@ -817,6 +817,82 @@ function hasWhiteSpace(s) {
 				}
 			});
 			return false;
+	}
+	
+	function viewOrgListWithOUsRoles(orgListingId,ouListingId,roleListingId,resultDisplayId){
+		$.ajax({
+			type:"GET",
+				url: "view_org_list.php",
+				//data: "method="+method+"&viewType="+type,
+				success: function(data){
+					var view="";
+					var limit=0;				
+					if(data.trim()=="error"){
+						view="<option></option>";
+						document.getElementById(resultDisplayId).innerHTML="<p>We are very sorry that an error occurs, "+
+							"please try again after sometime.</p>";
+					}
+					else
+					{
+						document.getElementById(resultDisplayId).innerHTML="";
+						var json_arr = JSON.parse(data);
+						limit=json_arr.length;
+						if(limit==0){
+							view="<option></option>";
+							document.getElementById(resultDisplayId).innerHTML="<p><center>No organisation exists."+
+								"</center></p>";
+							return;
+						}
+						else{
+							document.getElementById(resultDisplayId).innerHTML="";
+						}
+						for(var i=0;i<limit;i++){
+							view+="<option>"+json_arr[i].name+"</option>";
+						}
+						document.getElementById(orgListingId).innerHTML=view;
+						var org_name=($("#"+orgListingId).val()).trim();
+						$.ajax({
+							type: "GET",
+							url: "orgUnitList.php",
+							data: {"org_name":org_name},
+							success: function(data){
+							if(data.trim()!="null"){
+								var ou_list = JSON.parse(data);
+								var list=" ";
+								if(ou_list.length==0){
+									list="<option></option>";
+									document.getElementById(resultDisplayId).innerHTML="<p><center>No organisation"+
+										" unit exists for the selected organisation.</center></p>";
+									return;
+								}
+								else{
+										document.getElementById(resultDisplayId).innerHTML="";
+								}
+								for(var i=0;i<ou_list.length;i++){
+									list+="<option>"+ou_list[i].OrganisationUnit+"</option>";
+								}
+								document.getElementById(ouListingId).innerHTML=list;
+								var orgunit=($("#"+ouListingId).val()).trim();
+								getRoles(roleListingId,orgunit,resultDisplayId);
+								var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+								getTabs("list_of_tabs",ou_specific);
+							}
+							else{
+								document.getElementById(ouListingId).innerHTML="<option></option>";
+							}
+															}
+						});
+					}
+					
+				},
+				error: function(x,y,z){
+					document.getElementById(resultDisplayId).innerHTML="<p>We are very sorry that an error occurs, "+
+						"please try again after sometime</p>";
+					document.getElementById(orgListingId).innerHTML="<option></option>";
+					
+				}
+		});
+		return false;
 	}
 	/*$(document).ready(function(){
 		$("#viewAllOrgLists").click(function(){
