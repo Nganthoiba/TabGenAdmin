@@ -251,9 +251,12 @@
 					<!--<li><a href="#">Create Tabs Strips</a></li>-->
 				<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role"
-						onclick='getRoles("choose_role",$("#choose_ou").val(),"role_result");
-						getAssociatedTabs("associated_tabs");'>
-								 Associate Tabs to Role</a></li>
+					onclick='viewOrgListWithOUsRoles("org_lists","choose_ou","choose_role","associated_tabs")'>
+					Associate Tabs to Role</a></li>
+					<!--
+					onclick='getRoles("choose_role",$("#choose_ou").val(),"role_result");
+						getAssociatedTabs("associated_tabs");'
+					-->
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -817,9 +820,40 @@
 																}
 																document.getElementById("choose_ou").innerHTML=list;
 																var orgunit=($("#choose_ou").val()).trim();
-																getRoles("choose_role",orgunit,"associated_tabs");
-																var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
-																getTabs("list_of_tabs",ou_specific);
+																//getRoles("choose_role",orgunit,"associated_tabs");
+																$.ajax({
+																	type:"GET",
+																	url: "getRoles.php",
+																	data: "org_unit="+orgunit+"&only_ou_roles=no",
+																	success: function(data){
+																		if(data.trim()=="false"){
+																			document.getElementById("choose_role").innerHTML="<option></option>";
+																			document.getElementById("associated_tabs").innerHTML="<center>No role exists.</center>";
+																			document.getElementById("associated_tabs").style.color="red";
+																		}
+																		else{
+																			document.getElementById("associated_tabs").innerHTML=" ";
+																			var arr = JSON.parse(data);
+																			role_list = JSON.parse(data);
+																			var roleList=" ";
+																			var i;
+																			var count=0;
+																			for(i=0;i<arr.length;i++){
+																				roleList+="<option>"+arr[i].RoleName+"</option>";
+																				count++;
+																			}
+																			document.getElementById("choose_role").innerHTML=roleList;
+																			var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+																			getTabs("list_of_tabs",ou_specific);
+																			getAssociatedTabs("associated_tabs");
+																		}
+																	},
+																	error: function(x,y,z){
+																		document.getElementById("choose_role").innerHTML="<option></option>";
+																		document.getElementById("associated_tabs").innerHTML="<center>Sorry! Unable to get server.</center>";
+																		document.getElementById("associated_tabs").style.color="red";
+																	}
+																});
 															}
 															else{
 																document.getElementById("choose_ou").innerHTML="<option></option>";
@@ -843,8 +877,7 @@
 												//getAssociatedTabs("associated_tabs");
 												$("#choose_ou").change(function(){
 													getRoles("choose_role",$("#choose_ou").val(),"associated_tabs");
-													var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
-													getTabs("list_of_tabs",ou_specific);
+													validate_and_get_tabs();
 												});
 											});
 										</script>
@@ -859,7 +892,7 @@
 												<tr>
 													<td><h1 class="panel-title">Associated Tabs</h1></td>
 													<td align="right">
-														<Button type="submit" class="btn btn-info" id="refresh_ass_tab">REFRESH
+														<Button type="button" class="btn btn-info" id="refresh_ass_tab">REFRESH
 															<span class="glyphicon glyphicon-refresh"></span>
 														</Button>
 													</td>
@@ -875,8 +908,7 @@
 																	//getRoles("choose_role",$("#choose_ou").val());
 																	$("#choose_role").change(function(){
 																		getAssociatedTabs("associated_tabs");
-																		var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
-																		getTabs("list_of_tabs",ou_specific);
+																		validate_and_get_tabs();
 																	});
 																});
 															</script>
@@ -900,8 +932,23 @@
 																								
 												$("#associated_tabs").css('color','#A4A4A4');
 												$("#refresh_ass_tab").click(function(){
-													getAssociatedTabs("associated_tabs");
+													var ou_name = ($("#choose_ou").val()).trim();
+													var role = $("#choose_role").val();
+													if(ou_name==null)
+													{
+														$("#associated_tabs").html("<h4><center>It seems no OU exists for "+
+															"the selected Organisation.</center></h4>");
+														
+													}
+													else if(role==null){
+														$("#associated_tabs").html("<h4><center>It seems no role exists for the"+
+															" selected Organisation Unit.</center></h4>");
+													}
+													else{
+														getAssociatedTabs("associated_tabs");
+													}
 													return false;
+													//alert("Hi");
 												});
 											});
 										</script>
@@ -915,7 +962,7 @@
 													<td><h1 class="panel-title">List of all Tabs</h1></td>
 													<td align="right">
 														<div class="pull-right">
-															<Button class="btn btn-info" id="refresh_tab_list">REFRESH
+															<Button type="button" class="btn btn-info" id="refresh_tab_list">REFRESH
 															<span class="glyphicon glyphicon-refresh"></span></Button>
 														</div>
 													</td>
@@ -932,12 +979,10 @@
 														<script type="text/JavaScript">
 															$(document).ready(function(){
 																$("#ou_specific_tab_yes").click(function(){
-																	var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
-																	getTabs("list_of_tabs",ou_specific);
+																	validate_and_get_tabs();
 																});
 																$("#ou_specific_tab_no").click(function(){
-																	var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
-																	getTabs("list_of_tabs",ou_specific);
+																	validate_and_get_tabs();
 																});
 															});
 														</script>
@@ -956,9 +1001,7 @@
 													$("#list_of_tabs").css('color','#A4A4A4');
 													$("#refresh_tab_list").click(function(){
 														//getTabs("list_of_tabs");
-														var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
-														getTabs("list_of_tabs",ou_specific);
-														return false;
+														validate_and_get_tabs();
 													});
 												});
 											</script>

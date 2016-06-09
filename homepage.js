@@ -875,9 +875,40 @@ function hasWhiteSpace(s) {
 								}
 								document.getElementById(ouListingId).innerHTML=list;
 								var orgunit=($("#"+ouListingId).val()).trim();
-								getRoles(roleListingId,orgunit,resultDisplayId);
-								var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
-								getTabs("list_of_tabs",ou_specific);
+								//getRoles(roleListingId,orgunit,resultDisplayId);
+								
+								$.ajax({
+									type:"GET",
+									url: "getRoles.php",
+									data: "org_unit="+orgunit+"&only_ou_roles=no",
+									success: function(data){
+										if(data.trim()=="false"){
+											document.getElementById(roleListingId).innerHTML="<option></option>";
+											document.getElementById(resultDisplayId).innerHTML="<center>No role exists.</center>";
+											document.getElementById(resultDisplayId).style.color="red";
+										}
+										else{
+											document.getElementById(resultDisplayId).innerHTML=" ";
+											var arr = JSON.parse(data);
+											role_list = JSON.parse(data);
+											var roleList=" ";
+											var i;
+											var count=0;
+											for(i=0;i<arr.length;i++){
+												roleList+="<option>"+arr[i].RoleName+"</option>";
+												count++;
+											}
+											document.getElementById(roleListingId).innerHTML=roleList;
+											var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+											getTabs("list_of_tabs",ou_specific);
+										}
+									},
+									error: function(x,y,z){
+										document.getElementById(roleListingId).innerHTML="<option></option>";
+										document.getElementById(resultDisplayId).innerHTML="<center>Sorry! Unable to get server.</center>";
+										document.getElementById(resultDisplayId).style.color="red";
+									}
+								});
 							}
 							else{
 								document.getElementById(ouListingId).innerHTML="<option></option>";
@@ -1110,25 +1141,27 @@ $(document).ready(function(){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
 		
-		var ou_name=($("#choose_ou").val()).trim();
-		var or_name=($("#org_lists").val()).trim();
-		var role_name = ($("#choose_role").val()).trim();
-		if(role_name.length==0){
-			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry,No role exists for the selected OU.</h1></p>";
-			document.getElementById(id).style.color="#A4A4A4";
-			return false;
-		}
+		var ou_name=$("#choose_ou").val();
+		var or_name=$("#org_lists").val();
+		var role_name=$("#choose_role").val();
 		var role_id =  getRoleId(role_name,role_list);
-		if(role_id==null){
-			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, we have an error, unable to get Role ID. Please refresh the page.</h1></p>";
-			document.getElementById(id).style.color="#A4A4A4";
-			return false;
-		}
+		var post_data="";
 		if(ou_specific_tab==false){
 			if(or_name.length==0){
 				document.getElementById(id).innerHTML="<p><center>No Organisation selected!</center></p>";
 				return false;
 			}
+			if(role_name.length==0){
+				document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry,No role exists for the selected OU.</h1></p>";
+				document.getElementById(id).style.color="#A4A4A4";
+				return false;
+			}
+			else if(role_id==null){
+				document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, we have an error, unable to get Role ID. Please refresh the page.</h1></p>";
+				document.getElementById(id).style.color="#A4A4A4";
+				return false;
+			}
+			else post_data={"ou_specific_tab":ou_specific_tab,"role_id":role_id,"org":or_name,"ou":ou_name};
 		}else{
 			if(ou_name.length==0){
 				document.getElementById(id).innerHTML="<br/><div>"+
@@ -1138,11 +1171,23 @@ $(document).ready(function(){
 				//document.getElementById(id).innerHTML="<p><center>No OU exists for the selected Organisation!</center></p>";
 				return false;
 			}
+			if(role_name.length==0){
+				document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry,No role exists for the selected OU.</h1></p>";
+				document.getElementById(id).style.color="#A4A4A4";
+				return false;
+			}
+			else if(role_id==null){
+				document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, we have an error, unable to get Role ID. Please refresh the page.</h1></p>";
+				document.getElementById(id).style.color="#A4A4A4";
+				return false;
+			}
+			else post_data={"ou_specific_tab":ou_specific_tab,"role_id":role_id,"org":or_name,"ou":ou_name};
 		}
+		
 		$.ajax({
 			url: "getTabs.php",
 			type: "GET",
-			data: {"ou_specific_tab":ou_specific_tab,"role_id":role_id,"org":or_name,"ou":ou_name},
+			data: post_data,
 			success: function(resp){
 				if(resp.trim()=="false"){
 					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
@@ -1528,88 +1573,132 @@ $(document).ready(function(){
 	}
 	
 	function getAssociatedTabs(id){
-		var ou_name = $("#choose_ou").val();
+		var ou_name = ($("#choose_ou").val()).trim();
 		var role_name = ($("#choose_role").val()).trim();
-		if(role_name.length==0){
-			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry,No role exists for the selected OU.</h1></p>";
+		var role_id =  getRoleId(role_name,role_list);
+		if(ou_name.length==0){
+			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, it seems no OU exists for the selected Organisation.</h1></p>";
 			document.getElementById(id).style.color="#A4A4A4";
 			return false;
 		}
-		var role_id =  getRoleId(role_name,role_list);
-		if(role_id==null){
+		else if(role_name.length==0){
+			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, No role exists for the selected OU.</h1></p>";
+			document.getElementById(id).style.color="#A4A4A4";
+			return false;
+		}
+		else if(role_id==null){
 			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, we have an error. Please refresh the page.</h1></p>";
 			document.getElementById(id).style.color="#A4A4A4";
 			return false;
 		}
-		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
-		document.getElementById(id).style.color="#A4A4A4";
-		$.ajax({
-			type: "POST",
-			url: "getAssociatedTabs.php",
-			data: "ou_name="+ou_name+"&role_name="+role_name+"&role_id="+role_id,
-			success: function(resp){
-				//alert(resp);
-				if(resp=="problem"){
-					alert(resp);
-					document.getElementById(id).innerHTML="Something Goes Wrong!";
-					document.getElementById(id).style.color="#FE642E";
-				}else if(resp.trim()=="null"){
-					document.getElementById(id).innerHTML="<br/><div>"+
-					"<h3 align='center'><span class='glyphicon glyphicon-alert' "+
-					"style='height:80px;width:80px'></span><br/>No Record Found</h3></div>";
-					document.getElementById(id).style.color="#FE642E";
-				}
-				else 
-				{
-					var resp_array = JSON.parse(resp);
-					var tab_layout=" ";
-					var ou_specific=" ";
-					var btn_class=" ";
-					//alert("Length of Array: "+resp_array.length);
-					for(var i=0;i<resp_array.length;i++){
-						if(parseInt(resp_array[i].OU_Specific)==0){
-							ou_specific="No";
-							btn_class="btn btn-warning";
-							tab_layout+="<tr><td valign='middle'><div>"+
-									resp_array[i].Name+"</div>"+
-									"<div><b>Organisation:</b> "+resp_array[i].Org+
-									"<br/><b>Template:</b> "+resp_array[i].Template_Name+
-									"<br/><b>OU Specific:</b> "+ou_specific+
-									"</div>"+
-									"</td>"+
-									"<td align='right' ><Button type='button'"+
-									"style='width: 40px;height: 40px;border-radius: 50%;'"+
-									"class='"+btn_class+"' onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
-									"return false;'>"+
-									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";
-						}else{
-							ou_specific="Yes";
-							btn_class="btn btn-success";
-							tab_layout+="<tr><td valign='middle'><div>"+
-									resp_array[i].Name+"</div>"+
-									"<div><b>OU:</b> "+resp_array[i].OU+
-									"<br/><b>Template:</b> "+resp_array[i].Template_Name+
-									"<br/><b>OU Specific:</b> "+ou_specific+
-									"</div>"+
-									"</td>"+
-									"<td align='right' ><Button type='button'"+
-									"style='width: 40px;height: 40px;border-radius: 50%;'"+
-									"class='"+btn_class+"' onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
-									"return false;'>"+
-									"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";
-						}
-							
+		else{
+			document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
+			document.getElementById(id).style.color="#A4A4A4";
+			$.ajax({
+				type: "POST",
+				url: "getAssociatedTabs.php",
+				data: "ou_name="+ou_name+"&role_name="+role_name+"&role_id="+role_id,
+				success: function(resp){
+					//alert(resp);
+					if(resp=="problem"){
+						alert(resp);
+						document.getElementById(id).innerHTML="Something Goes Wrong!";
+						document.getElementById(id).style.color="#FE642E";
+					}else if(resp.trim()=="null"){
+						document.getElementById(id).innerHTML="<br/><div>"+
+						"<h3 align='center'><span class='glyphicon glyphicon-alert' "+
+						"style='height:80px;width:80px'></span><br/>No Record Found</h3></div>";
+						document.getElementById(id).style.color="#FE642E";
 					}
-					document.getElementById(id).innerHTML=tab_layout;
+					else 
+					{
+						var resp_array = JSON.parse(resp);
+						var tab_layout=" ";
+						var ou_specific=" ";
+						var btn_class=" ";
+						//alert("Length of Array: "+resp_array.length);
+						for(var i=0;i<resp_array.length;i++){
+							if(parseInt(resp_array[i].OU_Specific)==0){
+								ou_specific="No";
+								btn_class="btn btn-warning";
+								tab_layout+="<tr><td valign='middle'><div>"+
+										resp_array[i].Name+"</div>"+
+										"<div><b>Organisation:</b> "+resp_array[i].Org+
+										"<br/><b>Template:</b> "+resp_array[i].Template_Name+
+										"<br/><b>OU Specific:</b> "+ou_specific+
+										"</div>"+
+										"</td>"+
+										"<td align='right' ><Button type='button'"+
+										"style='width: 40px;height: 40px;border-radius: 50%;'"+
+										"class='"+btn_class+"' onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
+										"return false;'>"+
+										"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";
+							}else{
+								ou_specific="Yes";
+								btn_class="btn btn-success";
+								tab_layout+="<tr><td valign='middle'><div>"+
+										resp_array[i].Name+"</div>"+
+										"<div><b>OU:</b> "+resp_array[i].OU+
+										"<br/><b>Template:</b> "+resp_array[i].Template_Name+
+										"<br/><b>OU Specific:</b> "+ou_specific+
+										"</div>"+
+										"</td>"+
+										"<td align='right' ><Button type='button'"+
+										"style='width: 40px;height: 40px;border-radius: 50%;'"+
+										"class='"+btn_class+"' onclick='deleteAssociatedTab(\""+resp_array[i].Id+"\");"+
+										"return false;'>"+
+										"<span class='glyphicon glyphicon-minus'></span></Button></td></tr>";
+							}
+								
+						}
+						document.getElementById(id).innerHTML=tab_layout;
+					}
+				},
+				error: function(x,y,z){
+					document.getElementById(id).innerHTML="Something Goes Wrong! "+z;
+					document.getElementById(id).style.color="#FE642E";
 				}
-			},
-			error: function(x,y,z){
-				document.getElementById(id).innerHTML="Something Goes Wrong! "+z;
-				document.getElementById(id).style.color="#FE642E";
-			}
-		});
+			});
+		}
+		return false;
 	}
-	
+	function validate_and_get_tabs(){
+		var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+		if(ou_specific==true){
+			var ou_name = ($("#choose_ou").val()).trim();
+			var role = $("#choose_role").val();
+			if(ou_name.length==0)
+			{
+				$("#list_of_tabs").html("<h4><center>It seems no OU exists for "+
+					"the selected Organisation.</center></h4>");
+														
+			}
+			else if(role.length==0){
+				$("#list_of_tabs").html("<h4><center>It seems no role exists for the"+
+					" selected Organisation Unit.</center></h4>");
+			}
+			else{
+				getTabs("list_of_tabs",ou_specific);
+			}
+		}
+		else if(ou_specific==false){
+			var org = $("#org_lists").val();
+			var role = $("#choose_role").val();
+			//alert("hi "+ou_specific+" role  "+role+" Org: "+org);
+			if(org.length==0 || org==null){
+				$("#list_of_tabs").html("<h4><center>It seems no Organisation exists.</center></h4>");
+				return;
+			}
+			if(role==null){
+				$("#list_of_tabs").html("<h4><center>It seems no role exists for the"+
+					" selected Organisation.</center></h4>");
+			}
+			else{
+				getTabs("list_of_tabs",ou_specific);
+			}
+			//alert("hi "+ou_specific+" role  "+role+" Org: "+org);
+		}
+	}
 	function deleteAssociatedTab(tab_id){
 		//alert(tab_id);
 		var confirmation = true;//confirm("Are you sure to drop this tab?");
