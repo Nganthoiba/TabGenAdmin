@@ -204,7 +204,6 @@ function findRoleIdByUser_id($conn,$user_id){
 	}
 }
 
-
 //function to concate two arrays
 function concate_array($arr1,$arr2){
 	$res_arr = array();
@@ -218,6 +217,7 @@ function concate_array($arr1,$arr2){
 	}
 	return $res_arr; 	
 }
+
 //function to find list of Teams accessible by the user by providing user id
 function getTeams($conn,$user_id){
 	$output=null;
@@ -391,6 +391,17 @@ function get_token(){
 			$token=null;
 											
 		return $token;
+}
+function getUserNameById($conn,$user_id){
+	$name=null;
+	$query = "select * from Users where Id='$user_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	if($row['FirstName']!=null)
+		$name=$row['FirstName'];
+	else if($row['Username']!=null)
+		$name=$row['Username'];
+	return $name;
 }
 
 //function to check if the tab is already associated to the specific role

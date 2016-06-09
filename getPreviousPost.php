@@ -14,6 +14,7 @@
 	$result = $getPosts->getDataByToken($url,$token);
 	$decoded_res = json_decode($result);
 	foreach($decoded_res->posts as $post_id => $post_details){
+		$decoded_res->posts->$post_id->sender_name=getUserNameById($conn,$decoded_res->posts->$post_id->user_id);
 		$decoded_res->posts->$post_id->no_of_reply=getNoOfReplies($conn,$post_id);
 		$decoded_res->posts->$post_id->no_of_likes=getNoOfLikes($conn,$post_id);
 		$decoded_res->posts->$post_id->isLikedByYou=isAlreadyLiked($conn,$post_id,$user_id);
