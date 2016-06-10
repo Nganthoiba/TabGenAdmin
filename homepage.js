@@ -1574,12 +1574,13 @@ $(document).ready(function(){
 		var ou_name = ($("#choose_ou").val()).trim();
 		var role_name = ($("#choose_role").val()).trim();
 		var role_id =  getRoleId(role_name,role_list);
-		if(ou_name.length==0){
+		/*if(ou_name.length==0){
 			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, it seems no OU exists for the selected Organisation.</h1></p>";
 			document.getElementById(id).style.color="#A4A4A4";
 			return false;
 		}
-		else if(role_name.length==0){
+		else */
+		if(role_name.length==0){
 			document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry, No role exists for the selected OU.</h1></p>";
 			document.getElementById(id).style.color="#A4A4A4";
 			return false;

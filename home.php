@@ -86,8 +86,7 @@
 							alert(error_data+" "+y+" "+z);
 						}
 					});
-				}, 20000);
-			/**/
+				}, 30000);
 		}
 	</script>
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
