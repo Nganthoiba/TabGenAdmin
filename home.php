@@ -844,8 +844,7 @@
 																				count++;
 																			}
 																			document.getElementById("choose_role").innerHTML=roleList;
-																			var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
-																			getTabs("list_of_tabs",ou_specific);
+																			validate_and_get_tabs();
 																			getAssociatedTabs("associated_tabs");
 																		}
 																	},

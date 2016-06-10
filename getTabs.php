@@ -2,25 +2,38 @@
 include('connect_db.php');
 include('tabgen_php_functions.php');
 session_start();
-/*if(isset($_SESSION['user_details'])){
-	$user_details = json_decode($_SESSION['user_details']);
-	$created_by = $user_details->username;*/
 	$ou_specific_tab=$_GET['ou_specific_tab'];
 	$org=$_GET['org'];
-	$ou = $_GET['ou'];
 	$role_id = $_GET['role_id'];
+if(!empty($_GET['role_id'])){
 	$flag = $ou_specific_tab=="true"?1:0;
-	//echo $role_id." ".$ou." ".$org." ".$flag;
-	if($conn){
-			//$role_id = findRoleId($conn,$ou,$role_name);
-			$query = "SELECT Tab.*,TabTemplate.Name as Template_Name 
+	$query=null;
+	if($flag==1){
+		$ou = $_GET['ou'];
+		$query = "SELECT Tab.*,TabTemplate.Name as Template_Name 
 						FROM Tab,TabTemplate
 						where Tab.TabTemplate=TabTemplate.Id and
 							Tab.OU_Specific='$flag' and
 							Tab.Id not in(select TabId from RoleTabAsson where 
 										RoleId='$role_id') and
-							Tab.DeleteAt=0
+							Tab.DeleteAt=0 and
+							Tab.OrganisationUnit='$ou'
 						order by Tab.CreateAt desc";
+	}
+	else{
+		$query = "SELECT Tab.*,TabTemplate.Name as Template_Name 
+						FROM Tab,TabTemplate
+						where Tab.TabTemplate=TabTemplate.Id and
+							Tab.OU_Specific='$flag' and
+							Tab.Id not in(select TabId from RoleTabAsson where 
+										RoleId='$role_id') and
+							Tab.DeleteAt=0 and
+							Tab.Organisation='$org'
+						order by Tab.CreateAt desc";
+	}
+	//echo $role_id." ".$ou." ".$org." ".$flag;
+	if($conn){
+			//$role_id = findRoleId($conn,$ou,$role_name);
 			$res = $conn->query($query);
 			while($row = $res->fetch(PDO::FETCH_ASSOC)){
 				if($row['Template_Name']=="Latest News Template" || $row['Template_Name']=="News Template"){
@@ -54,9 +67,10 @@ session_start();
 				echo json_encode($output);
 	}
 	else echo "false";
-/*}
-else 
-	echo "Sesssion_expired";*/
+}
+else{
+	echo "Role Id is not sent";
+}
 
 
 

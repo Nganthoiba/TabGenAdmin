@@ -1141,7 +1141,6 @@ $(document).ready(function(){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
 		
-		var ou_name=$("#choose_ou").val();
 		var or_name=$("#org_lists").val();
 		var role_name=$("#choose_role").val();
 		var role_id =  getRoleId(role_name,role_list);
@@ -1161,9 +1160,10 @@ $(document).ready(function(){
 				document.getElementById(id).style.color="#A4A4A4";
 				return false;
 			}
-			else post_data={"ou_specific_tab":ou_specific_tab,"role_id":role_id,"org":or_name,"ou":ou_name};
+			else post_data={"ou_specific_tab":ou_specific_tab,"role_id":role_id,"org":or_name};
 		}else{
-			if(ou_name.length==0){
+			var ou_name=$("#choose_ou").val();
+			if(ou_name==null){
 				document.getElementById(id).innerHTML="<br/><div>"+
 					"<h3 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
 					"<br/>No OU exists for the selected Organisation!</h3></div>";
@@ -1198,7 +1198,7 @@ $(document).ready(function(){
 				else if(resp.trim()=="null"){
 					document.getElementById(id).innerHTML="<br/><div>"+
 					"<h3 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
-					"<br/>No tab exists.</h3></div>";
+					" No tab exists.</h3></div>";
 					document.getElementById(id).style.color="#FE642E";
 				}
 				else{						
@@ -1271,15 +1271,6 @@ $(document).ready(function(){
 							document.getElementById(id).style.color="#FE642E";
 						}
 					}
-					/*
-					for(var i=0;i<json_arr.length;i++){
-						$("[data-toggle='popover"+i+"']").popover({
-							html: true,
-							title: "Edit tab here:",
-							placement: "left", 
-							content: getPopupContent(i)	
-						});
-					}*/
 				}
 			}
 		});
@@ -1685,10 +1676,10 @@ $(document).ready(function(){
 			var org = $("#org_lists").val();
 			var role = $("#choose_role").val();
 			//alert("hi "+ou_specific+" role  "+role+" Org: "+org);
-			if(org.length==0 || org==null){
+			/*if(org==null){
 				$("#list_of_tabs").html("<h4><center>It seems no Organisation exists.</center></h4>");
 				return;
-			}
+			}*/
 			if(role==null){
 				$("#list_of_tabs").html("<h4><center>It seems no role exists for the"+
 					" selected Organisation.</center></h4>");
@@ -1702,23 +1693,31 @@ $(document).ready(function(){
 	function deleteAssociatedTab(tab_id){
 		//alert(tab_id);
 		var confirmation = true;//confirm("Are you sure to drop this tab?");
-		if(confirmation){
-			var ou_name = $("#choose_ou").val();
+		if(confirmation==true){
+			//var ou_name = $("#choose_ou").val();
 			var role_name = $("#choose_role").val();
+			var role_id = getRoleId(role_name,role_list);
+			//alert("Tab Id: "+tab_id+"Role Id: "+role_id);
+			/*if(role_id==null){
+				alert("Invalid role, role id does not exists, choose another role");
+				return;
+			}*/
 			$.ajax({
 					type: "POST",
 					url: "deleteAssociatedTab.php",
-					data: {"tab_id":tab_id,"ou_name":ou_name,"role_name":role_name},
+					data: {"tab_id":tab_id,"role_id":role_id},
 					success: function(response){
 						var resp_arr = JSON.parse(response);
 						if(resp_arr.status==true){
 							getAssociatedTabs("associated_tabs");
-							var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
-							getTabs("list_of_tabs",ou_specific);
+							validate_and_get_tabs();
 						}
 						else {
 							alert(resp_arr.message);
 						}
+					},
+					error: function(error){
+						alert("Oops! An error occurs with the server...");
 					}
 			});
 		}
