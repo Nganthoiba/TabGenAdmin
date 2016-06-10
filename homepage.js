@@ -1277,7 +1277,8 @@ $(document).ready(function(){
 	}
 	
 	function getAllTabs(id){
-		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
+		/*
+		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";*/
 		document.getElementById(id).style.color="#A4A4A4";
 		
 		/*var ou = document.getElementById("choose_ou2").value;
@@ -1474,6 +1475,9 @@ $(document).ready(function(){
 		//alert(old_tab_name);
 		//alert("New tab: "+tab_name);
 		var post_data=null;
+		var tab_name_label_id="tabname"+i;
+		var upadate_tab_resp_id="upadate_tab_resp"+i;
+		var updated_tab_name_id="updated_tab_name"+i;
 		if(template_name=="Latest News Template" || template_name=="News Template"){
 			var news_details=$("#contents_id"+i).val();
 			post_data={	"tab_id":tab_id,
@@ -1500,6 +1504,9 @@ $(document).ready(function(){
 				if(resp_arr.status==true){
 					//prev_tab_name[i]=new_tab_name;
 					getAllTabs("get_all_tabs");
+					/*document.getElementById(updated_tab_name_id).innerHTML=new_tab_name;
+					document.getElementById(tab_name_label_id).innerHTML=new_tab_name;
+					document.getElementById(upadate_tab_resp_id).innerHTML=resp_arr.message;*/
 					getTabs("list_of_tabs");//refreshing the tab list
 					getAssociatedTabs("associated_tabs");
 				}
