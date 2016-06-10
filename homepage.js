@@ -1605,7 +1605,7 @@ $(document).ready(function(){
 					}else if(resp.trim()=="null"){
 						document.getElementById(id).innerHTML="<br/><div>"+
 						"<h3 align='center'><span class='glyphicon glyphicon-alert' "+
-						"style='height:80px;width:80px'></span><br/>No Record Found</h3></div>";
+						"style='height:80px;width:80px'></span>No Record Found</h3></div>";
 						document.getElementById(id).style.color="#FE642E";
 					}
 					else 
