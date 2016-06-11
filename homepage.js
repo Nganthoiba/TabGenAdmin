@@ -1507,7 +1507,7 @@ $(document).ready(function(){
 					/*document.getElementById(updated_tab_name_id).innerHTML=new_tab_name;
 					document.getElementById(tab_name_label_id).innerHTML=new_tab_name;
 					document.getElementById(upadate_tab_resp_id).innerHTML=resp_arr.message;*/
-					validate_and_get_tabs();//refreshing the tab list
+					getTabs("list_of_tabs");//refreshing the tab list
 					getAssociatedTabs("associated_tabs");
 				}
 				else{

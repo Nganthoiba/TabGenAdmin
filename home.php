@@ -82,8 +82,8 @@
 							//alert("Token: "+user_session.token+" User id: "+user_session.id);
 						},
 						error:function(error_data,y,z){
-							//user_session=null;
-							alert("Unable to get user session: "error_data+" "+y+" "+z);
+							user_session=null;
+							alert(error_data+" "+y+" "+z);
 						}
 					});
 				}, 30000);
