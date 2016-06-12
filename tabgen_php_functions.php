@@ -244,8 +244,13 @@ function getTeams($conn,$user_id){
 //function to find list of OUs accessible by the user by providing user id
 function getOUs($conn,$user_id){
 	$output=null;
+	$org = getOrg_Byuser_Id($conn,$user_id);
 	if(isUserUniversalAccessRight($conn,$user_id)){//checks whether the user is universal access right
-		$query="select OrganisationUnit as team_name from OrganisationUnit  where DeleteAt=0 order by team_name ";
+		$query="select OrganisationUnit as team_name 
+				from OrganisationUnit  
+				where DeleteAt=0 and 
+				Organisation='$org'
+				order by team_name ";
 		$res = $conn->query($query);
 		if($res){
 			$count=0;
@@ -264,6 +269,7 @@ function getOUs($conn,$user_id){
 	return $output;
 }
 
+
 //function to get OU name by providing OU id
 function getOU_Byuser_Id($conn,$user_id){
 	$query = "SELECT OrganisationUnit
@@ -273,6 +279,16 @@ function getOU_Byuser_Id($conn,$user_id){
 	$res = $conn->query($query);
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['OrganisationUnit'];
+}
+//function to get OU name by providing OU id
+function getOrg_Byuser_Id($conn,$user_id){
+	$query = "SELECT Organisation
+				FROM User_OU_Mapping,OrganisationUnit
+				WHERE OU_id=OrganisationUnit.Id
+				and user_id='$user_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['Organisation'];
 }
 
 //function to get team name by providing OU id

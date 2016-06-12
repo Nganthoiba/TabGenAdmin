@@ -82,7 +82,7 @@
 							//alert("Token: "+user_session.token+" User id: "+user_session.id);
 						},
 						error:function(error_data,y,z){
-							user_session=null;
+							//user_session=null;
 							alert(error_data+" "+y+" "+z);
 						}
 					});

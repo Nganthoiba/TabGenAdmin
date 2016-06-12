@@ -1198,7 +1198,7 @@ $(document).ready(function(){
 				else if(resp.trim()=="null"){
 					document.getElementById(id).innerHTML="<br/><div>"+
 					"<h3 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
-					" No tab exists.</h3></div>";
+					" It seems no more tab exists.</h3></div>";
 					document.getElementById(id).style.color="#FE642E";
 				}
 				else{						
@@ -1227,7 +1227,6 @@ $(document).ready(function(){
 												"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 												"<div><b>Organisation:</b> "+ORG+
 												"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-												"<br/><b>OU Specific:</b> "+ou_specific+
 												"</div>"+
 											"</td>"+
 											"</tr>";
@@ -1247,7 +1246,6 @@ $(document).ready(function(){
 												"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 												"<div><b>OU:</b> "+OU+
 												"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-												"<br/><b>OU Specific:</b> "+ou_specific+
 												"</div>"+
 											"</td>"+
 											"</tr>";
@@ -1624,7 +1622,6 @@ $(document).ready(function(){
 										resp_array[i].Name+"</div>"+
 										"<div><b>Organisation:</b> "+resp_array[i].Org+
 										"<br/><b>Template:</b> "+resp_array[i].Template_Name+
-										"<br/><b>OU Specific:</b> "+ou_specific+
 										"</div>"+
 										"</td>"+
 										"<td align='right' ><Button type='button'"+
@@ -1639,7 +1636,6 @@ $(document).ready(function(){
 										resp_array[i].Name+"</div>"+
 										"<div><b>OU:</b> "+resp_array[i].OU+
 										"<br/><b>Template:</b> "+resp_array[i].Template_Name+
-										"<br/><b>OU Specific:</b> "+ou_specific+
 										"</div>"+
 										"</td>"+
 										"<td align='right' ><Button type='button'"+
