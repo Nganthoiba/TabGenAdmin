@@ -693,9 +693,9 @@
 							<label class="col-sm-4  control-label">OU Specific:</label>
 							<div class="col-sm-8">
 								<label class="radio-inline"><input type="radio" name="optradio" 
-									onclick="disp_ou_role_selector_region();" id="ou_specific_yes" checked>Yes</label>
+									id="ou_specific_yes" checked>Yes</label><!--onclick="disp_ou_role_selector_region();" -->
 								<label class="radio-inline"><input type="radio" name="optradio" 
-									onclick="hide_ou_role_selector_region();" id="ou_specific_no">No</label>
+									id="ou_specific_no">No</label><!--onclick="hide_ou_role_selector_region();"-->
 							</div>
 						</div>
 						<script type="text/JavaScript">

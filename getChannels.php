@@ -23,11 +23,10 @@ if(!empty($_GET['user_id'])){
 							from Channels,ChannelMembers
 							where Channels.DisplayName in 
 									(SELECT Tab.Name
-										FROM Tab,RoleTabAsson,Role
+										FROM Tab,RoleTabAsson
 										where Tab.Id=RoleTabAsson.TabId
-                                        and Role.OrganisationUnit='$team_name'
+                                        and Tab.OrganisationUnit='$team_name'
 										and Tab.DeleteAt=0 
-										and Role.Id=RoleTabAsson.RoleId
 										and RoleTabAsson.RoleId = '$role_id')
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId

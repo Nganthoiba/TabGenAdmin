@@ -6,35 +6,28 @@ function create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific){
 	$query=null;
 	
 	$org_name=$_POST['org_name'];
-	
-	if($ou_specific == "true"){//check if the tab to be created is OU specific or not
-		$ou_name = $_POST['ou_name'];
-		$role_name = $_POST['role_name'];
-		//$role_id = findRoleId($conn,$ou_name,$role_name);
-		$role_id = $_POST['role_id'];
-		$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,DeleteAt,Name,RoleName,CreatedBy,TabTemplate,RoleId,OU_Specific,
+	$ou_name = $_POST['ou_name'];
+	$role_name = $_POST['role_name'];
+	//$role_id = findRoleId($conn,$ou_name,$role_name);
+	$role_id = $_POST['role_id'];
+	$flag = $ou_specific == "true"?1:0;
+		
+	$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,DeleteAt,Name,RoleName,CreatedBy,TabTemplate,RoleId,OU_Specific,
 					Organisation,OrganisationUnit)
-				values('$id','$createAt','$createAt',0,'$tab_name','$role_name','$createdBy','$template_id','$role_id',1,
+				values('$id','$createAt','$createAt',0,'$tab_name','$role_name','$createdBy','$template_id','$role_id','$flag',
 					'$org_name','$ou_name')";
-		if($role_id==null){
-			echo json_encode(array("status"=>false,"message"=>"Oops! Role does not exist. Please refresh the page and try again."));
-		}
-		else{
-			if($conn->query($query)){
-				$conn->query("insert into RoleTabAsson values('$role_id','$id')");//automatically associating default tab
-				echo json_encode(array("status"=>true,"message"=>"Tab created successfully"));
-			}
-			else{ 
-				echo json_encode(array("status"=>false,"message"=>"Oops! Something is not right, try again later"));
-			}
-		}
+		
+	if($role_id==null){
+		echo json_encode(array("status"=>false,"message"=>"Oops! Role does not exist. Please refresh the page and try again."));
 	}
 	else{
-		$query="INSERT INTO Tab(Id,CreateAt,UpdateAt,DeleteAt,Name,CreatedBy,TabTemplate,OU_Specific,Organisation)
-				values('$id','$createAt','$createAt',0,'$tab_name','$createdBy','$template_id',0,'$org_name')";
 		if($conn->query($query)){
+			$conn->query("insert into RoleTabAsson values('$role_id','$id')");//automatically associating default tab
 			echo json_encode(array("status"=>true,"message"=>"Tab created successfully"));
-		}	
+		}
+		else{ 
+			echo json_encode(array("status"=>false,"message"=>"Oops! Something is not right, try again later"));
+		}
 	}	
 }
 //to update user role and display name

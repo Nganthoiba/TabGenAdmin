@@ -227,9 +227,12 @@ function createTab(){
 			var ou_specific = document.getElementById("ou_specific_yes").checked;
 			var post_data;//data to be posted
 			var org_name=($("#choose_org").val()).trim();
+			var ou_name = ($("#ou_selector").val()).trim();
+			var role_name = ($("#role_selector").val()).trim();
+			var role_id = getRoleId(role_name,role_list);
 			//alert("org_unit="+org_unit+"&role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name);
 			if(tab_name.length==0){
-				document.getElementById("createTabResponse").innerHTML="<center>Give a Tab name</center>";
+				document.getElementById("createTabResponse").innerHTML="<center><b>Dont leave tab name blank.</b></center>";
 				document.getElementById("createTabResponse").style.color="red";
 				return false;
 			}	
@@ -244,13 +247,8 @@ function createTab(){
 			document.getElementById("createTabResponse").innerHTML="<center><b>Please select whether OU specific or not.</b></center>";
 			document.getElementById("createTabResponse").style.color="red";
 			return false;
-		}
-						
-		if(ou_specific==true){
-			var ou_name = ($("#ou_selector").val()).trim();
-			var role_name = ($("#role_selector").val()).trim();
-			var role_id = getRoleId(role_name,role_list);
-			
+		}					
+		//if(ou_specific==true){
 			if(role_name==null || role_name.length==0){
 				document.getElementById("createTabResponse").innerHTML="<center>Select a role.</center>";
 				document.getElementById("createTabResponse").style.color="red";
@@ -286,7 +284,7 @@ function createTab(){
 							}
 						}
 			});
-		}
+		/*}
 		else {	
 				$.ajax({
 						type: "POST",
@@ -310,7 +308,7 @@ function createTab(){
 							}
 						}
 				});
-		}
+		}*/
 	return false;
 }
 
@@ -1225,8 +1223,7 @@ $(document).ready(function(){
 											"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
 											"<td>"+
 												"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-												"<div><b>Organisation:</b> "+ORG+
-												"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+												"<b>Template:</b> "+json_arr[i].Template_Name+
 												"</div>"+
 											"</td>"+
 											"</tr>";
@@ -1244,8 +1241,7 @@ $(document).ready(function(){
 											"<span class='glyphicon glyphicon-chevron-left'></span></Button></td>"+
 											"<td>"+
 												"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-												"<div><b>OU:</b> "+OU+
-												"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+												"<b>Template:</b> "+json_arr[i].Template_Name+
 												"</div>"+
 											"</td>"+
 											"</tr>";
@@ -1620,8 +1616,7 @@ $(document).ready(function(){
 								btn_class="btn btn-warning";
 								tab_layout+="<tr><td valign='middle'><div>"+
 										resp_array[i].Name+"</div>"+
-										"<div><b>Organisation:</b> "+resp_array[i].Org+
-										"<br/><b>Template:</b> "+resp_array[i].Template_Name+
+										"<b>Template:</b> "+resp_array[i].Template_Name+
 										"</div>"+
 										"</td>"+
 										"<td align='right' ><Button type='button'"+
@@ -1634,8 +1629,7 @@ $(document).ready(function(){
 								btn_class="btn btn-success";
 								tab_layout+="<tr><td valign='middle'><div>"+
 										resp_array[i].Name+"</div>"+
-										"<div><b>OU:</b> "+resp_array[i].OU+
-										"<br/><b>Template:</b> "+resp_array[i].Template_Name+
+										"<b>Template:</b> "+resp_array[i].Template_Name+
 										"</div>"+
 										"</td>"+
 										"<td align='right' ><Button type='button'"+
