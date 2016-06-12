@@ -26,7 +26,8 @@ if(!empty($_GET['user_id'])){
 										FROM Tab,RoleTabAsson,Role
 										where Tab.Id=RoleTabAsson.TabId
                                         and Role.OrganisationUnit='$team_name'
-										and Tab.DeleteAt=0
+										and Tab.DeleteAt=0 
+										and Role.Id=RoleTabAsson.RoleId
 										and RoleTabAsson.RoleId = '$role_id')
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
