@@ -1859,6 +1859,11 @@ $(document).ready(function(){
 										"<div class='col-sm-4'>"+resp_arr[i].Roles+"</div>"+
 									"</div>"+
 								"</form>"+
+								"<Button type='button' id='reset_password"+i+"' class='btn btn-success'"+
+									" onclick='showPswdResetLayout(\""+i+"\",\""+resp_arr[i].Id+"\");'>"+
+									"RESET PASSWORD"+
+								"</Button>"+
+								"<div id='psw_reset_layout"+i+"'></div>"+
 							"</td>"+
 							"<td>"+
 								"<div>"+
@@ -1919,11 +1924,65 @@ $(document).ready(function(){
 			}
 		}
 	}
+	function showPswdResetLayout(index,user_id){
+		//resp_arr is the array that contains user list
+		document.getElementById("psw_reset_layout"+index).innerHTML="<br/>"+
+									"<form class='form-horizontal'>"+
+										"<div class='form-group'>"+
+											"<div class='col-sm-4'><input type='password' id='update_pswd"+index+
+											"' class='form-control' placeholder='Enter the new password'/></div>"+
+											"<div class='col-sm-4'>"+
+											"<Button type='button' class='btn bth-info' "+
+												"onclick='resetPassword(\""+index+"\",\""+user_id+"\")'>Save</Button>"+
+											"</div>"+
+										"</div>"+
+										"<div class='form-group'>"+
+											"<center><div class='col-sm-4' id='passwd_reset_resp"+index+"'>"+
+											"</div></center>"+
+										"</div>"+
+									"</form>";
+	}
+	function resetPassword(index,user_id){
+		//alert("Wait please... "+index);user_session
+		var token=user_session.token;
+		var new_password=$("#update_pswd"+index).val();
+		var resp_id = "passwd_reset_resp"+index;
+		$("#passwd_reset_resp"+index).html("<p>Wait please...</p>");
+		if(new_password.length==0){
+			$("#"+resp_id).html("<p>Password field is blank.</p>");
+		}
+		else if(new_password.length<8){
+			$("#"+resp_id).html("<p>Please make sure that the password is at least 8 characters length.</p>");
+		}
+		else{
+			$.ajax({
+				url: "resetPassword.php",
+				type: "POST",
+				data: {"token":token,"user_id":user_id,"new_password":new_password},
+				success: function(resp){
+					//alert(resp);
+					var resp_json = JSON.parse(resp);
+					if(resp_json.status==true){
+						$("#"+resp_id).html("<p>"+resp_json.message+"</p>");
+					}
+					else{
+						$("#"+resp_id).html("<p>"+resp_json.message+"</p>");
+					}
+				},
+				error: function(){
+					$("#"+resp_id).html("<p>Sorry, unable to get response from server.</p>");
+				}
+			});
+		}
+	}
 	function cancel_update_user(index){
 		//$("#edit_user"+i).popover("hide");
 		$("[data-toggle='popover_edit_user"+index+"']").popover('hide');
 	}
-	
+	//function to get edit user content
+	function getEditUserContent(index){
+		return $("#edit_user_popover"+index).html();
+	}
 	function update_user(index,user_id){
 		//alert("Index: "+index+" User ID: "+user_id);
 		$("#update_user_resp"+index).html("Wait Please...");
@@ -1949,12 +2008,7 @@ $(document).ready(function(){
 			}
 		});
 	}
-	
-	//function to get edit user content
-	function getEditUserContent(index){
-		return $("#edit_user_popover"+index).html();
-	}
-	
+		
 	//function to return yes/no according to 0 and 1
 	function yesOrNo(val){
 		if(parseInt(val)==0)
