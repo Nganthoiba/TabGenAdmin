@@ -1963,14 +1963,17 @@ $(document).ready(function(){
 					//alert(resp);
 					var resp_json = JSON.parse(resp);
 					if(resp_json.status==true){
-						$("#"+resp_id).html("<p>"+resp_json.message+"</p>");
+						$("#"+resp_id).html("<p><b>"+resp_json.message+"</b></p>");
+						document.getElementById(id).style.color="green";
 					}
 					else{
-						$("#"+resp_id).html("<p>"+resp_json.message+"</p>");
+						$("#"+resp_id).html("<p><b>"+resp_json.message+"</b></p>");
+						document.getElementById(id).style.color="red";
 					}
 				},
 				error: function(){
-					$("#"+resp_id).html("<p>Sorry, unable to get response from server.</p>");
+					$("#"+resp_id).html("<p><b>Sorry, unable to get response from server.</b></p>");
+					document.getElementById(id).style.color="red";
 				}
 			});
 		}
