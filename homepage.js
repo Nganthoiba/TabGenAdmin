@@ -1950,9 +1950,11 @@ $(document).ready(function(){
 		$("#passwd_reset_resp"+index).html("<p>Wait please...</p>");
 		if(new_password.length==0){
 			$("#"+resp_id).html("<p>Password field is blank.</p>");
+			document.getElementById(resp_id).style.color="red";
 		}
 		else if(new_password.length<8){
 			$("#"+resp_id).html("<p>Please make sure that the password is at least 8 characters length.</p>");
+			document.getElementById(resp_id).style.color="red";
 		}
 		else{
 			$.ajax({
@@ -1964,16 +1966,16 @@ $(document).ready(function(){
 					var resp_json = JSON.parse(resp);
 					if(resp_json.status==true){
 						$("#"+resp_id).html("<p><b>"+resp_json.message+"</b></p>");
-						document.getElementById(id).style.color="green";
+						document.getElementById(resp_id).style.color="green";
 					}
 					else{
 						$("#"+resp_id).html("<p><b>"+resp_json.message+"</b></p>");
-						document.getElementById(id).style.color="red";
+						document.getElementById(resp_id).style.color="red";
 					}
 				},
 				error: function(){
 					$("#"+resp_id).html("<p><b>Sorry, unable to get response from server.</b></p>");
-					document.getElementById(id).style.color="red";
+					document.getElementById(resp_id).style.color="red";
 				}
 			});
 		}
