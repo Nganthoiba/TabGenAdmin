@@ -17,7 +17,7 @@
 		echo json_encode(array("status"=>false,"message"=>"Unable to connect api for resetting password."));
 	}
 	else if($resetPassword->httpResponseCode==200){
-		echo json_encode(array("status"=>true,"message"=>"Under Development...."));
+		echo json_encode(array("status"=>true,"message"=>"Under Development.... user token: ".$token));
 	}
 	else{
 		$decoded_res = json_decode($result);
