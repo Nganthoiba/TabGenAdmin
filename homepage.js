@@ -1947,7 +1947,8 @@ $(document).ready(function(){
 		var token=user_session.token;
 		var new_password=$("#update_pswd"+index).val();
 		var resp_id = "passwd_reset_resp"+index;
-		$("#passwd_reset_resp"+index).html("<p>Wait please...</p>");
+		$("#"+resp_id).html("<p>Wait please...</p>");
+		document.getElementById(resp_id).style.color="red";
 		if(new_password.length==0){
 			$("#"+resp_id).html("<p>Password field is blank.</p>");
 			document.getElementById(resp_id).style.color="red";
