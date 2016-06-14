@@ -97,7 +97,7 @@ function findRoleId($conn,$org_unit,$role_name){
 }
 
 function mapUserwithOU($conn,$user_id,$ou_id,$role_id,$type){
-	$query = "insert into User_OU_Mapping values('$user_id','$ou_id','$role_id',$type)";
+	$query = "insert into User_OU_Mapping values('$user_id','$ou_id','$role_id','$type')";
 	return($conn->query($query));
 }
 //to get template Id
