@@ -271,9 +271,7 @@ function createTab(){
 								document.getElementById("createTabResponse").innerHTML="<center><b>"+
 									resp_arr.message+"</b></center>";
 								document.getElementById("createTabResponse").style.color="green";
-								var ou_spec=document.getElementById("ou_specific_tab_yes").checked;
-								getTabs("list_of_tabs",ou_spec);
-								//getTabs("list_of_tabs");
+								validate_and_get_tabs();
 								getAssociatedTabs("associated_tabs");
 								getAllTabs("get_all_tabs");
 								
@@ -1932,7 +1930,7 @@ $(document).ready(function(){
 											"<div class='col-sm-4'><input type='password' id='update_pswd"+index+
 											"' class='form-control' placeholder='Enter the new password'/></div>"+
 											"<div class='col-sm-4'>"+
-											"<Button type='button' class='btn bth-info' "+
+											"<Button type='button' class='btn' "+
 												"onclick='resetPassword(\""+index+"\",\""+user_id+"\")'>Save</Button>"+
 											"</div>"+
 										"</div>"+
