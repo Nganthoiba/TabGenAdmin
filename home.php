@@ -83,7 +83,7 @@
 						},
 						error:function(error_data,y,z){
 							//user_session=null;
-							alert(error_data+" "+y+" "+z);
+							//alert(error_data+" "+y+" "+z);
 						}
 					});
 				}, 30000);
@@ -233,18 +233,22 @@
 				</li>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#create_tab_modal"
-						onclick='getRoles("role_selector",$("#ou_selector").val(),"createTabResponse");refresh_all_entries();getOUandRole();'>
-						Create a tab</a>
+						onclick='refresh_all_entries();getOUandRole();'>
+						Create a tab</a><!--getRoles("role_selector",$("#ou_selector").val(),"createTabResponse");-->
 				</li>
 					
 				<li>
 					<a href="#" data-toggle="modal" data-target="#display_tab_layout">Show tabs</a>
 				</li>
+				<li>
+					<a href="#" data-toggle="modal" data-target="#create_tabstrip_modal"
+						onclick='refresh_all_entries();return false;'>Create Tabstrips</a>
+				</li>
 				<li><a href="#" data-toggle="modal" data-target="#createuser" 
 								onclick='getRoles("UserRole",$("#OrgUnitList").val(),"error4");refresh_all_entries();return false;'>
 									Create a user</a>
 				</li>
-								<!--<li role="presentation" class="divider"></li>-->
+								
 				<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show users</a></li>
 					
 					<!--<li><a href="#">Create Tabs Strips</a></li>-->
@@ -418,9 +422,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			
-			
+			</div>		
 		</div>
 	</div>
 </div>
@@ -508,7 +510,7 @@
 							<div class="panel-footer clearfix">
 								<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
 								<div class="pull-right">
-									<button type="submit" class="btn btn-info" id="btnrole">Create </button>
+									<button type="submit" class="btn btn-info" id="btnrole">Create</button>
 								</div>
 							</div>
 						</div>
@@ -679,10 +681,13 @@
 						<div class="form-group">
 							<label class="col-sm-4  control-label">Organisation:</label>
 							<div class="col-sm-8">
-								<select class="form-control" id="choose_org" onchange="getOUandRole();">
+								<select class="form-control" id="choose_org">
 									<script type="text/JavaScript">
 										$(document).ready(function(){
 											viewOrgs("dropdown","choose_org","all");
+											$("#choose_org").change(function(){
+												getOUandRole("choose_org","ou_selector","role_selector","createTabResponse");
+											});
 										});
 									</script>
 								</select>
@@ -722,6 +727,7 @@
 								var orgunit=($("#ou_selector").val()).trim();
 								getRoles("role_selector",orgunit,"createTabResponse");
 							}
+							/*
 							function getOUandRole(){
 								var org_name=($("#choose_org").val()).trim();
 								$.ajax({
@@ -745,7 +751,8 @@
 									}
 								});
 								return false;
-							}	
+							}
+							*/	
 						</script>
 						<div class="form-group" id="ou_selector_region">
 							<label class='col-sm-4  control-label' for='ou_selector'>Select an OU:</label>
@@ -762,6 +769,92 @@
 							Create</Button>
 					</div>
 					<span id="createTabResponse"></span></div>	
+				</form>
+				</div>	
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- Modal for Creating Tabstrips (a simple design)-->
+<div class="modal fade" id="create_tabstrip_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+				<h4 class="modal-title" id="myModalLabel">Create Tabstrips</h4>
+			</div>
+			<div class="modal-body">
+				<div class="panel panel-default clearfix">
+				<form class="form-horizontal">
+					<div class="panel-body">							
+						<div class="form-group">
+							<label class="col-sm-4  control-label">Tabstrip Name:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="tabstrip_name" placeholder="Enter Tabstrip Name here"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4  control-label">Organisation:</label>
+							<div class="col-sm-8">
+								<select class="form-control" id="choose_org_tabstrip">
+									<script type="text/JavaScript">
+										$(document).ready(function(){
+											//viewOrgs("dropdown","choose_org_tabstrip","all");
+											viewOrgListWithOUsRoles("choose_org_tabstrip","tabstrip_ou_selector",
+											"tabstrip_role_selector","createTabstripResponse");
+											$("#choose_org_tabstrip").change(function(){
+												getOUandRole("choose_org_tabstrip","tabstrip_ou_selector",
+												"tabstrip_role_selector","createTabstripResponse");
+											});
+										});
+									</script>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class='col-sm-4  control-label' for='tabstrip_ou_selector'>Select an OU:</label>
+							<div class='col-sm-8'>
+								<select id='tabstrip_ou_selector' class='form-control'>
+									<script type="text/JavaScript">
+										$(document).ready(function(){
+											$("#tabstrip_ou_selector").change(function(){
+												var orgunit=($("#tabstrip_ou_selector").val()).trim();
+												getRoles("tabstrip_role_selector",orgunit,"createTabstripResponse");
+											});
+										});
+									</script>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class='col-sm-4 control-label' for='tabstrip_role_selector'>Select a Role:</label>
+							<div class='col-sm-8'><select id='tabstrip_role_selector' class='form-control'></select></div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4  control-label">OU Specific:</label>
+							<div class="col-sm-8">
+								<label class="radio-inline"><input type="radio" name="optradio" 
+									id="tabstrip_ou_specific_yes" checked>Yes</label><!--onclick="disp_ou_role_selector_region();" -->
+								<label class="radio-inline"><input type="radio" name="optradio" 
+									id="tabstrip_ou_specific_no">No</label><!--onclick="hide_ou_role_selector_region();"-->
+							</div>
+						</div>
+					</div>	
+					<div class="panel-footer clearfix">
+						<div class="pull-right">
+							<Button type="button" class="btn btn-info" 
+								id="createTabstrip">Create</Button>
+									<script type="text/JavaScript">
+										$(document).ready(function(){
+											$("#createTabstrip").click(function(){
+												createTabstrip();
+											});
+										});
+									</script>
+						</div>
+						<span id="createTabstripResponse"></span>
+					</div>	
 				</form>
 				</div>	
 			</div>	

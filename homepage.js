@@ -192,15 +192,18 @@ function refresh_all_entries(){
 	/*refreshing entries for creating tab*/
 	document.getElementById("createTabResponse").innerHTML="";
 	document.getElementById("tab_name").value="";
+	
+	/*refreshing entries for creating tabstrip*/
+	document.getElementById("createTabstripResponse").innerHTML="";
+	document.getElementById("createTabstripResponse").style.color="black";
+	document.getElementById("tabstrip_name").innerHTML="";
 }
 function getRoleId(role_name,role_list){
 	var role_id=null;
 	for(var i=0;i<role_list.length;i++){
-					//roleList+="<option>"+arr[i].RoleName+"</option>";
 		if((role_list[i].RoleName).trim()==role_name)
 		{
 			role_id=role_list[i].Id;
-			//alert("Role Id: "+role_id);
 			break;
 		}
 	}
@@ -218,7 +221,7 @@ $(document).ready(function(){
 		$('#createTab').click(function(){
 			createTab();
 		});
-	});
+});
 function createTab(){
 			document.getElementById("createTabResponse").innerHTML="<center>Wait please....</center>";
 			document.getElementById("createTabResponse").style.color="black";
@@ -319,7 +322,7 @@ function createTab(){
                     $("#error1").html("<img src='img/loading.gif'/> Wait a moment please...");
                     if(orgname.length==0){
 						$("#error1").css('color', 'red');
-						$("#error1").html("<center><b>Please fill up with an organisation name.</b></center>");
+						$("#error1").html("<center><b>Don't leave Organisation name blank.</b></center>");
 						return false;
 					}
 					else if(orgname.length<3){
@@ -370,7 +373,7 @@ function validate_ou_name(ou_name)
 	}
 	else */
 	if(ou_name.trim().length==0){
-		document.getElementById("error2").innerHTML="<font color='red'>Don't leave Organisation Unit name blank.</font>";
+		document.getElementById("error2").innerHTML="<font color='red'><b>Don't leave Organisation Unit name blank.</b></font>";
 		return false;
 	}
 	else return true;
@@ -929,6 +932,30 @@ function hasWhiteSpace(s) {
 			viewOrgs("list","showOrgsList","all");
 		});
 	});*/
+	function getOUandRole(org_selector,ou_selector,role_selector,res_display){
+		var org_name=($("#"+org_selector).val()).trim();
+		$.ajax({
+			type: "GET",
+			url: "orgUnitList.php",
+			data: {"org_name":org_name},
+			success: function(data){
+				if(data.trim()!="null"){
+					var ou_list = JSON.parse(data);
+					var list=" ";
+					for(var i=0;i<ou_list.length;i++){
+						list+="<option>"+ou_list[i].OrganisationUnit+"</option>";
+					}
+					document.getElementById(ou_selector).innerHTML=list;
+					var orgunit=($("#"+ou_selector).val()).trim();
+					getRoles(role_selector,orgunit,res_display);
+				}
+				else{
+					document.getElementById(ou_selector).innerHTML=" ";
+				}
+			}
+		});
+		return false;
+	}
 	function setDelAction4Org(id,org_name){
 		var confirm_val = confirm("Are you sure to delete "+org_name+"?");
 		if(confirm_val==true)
@@ -2038,6 +2065,66 @@ $(document).ready(function(){
 		min = date.getMinutes();
 		sec = date.getSeconds();
 		return (hour+":"+min+":"+sec+" "+shift);
+	}
+	
+	/*function to create tabstrips*/
+	function createTabstrip(){
+		document.getElementById("createTabstripResponse").innerHTML="<center>Wait Please...</center>";
+		document.getElementById("createTabstripResponse").style.color="black";
+		var tabstrip_name = $("#tabstrip_name").val();
+		tabstrip_name=tabstrip_name.trim();
+		if(tabstrip_name==null || tabstrip_name.length==0){
+			document.getElementById("createTabstripResponse").innerHTML="<center>Tabstrip name is blank.</center>";
+			document.getElementById("createTabstripResponse").style.color="red";
+			return false;
+		}
+		var org_name = $("#choose_org_tabstrip").val();
+		if(org_name==null || org_name.length==0){
+			document.getElementById("createTabstripResponse").innerHTML="<center>Select an organisation name</center>";
+			document.getElementById("createTabstripResponse").style.color="red";
+			return false;
+		}
+		var org_unit = $("#tabstrip_ou_selector").val();
+		if(org_unit==null || org_unit.length==0){
+			document.getElementById("createTabstripResponse").innerHTML="<center><b>Oops! It seems  no organisation"+
+				" unit exists for the selected organisation.</b></center>";
+			document.getElementById("createTabstripResponse").style.color="red";
+			return false;
+		}
+		var role = $("#tabstrip_role_selector").val();
+		if(role==null || role.length==0){
+			document.getElementById("createTabstripResponse").innerHTML="<center>It seems no role exists for the selected OU.</center>";
+			document.getElementById("createTabstripResponse").style.color="red";
+			return false;
+		}
+		var role_id = getRoleId(role,role_list);
+		if(role_id==null){
+			document.getElementById("createTabstripResponse").innerHTML="<center>It seems role ID is missing "+
+				"for the selected role. Please refresh the page.</center>";
+			document.getElementById("createTabstripResponse").style.color="red";
+			return false;
+		}
+		var ou_specific = document.getElementById("tabstrip_ou_specific_yes").checked;
+		$.ajax({
+				type: "POST",
+				url: "createTabstrip.php",
+				data: {"tabstrip_name":tabstrip_name,"ou_specific":ou_specific,"org_name":org_name,
+						"org_unit":org_unit,"role_id":role_id},
+				success: function(resp){
+							//alert("Response: "+resp);
+					var resp_arr = JSON.parse(resp);
+					if(resp_arr.status==true){
+						document.getElementById("createTabstripResponse").innerHTML="<center><b>"+
+							resp_arr.message+"</b></center>";
+						document.getElementById("createTabstripResponse").style.color="green";		
+					}
+					else{
+						document.getElementById("createTabstripResponse").innerHTML="<center>"+resp_arr.message+"</center>";
+						document.getElementById("createTabstripResponse").style.color="red";
+					}
+				}
+		});
+		//return false;
 	}
 	
 

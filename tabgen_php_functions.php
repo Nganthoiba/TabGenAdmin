@@ -366,6 +366,19 @@ function isTabExist($conn,$tab_name){
 	}
 }
 
+//function to check if tabstrip name already exists
+function isTabstripExist($conn,$tabstrip_name){
+	$query = "select count(*) as count from Tabstrip where Name='$tabstrip_name' and DeleteAt=0";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	if((int)$row['count']>0){
+			return true;
+	}
+	else{
+			return false;
+	}
+}
+
 //function to extract token which was stored in session at the time of login
 function get_token(){
 		session_start();
