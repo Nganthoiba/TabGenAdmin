@@ -233,7 +233,8 @@
 				</li>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#create_tab_modal"
-						onclick='refresh_all_entries();getOUandRole();'>
+						onclick='refresh_all_entries();
+								getOUandRole("choose_org","ou_selector","role_selector","createTabResponse");'>
 						Create a tab</a><!--getRoles("role_selector",$("#ou_selector").val(),"createTabResponse");-->
 				</li>
 					
@@ -727,32 +728,7 @@
 								var orgunit=($("#ou_selector").val()).trim();
 								getRoles("role_selector",orgunit,"createTabResponse");
 							}
-							/*
-							function getOUandRole(){
-								var org_name=($("#choose_org").val()).trim();
-								$.ajax({
-									type: "GET",
-									url: "orgUnitList.php",
-									data: {"org_name":org_name},
-									success: function(data){
-										if(data.trim()!="null"){
-											var ou_list = JSON.parse(data);
-											var list=" ";
-											for(var i=0;i<ou_list.length;i++){
-												list+="<option>"+ou_list[i].OrganisationUnit+"</option>";
-											}
-											document.getElementById("ou_selector").innerHTML=list;
-											var orgunit=($("#ou_selector").val()).trim();
-											getRoles("role_selector",orgunit,"createTabResponse");
-										}
-										else{
-											document.getElementById("ou_selector").innerHTML=" ";
-										}
-									}
-								});
-								return false;
-							}
-							*/	
+								
 						</script>
 						<div class="form-group" id="ou_selector_region">
 							<label class='col-sm-4  control-label' for='ou_selector'>Select an OU:</label>
