@@ -1411,6 +1411,26 @@ $(document).ready(function(){
 									"</div>"+
 								"</td>"+
 								"<td align='right'>"+
+										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
+										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+										"<span class='glyphicon glyphicon-remove'></span></Button>"+
+								"</td>"+
+								"</tr>"+
+								"<tr>"+
+									"<td>Activation Status: "+
+										"<div class='onoffswitch'>"+
+											"<input type='checkbox'  class='onoffswitch-checkbox' "+
+												"id='myonoffswitch"+i+"' checked>"+
+											"<label class='onoffswitch-label' for='myonoffswitch"+i+"'>"+
+												"<span class='onoffswitch-inner'></span>"+
+												"<span class='onoffswitch-switch'></span>"+
+											"</label>"+
+										"</div>"+
+									"</td>"+
+									"<td align='right'><button class='btn btn-success'>See More</button></td>"+
+								"</tr>";
+								/*
+									"<td align='right'>"+
 									"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+
 									"' type='button' id='edit_tab"+i+"'>"+
 									"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
@@ -1420,12 +1440,7 @@ $(document).ready(function(){
 										"</div>"+
 									"</div>"+
 								"</td>"+
-								"<td align='right'>"+
-										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
-										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-										"<span class='glyphicon glyphicon-remove'></span></Button>"+
-								"</td>"+
-								"</tr>";
+								*/
 						}	
 						else{
 							//btn_class="btn btn-success";
@@ -1438,7 +1453,28 @@ $(document).ready(function(){
 									"<br/><b>OU Specific:</b> "+ou_specific+
 									"</div>"+
 								"</td>"+
+								
 								"<td align='right'>"+
+										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
+										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+										"<span class='glyphicon glyphicon-remove'></span></Button>"+
+								"</td>"+
+								"</tr>"+
+								"<tr>"+
+									"<td>Activation Status: "+
+										"<div class='onoffswitch'>"+
+											"<input type='checkbox'  class='onoffswitch-checkbox' "+
+											"id='myonoffswitch"+i+"' checked>"+
+											"<label class='onoffswitch-label' for='myonoffswitch"+i+"'>"+
+												"<span class='onoffswitch-inner'></span>"+
+												"<span class='onoffswitch-switch'></span>"+
+											"</label>"+
+										"</div>"+
+									"</td>"+
+								
+									"<td align='right'> <button class='btn btn-success'>See More</button></td></tr>";
+								/* 
+								 "<td align='right'>"+
 									"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+
 									"' type='button' id='edit_tab"+i+"'>"+
 									"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
@@ -1447,13 +1483,8 @@ $(document).ready(function(){
 											popup_content_form+
 										"</div>"+
 									"</div>"+
-								"</td>"+
-								"<td align='right'>"+
-										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
-										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-										"<span class='glyphicon glyphicon-remove'></span></Button>"+
-								"</td>"+
-								"</tr>";
+								"</td>"+ 
+								*/
 						}
 						
 					}

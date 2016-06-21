@@ -243,8 +243,9 @@
 				</li>
 				<li>
 					<a href="#" data-toggle="modal" data-target="#create_tabstrip_modal"
-						onclick='refresh_all_entries();return false;'>Create Tabstrips</a>
+						onclick='refresh_all_entries();return false;'>Create Tabstrip</a>
 				</li>
+				<li><a href="#" data-toggle="modal" data-target="#">Add Tabs to Tabstrip</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#createuser" 
 								onclick='getRoles("UserRole",$("#OrgUnitList").val(),"error4");refresh_all_entries();return false;'>
 									Create a user</a>
@@ -1024,7 +1025,7 @@
 										<div class="panel-heading clearfix">
 											<table width="100%">
 												<tr>
-													<td><h1 class="panel-title">List of all Tabs</h1></td>
+													<td><h1 class="panel-title">Available Tabs</h1></td>
 													<td align="right">
 														<div class="pull-right">
 															<Button type="button" class="btn btn-info" id="refresh_tab_list">REFRESH
@@ -1166,7 +1167,7 @@
 				<h4 class="modal-title" id="myModalLabel">List of Tabs created:</h4>
 			</div>
 			<div class="modal-body">
-				<table class="table table-striped" id="get_all_tabs">
+				<table class='table' id="get_all_tabs">
 					<script type="text/JavaScript">
 						$(document).ready(function(){
 							getAllTabs("get_all_tabs");
