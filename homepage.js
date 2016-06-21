@@ -1417,7 +1417,9 @@ $(document).ready(function(){
 								"</td>"+
 								"</tr>"+
 								"<tr>"+
-									"<td>Activation Status: "+
+									"<td>"+
+										"<div class='col-sm-4'>Activation Status: </div> "+
+										"<div class='col-sm-4'>"+
 										"<div class='onoffswitch'>"+
 											"<input type='checkbox'  class='onoffswitch-checkbox' "+
 												"id='myonoffswitch"+i+"' checked>"+
@@ -1426,8 +1428,9 @@ $(document).ready(function(){
 												"<span class='onoffswitch-switch'></span>"+
 											"</label>"+
 										"</div>"+
+										"</div>"+
 									"</td>"+
-									"<td align='right'><button class='btn btn-success'>See More</button></td>"+
+									"<td align='right'><button class='btn btn-primary'>See More</button></td>"+
 								"</tr>";
 								/*
 									"<td align='right'>"+
@@ -1461,18 +1464,21 @@ $(document).ready(function(){
 								"</td>"+
 								"</tr>"+
 								"<tr>"+
-									"<td>Activation Status: "+
-										"<div class='onoffswitch'>"+
-											"<input type='checkbox'  class='onoffswitch-checkbox' "+
-											"id='myonoffswitch"+i+"' checked>"+
-											"<label class='onoffswitch-label' for='myonoffswitch"+i+"'>"+
-												"<span class='onoffswitch-inner'></span>"+
-												"<span class='onoffswitch-switch'></span>"+
-											"</label>"+
+									"<td>"+
+										"<div class='col-sm-4'>Activation Status: </div> "+
+										"<div class='col-sm-4'>"+
+											"<div class='onoffswitch'>"+
+												"<input type='checkbox'  class='onoffswitch-checkbox' "+
+													"id='myonoffswitch"+i+"' checked>"+
+												"<label class='onoffswitch-label' for='myonoffswitch"+i+"'>"+
+													"<span class='onoffswitch-inner'></span>"+
+													"<span class='onoffswitch-switch'></span>"+
+												"</label>"+
+											"</div>"+
 										"</div>"+
 									"</td>"+
-								
-									"<td align='right'> <button class='btn btn-success'>See More</button></td></tr>";
+									"<td align='right'><button class='btn btn-primary'>See More</button></td>"+
+								"</tr>";
 								/* 
 								 "<td align='right'>"+
 									"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+
