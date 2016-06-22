@@ -1404,22 +1404,15 @@ $(document).ready(function(){
 							ou_specific="No";
 							layout+= "<tr>"+
 								"<td>"+
+									"<div class='col-sm-4'>"+
 									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 									"<div><b>Organisation:</b> "+ORG+
 									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
 									"<br/><b>OU Specific:</b> "+ou_specific+
 									"</div>"+
-								"</td>"+
-								"<td align='right'>"+
-										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
-										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-										"<span class='glyphicon glyphicon-remove'></span></Button>"+
-								"</td>"+
-								"</tr>"+
-								"<tr>"+
-									"<td>"+
-										"<div class='col-sm-4'>Activation Status: </div> "+
-										"<div class='col-sm-4'>"+
+									"</div>"+
+									"<div class='col-sm-3'>Activation Status: </div> "+
+									"<div class='col-sm-4'>"+
 										"<div class='onoffswitch'>"+
 											"<input type='checkbox'  class='onoffswitch-checkbox' "+
 												"id='myonoffswitch"+i+"' checked>"+
@@ -1428,9 +1421,14 @@ $(document).ready(function(){
 												"<span class='onoffswitch-switch'></span>"+
 											"</label>"+
 										"</div>"+
-										"</div>"+
-									"</td>"+
-									"<td align='right'><button class='btn btn-primary'>See More</button></td>"+
+									"</div>"+
+								"</td>"+
+								"<td align='right'>"+
+										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
+										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+										"<span class='glyphicon glyphicon-remove'></span></Button><br/><br/>"+
+										"<button class='btn btn-link'>See More</button>"+
+								"</td>"+
 								"</tr>";
 								/*
 									"<td align='right'>"+
@@ -1450,22 +1448,14 @@ $(document).ready(function(){
 							ou_specific="Yes";
 							layout+= "<tr>"+
 								"<td>"+
+									"<div class='col-sm-4'>"+
 									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 									"<div><b>OU:</b> "+OU+
 									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
 									"<br/><b>OU Specific:</b> "+ou_specific+
 									"</div>"+
-								"</td>"+
-								
-								"<td align='right'>"+
-										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
-										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-										"<span class='glyphicon glyphicon-remove'></span></Button>"+
-								"</td>"+
-								"</tr>"+
-								"<tr>"+
-									"<td>"+
-										"<div class='col-sm-4'>Activation Status: </div> "+
+									"</div>"+
+									"<div class='col-sm-3'>Activation Status: </div> "+
 										"<div class='col-sm-4'>"+
 											"<div class='onoffswitch'>"+
 												"<input type='checkbox'  class='onoffswitch-checkbox' "+
@@ -1476,8 +1466,14 @@ $(document).ready(function(){
 												"</label>"+
 											"</div>"+
 										"</div>"+
-									"</td>"+
-									"<td align='right'><button class='btn btn-primary'>See More</button></td>"+
+								"</td>"+
+								
+								"<td align='right'>"+	
+										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
+										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+										"<span class='glyphicon glyphicon-remove'></span></Button><br/><br/>"+
+										"<button class='btn btn-link'>See More</button>"+
+								"</td>"+
 								"</tr>";
 								/* 
 								 "<td align='right'>"+
