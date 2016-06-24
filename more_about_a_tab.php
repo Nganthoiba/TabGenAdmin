@@ -64,14 +64,14 @@
             <ul class="sidebar-nav">
 				<br/>
 				<li>
-					<a href="home.php">
-						<button class='btn btn-success'>
+					<a href="#" onclick="window.history.back();">
 							Back to home
-						</button>
 					</a>
 				</li>
                 <li>
-					<a href="#" data-toggle="modal" data-target="#">Create Article</a>
+					<a href="#" data-toggle="modal" data-target="#createArticle">
+						<span class='glyphicon glyphicon-plus'>&nbsp;Create Article</span>
+					</a>
 				</li>
 
             </ul>
@@ -96,20 +96,24 @@
 								"</button>"+	
 							"</div>"+
 							"<br/>"+
-							"<div style='height:70%;padding:10px'>"+
-								"<div id='textual_content"+i+"'>This the content of this article</div>"+
+							"<div style='height:72%;padding:10px'>"+
+								"<div id='textual_content"+i+"'>This the content of this article"+i+"</div>"+
 								"<div id='file_content"+i+"'></div>"+
+								"<div id='image_content"+i+"'><center><img src='uploaded_image/flower.jpg' height='200px'"+
+									" width='250px'/></center></div>"+
 								"<div id='link_content"+i+"'></div>"+
 							"</div>"+
 							"<br/>"+
-							"<div  class='btn-group' style='float:right;padding-right:10px'>"+
+							"<div  class='btn-group' style='float:right;padding-right:5px'>"+
+								"<button class='btn btn-info'><span class='glyphicon glyphicon-picture'></span></button>"+
 								"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
 								"<button class='btn btn-info'><span class='glyphicon glyphicon-link'></span></button>"+
 								"<button class='btn btn-info'><span class='glyphicon glyphicon-pencil'></span></button>"+
 							"</div>"+
 						"</div>";
+						document.getElementById("tab_contents").innerHTML=article_layout;
 					}
-					document.getElementById("tab_contents").innerHTML=article_layout;
+					
 				</script>
 				
 			</div>
@@ -119,4 +123,21 @@
     </div>
     <!-- /#wrapper -->
 	</body>
+	<!-- Modal for creating article -->
+<div class="modal fade" id="createArticle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Create an article:</h4>
+			</div>
+			<div class="modal-body">
+				You will be creating article here...
+				It's under development for now.
+			</div>	
+		</div>
+	</div>
+</div>
 </html>

@@ -164,6 +164,7 @@ body {
     margin: 5px;
     width: 300px;
     max-height: 480px;
+    min-height: 200px;
     padding:1px;
     border-radius:0px;
     border: 1px solid #D8D8D8;
