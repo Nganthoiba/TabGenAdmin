@@ -719,7 +719,7 @@
 													"</div>";
 								/*var org = $("#choose_org").val();
 								getOUlists(org,"ou_selector");*/
-								getOUandRole();
+								
 							}
 							function hide_ou_role_selector_region(){
 								document.getElementById("ou_selector_region").innerHTML=" ";
@@ -1160,7 +1160,7 @@
 
 <!-- Modal for displaying tabs -->
 <div class="modal fade" id="display_tab_layout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-dialog" style="width:60%" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>

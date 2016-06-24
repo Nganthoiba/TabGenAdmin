@@ -1322,6 +1322,7 @@ $(document).ready(function(){
 					var json_arr = JSON.parse(resp);
 					var layout=" ";
 					var popup_content_form=" ";
+					var see_more="";
 					var i;
 					for(i=0;i<json_arr.length;i++){
 						var btn_class;
@@ -1332,7 +1333,7 @@ $(document).ready(function(){
 						
 						prev_tab_name[i] = 	json_arr[i].Name;
 						if(json_arr[i].Template_Name=="Chat Template"){
-							popup_content_form="<form class='form-horizontal' role='form'"+
+							/*popup_content_form="<form class='form-horizontal' role='form'"+
 								"style='max-width:300px;min-width:250px'>"+
 									"<div>"+
 											"<label>Tab Name</label>"+
@@ -1350,10 +1351,11 @@ $(document).ready(function(){
 									"<div style='height:50px'>"+
 										"<br/><span id='upadate_tab_resp"+i+"'></span>"+
 									"</div>"+
-								"</form>";
+								"</form>";*/
+								see_more="";
 						}
 						else if(json_arr[i].Template_Name=="Latest News Template" || json_arr[i].Template_Name=="Latest News Template"){
-							popup_content_form="<form class='form-horizontal' role='form'>"+
+							/*popup_content_form="<form class='form-horizontal' role='form'>"+
 								"<div>"+
 									"<label>Tab Name</label>"+
 										"<input type='text' value='"+json_arr[i].Name+"'"+
@@ -1376,10 +1378,12 @@ $(document).ready(function(){
 								"<div style='height:50px'>"+
 									"<br/><span id='upadate_tab_resp"+i+"'></span>"+
 								"</div>"+
-							"</form>";
+							"</form>";*/
+							 see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
+											"' class='btn btn-info'>See More</a>";
 						}
 						else{
-							popup_content_form="<form class='form-horizontal' role='form'"+
+							/*popup_content_form="<form class='form-horizontal' role='form'"+
 								"style='max-width:300px;min-width:250px'>"+
 									"<div>"+
 											"<label>Tab Name</label>"+
@@ -1397,7 +1401,9 @@ $(document).ready(function(){
 									"<div style='height:50px'>"+
 										"<br/><span id='upadate_tab_resp"+i+"'></span>"+
 									"</div>"+
-								"</form>";
+								"</form>";*/
+								see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
+											"' class='btn btn-info'>See More</a>";
 						}
 						if(parseInt(json_arr[i].OU_Specific) == 0){
 							//btn_class="btn btn-warning";
@@ -1427,7 +1433,7 @@ $(document).ready(function(){
 										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
 										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
 										"<span class='glyphicon glyphicon-remove'></span></Button><br/><br/>"+
-										"<button class='btn btn-link'>See More</button>"+
+										see_more+
 								"</td>"+
 								"</tr>";
 								/*
@@ -1472,7 +1478,7 @@ $(document).ready(function(){
 										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
 										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
 										"<span class='glyphicon glyphicon-remove'></span></Button><br/><br/>"+
-										"<button class='btn btn-link'>See More</button>"+
+										see_more+
 								"</td>"+
 								"</tr>";
 								/* 
