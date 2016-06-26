@@ -111,11 +111,13 @@
 							"</div>"+
 							"<div style='height:70%;padding:10px'>"+
 								"<div id='textual_content"+i+"'>This is the content of this article"+i+"</div>"+
+								"<div><input type='hidden' id='edit_text"+i+
+									"' value='This is the content of this article"+i+"'/></div>"+
 								"<br/>"+
 								"<div id='file_content"+i+"'></div>"+
 								"<div id='image_content"+i+"'><center><img src='uploaded_image/flower.jpg' height='200px'"+
 									" width='300px'/></center></div>"+
-								"<div id='link_content"+i+"'>This is the link.</div>"+
+								"<div class='account-wall' id='link_content"+i+"'><a href='#'>http://www.example.com</a></div>"+
 							"</div>"+
 							"<br/>"+
 							"<div  class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px'>"+
@@ -128,12 +130,27 @@
 						document.getElementById("tab_contents").innerHTML=article_layout;
 					}
 					function editArticle(i){
-						var content = document.getElementById("textual_content"+i).innerHTML;
+						var content = document.getElementById("edit_text"+i).value;
 						//alert(content);
-						jAlert('You can use HTML, such as <strong>bold</strong>, <em>italics</em>, and <span style="text-decoration: underline;">underline</span>!');
-						/*document.getElementById("textual_content"+i).innerHTML="<label>Edit the content:</label>"+
-							"<textarea class='form-control' row='5'>"+content+"</textarea>";*/
+						document.getElementById("textual_content"+i).innerHTML="<div class='edit_text_bg'><label>Edit the content:</label>"+
+							"<textarea class='form-control' row='5' id='edited_text"+i+"'>"+content+"</textarea></div>"+
+							"<div style='float:right'><input type='button' value='CANCEL' class='btn' onclick='cancel_edit(\""+i+"\");'/>&nbsp;"+
+							"<input type='button' value='DONE' class='btn' onclick='done_edit(\""+i+"\");'/></div><br/>";
 					}
+					
+					function cancel_edit(i){
+						//alert(i);
+						var content = document.getElementById("edit_text"+i).value;
+						document.getElementById("textual_content"+i).innerHTML=content;
+					}
+					
+					function done_edit(i){
+						//alert(i);
+						var content = document.getElementById("edited_text"+i).value;
+						document.getElementById("textual_content"+i).innerHTML=content;
+						document.getElementById("edit_text"+i).value=content;
+					}
+					
 				</script>
 				
 			</div>
@@ -152,25 +169,24 @@
 			  <h4 class="modal-title">Create an article:</h4>
 			</div>
 			<div class="modal-body">
-			  <form class="form-horizontal" method="post" action="#">
-					<div class="form-group">
-						<label for="title" class="col-sm-4  control-label">Article Title</label>
-						<div class="col-sm-8">
+			  <form class="form-horizontal" role="form" method="post" action="#">
+					<div class="form-group">	
+						<div class="col-sm-12">
+							<label for="title" class="control-label">Title</label>
 							<input type="text" class="form-control" value="" name="title" id="title"
 									placeholder="Title of the article">
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="textual_content" class="col-sm-4  control-label">Textual Content</label>
-						<div class="col-sm-8">
-							<textarea class="form-control" name="textual_content" id="textual_content"
-								rows="10">
+
+						<div class="col-sm-12">
+							<label for="textual_content" class="control-label">Say something about the article</label>
+							<textarea class="form-control" name="textual_content" id="textual_content" rows="8"
+								placeholder="Write Here">
 							</textarea>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="link" class="col-sm-4  control-label">Link</label>
-						<div class="col-sm-8">
+					
+					
+						<div class="col-sm-12">
+							<label for="link" class="control-label">Link</label>
 							<input type="text" class="form-control" value="" name="link" id="link"
 									placeholder="paste here any link">
 						</div>
