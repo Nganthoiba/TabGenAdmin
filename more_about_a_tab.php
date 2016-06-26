@@ -76,14 +76,18 @@
 								if(result.state==true){
 									var output = result.output;
 									if(output==null){
-										document.getElementById("tab_contents").innerHTML="<center>No tab found, create a new one.</center>";
+										document.getElementById("tab_contents").innerHTML="<center>No article found, create a new one.</center>";
 										return false;
 									}
 									var article_layout="";
 									for(var i=0;i<output.length;i++){
 										var Link=output[i].Links;
+										var image=output[i].Images;
 										Link=Link.trim();
 										var link_layout="";
+										//image==null?"":
+										var image_layout="<div id='image_content"+i+"'><center><img src='"+image+
+											"' height='200px' width='300px'/></center></div>";
 										if(Link.trim()==0){
 											link_layout="";
 										}
@@ -109,8 +113,7 @@
 														"' value='"+output[i].Textual_content+"'/></div>"+
 													"<br/>"+
 													"<div id='file_content"+i+"'></div>"+
-													"<div id='image_content"+i+"'><center><img src='uploaded_image/flower.jpg' height='200px'"+
-														" width='300px'/></center></div>"+
+													image_layout+
 													link_layout+
 												"</div>"+
 												"<br/>"+
