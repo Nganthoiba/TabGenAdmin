@@ -23,6 +23,7 @@
 				$("#wrapper").toggleClass("toggled");
 			});
 		});
+		
 	</script>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -50,6 +51,19 @@
 						
 					?> <span class="sr-only">(current)</span></a>
 				</li>
+				<script type="text/JavaScript">
+					var queryString = new Array();
+					if (window.location.search.split('?').length > 1) {
+						var params = window.location.search.split('?')[1].split('&');
+						for (var i = 0; i < params.length; i++) {
+							var key = params[i].split('=')[0];
+							var value = decodeURIComponent(params[i].split('=')[1]);
+							queryString[key] = value;
+							//alert(key);
+						}
+					}	
+					//alert("Tab Id is: "+queryString['tab_id']);
+				</script>
 			  </ul>
 			</div>
 		  </div>
@@ -65,7 +79,7 @@
 				<br/>
 				<li>
 					<a href="#" onclick="window.history.back();">
-							Back to home
+						Back to home
 					</a>
 				</li>
                 <li>
@@ -90,30 +104,36 @@
 						"<div class='article'>"+
 							"<div class='headLine' id='article_title"+i+"'>"+
 								"Article "+i+
-								"<button type='button' style='float:right;background-color:#FA8686'"+ 
+								"<button type='button' style='float:right;'"+ 
 									"class='close' aria-label='Close' id='deleteArticle"+i+"'>"+
 									"<span class='glyphicon glyphicon-remove'></span>"+
 								"</button>"+	
 							"</div>"+
-							"<br/>"+
-							"<div style='height:72%;padding:10px'>"+
-								"<div id='textual_content"+i+"'>This the content of this article"+i+"</div>"+
+							"<div style='height:70%;padding:10px'>"+
+								"<div id='textual_content"+i+"'>This is the content of this article"+i+"</div>"+
+								"<br/>"+
 								"<div id='file_content"+i+"'></div>"+
 								"<div id='image_content"+i+"'><center><img src='uploaded_image/flower.jpg' height='200px'"+
-									" width='250px'/></center></div>"+
-								"<div id='link_content"+i+"'></div>"+
+									" width='300px'/></center></div>"+
+								"<div id='link_content"+i+"'>This is the link.</div>"+
 							"</div>"+
 							"<br/>"+
-							"<div  class='btn-group' style='float:right;padding-right:5px'>"+
+							"<div  class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px'>"+
 								"<button class='btn btn-info'><span class='glyphicon glyphicon-picture'></span></button>"+
 								"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
 								"<button class='btn btn-info'><span class='glyphicon glyphicon-link'></span></button>"+
-								"<button class='btn btn-info'><span class='glyphicon glyphicon-pencil'></span></button>"+
+								"<button class='btn btn-info' onclick='editArticle(\""+i+"\");'><span class='glyphicon glyphicon-pencil'></span></button>"+
 							"</div>"+
 						"</div>";
 						document.getElementById("tab_contents").innerHTML=article_layout;
 					}
-					
+					function editArticle(i){
+						var content = document.getElementById("textual_content"+i).innerHTML;
+						//alert(content);
+						jAlert('You can use HTML, such as <strong>bold</strong>, <em>italics</em>, and <span style="text-decoration: underline;">underline</span>!');
+						/*document.getElementById("textual_content"+i).innerHTML="<label>Edit the content:</label>"+
+							"<textarea class='form-control' row='5'>"+content+"</textarea>";*/
+					}
 				</script>
 				
 			</div>
@@ -128,16 +148,40 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span class="glyphicon glyphicon-remove"></span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Create an article:</h4>
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title">Create an article:</h4>
 			</div>
 			<div class="modal-body">
-				You will be creating article here...
-				It's under development for now.
-			</div>	
-		</div>
+			  <form class="form-horizontal" method="post" action="#">
+					<div class="form-group">
+						<label for="title" class="col-sm-4  control-label">Article Title</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" value="" name="title" id="title"
+									placeholder="Title of the article">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="textual_content" class="col-sm-4  control-label">Textual Content</label>
+						<div class="col-sm-8">
+							<textarea class="form-control" name="textual_content" id="textual_content"
+								rows="10">
+							</textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="link" class="col-sm-4  control-label">Link</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" value="" name="link" id="link"
+									placeholder="paste here any link">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<center><label id="createArticleResp" class="col-sm-offset-2 col-sm-8"></label></center>
+				<button type="button" class="btn btn-info">Create</button>
+			</div>
+		 </div>
 	</div>
 </div>
 </html>
