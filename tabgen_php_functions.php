@@ -353,7 +353,7 @@ function getChannelByName($conn,$channel_name){
 	else return null;	
 }
 
-//function to check if tab name already exists
+//function to check if tab name already exists by using tab name
 function isTabExist($conn,$tab_name){
 	$query = "select count(*) as count from Tab where Name='$tab_name' and DeleteAt=0";
 	$res = $conn->query($query);
@@ -363,6 +363,30 @@ function isTabExist($conn,$tab_name){
 	}
 	else{
 			return false;
+	}
+}
+//function to check if tab name already exists by using tab ID
+function isTabExistById($conn,$tab_id){
+	$query = "select count(*) as count from Tab where Id='$tab_id' and DeleteAt=0";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	if((int)$row['count']>0){
+			return true;
+	}
+	else{
+			return false;
+	}
+}
+/*function to check if article of a particular name exists*/
+function isArticleExist($conn,$name){
+	$query = "select count(*) as count from Article where Name='$name' and DeleteAt=0";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	if((int)$row['count']>0){
+		return true;
+	}
+	else{
+		return false;
 	}
 }
 
