@@ -93,7 +93,7 @@
 											link_layout="";
 										}
 										else{
-											link_layout="<a href='"+output[i].Links+"'>"+output[i].Links+"</a>";
+											link_layout="<a href='"+output[i].Links+"' target='_blank'>"+output[i].Links+"</a>";
 										}
 										article_layout+=""+
 											"<div class='article'>"+
@@ -195,7 +195,7 @@
 							success: function(resp){
 								var json_resp = JSON.parse(resp);
 								if(json_resp.status==true){
-									document.getElementById("link_content"+indicator).innerHTML="<a href='"+new_link+"'>"+new_link+"</a>";
+									document.getElementById("link_content"+indicator).innerHTML="<a href='"+new_link+"' target='_blank'>"+new_link+"</a>";
 									document.getElementById("editLinkResponse").innerHTML=json_resp.message;
 									document.getElementById("editLinkResponse").style.color="green";
 									document.getElementById("btn_group"+indicator).innerHTML="<button class='btn btn-info'><span class='glyphicon glyphicon-picture'></span></button>"+
