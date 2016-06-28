@@ -115,7 +115,7 @@
 													"<br/>"+
 													"<div id='file_content"+i+"'></div>"+
 													image_layout+
-													"<div id='link_content"+i+"'>"+link_layout+"</div>"+
+													"<div style='width:98%;overflow:hidden;overflow-x:auto' id='link_content"+i+"'>"+link_layout+"</div>"+
 												"</div>"+
 												"<br/>"+
 												"<div id='btn_group"+i+"' class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px'>"+
