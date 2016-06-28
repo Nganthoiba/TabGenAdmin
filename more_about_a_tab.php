@@ -118,7 +118,7 @@
 													"<div id='link_content"+i+"'>"+link_layout+"</div>"+
 												"</div>"+
 												"<br/>"+
-												"<div  class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px'>"+
+												"<div id='btn_group"+i+"' class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px'>"+
 													"<button class='btn btn-info'><span class='glyphicon glyphicon-picture'></span></button>"+
 													"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
 													"<a href='#' data-toggle='modal' data-target='#Editlink' "+
@@ -198,6 +198,11 @@
 									document.getElementById("link_content"+indicator).innerHTML="<a href='"+new_link+"'>"+new_link+"</a>";
 									document.getElementById("editLinkResponse").innerHTML=json_resp.message;
 									document.getElementById("editLinkResponse").style.color="green";
+									document.getElementById("btn_group"+indicator).innerHTML="<button class='btn btn-info'><span class='glyphicon glyphicon-picture'></span></button>"+
+													"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
+													"<a href='#' data-toggle='modal' data-target='#Editlink' "+
+														"onclick='editLink(\""+indicator+"\",\""+new_link+"\");'"+
+														"class='btn btn-info'><span class='glyphicon glyphicon-link'></span></a>";
 								}
 								else{
 									document.getElementById("editLinkResponse").innerHTML=json_resp.message;
