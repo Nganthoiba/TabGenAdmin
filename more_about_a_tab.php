@@ -53,6 +53,7 @@
 				</li>
 				<script type="text/JavaScript">
 					var queryString = new Array();
+					var indicator;
 					if (window.location.search.split('?').length > 1) {
 						var params = window.location.search.split('?')[1].split('&');
 						for (var i = 0; i < params.length; i++) {
@@ -86,14 +87,13 @@
 										Link=Link.trim();
 										var link_layout="";
 										//image==null?"":
-										var image_layout="<div id='image_content"+i+"'><center><img src='"+image+
+										var image_layout=image==null?"":"<div id='image_content"+i+"'><center><img src='"+image+
 											"' height='200px' width='300px'/></center></div>";
 										if(Link.trim()==0){
 											link_layout="";
 										}
 										else{
-											link_layout="<div class='account-wall' id='link_content"+i+"'>"+
-														"<a href='"+output[i].Links+"'>"+output[i].Links+"</a></div>";
+											link_layout="<a href='"+output[i].Links+"'>"+output[i].Links+"</a>";
 										}
 										article_layout+=""+
 											"<div class='article'>"+
@@ -102,7 +102,8 @@
 													"<button type='button' style='float:right;'"+ 
 														"class='close' aria-label='Close' id='deleteArticle"+i+"'>"+
 														"<span class='glyphicon glyphicon-remove'></span>"+
-													"</button>"+	
+													"</button>"+
+													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 												"</div>"+
 												"<div style='height:70%;padding:10px'>"+
 													"<div id='textual_content"+i+"'>"+output[i].Textual_content+
@@ -114,13 +115,15 @@
 													"<br/>"+
 													"<div id='file_content"+i+"'></div>"+
 													image_layout+
-													link_layout+
+													"<div id='link_content"+i+"'>"+link_layout+"</div>"+
 												"</div>"+
 												"<br/>"+
 												"<div  class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px'>"+
 													"<button class='btn btn-info'><span class='glyphicon glyphicon-picture'></span></button>"+
 													"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
-													"<button class='btn btn-info'><span class='glyphicon glyphicon-link'></span></button>"+
+													"<a href='#' data-toggle='modal' data-target='#Editlink' "+
+														"onclick='editLink(\""+i+"\",\""+Link+"\");'"+
+														"class='btn btn-info'><span class='glyphicon glyphicon-link'></span></a>"+
 												"</div>"+
 											"</div>";
 										document.getElementById("tab_contents").innerHTML=article_layout;
@@ -167,7 +170,49 @@
 			<div class="container-fluid">
             <div class="box" id="tab_contents">	
 				<script type='text/JavaScript'>
-					
+					function editLink(i,article_link){
+						indicator=i;
+						var article_id = document.getElementById("article_id"+i).value;
+						if(article_link.trim()==0 || article_link==null){
+							document.getElementById("edit_link_label").innerHTML="Add a link for the article below:";
+							document.getElementById("article_link").value="";
+						}
+						else{
+							document.getElementById("edit_link_label").innerHTML="Edit the link below:";
+							document.getElementById("article_link").value=article_link;
+						}
+						document.getElementById("article_ID").value=article_id;
+						document.getElementById("editLinkResponse").innerHTML="";
+					}
+					function edit_link_done(){
+						//alert(indicator);
+						var article_id = document.getElementById("article_ID").value;
+						var new_link=document.getElementById("article_link").value;
+						$.ajax({
+							url: "update_article.php",
+							type: "POST",
+							data: {"article_id":article_id,"Links":new_link},
+							success: function(resp){
+								var json_resp = JSON.parse(resp);
+								if(json_resp.status==true){
+									document.getElementById("link_content"+indicator).innerHTML="<a href='"+new_link+"'>"+new_link+"</a>";
+									document.getElementById("editLinkResponse").innerHTML=json_resp.message;
+									document.getElementById("editLinkResponse").style.color="green";
+								}
+								else{
+									document.getElementById("editLinkResponse").innerHTML=json_resp.message;
+									document.getElementById("editLinkResponse").style.color="red";
+								}
+							},
+							error: function(x,y,z){
+								document.getElementById("editLinkResponse").innerHTML="<b>Oops! Unable to reach server.</b>";
+								document.getElementById("editLinkResponse").style.color="red";
+							}
+						});	
+					}
+					function edit_link_cancel(){
+						
+					}
 					function editArticle(i){
 						var content = document.getElementById("edit_text"+i).value;
 						//alert(content);
@@ -190,10 +235,29 @@
 					function done_edit(i){
 						//alert(i);
 						var content = document.getElementById("edited_text"+i).value;
-						document.getElementById("textual_content"+i).innerHTML=content+
-							"<button class='btn btn-link' style='float:right' onclick='editArticle(\""+i+"\");'>"+
-								"<span class='glyphicon glyphicon-pencil'></span></button>";
-						document.getElementById("edit_text"+i).value=content;
+						var article_id = document.getElementById("article_id"+i).value;
+						$.ajax({
+							url: "update_article.php",
+							type: "POST",
+							data: {"article_id":article_id,"textual_content":content},
+							success: function(resp){
+								var resp_json = JSON.parse(resp);
+								if(resp_json.status==true){
+									document.getElementById("textual_content"+i).innerHTML=content+
+										"<button class='btn btn-link' style='float:right' onclick='editArticle(\""+i+"\");'>"+
+											"<span class='glyphicon glyphicon-pencil'></span></button>";
+									document.getElementById("edit_text"+i).value=content;
+								}
+								else{
+									alert(resp_json.message);
+									cancel_edit(i);
+								}
+							},
+							error: function(x,y,z){
+								alert("Unable to connect server...");
+							}
+						});
+						
 					}
 					
 					function createArticle(){
@@ -253,41 +317,69 @@
     <!-- /#wrapper -->
 	</body>
 	<!-- Modal for creating article -->
-<div class="modal fade" id="createArticle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-			  <button type="button" class="close" data-dismiss="modal">&times;</button>
-			  <h4 class="modal-title">Create an article:</h4>
-			</div>
-			<div class="modal-body">
-			  <form class="form-horizontal" role="form" method="post" action="#">
-				 <div class="form-group">	
-						<div class="col-sm-12">
-							<label for="title" class="control-label">Name:</label>
-							<input type="text" class="form-control" value="" name="title" id="title"
-									placeholder="Name of the article">
-						</div>
+	<div class="modal fade" id="createArticle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				  <h4 class="modal-title">Create an article:</h4>
+				</div>
+				<div class="modal-body">
+				  <form class="form-horizontal" role="form" method="post" action="#">
+					 <div class="form-group">	
+							<div class="col-sm-12">
+								<label for="title" class="control-label">Name:</label>
+								<input type="text" class="form-control" value="" name="title" id="title"
+										placeholder="Name of the article">
+							</div>
 
-						<div class="col-sm-12">
-							<label for="textual_content" class="control-label">Say something about the article:</label>
-							<textarea class="form-control" name="textual_content" id="textual_content" rows="6" cols="40"></textarea>
+							<div class="col-sm-12">
+								<label for="textual_content" class="control-label">Say something about the article:</label>
+								<textarea class="form-control" name="textual_content" id="textual_content" rows="6" cols="40"></textarea>
+							</div>
+						
+						
+							<div class="col-sm-12">
+								<label for="link" class="control-label">Link:</label>
+								<input type="text" class="form-control" value="" name="link" id="link"
+										placeholder="Paste here any link related to the article">
+							</div>
 						</div>
-					
-					
-						<div class="col-sm-12">
-							<label for="link" class="control-label">Link:</label>
-							<input type="text" class="form-control" value="" name="link" id="link"
-									placeholder="Paste here any link related to the article">
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<center><label id="createArticleResp" class="col-sm-offset-2 col-sm-8"></label></center>
-				<button type="submit" onclick='createArticle();' class="btn btn-info">Create</button>
-			</div>
-		 </div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<center><label id="createArticleResp" class="col-sm-offset-2 col-sm-8"></label></center>
+					<button type="submit" onclick='createArticle();' class="btn btn-info">Create</button>
+				</div>
+			 </div>
+		</div>
 	</div>
-</div>
+	<div class="modal fade" id="Editlink" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<input type='hidden' id='article_ID'/>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<label for='article_link' id='edit_link_label'>Edit the link below:</label>
+					<input type='text' class='form-control' id='article_link' placeholder='http://www.domain.com'/>
+					<br/>
+					<div>
+						<center>
+							<button type="button" style='width:45%' onclick='edit_link_cancel();' 
+								class="btn" data-dismiss="modal" aria-label="Close">CANCEL</button>
+							&nbsp;&nbsp;
+							<button type="button"  style='width:45%' onclick='edit_link_done();' 
+								class="btn" style="width:20%" id="saveLink">
+								DONE</button>
+						</center>
+					</div>
+					<br/>
+					<center>
+						<div id='editLinkResponse'></div>
+					</center>
+					
+				</div>	
+			</div>
+		</div>
+	</div>
 </html>
