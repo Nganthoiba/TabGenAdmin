@@ -188,6 +188,12 @@
 						//alert(indicator);
 						var article_id = document.getElementById("article_ID").value;
 						var new_link=document.getElementById("article_link").value;
+						var re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+						if (!re.test(new_link)) { 
+							document.getElementById("editLinkResponse").innerHTML="Invalid URL";
+							document.getElementById("editLinkResponse").style.color="red";
+							return false;
+						}
 						$.ajax({
 							url: "update_article.php",
 							type: "POST",
@@ -271,6 +277,7 @@
 						var name = document.getElementById("title").value;
 						var textual_content = document.getElementById("textual_content").value;
 						var link_site = document.getElementById("link").value;
+						var re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
 						name=name.trim();
 						textual_content=textual_content.trim();
 						if(name==null || name.length==0){
@@ -281,6 +288,11 @@
 						else if(textual_content==null || textual_content.length==0){
 							document.getElementById("createArticleResp").innerHTML="<center><b>Please write something"+
 							" about the article.</b></center>";
+							document.getElementById("createArticleResp").style.color="red";
+							return false;
+						}
+						else if(link_site.trim()!=0 && !re.test(link_site)){
+							document.getElementById("createArticleResp").innerHTML="Sorry, you have entered Invalid URL in the link.";
 							document.getElementById("createArticleResp").style.color="red";
 							return false;
 						}
