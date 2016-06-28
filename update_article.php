@@ -7,9 +7,10 @@
 	else{
 		$id = $_POST['article_id'];
 		$article_id=$_POST['article_id'];
+		$time=time()*1000;
 		if(!empty($_POST['textual_content'])){
 			$text = $_POST['textual_content'];
-			$query = "update Article set Textual_content='$text' where Id='$id'";
+			$query = "update Article set Textual_content='$text', UpdateAt=$time where Id='$id'";
 			if($conn->query($query)){
 				echo json_encode(array("status"=>true,"message"=>"Successfully updated..."));
 			} 
@@ -19,7 +20,7 @@
 		}
 		else if(!empty($_POST['Links'])){
 			$links = $_POST['Links'];
-			$query = "update Article set Links='$links' where Id='$id'";
+			$query = "update Article set Links='$links', UpdateAt=$time where Id='$id'";
 			if($conn->query($query)){
 				echo json_encode(array("status"=>true,"message"=>"Successfully updated..."));
 			} 
