@@ -390,9 +390,14 @@
 					}
 					
 					function closeImageUpload(i,image){
-						
-						document.getElementById("image_content"+i).innerHTML=image==null?"":"<center><img src='"+image+
+						//alert(image);
+						if(image=="null") {
+							document.getElementById("image_content"+i).innerHTML="";	
+						}
+						else{
+						document.getElementById("image_content"+i).innerHTML="<center><img src='"+image+
 											"' height='80%' width='100%'/></center>";
+						}
 					}
 				</script>
 			</div>
