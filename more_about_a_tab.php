@@ -91,6 +91,7 @@
 									for(var i=0;i<output.length;i++){
 										var Link=output[i].Links;
 										var image=output[i].Images;
+										//alert(image);
 										Link=Link.trim();
 										var link_layout="";
 										//image==null?"":
@@ -128,8 +129,10 @@
 													"<div style='width:98%;overflow:hidden;overflow-x:auto' id='link_content"+i+"'>"+link_layout+"</div>"+
 												"</div>"+
 												"<br/>"+
-												"<div id='btn_group"+i+"' class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px'>"+
-													"<button class='btn btn-info' onclick='uploadImage(\""+i+"\",\""+image_layout+"\");'>"+
+												"<div id='btn_group"+i+"' "+
+													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
+													"<button class='btn btn-info' onclick='uploadImage(\""+i+"\",\""+
+														image+"\");'>"+
 														"<span class='glyphicon glyphicon-picture'></span></button>"+
 													"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
 													"<a href='#' data-toggle='modal' data-target='#Editlink' "+
@@ -334,14 +337,14 @@
 						return false;
 					}
 					
-					function uploadImage(i,old_image_layout){
+					function uploadImage(i,image){
 						var article_id = document.getElementById("article_id"+i).value;
 						//alert(article_id);
 						var image_upload_layout=""+
 							"<form id='uploadForm"+i+"' action='upload.php' method='post'>"+
 								"<div id='targetLayer"+i+"'></div>"+
 								"<button type='button' class='close' "+
-									"onclick='closeImageUpload(\""+i+"\",\""+old_image_layout+"\");'>&times;</button>"+
+									"onclick='closeImageUpload(\""+i+"\",\""+image+"\");'>&times;</button>"+
 								"<div>"+
 									"<label>Upload Image File:</label>"+
 									"<input name='userImage' id='userImage"+i+"' type='file' class='demoInputBox' />"+
@@ -386,8 +389,10 @@
 						});
 					}
 					
-					function closeImageUpload(i,old_image_layout){
-						document.getElementById("image_content"+i).innerHTML=old_image_layout;
+					function closeImageUpload(i,image){
+						
+						document.getElementById("image_content"+i).innerHTML=image==null?"":"<center><img src='"+image+
+											"' height='80%' width='100%'/></center>";
 					}
 				</script>
 			</div>
