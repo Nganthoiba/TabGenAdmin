@@ -12,18 +12,20 @@ if(!empty($_FILES)) {
 				$time=time()*1000;
 				$query = "Update Article set Images='$targetPath', UpdateAt=$time where Id='$article_id'";
 				if($conn->query($query)){
-					echo "<img src='".$targetPath."' width='100%' height='80%'/>";
+					//echo "<img src='".$targetPath."' width='100%' height='80%'/>";
+					echo json_encode(array("status"=>true,"message"=>"Successfully uploaded..","image_path"=>$targetPath));
 				}
 				else{
-					echo "<center>Something went wrong.. Try again later.</center>";
+					//echo "<center>Something went wrong.. Try again later.</center>";
+					echo json_encode(array("status"=>false,"message"=>"Something went wrong.. Try again later."));
 				}
 			}
 			else{
-				echo "<center>Something went wrong.. Try again later.</center>";
+				echo json_encode(array("status"=>false,"message"=>"Something went wrong.. Try again later."));
 			}
 		}
 		else{
-			echo "<center>Something went wrong.. Failed to upload your image.</center>";
+			echo json_encode(array("status"=>false,"message"=>"Failed to upload your image. Try again later."));
 		}
 	}
 }

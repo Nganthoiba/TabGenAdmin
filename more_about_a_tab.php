@@ -59,6 +59,7 @@
 					?> <span class="sr-only">(current)</span></a>
 				</li>
 				<script type="text/JavaScript">
+					var image_path=[];
 					var queryString = new Array();
 					var indicator;
 					if (window.location.search.split('?').length > 1) {
@@ -91,6 +92,7 @@
 									for(var i=0;i<output.length;i++){
 										var Link=output[i].Links;
 										var image=output[i].Images;
+										image_path[i]=output[i].Images;
 										//alert(image);
 										Link=Link.trim();
 										var link_layout="";
@@ -131,8 +133,7 @@
 												"<br/>"+
 												"<div id='btn_group"+i+"' "+
 													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
-													"<button class='btn btn-info' onclick='uploadImage(\""+i+"\",\""+
-														image+"\");'>"+
+													"<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+
 														"<span class='glyphicon glyphicon-picture'></span></button>"+
 													"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
 													"<a href='#' data-toggle='modal' data-target='#Editlink' "+
@@ -337,14 +338,15 @@
 						return false;
 					}
 					
-					function uploadImage(i,image){
+					function uploadImage(i){
 						var article_id = document.getElementById("article_id"+i).value;
 						//alert(article_id);
+						
 						var image_upload_layout=""+
 							"<form id='uploadForm"+i+"' action='upload.php' method='post'>"+
 								"<div id='targetLayer"+i+"'></div>"+
 								"<button type='button' class='close' "+
-									"onclick='closeImageUpload(\""+i+"\",\""+image+"\");'>&times;</button>"+
+									"onclick='closeImageUpload(\""+i+"\");'>&times;</button>"+
 								"<div>"+
 									"<label>Upload Image File:</label>"+
 									"<input name='userImage' id='userImage"+i+"' type='file' class='demoInputBox' />"+
@@ -366,7 +368,6 @@
 								$("#progress-div"+i).show();
 								$(this).ajaxSubmit({
 									url: "upload.php", 
-									target:   "#image_content"+i, 
 									beforeSubmit: function() {
 									  $("#progress-bar"+i).width('0%');
 									},
@@ -374,8 +375,16 @@
 										$("#progress-bar"+i).width(percentComplete + '%');
 										$("#progress-bar"+i).html('<div id="progress-status'+i+'">' + percentComplete +' %</div>');
 									},
-									success:function (){
+									success:function (resp){
 										$("#loader-icon"+i).hide();
+										var json_resp = JSON.parse(resp);
+										if(json_resp.status==true){
+											image_path[i]=json_resp.image_path;
+											$("#image_content"+i).html("<img src='"+image_path[i]+"' width='100%' height='80%'/>");
+										}
+										else{
+											$("#image_content"+i).html("<center>"+json_resp.status+"</center>");
+										}
 									},
 									resetForm: true 
 								}); 
@@ -389,9 +398,10 @@
 						});
 					}
 					
-					function closeImageUpload(i,image){
+					function closeImageUpload(i){
+						var image = image_path[i];
 						//alert(image);
-						if(image=="null") {
+						if(image==null) {
 							document.getElementById("image_content"+i).innerHTML="";	
 						}
 						else{
