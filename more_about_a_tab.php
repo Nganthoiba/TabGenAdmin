@@ -357,7 +357,7 @@
 									"<div class='progress-bar' id='progress-bar"+i+"'></div>"+
 								"</div>"+
 							"</form>"+
-							"<center><div id='loader-icon"+i+"' style='display:none;'><img src='img/LoaderIcon.gif' /></div></center>";
+							"<center><div id='loader-icon"+i+"' style='display:none;'><img src='img/loading.gif' /></div></center>";
 						document.getElementById("image_content"+i).innerHTML=image_upload_layout;
 						$("#uploadForm"+i).submit(function(e) {	
 							//alert($('#userImage'+i).val());
