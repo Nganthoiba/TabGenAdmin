@@ -6,6 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
 	<!--<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
+	
+	
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/simple-sidebar.css">
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
@@ -55,23 +57,6 @@
 				e.preventDefault();
 				$("#wrapper").toggleClass("toggled");
 			});
-			/*$.ajax({
-				url: "getUserSession.php",
-				type: "GET",
-				success:function(data){
-					if(data.trim()=="null"){
-						user_session=null;
-					}
-					else{
-						user_session=JSON.parse(data);
-					}
-					//alert("Token: "+user_session.token+" User id: "+user_session.id);
-				},
-				error:function(error_data,y,z){
-					user_session=null;
-					alert(error_data+" "+y+" "+z);
-				}
-			});*/
 		});
 		function getSession(){
 			document.getElementById("user_detail_section").innerHTML=user_session.username;
