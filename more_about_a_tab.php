@@ -95,6 +95,9 @@
 										else{
 											link_layout="<a href='"+output[i].Links+"' target='_blank'>"+output[i].Links+"</a>";
 										}
+										var textual_content=output[i].Textual_content;
+										textual_content = textual_content.replace("'","%");
+										//alert(textual_content);
 										article_layout+=""+
 											"<div class='article'>"+
 												"<div class='headLine' id='article_title"+i+"'>"+
@@ -111,7 +114,7 @@
 														"<span class='glyphicon glyphicon-pencil'></span></button>"+
 													"</div>"+
 													"<div><input type='hidden' id='edit_text"+i+
-														"' value='"+output[i].Textual_content+"'/></div>"+
+														"' value='"+textual_content+"'/></div>"+
 													"<br/>"+
 													"<div id='file_content"+i+"'></div>"+
 													image_layout+
@@ -226,6 +229,7 @@
 					}
 					function editArticle(i){
 						var content = document.getElementById("edit_text"+i).value;
+						content = content.replace("%","'");
 						//alert(content);
 						document.getElementById("textual_content"+i).innerHTML="<div class='textarea_bg'>"+
 							"<div class='div_bg'><label for='edited_text"+i+"'>Edit the content:</label>"+
@@ -238,6 +242,7 @@
 					function cancel_edit(i){
 						//alert(i);
 						var content = document.getElementById("edit_text"+i).value;
+						content = content.replace("%","'");
 						document.getElementById("textual_content"+i).innerHTML=content+
 							"<button class='btn btn-link' style='float:right' onclick='editArticle(\""+i+"\");'>"+
 								"<span class='glyphicon glyphicon-pencil'></span></button>";
@@ -246,6 +251,7 @@
 					function done_edit(i){
 						//alert(i);
 						var content = document.getElementById("edited_text"+i).value;
+						content = content.replace("%","'");
 						var article_id = document.getElementById("article_id"+i).value;
 						$.ajax({
 							url: "update_article.php",

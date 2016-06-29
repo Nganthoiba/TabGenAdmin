@@ -10,7 +10,8 @@
 		$time=time()*1000;
 		if(!empty($_POST['textual_content'])){
 			$text = $_POST['textual_content'];
-			$query = "update Article set Textual_content='$text', UpdateAt=$time where Id='$id'";
+			$text = str_replace ("'","''", $text);
+			$query = "update Article set Textual_content='".$text."', UpdateAt=$time where Id='$id'";
 			if($conn->query($query)){
 				echo json_encode(array("status"=>true,"message"=>"Successfully updated..."));
 			} 

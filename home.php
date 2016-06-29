@@ -18,13 +18,21 @@
 		/*
 		 * global variables
 		 * */
+		 
 		 var arr; /*array for tab template association*/
 		 var prev_tab_name = [];/*Global array for tab name*/
 		 var templates_arr=""; /*list of templates*/
 		 var tabs=[];
 		 var json_arr;
 		 var role_list;
-		 var user_session;
+		 var js_session = sessionStorage.getItem('user_details');
+		if(js_session==null){
+			window.location.assign("index.html");
+		}
+		var user_session = JSON.parse(js_session);
+		 
+		
+		
 		 /*
 		 $(document).ready(function(){
 			function alignModal(){
@@ -47,7 +55,7 @@
 				e.preventDefault();
 				$("#wrapper").toggleClass("toggled");
 			});
-			$.ajax({
+			/*$.ajax({
 				url: "getUserSession.php",
 				type: "GET",
 				success:function(data){
@@ -63,9 +71,10 @@
 					user_session=null;
 					alert(error_data+" "+y+" "+z);
 				}
-			});
+			});*/
 		});
-		function keepAliveSession(){
+		function getSession(){
+			document.getElementById("user_detail_section").innerHTML=user_session.username;
 			setInterval(
 				function(){
 						//alert("Hello"); 
@@ -74,10 +83,11 @@
 						type: "GET",
 						success:function(data){
 							if(data.trim()=="null"){
-								user_session=null;
+								//user_session=null;
+								window.location.assign("index.html");
 							}
 							else{
-								user_session=JSON.parse(data);
+								//user_session=JSON.parse(data);
 							}
 							//alert("Token: "+user_session.token+" User id: "+user_session.id);
 						},
@@ -86,7 +96,7 @@
 							//alert(error_data+" "+y+" "+z);
 						}
 					});
-				}, 30000);
+				}, 30000);	
 		}
 	</script>
 	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
@@ -109,7 +119,7 @@
 		td {vertical-align:middle;font-size:13px}
 	</style>	
 </head>
-<body onload="keepAliveSession()">
+<body onload="getSession()">
 	<?php
         session_start();
 	
@@ -214,9 +224,6 @@
 				<li class="sidebar-brand">
 					<div style="color:#f7f7f7;background-color:#5061DC;width:100%; 
 						padding-left:5px;padding-right:5px;" id="user_detail_section">
-							<?php
-								echo $user_name;
-								/*echo get_token();*/?>
 					</div>
 				</li>
                 <li>

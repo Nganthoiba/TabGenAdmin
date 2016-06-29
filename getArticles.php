@@ -15,6 +15,7 @@
 			$query = "select * from Article where TabId='$tab_id' and DeleteAt=0";
 			$res = $conn->query($query);
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
 				$output[]=$row;
 			}
 			$result->state=true;

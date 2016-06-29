@@ -50,6 +50,7 @@
 						var jarr = jQuery.parseJSON(resp);		
 						if(jarr.state=="true"){
 							window.location.assign(""+jarr.location);
+							sessionStorage.setItem('user_details', jarr.user_details);
 						}
 						else{
 							document.getElementById("login_response").innerHTML="<p align='center' style='color:red'>"+jarr.message+"</P>";

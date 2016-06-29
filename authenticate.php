@@ -28,10 +28,15 @@
 									setcookie("user_details", $$responseJsonData, time() + (86400 * 30), "/");
 									$_SESSION['login_header_response'] = $conn->httpHeaderResponse;
 									setcookie("login_header_response",$conn->httpHeaderResponse, time() + (86400 * 30), "/");
-									
+									$user_data = json_decode($_SESSION['user_details']);
+									if($user_data!=null){
+											$user_data->token=get_token();
+									}
 									if($data->roles =="system_admin" || $data->roles =="admin")
 										//header('Location:home.php');$conn->httpHeaderResponse
-										echo json_encode(array("state"=>"true","location"=>"home.php"));
+										echo json_encode(array("state"=>"true",
+										"location"=>"home.php",
+										"user_details"=>json_encode($user_data)));
 									else 
 										echo json_encode(array("state"=>"false","message"=>"You are not authorised!"));
 								}
