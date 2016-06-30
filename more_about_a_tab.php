@@ -216,10 +216,12 @@
 							success: function(resp){
 								var json_resp = JSON.parse(resp);
 								if(json_resp.status==true){
-									document.getElementById("link_content"+indicator).innerHTML="<a href='"+new_link+"' target='_blank'>"+new_link+"</a>";
+									document.getElementById("link_content"+indicator).innerHTML="<a href='"+new_link+
+										"' target='_blank'>"+new_link+"</a>";
 									document.getElementById("editLinkResponse").innerHTML=json_resp.message;
 									document.getElementById("editLinkResponse").style.color="green";
-									document.getElementById("btn_group"+indicator).innerHTML="<button class='btn btn-info'><span class='glyphicon glyphicon-picture'></span></button>"+
+									document.getElementById("btn_group"+indicator).innerHTML=""+
+												"<button class='btn btn-info' onclick='uploadImage(\""+indicator+"\");'><span class='glyphicon glyphicon-picture'></span></button>"+
 													"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
 													"<a href='#' data-toggle='modal' data-target='#Editlink' "+
 														"onclick='editLink(\""+indicator+"\",\""+new_link+"\");'"+
@@ -340,7 +342,6 @@
 					
 					function uploadImage(i){
 						var article_id = document.getElementById("article_id"+i).value;
-						//alert(article_id);
 						
 						var image_upload_layout=""+
 							"<div class='div_bg'>"+
