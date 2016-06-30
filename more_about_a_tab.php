@@ -351,8 +351,9 @@
 									"<label>Upload Image File:</label>"+
 									"<input name='userImage' id='userImage"+i+"' type='file' class='demoInputBox' />"+
 									"<input name='article_id' type='hidden' value='"+article_id+"'/>"+
+									"<input type='submit' id='Submit"+i+"' value='Upload' class='btnSubmit'/>"+
 								"</div>"+
-								"<div><input type='submit' id='Submit"+i+"' value='Submit' class='btnSubmit'/></div>"+
+								"<div></div>"+
 								"<div class='progress-div' style='display:none;' id='progress-div"+i+"'>"+
 									"<div class='progress-bar' id='progress-bar"+i+"'></div>"+
 								"</div>"+
@@ -360,9 +361,16 @@
 							"<center><div id='loader-icon"+i+"' style='display:none;'><img src='img/loading.gif' /></div></center>";
 						document.getElementById("image_content"+i).innerHTML=image_upload_layout;
 						$("#uploadForm"+i).submit(function(e) {	
-							//alert($('#userImage'+i).val());
-							var img_path =$("#userImage"+i).val();
-							if(img_path!=null) {
+							var img_path = $("#userImage"+i).val();
+							var Extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
+							//alert(Extension);
+							if(!(Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")){
+								$("#image_content"+i).html("<center><div class='alert alert-danger'>"+
+									"Not a valid image file..</div></center>");
+								return false;
+							}
+							var path_length = $('#userImage'+i).val().trim().length;
+							if(img_path!=null && path_length!=0) {
 								e.preventDefault();
 								$("#loader-icon"+i).show();
 								$("#progress-div"+i).show();
