@@ -35,6 +35,8 @@
 				Filenames varchar(4000),
 				Links varchar(4000)
 			*/
+			$textual_content = str_replace ("'","''", $textual_content);
+			$name = str_replace ("'","''", $name);
 			$id = randId(26);
 			$time = time()*1000;
 			$query = "insert into Article(Id,CreateAt,UpdateAt,DeleteAt,Name,TabId,Textual_content,Links)
