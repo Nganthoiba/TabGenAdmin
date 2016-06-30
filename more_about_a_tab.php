@@ -350,8 +350,8 @@
 								"<div>"+
 									"<label>Upload Image File:</label>"+
 									"<input name='userImage' id='userImage"+i+"' type='file' class='demoInputBox' />"+
-									"<input name='article_id' type='hidden' value='"+article_id+"'/>"+
-									"<input type='submit' id='Submit"+i+"' value='Upload' class='btnSubmit'/>"+
+									"<input name='article_id' type='hidden' value='"+article_id+"'/><br/>"+
+									"<input type='submit' id='Submit"+i+"' value='Upload' class='btn btn-info'/>"+
 								"</div>"+
 								"<div></div>"+
 								"<div class='progress-div' style='display:none;' id='progress-div"+i+"'>"+
