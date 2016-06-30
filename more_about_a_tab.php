@@ -343,11 +343,11 @@
 						//alert(article_id);
 						
 						var image_upload_layout=""+
+							"<div class='div_bg'>"+
 							"<form id='uploadForm"+i+"' action='upload.php' method='post'>"+
 								"<div id='targetLayer"+i+"'></div>"+
 								"<button type='button' class='close' "+
 									"onclick='closeImageUpload(\""+i+"\");'>&times;</button>"+
-								"<div class='div_bg'>"+
 									"<label>Upload Image File:</label>"+
 									"<table><tr>"+
 										"<td>"+
@@ -358,13 +358,12 @@
 											"<input type='submit' id='Submit"+i+"' value='Upload' class='btnSubmit'/>"+
 										"</td>"+
 									"</tr></table>"+	
-								"</div>"+
-								"<div></div>"+
 								"<div class='progress-div' style='display:none;' id='progress-div"+i+"'>"+
 									"<div class='progress-bar' id='progress-bar"+i+"'></div>"+
 								"</div>"+
 							"</form>"+
-							"<center><div id='loader-icon"+i+"' style='display:none;'><img src='img/loading.gif' /></div></center>";
+							"<center><div id='loader-icon"+i+"' style='display:none;'><img src='img/loading.gif' /></div></center>"+
+							"</div>";
 						document.getElementById("image_content"+i).innerHTML=image_upload_layout;
 						$("#uploadForm"+i).submit(function(e) {	
 							var img_path = $("#userImage"+i).val();
