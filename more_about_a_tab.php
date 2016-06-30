@@ -366,7 +366,9 @@
 							//alert(Extension);
 							if(!(Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")){
 								$("#image_content"+i).html("<center><div class='alert alert-danger'>"+
-									"Not a valid image file..</div></center>");
+									"Not a valid image file..</div></center>"+
+									"<button type='button' class='close' "+
+									"onclick='closeImageUpload(\""+i+"\");'>&times;</button>");
 								return false;
 							}
 							var path_length = $('#userImage'+i).val().trim().length;
