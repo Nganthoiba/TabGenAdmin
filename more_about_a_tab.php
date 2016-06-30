@@ -347,11 +347,17 @@
 								"<div id='targetLayer"+i+"'></div>"+
 								"<button type='button' class='close' "+
 									"onclick='closeImageUpload(\""+i+"\");'>&times;</button>"+
-								"<div>"+
+								"<div class='div_bg'>"+
 									"<label>Upload Image File:</label>"+
-									"<input name='userImage' id='userImage"+i+"' type='file' class='demoInputBox' />"+
-									"<input name='article_id' type='hidden' value='"+article_id+"'/><br/>"+
-									"<input type='submit' id='Submit"+i+"' value='Upload' class='btn btn-info'/>"+
+									"<table><tr>"+
+										"<td>"+
+											"<input name='userImage' id='userImage"+i+"' type='file' class='demoInputBox' />"+
+											"<input name='article_id' type='hidden' value='"+article_id+"'/>"+
+										"</td>"+
+										"<td>"+
+											"<input type='submit' id='Submit"+i+"' value='Upload' class='btn btn-info'/>"+
+										"</td>"+
+									"</tr></table>"+	
 								"</div>"+
 								"<div></div>"+
 								"<div class='progress-div' style='display:none;' id='progress-div"+i+"'>"+
@@ -363,17 +369,25 @@
 						$("#uploadForm"+i).submit(function(e) {	
 							var img_path = $("#userImage"+i).val();
 							var Extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
-							//alert(Extension);
-							if(!(Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")){
+							var path_length = $('#userImage'+i).val().trim().length;
+							
+							if(img_path==null || path_length==0){
 								$("#image_content"+i).html("<center><div class='alert alert-danger'>"+
-									"Not a valid image file.."+
+									"Please select an image."+
 									"<button type='button' class='close' "+
-									"onclick='closeImageUpload(\""+i+"\");'>&times;</button>"+
+									"onclick='uploadImage(\""+i+"\");'>&times;</button>"+
 									"</div></center>");
 								return false;
 							}
-							var path_length = $('#userImage'+i).val().trim().length;
-							if(img_path!=null && path_length!=0) {
+							else if(!(Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")){
+								$("#image_content"+i).html("<center><div class='alert alert-danger'>"+
+									"Not a valid image file.."+
+									"<button type='button' class='close' "+
+									"onclick='uploadImage(\""+i+"\");'>&times;</button>"+
+									"</div></center>");
+								return false;
+							}
+							else{
 								e.preventDefault();
 								$("#loader-icon"+i).show();
 								$("#progress-div"+i).show();
@@ -400,11 +414,6 @@
 									resetForm: true 
 								}); 
 								return false; 
-							}
-							else{
-								$("#image_content"+i).html("<center><div class='account-wall'>"+
-									"No image is selected. Please select one.</div></center>");
-								return false;
 							}
 						});
 					}
