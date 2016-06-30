@@ -355,7 +355,7 @@
 											"<input name='article_id' type='hidden' value='"+article_id+"'/>"+
 										"</td>"+
 										"<td>"+
-											"<input type='submit' id='Submit"+i+"' value='Upload' class='btn btn-info'/>"+
+											"<input type='submit' id='Submit"+i+"' value='Upload' class='btnSubmit'/>"+
 										"</td>"+
 									"</tr></table>"+	
 								"</div>"+
