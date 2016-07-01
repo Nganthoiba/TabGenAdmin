@@ -478,7 +478,7 @@
 								swal({   
 									title: "Deletion Cancelled!",  
 									text: "Your article is safe now.",   
-									timer: 500,   
+									timer: 1000,   
 									showConfirmButton: false 
 								});  
 								//Toast.success("Your article is not deleted, it is safe now.", ' ', {displayDuration: 3000});
