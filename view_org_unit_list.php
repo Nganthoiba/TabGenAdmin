@@ -2,7 +2,7 @@
 <?php	
 	include("server_IP.php");	
 		session_start();
-		if(!isset($_SESSION['user_details'])){
+		/*if(!isset($_SESSION['user_details'])){
                 echo "<p align='center'>You have to <a href='index.html'>login</a> again, your session is expired.<br/>";
         }
         else {
@@ -10,6 +10,14 @@
                 $user_name = $user_data->username;
 				include ('ConnectAPI.php');
 				echo getOrganisationUnitList($user_name);
+		}*/
+		if(empty($_GET['username'])){
+                echo "<p align='center'>You have to pass a valid username.<br/>";
+        }
+        else {
+                $username = $_GET['username'];
+				include ('ConnectAPI.php');
+				echo getOrganisationUnitList($username);
 		}
 		function getOrganisationUnitList($username){
 			$array = array("createdBy"=>$username);

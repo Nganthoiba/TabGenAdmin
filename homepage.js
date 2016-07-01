@@ -628,11 +628,12 @@ function hasWhiteSpace(s) {
 	"type"	 --> specifies whether to view only few data or all data, it has only two possible values: 
 					"few" --> to display only few list of data &
 					"all" --> to display all list of data*/
-	function viewOrgUnits(method,id,type){		
+	function viewOrgUnits(method,id,type){	
+			//alert(user_session.username);
 			$.ajax({
 				type:"GET",
 				url: "view_org_unit_list.php",
-				//data: "method="+method+"&viewType="+type,
+				data: "username="+user_session.username,
 				success: function(data){
 					var view=" ";
 					var limit=0;				
@@ -757,7 +758,7 @@ function hasWhiteSpace(s) {
 			$.ajax({
 				type:"GET",
 				url: "view_org_list.php",
-				//data: "method="+method+"&viewType="+type,
+				data: "username="+user_session.username,
 				success: function(data){
 					var view=" ";
 					var limit=0;				

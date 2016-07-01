@@ -550,21 +550,22 @@
 			 </div>
 		</div>
 	</div>
-	<div class="modal fade" id="Editlink" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog modal-sm" role="document">
+	<div class="modal fade" id="Editlink" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  style='vertical-align: middle'>
+		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-body">
 					<input type='hidden' id='article_ID'/>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<label for='article_link' id='edit_link_label'>Edit the link below:</label>
+					<label for='article_link' id='edit_link_label'><h3>Edit the link below:</h3></label>
+					<br/><br/>
 					<input type='text' class='form-control' id='article_link' placeholder='http://www.domain.com'/>
 					<br/>
 					<div>
 						<center>
-							<button type="button" style='width:45%' onclick='edit_link_cancel();' 
+							<button type="button" style='width:40%' onclick='edit_link_cancel();' 
 								class="btn" data-dismiss="modal" aria-label="Close">CANCEL</button>
 							&nbsp;&nbsp;
-							<button type="button"  style='width:45%' onclick='edit_link_done();' 
+							<button type="button"  style='width:40%' onclick='edit_link_done();' 
 								class="btn" style="width:20%" id="saveLink">
 								DONE</button>
 						</center>
