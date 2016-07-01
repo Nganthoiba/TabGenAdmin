@@ -25,7 +25,10 @@
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	
+	<!-- This is what you need for sweet alert -->
+  <script src="dist/sweetalert-dev.js"></script>
+  <link rel="stylesheet" href="dist/sweetalert.css">
+  <!--.......................-->
 	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -440,21 +443,40 @@
 					
 					function deleteArticle(i){
 						var article_id = document.getElementById("article_id"+i).value;
-						$.ajax({
-							type: "POST",
-							url: "deleteArticle.php",
-							data: "article_id="+article_id,
-							success:function(resp){
-								var json_resp=JSON.parse(resp);
-								if(json_resp.status==true){
-									getArticles(tab_id);
-									Toast.success(json_resp.message, ' ', {displayDuration: 3000});
-								}
-								else{
-									Toast.error(json_resp.message, ' ');
-								}
-							}
-						});	
+						swal({   
+							title: "Are you sure?", 
+							text: "Once it is deleted, you will not be able to recover it!",   
+							type: "warning",   
+							showCancelButton: true,   
+							confirmButtonColor: "#DD6B55",   
+							confirmButtonText: "DONE",   
+							cancelButtonText: "CANCEL",   
+							closeOnConfirm: false,   
+							closeOnCancel: false 
+						}, 
+						function(isConfirm){   
+							if (isConfirm) {     
+								$.ajax({
+									type: "POST",
+									url: "deleteArticle.php",
+									data: "article_id="+article_id,
+									success:function(resp){
+										var json_resp=JSON.parse(resp);
+										if(json_resp.status==true){
+											swal("Deleted!", json_resp.message, "success"); 
+											getArticles(tab_id);
+											//Toast.success(json_resp.message, ' ', {displayDuration: 3000});
+										}
+										else{
+											swal("Failed!", json_resp.message, "error");
+											//Toast.error(json_resp.message, ' ');
+										}
+									}
+								});  
+							} else {     
+								swal(" ", "Your article is safe now.", "error");   
+							} 
+						});
 					}
 				</script>
 			</div>
