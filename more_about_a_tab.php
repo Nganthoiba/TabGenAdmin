@@ -8,7 +8,11 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
 	<!--<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
-	
+	<!--Toast package-->
+	<link href="css/toast.css" rel="stylesheet" media="screen">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/toast.js"></script>
+	<!-- ********************************************** -->
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 	<script>
@@ -20,6 +24,9 @@
 	<link rel="stylesheet" type="text/css" href="css/simple-sidebar.css">
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	
+	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/npm.js"></script>
@@ -345,7 +352,7 @@
 						var article_id = document.getElementById("article_id"+i).value;
 						
 						var image_upload_layout=""+
-							"<div class='div_bg'>"+
+							"<div class='select_img_bg'>"+
 							"<form id='uploadForm"+i+"' action='upload.php' method='post'>"+
 								"<div id='targetLayer"+i+"'></div>"+
 								"<button type='button' class='close' "+
@@ -433,7 +440,21 @@
 					
 					function deleteArticle(i){
 						var article_id = document.getElementById("article_id"+i).value;
-						alert("index: "+i+" Article: "+article_id);
+						$.ajax({
+							type: "POST",
+							url: "deleteArticle.php",
+							data: "article_id="+article_id,
+							success:function(resp){
+								var json_resp=JSON.parse(resp);
+								if(json_resp.status==true){
+									getArticles(tab_id);
+									Toast.success(json_resp.message, ' ', {displayDuration: 3000});
+								}
+								else{
+									Toast.error(json_resp.message, ' ');
+								}
+							}
+						});	
 					}
 				</script>
 			</div>
@@ -447,6 +468,27 @@
 		
     </div>
     <!-- /#wrapper -->
+    <!-- Toast Examples
+					<ul class="list">
+					  <li><a href="#" onclick="Toast.success('Message')">Success</a></li>
+					  <li><a href="#" onclick="Toast.success('Message', 'Title', {displayDuration: 0})">Sticky success
+						with title</a></li>
+					  <li><a href="#" onclick="Toast.info('Message', '', {displayDuration: 0})">Sticky info</a></li>
+					  <li><a href="#"
+							 onclick="Toast.defaults.displayDuration=500; Toast.info('Default displayDuration 500ms', 'Title')">Info:
+						Change displayDuration to 200ms</a></li>
+					  <li><a href="#"
+							 onclick="Toast.defaults.displayDuration=2000; Toast.warning('Default displayDuration 2000ms')">Warning:
+						Change displayDuration to 2000ms</a></li>
+					  <li><a href="#" onclick="Toast.warning('Message', 'Title')">Warning with title</a></li>
+					  <li><a href="#" onclick="Toast.error('Message')">Error</a></li>
+					  <li><a href="#" onclick="Toast.error('Message', 'Title')">Error with title</a></li>
+					  <li><a href="#" onclick="Toast.defaults.width='600px'; Toast.info('Message', 'Title')">Info with
+						title: Changed default width to 600px</a></li>
+					  <li><a href="#" onclick="Toast.defaults.width='200px'; Toast.info('Message', 'Title')">Info with
+						title: Changed default width to 200px</a></li>
+					</ul>
+	-->
 	</body>
 	<!-- Modal for creating article -->
 	<div class="modal fade" id="createArticle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
