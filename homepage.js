@@ -1,23 +1,28 @@
+var modalVerticalCenterClass = ".modal";
+function centerModals($element) {
+    var $modals;
+    if ($element.length) {
+        $modals = $element;
+    } else {
+        $modals = $(modalVerticalCenterClass + ':visible');
+    }
+    $modals.each( function(i) {
+        var $clone = $(this).clone().css('display', 'block').appendTo('body');
+        var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+        top = top > 0 ? top : 0;
+        $clone.remove();
+        $(this).find('.modal-content').css("margin-top", top);
+    });
+}
+
+
 /*Javascript code to associate role to a to a tab
 Creating Tabs here*/
-$(document).ready(function(){	
-	//for creating local tabs
-	$("#saveAsscRole2Tab").click(function(){
-		$("#saveAsscRole2TabResponse").html("<img src='img/loading.gif'/> Wait Please...");
-		var orgunit = ($("#sel_org_unit_role_tab").val()).trim();
-		var role = $("#sel_roles").val();
-		var tabs = parseInt($("#no_of_tabs").val()); 
-		$.ajax({
-				type:"POST",
-				url:"createTabs.php",
-				data:"role_name="+role+"&no_of_tabs="+tabs+"&orgunit="+orgunit,
-				success:function(s){
-					$("#saveAsscRole2TabResponse").html(s);		
-				}
-			});
-		return false;
-	});	
-	
+$(document).ready(function(){		
+	$(modalVerticalCenterClass).on('show.bs.modal', function(e) {
+		centerModals($(this));
+	});
+	$(window).on('resize', centerModals);
 });
 
 /*JavaScript function for setting template to a layout by giving Ids*/

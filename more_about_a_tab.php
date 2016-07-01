@@ -563,25 +563,26 @@
 				<div class="modal-body">
 					<input type='hidden' id='article_ID'/>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<label for='article_link' id='edit_link_label'><h3>Edit the link below:</h3></label>
-					<br/><br/>
-					<input type='text' class='form-control' id='article_link' placeholder='http://www.domain.com'/>
-					<br/>
-					<div>
+					<div style='min-height:200px;vertical-align:middle'>
+						<label for='article_link' id='edit_link_label'><h3>Edit the link below:</h3></label>
+						<br/><br/>
+						<input type='text' class='form-control' id='article_link' placeholder='http://www.domain.com'/>
+						<br/>
+						<div>
+							<center>
+								<button type="button" style='width:40%' onclick='edit_link_cancel();' 
+									class="btn" data-dismiss="modal" aria-label="Close">CANCEL</button>
+								&nbsp;&nbsp;
+								<button type="button"  style='width:40%' onclick='edit_link_done();' 
+									class="btn" style="width:20%" id="saveLink">
+									DONE</button>
+							</center>
+						</div>
+						<br/>
 						<center>
-							<button type="button" style='width:40%' onclick='edit_link_cancel();' 
-								class="btn" data-dismiss="modal" aria-label="Close">CANCEL</button>
-							&nbsp;&nbsp;
-							<button type="button"  style='width:40%' onclick='edit_link_done();' 
-								class="btn" style="width:20%" id="saveLink">
-								DONE</button>
+							<div id='editLinkResponse'></div>
 						</center>
 					</div>
-					<br/>
-					<center>
-						<div id='editLinkResponse'></div>
-					</center>
-					
 				</div>	
 			</div>
 		</div>
