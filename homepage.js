@@ -1997,7 +1997,7 @@ $(document).ready(function(){
 									"<form class='form-horizontal'>"+
 										"<div class='form-group'>"+
 											"<div class='col-sm-8'>"+
-												"<input type='password' id='update_pswd"+index+
+												"<input type='text' id='update_pswd"+index+
 													"' class='form-control' value='' placeholder='Enter the new password'/></div>"+
 											"<div class='col-sm-3'>"+
 												"<Button type='button' class='btn' "+
