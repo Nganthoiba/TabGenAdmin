@@ -474,7 +474,14 @@
 									}
 								});  
 							} else {     
-								swal(" ", "Your article is safe now.", "error");   
+								//swal(" ", "Your article is safe now.", "error"); 
+								swal({   
+									title: "Deletion Cancelled!",  
+									text: "Your article is safe now.",   
+									timer: 500,   
+									showConfirmButton: false 
+								});  
+								//Toast.success("Your article is not deleted, it is safe now.", ' ', {displayDuration: 3000});
 							} 
 						});
 					}
