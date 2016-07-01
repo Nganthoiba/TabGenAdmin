@@ -1991,20 +1991,26 @@ $(document).ready(function(){
 	function showPswdResetLayout(index,user_id){
 		//resp_arr is the array that contains user list
 		document.getElementById("psw_reset_layout"+index).innerHTML="<br/>"+
+								"<div class='div_layout'>"+
+									"<button type='button' class='close' "+
+											"onclick='closePswdResetLayout(\""+index+"\");'>&times;</button>"+
 									"<form class='form-horizontal'>"+
 										"<div class='form-group'>"+
-											"<div class='col-sm-4'><input type='password' id='update_pswd"+index+
-											"' class='form-control' placeholder='Enter the new password'/></div>"+
-											"<div class='col-sm-4'>"+
-											"<Button type='button' class='btn' "+
-												"onclick='resetPassword(\""+index+"\",\""+user_id+"\")'>Save</Button>"+
+											"<div class='col-sm-8'>"+
+												"<input type='password' id='update_pswd"+index+
+													"' class='form-control' value='' placeholder='Enter the new password'/></div>"+
+											"<div class='col-sm-3'>"+
+												"<Button type='button' class='btn' "+
+													"onclick='resetPassword(\""+index+"\",\""+user_id+"\")'>Save</Button>"+
 											"</div>"+
 										"</div>"+
-										"<div class='form-group'>"+
-											"<center><div class='col-sm-4' id='passwd_reset_resp"+index+"'>"+
+										"<center><div id='passwd_reset_resp"+index+"'>"+
 											"</div></center>"+
-										"</div>"+
-									"</form>";
+									"</form>"+
+								"</div>";
+	}
+	function closePswdResetLayout(index){
+		document.getElementById("psw_reset_layout"+index).innerHTML="";
 	}
 	function resetPassword(index,user_id){
 		//alert("Wait please... "+index);user_session
