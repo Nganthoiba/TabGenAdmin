@@ -87,6 +87,12 @@ label {color:#848484; font-weight:normal}
 .div_bg
 {
     padding: 10px 5px 10px 5px;
+    background-color: #f7f7f7;
+    border-radius:5px
+}
+.select_img_bg
+{
+    padding: 10px 5px 10px 5px;
     background-color: #F2FEF8;
     border-radius:5px
 }

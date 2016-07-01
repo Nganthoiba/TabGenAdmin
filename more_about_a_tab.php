@@ -113,6 +113,7 @@
 												"<div class='headLine' id='article_title"+i+"'>"+
 													output[i].Name+
 													"<button type='button' style='float:right;'"+ 
+														"onclick='deleteArticle(\""+i+"\");'"+
 														"class='close' aria-label='Close' id='deleteArticle"+i+"'>"+
 														"<span class='glyphicon glyphicon-remove'></span>"+
 													"</button>"+
@@ -222,8 +223,8 @@
 									document.getElementById("editLinkResponse").style.color="green";
 									document.getElementById("btn_group"+indicator).innerHTML=""+
 												"<button class='btn btn-info' onclick='uploadImage(\""+indicator+"\");'><span class='glyphicon glyphicon-picture'></span></button>"+
-													"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
-													"<a href='#' data-toggle='modal' data-target='#Editlink' "+
+												"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
+												"<a href='#' data-toggle='modal' data-target='#Editlink' "+
 														"onclick='editLink(\""+indicator+"\",\""+new_link+"\");'"+
 														"class='btn btn-info'><span class='glyphicon glyphicon-link'></span></a>";
 								}
@@ -428,6 +429,11 @@
 						document.getElementById("image_content"+i).innerHTML="<center><img src='"+image+
 											"' height='80%' width='100%'/></center>";
 						}
+					}
+					
+					function deleteArticle(i){
+						var article_id = document.getElementById("article_id"+i).value;
+						alert("index: "+i+" Article: "+article_id);
 					}
 				</script>
 			</div>
