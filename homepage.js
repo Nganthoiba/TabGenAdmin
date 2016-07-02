@@ -274,12 +274,13 @@ function createTab(){
 							//alert("Response: "+resp);
 							var resp_arr = JSON.parse(resp);
 							if(resp_arr.status==true){
+								getAllTabs("get_all_tabs");
 								document.getElementById("createTabResponse").innerHTML="<center><b>"+
 									resp_arr.message+"</b></center>";
 								document.getElementById("createTabResponse").style.color="green";
 								validate_and_get_tabs();
 								getAssociatedTabs("associated_tabs");
-								getAllTabs("get_all_tabs");
+								
 								
 							}
 							else{

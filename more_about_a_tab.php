@@ -103,7 +103,7 @@
 										var Link=output[i].Links;
 										var image=output[i].Images;
 										image_path[i]=output[i].Images;
-										//alert(image);
+										
 										Link=Link.trim();
 										var link_layout="";
 										//image==null?"":
@@ -117,6 +117,40 @@
 										}
 										var textual_content=output[i].Textual_content;
 										textual_content = textual_content.replace("'","%");
+										
+										var status = output[i].Active;//whether the article is active or inactive
+										
+										var status_layout="";
+										if(status==null || status.trim()=="false"){
+											 status_layout=""+
+												"<div class='col-sm-3'>Active: </div> "+
+												"<div class='col-sm-4'>"+
+													"<div class='onoffswitch'>"+
+														"<input type='checkbox'  class='onoffswitch-checkbox' "+
+															"onclick='activateOrDeactivateArticle(\""+i+"\");'"+
+															"id='myonoffswitch"+i+"'>"+
+														"<label class='onoffswitch-label' for='myonoffswitch"+i+"'>"+
+															"<span class='onoffswitch-inner'></span>"+
+															"<span class='onoffswitch-switch'></span>"+
+														"</label>"+
+													"</div>"+
+												"</div>";
+										}
+										else if(status.trim()=="true"){
+											status_layout=""+
+												"<div class='col-sm-3'>Active: </div> "+
+												"<div class='col-sm-4'>"+
+													"<div class='onoffswitch'>"+
+														"<input type='checkbox'  class='onoffswitch-checkbox' "+
+															"onclick='activateOrDeactivateArticle(\""+i+"\");'"+
+															"id='myonoffswitch"+i+"' checked>"+
+														"<label class='onoffswitch-label' for='myonoffswitch"+i+"'>"+
+															"<span class='onoffswitch-inner'></span>"+
+															"<span class='onoffswitch-switch'></span>"+
+														"</label>"+
+													"</div>"+
+												"</div>";
+										}
 										//alert(textual_content);
 										article_layout+=""+
 											"<div class='article'>"+
@@ -141,7 +175,7 @@
 													"<div id='file_content"+i+"'></div>"+
 													"<div style='width:98%;overflow:hidden;overflow-x:auto' id='link_content"+i+"'>"+link_layout+"</div>"+
 												"</div>"+
-												"<br/>"+
+												"<br/>"+status_layout+
 												"<div id='btn_group"+i+"' "+
 													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
 													"<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+
@@ -160,6 +194,17 @@
 								}
 							}
 						});
+					}
+					
+					function activateOrDeactivateArticle(i){
+						var article_id = document.getElementById("article_id"+i).value;
+						var status = document.getElementById("myonoffswitch"+i).checked;
+						if(status==true){
+							alert("you are deactivating this article");
+						}
+						else{
+							alert("you are activating this article");
+						}
 					}
 				</script>
 			  </ul>
