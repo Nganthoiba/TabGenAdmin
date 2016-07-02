@@ -15,6 +15,9 @@
 			$query = "select * from Article where TabId='$tab_id' and DeleteAt=0 order by CreateAt desc";
 			$res = $conn->query($query);
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$row['CreateAt']=(double)$row['CreateAt'];
+				$row['DeleteAt']=(double)$row['DeleteAt'];
+				$row['UpdateAt']=(double)$row['UpdateAt'];
 				$row['Name']=str_replace("''","'",$row['Name']);
 				$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
 				$output[]=$row;
