@@ -1448,11 +1448,11 @@ $(document).ready(function(){
 							layout+= "<tr>"+
 								"<td>"+
 									"<div class='col-sm-4'>"+
-										"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-										"<div><b>OU:</b> "+OU+
-											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-											"<br/><b>OU Specific:</b> "+ou_specific+
-										"</div>"+
+									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+									"<div><b>OU:</b> "+OU+
+									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+									"<br/><b>OU Specific:</b> "+ou_specific+
+									"</div>"+
 									"</div>"+
 								"</td>"+
 								

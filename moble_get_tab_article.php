@@ -1,5 +1,36 @@
 <?php 
 	/*php file for creating article*/
+	
+	/*
+	 * JSON TYPE::::>
+	{
+		"items": [{
+			"id": 1,
+			"title": "foo",
+			"category": "landing_page",
+			"thumbnail": "url",
+			"thumbnail_type": "image / video",
+			"thumbnail_url": " ",
+			"attatchment_url": "www.google.com",
+			"landing_page_image_url": "url",
+			"detail_title": "clfkvlkf"
+		}, {
+			"id": 2,
+			"title": "bar",
+			"category": "normal_view",
+			"thumbnail": "url",
+			"thumbnail_type": "image / video",
+			"thumbnail_url": "",
+			"attatchment_url": "www.google.com",
+			"landing_page_image_url": "",
+			"detail_title": "cdkcmkd"
+		}]
+	}
+	 * 
+	 * 
+	 * 
+	 * 
+	 * */
 	include('tabgen_php_functions.php');
 	include('connect_db.php');
 	$tab_id = $_GET['tab_id'];

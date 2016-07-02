@@ -39,8 +39,8 @@
 			$name = str_replace ("'","''", $name);
 			$id = randId(26);
 			$time = time()*1000;
-			$query = "insert into Article(Id,CreateAt,UpdateAt,DeleteAt,Name,TabId,Textual_content,Links)
-						values('$id',$time,$time,0,'$name','$tab_id','$textual_content','$link')";
+			$query = "insert into Article(Id,CreateAt,UpdateAt,DeleteAt,Name,TabId,Textual_content,Links,Active)
+						values('$id',$time,$time,0,'$name','$tab_id','$textual_content','$link','true')";
 			//echo $query;
 			if(isArticleExist($conn,$name)==false){
 				//echo json_encode(array("status"=>true,"message"=>"Successfully Created."));
