@@ -1,3 +1,4 @@
+/*code for displaying modals verically centered*/
 var modalVerticalCenterClass = ".modal";
 function centerModals($element) {
     var $modals;
@@ -15,9 +16,6 @@ function centerModals($element) {
     });
 }
 
-
-/*Javascript code to associate role to a to a tab
-Creating Tabs here*/
 $(document).ready(function(){		
 	$(modalVerticalCenterClass).on('show.bs.modal', function(e) {
 		centerModals($(this));
@@ -1417,21 +1415,10 @@ $(document).ready(function(){
 							layout+= "<tr>"+
 								"<td>"+
 									"<div class='col-sm-4'>"+
-									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-									"<div><b>Organisation:</b> "+ORG+
-									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-									"<br/><b>OU Specific:</b> "+ou_specific+
-									"</div>"+
-									"</div>"+
-									"<div class='col-sm-3'>Activation Status: </div> "+
-									"<div class='col-sm-4'>"+
-										"<div class='onoffswitch'>"+
-											"<input type='checkbox'  class='onoffswitch-checkbox' "+
-												"id='myonoffswitch"+i+"' checked>"+
-											"<label class='onoffswitch-label' for='myonoffswitch"+i+"'>"+
-												"<span class='onoffswitch-inner'></span>"+
-												"<span class='onoffswitch-switch'></span>"+
-											"</label>"+
+										"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+										"<div><b>Organisation:</b> "+ORG+
+											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+											"<br/><b>OU Specific:</b> "+ou_specific+
 										"</div>"+
 									"</div>"+
 								"</td>"+
@@ -1461,23 +1448,12 @@ $(document).ready(function(){
 							layout+= "<tr>"+
 								"<td>"+
 									"<div class='col-sm-4'>"+
-									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-									"<div><b>OU:</b> "+OU+
-									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-									"<br/><b>OU Specific:</b> "+ou_specific+
-									"</div>"+
-									"</div>"+
-									"<div class='col-sm-3'>Activation Status: </div> "+
-										"<div class='col-sm-4'>"+
-											"<div class='onoffswitch'>"+
-												"<input type='checkbox'  class='onoffswitch-checkbox' "+
-													"id='myonoffswitch"+i+"' checked>"+
-												"<label class='onoffswitch-label' for='myonoffswitch"+i+"'>"+
-													"<span class='onoffswitch-inner'></span>"+
-													"<span class='onoffswitch-switch'></span>"+
-												"</label>"+
-											"</div>"+
+										"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+										"<div><b>OU:</b> "+OU+
+											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
+											"<br/><b>OU Specific:</b> "+ou_specific+
 										"</div>"+
+									"</div>"+
 								"</td>"+
 								
 								"<td align='right'>"+	

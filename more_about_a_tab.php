@@ -181,7 +181,7 @@
 					</a>
 				</li>
                 <li>
-					<a href="#" data-toggle="modal" data-target="#createArticle">
+					<a href="#" data-toggle="modal" onclick='resetArticle();' data-target="#createArticle">
 						Create an article</span>
 					</a>
 				</li>
@@ -484,6 +484,13 @@
 								//Toast.success("Your article is not deleted, it is safe now.", ' ', {displayDuration: 3000});
 							} 
 						});
+					}
+					
+					function resetArticle(){
+						document.getElementById("title").value="";
+						document.getElementById("textual_content").value="";
+						document.getElementById("link").value="";
+						document.getElementById("createArticleResp").innerHTML="";
 					}
 				</script>
 			</div>
