@@ -38,13 +38,14 @@ if(!empty($_FILES)) {
 		$new_path = 'uploaded_file/';
 				
 		if(!is_dir($new_path) || !file_exists($new_path)) {
-			if(chmod("/var/www/html/TabGenAdmin", 0777,true)){
-				if(mkdir($new_path , 0777)){
+			if(chmod("TabGenAdmin/homebackup", 0777,true)){
+				/*if(mkdir($new_path , 0777)){
 					echo json_encode(array("status"=>false,"message"=>"Directory created.."));
 				} 
 				else{
 					echo json_encode(array("status"=>false,"message"=>"Directory not created.."));
-				}
+				}*/
+				echo json_encode(array("status"=>false,"message"=>"Chmod passed"));
 			}
 			else{
 				echo json_encode(array("status"=>false,"message"=>"Chmod failed"));
