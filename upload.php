@@ -38,17 +38,17 @@ if(!empty($_FILES)) {
 		$new_path = 'uploaded_file/';
 				
 		if(!is_dir($new_path) || !file_exists($new_path)) {
-			/*
+			
             if(mkdir($new_path , 0777)){
 				echo json_encode(array("status"=>false,"message"=>"Directory created.."));
 			} 
 			else{
 				echo json_encode(array("status"=>false,"message"=>"Directory not created.."));
 			}
-			*/  
-			mkdir($new_path , 0777);
+			  
+			//mkdir($new_path , 0777);
         }
-        $targetPath = $new_path.$_FILES['userFile']['name'];
+        /*$targetPath = $new_path.$_FILES['userFile']['name'];
 		if(move_uploaded_file($sourcePath,$targetPath)) {
 			 //echo "Target: ".$targetPath;
 			if($conn){
@@ -67,7 +67,7 @@ if(!empty($_FILES)) {
 		}
 		else{
 			echo json_encode(array("status"=>false,"message"=>"Failed to upload your image. Try again later."));
-		}
+		}*/
 	}
 }
 else echo "No file is received....hahaha";
