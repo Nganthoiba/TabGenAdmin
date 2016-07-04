@@ -173,7 +173,7 @@
 													"<div><input type='hidden' id='edit_text"+i+
 														"' value='"+textual_content+"'/></div>"+
 													"<br/>"+
-													"<div style='height:50px;width:98%;overflow:hidden;overflow-x:auto' "+
+													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
 														"id='files_content"+i+"'>"+files_layout+"</div>"+
 													"<div style='height:50px;width:98%;overflow:hidden;overflow-x:auto' "+
 														"id='link_content"+i+"'>"+link_layout+"</div>"+
