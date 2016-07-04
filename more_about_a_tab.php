@@ -315,7 +315,8 @@
 									document.getElementById("editLinkResponse").style.color="green";
 									document.getElementById("btn_group"+indicator).innerHTML=""+
 												"<button class='btn btn-info' onclick='uploadImage(\""+indicator+"\");'><span class='glyphicon glyphicon-picture'></span></button>"+
-												"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
+												"<button class='btn btn-info' onclick='attachFile(\""+indicator+"\");'>"+
+													"<span class='glyphicon glyphicon-paperclip'></span></button>"+
 												"<a href='#' data-toggle='modal' data-target='#Editlink' "+
 														"onclick='editLink(\""+indicator+"\",\""+new_link+"\");'"+
 														"class='btn btn-info'><span class='glyphicon glyphicon-link'></span></a>";
@@ -604,7 +605,7 @@
 						}
 						else{
 						document.getElementById("files_content"+i).innerHTML="Attached File: <a href='"+files+
-												"' target='_blank'>"+files+"</a>";
+												"' target='_blank'>"+extractFileName(files)+"</a>";
 						}
 					}
 					function deleteArticle(i){
