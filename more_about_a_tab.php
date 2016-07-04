@@ -112,15 +112,13 @@
 										var image_layout=image==null?"":"<center><img src='"+image+
 											"' height='80%' width='100%'/></center>";
 										var files_layout=files==null?"":"Attached File: <a href='"+files+
-												"' target='_blank'>"+files+"</a>";
+												"' target='_blank'>"+extractFileName(files)+"</a>";
 										if(Link.trim()==0){
 											link_layout="";
 										}
 										else{
 											link_layout="<a href='"+output[i].Links+"' target='_blank'>"+
-											output[i].Links+"</a><Button class='close' type='button'>"+
-											"&times;"+
-											"</Button>";
+											output[i].Links+"</a>";
 										}
 										var textual_content=output[i].Textual_content;
 										textual_content = textual_content.replace("'","%");
@@ -175,8 +173,10 @@
 													"<div><input type='hidden' id='edit_text"+i+
 														"' value='"+textual_content+"'/></div>"+
 													"<br/>"+
-													"<div id='files_content"+i+"'>"+files_layout+"</div>"+
-													"<div style='width:98%;overflow:hidden;overflow-x:auto' id='link_content"+i+"'>"+link_layout+"</div>"+
+													"<div style='height:50px;width:98%;overflow:hidden;overflow-x:auto' "+
+														"id='files_content"+i+"'>"+files_layout+"</div>"+
+													"<div style='height:50px;width:98%;overflow:hidden;overflow-x:auto' "+
+														"id='link_content"+i+"'>"+link_layout+"</div>"+
 												"</div>"+
 												"<br/>"+status_layout+
 												"<div id='btn_group"+i+"' "+
@@ -432,7 +432,7 @@
 						}
 						return false;
 					}
-					
+					/*js for uploading any file*/
 					function attachFile(i){
 						var article_id = document.getElementById("article_id"+i).value;
 						var file_upload_layout=""+
@@ -491,7 +491,7 @@
 										if(json_resp.status==true){
 											files_path[i]=json_resp.files_storage_path;
 											$("#files_content"+i).html("Attached File: <a href='"+files_path[i]+
-												"' target='_blank'>"+files_path[i]+"</a>");
+												"' target='_blank'>"+extractFileName(files_path[i])+"</a>");
 										}
 										else{
 											$("#files_content"+i).html("<center><div class='alert alert-danger'>"+
@@ -507,6 +507,7 @@
 							}
 						});
 					}
+					/*js for uploading image file*/
 					function uploadImage(i){
 						var article_id = document.getElementById("article_id"+i).value;
 						
@@ -656,6 +657,21 @@
 						document.getElementById("textual_content").value="";
 						document.getElementById("link").value="";
 						document.getElementById("createArticleResp").innerHTML="";
+					}
+					/*js for extracting file name from a given file path with file name*/
+					function extractFileName(path){
+						var index=0;
+						var filename="";
+						for(var i=0;i<path.length;i++){
+							if(path[i]=='/'){
+								index=i;
+							}
+						}
+						var i=index==0?0:index+1;
+						for(;i<path.length;i++){
+							filename=filename+path[i];
+						}
+						return filename;
 					}
 				</script>
 			</div>
