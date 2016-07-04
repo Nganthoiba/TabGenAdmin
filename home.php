@@ -203,7 +203,7 @@
 				<div style="padding-top:10px"><img src="img/user.png" class="circular" alt="No profile Image found"/></div>
 			</center>
 			
-            <ul class="sidebar-nav">
+            <ul class="sidebar-nav" style='height:100%;overflow:hidden;overflow-y:auto'>
 				<br/><br/><br/>
 				<li class="sidebar-brand">
 				</li>
@@ -245,17 +245,11 @@
 				</li>
 								
 				<li><a href="#" data-toggle="modal" data-target="#displayUsers">Show users</a></li>
-					
-					<!--<li><a href="#">Create Tabs Strips</a></li>-->
-				<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
+				
 				<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role">
 					Associate Tabs to Role</a></li>
-					<!--
-					
-					onclick='viewOrgListWithOUsRoles("org_lists","choose_ou","choose_role","associated_tabs")'
-					onclick='getRoles("choose_role",$("#choose_ou").val(),"role_result");
-						getAssociatedTabs("associated_tabs");'
-					-->
+				<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">&nbsp;</a></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
