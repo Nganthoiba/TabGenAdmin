@@ -866,7 +866,7 @@
 									<select class="form-control" id="org_lists">
 										<script type="text/JavaScript">
 											$(document).ready(function(){
-												viewOrgs("dropdown","org_lists","all");
+												//viewOrgs("dropdown","org_lists","all");
 												viewOrgListWithOUsRoles("org_lists","choose_ou","choose_role","associated_tabs");
 												$("#org_lists").change(function(){
 													var org_name=($("#org_lists").val()).trim();

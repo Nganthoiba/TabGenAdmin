@@ -828,7 +828,7 @@ function hasWhiteSpace(s) {
 		$.ajax({
 			type:"GET",
 				url: "view_org_list.php",
-				//data: "method="+method+"&viewType="+type,
+				data: "username="+user_session.username,
 				success: function(data){
 					var view="";
 					var limit=0;				
@@ -859,7 +859,7 @@ function hasWhiteSpace(s) {
 						$.ajax({
 							type: "GET",
 							url: "orgUnitList.php",
-							data: {"org_name":org_name},
+							data: {"org_name":org_name,"username":user_session.username},
 							success: function(data){
 							if(data.trim()!="null"){
 								var ou_list = JSON.parse(data);
