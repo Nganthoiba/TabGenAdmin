@@ -494,7 +494,11 @@
 												"' target='_blank'>"+files_path[i]+"</a>");
 										}
 										else{
-											$("#files_content"+i).html("<center>"+json_resp.message+"</center>");
+											$("#files_content"+i).html("<center><div class='alert alert-danger'>"+
+												json_resp.message+
+												"<button type='button' class='close' "+
+													"onclick='attachFile(\""+i+"\");'>&times;</button>"+
+													"</div></center>");
 										}
 									},
 									resetForm: true 
