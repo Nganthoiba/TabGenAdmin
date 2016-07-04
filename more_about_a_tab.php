@@ -70,6 +70,7 @@
 				</li>
 				<script type="text/JavaScript">
 					var image_path=[];
+					var files_path=[];
 					var queryString = new Array();
 					var indicator;
 					if (window.location.search.split('?').length > 1) {
@@ -103,23 +104,28 @@
 										var Link=output[i].Links;
 										var image=output[i].Images;
 										image_path[i]=output[i].Images;
-										
+										var files=output[i].Filenames;
+										files_path[i]=output[i].Filenames;
 										Link=Link.trim();
 										var link_layout="";
 										//image==null?"":
 										var image_layout=image==null?"":"<center><img src='"+image+
 											"' height='80%' width='100%'/></center>";
+										var files_layout=files==null?"":"Attached File: <a href='"+files+
+												"' target='_blank'>"+files+"</a>";
 										if(Link.trim()==0){
 											link_layout="";
 										}
 										else{
-											link_layout="<a href='"+output[i].Links+"' target='_blank'>"+output[i].Links+"</a>";
+											link_layout="<a href='"+output[i].Links+"' target='_blank'>"+
+											output[i].Links+"</a><Button class='close' type='button'>"+
+											"&times;"+
+											"</Button>";
 										}
 										var textual_content=output[i].Textual_content;
 										textual_content = textual_content.replace("'","%");
 										
 										var status = output[i].Active;//whether the article is active or inactive
-										
 										var status_layout="";
 										if(status==null || status.trim()=="false"){
 											 status_layout=""+
@@ -169,7 +175,7 @@
 													"<div><input type='hidden' id='edit_text"+i+
 														"' value='"+textual_content+"'/></div>"+
 													"<br/>"+
-													"<div id='file_content"+i+"'></div>"+
+													"<div id='files_content"+i+"'>"+files_layout+"</div>"+
 													"<div style='width:98%;overflow:hidden;overflow-x:auto' id='link_content"+i+"'>"+link_layout+"</div>"+
 												"</div>"+
 												"<br/>"+status_layout+
@@ -177,10 +183,11 @@
 													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
 													"<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+
 														"<span class='glyphicon glyphicon-picture'></span></button>"+
-													"<button class='btn btn-info'><span class='glyphicon glyphicon-paperclip'></span></button>"+
+													"<button class='btn btn-info' onclick='attachFile(\""+i+"\");'><span class='glyphicon glyphicon-paperclip'></span></button>"+
 													"<a href='#' data-toggle='modal' data-target='#Editlink' "+
 														"onclick='editLink(\""+i+"\",\""+Link+"\");'"+
-														"class='btn btn-info'><span class='glyphicon glyphicon-link'></span></a>"+
+														"class='btn btn-info'><span class='glyphicon glyphicon-link'>"+
+														"</span></a>"+
 												"</div>"+
 											"</div>";
 										document.getElementById("tab_contents").innerHTML=article_layout;
@@ -218,22 +225,21 @@
 							type: "POST",
 							data: {"article_id":article_id,"status":status},
 							success: function(resp){
-									//alert(resp);
-									var json_resp = JSON.parse(resp);
-									swal({   
-										title: "",  
-										text: json_resp.message,   
-										timer: 1500,   
-										showConfirmButton: false 
-									});
-									if(status==true){
-										document.getElementById("statusLabel"+i).innerHTML="Uncheck here to "+
+								var json_resp = JSON.parse(resp);
+								swal({   
+									title: "",  
+									text: json_resp.message,   
+									timer: 1500,   
+									showConfirmButton: false 
+								});
+								if(status==true){
+									document.getElementById("statusLabel"+i).innerHTML="Uncheck here to "+
 											"deactivate article.";
-									}
-									else{
-										document.getElementById("statusLabel"+i).innerHTML="Check here to "+
+								}
+								else{
+									document.getElementById("statusLabel"+i).innerHTML="Check here to "+
 											"activate article.";
-									}
+								}
 							}
 						}); 
 					}
@@ -427,6 +433,76 @@
 						return false;
 					}
 					
+					function attachFile(i){
+						var article_id = document.getElementById("article_id"+i).value;
+						var file_upload_layout=""+
+							"<div class='select_img_bg'>"+
+								"<form id='uploadFileForm"+i+"' action='upload.php' method='post'>"+
+									"<div id='FileAttachtargetLayer"+i+"'></div>"+
+									"<button type='button' class='close' "+
+										"onclick='closeFileUpload(\""+i+"\");'>&times;</button>"+
+										"<label>Attach a file:</label>"+
+										"<table><tr>"+
+											"<td>"+
+												"<input name='userFile' id='userFile"+i+"' type='file' class='demoInputBox' />"+
+												"<input name='article_id' type='hidden' value='"+article_id+"'/>"+
+											"</td>"+
+											"<td>"+
+												"<input type='submit' id='SubmitFile"+i+"' value='Upload' class='btnSubmit'/>"+
+											"</td>"+
+										"</tr></table>"+	
+									"<div class='progress-div' style='display:none;' id='file_progress-div"+i+"'>"+
+										"<div class='progress-bar' id='file_progress-bar"+i+"'></div>"+
+									"</div>"+
+								"</form>"+
+								"<center><div id='file_loader-icon"+i+"' style='display:none;'>"+
+									"<img src='img/loading.gif' /></div>"+
+								"</center>"+
+							"</div>";
+						document.getElementById("files_content"+i).innerHTML=file_upload_layout;
+						$("#uploadFileForm"+i).submit(function(e) {	
+							var path = $("#userFile"+i).val();
+							//var Extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
+							var path_length = $('#userFile'+i).val().trim().length;
+							
+							if(path==null || path_length==0){
+								$("#files_content"+i).html("<center><div class='alert alert-danger'>"+
+									"No file has been selected. Please select one."+
+									"<button type='button' class='close' "+
+									"onclick='attachFile(\""+i+"\");'>&times;</button>"+
+									"</div></center>");
+								return false;
+							}
+							else{
+								e.preventDefault();
+								$("#file_loader-icon"+i).show();
+								$("#file_progress-div"+i).show();
+								$(this).ajaxSubmit({ 
+									beforeSubmit: function() {
+									  $("#file_progress-bar"+i).width('0%');
+									},
+									uploadProgress: function (event, position, total, percentComplete){	
+										$("#file_progress-bar"+i).width(percentComplete + '%');
+										$("#file_progress-bar"+i).html('<div id="file_progress-status'+i+'">' + percentComplete +' %</div>');
+									},
+									success:function (resp){
+										$("#file_loader-icon"+i).hide();
+										var json_resp = JSON.parse(resp);
+										if(json_resp.status==true){
+											files_path[i]=json_resp.files_storage_path;
+											$("#files_content"+i).html("Attached File: <a href='"+files_path[i]+
+												"' target='_blank'>"+files_path[i]+"</a>");
+										}
+										else{
+											$("#files_content"+i).html("<center>"+json_resp.message+"</center>");
+										}
+									},
+									resetForm: true 
+								}); 
+								return false; 
+							}
+						});
+					}
 					function uploadImage(i){
 						var article_id = document.getElementById("article_id"+i).value;
 						
@@ -436,14 +512,14 @@
 								"<div id='targetLayer"+i+"'></div>"+
 								"<button type='button' class='close' "+
 									"onclick='closeImageUpload(\""+i+"\");'>&times;</button>"+
-									"<label>Upload Image File:</label>"+
+									"<label>Upload an image:</label>"+
 									"<table><tr>"+
 										"<td>"+
 											"<input name='userImage' id='userImage"+i+"' type='file' class='demoInputBox' />"+
 											"<input name='article_id' type='hidden' value='"+article_id+"'/>"+
 										"</td>"+
 										"<td>"+
-											"<input type='submit' id='Submit"+i+"' value='Upload' class='btnSubmit'/>"+
+											"<input type='submit' id='SubmitPhoto"+i+"' value='Upload' class='btnSubmit'/>"+
 										"</td>"+
 									"</tr></table>"+	
 								"<div class='progress-div' style='display:none;' id='progress-div"+i+"'>"+
@@ -516,7 +592,16 @@
 											"' height='80%' width='100%'/></center>";
 						}
 					}
-					
+					function closeFileUpload(i){
+						var files = files_path[i];
+						if(files==null) {
+							document.getElementById("files_content"+i).innerHTML="";	
+						}
+						else{
+						document.getElementById("files_content"+i).innerHTML="Attached File: <a href='"+files+
+												"' target='_blank'>"+files+"</a>";
+						}
+					}
 					function deleteArticle(i){
 						var article_id = document.getElementById("article_id"+i).value;
 						swal({   
