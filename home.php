@@ -876,44 +876,43 @@
 																	list+="<option>"+ou_list[i].OrganisationUnit+"</option>";
 																}
 																document.getElementById("choose_ou").innerHTML=list;
-																var orgunit=($("#choose_ou").val()).trim();
-																//getRoles("choose_role",orgunit,"associated_tabs");
-																$.ajax({
-																	type:"GET",
-																	url: "getRoles.php",
-																	data: "org_unit="+orgunit+"&only_ou_roles=no",
-																	success: function(data){
-																		if(data.trim()=="false"){
-																			document.getElementById("choose_role").innerHTML="<option></option>";
-																			document.getElementById("associated_tabs").innerHTML="<center>No role exists.</center>";
-																			document.getElementById("associated_tabs").style.color="red";
-																		}
-																		else{
-																			document.getElementById("associated_tabs").innerHTML=" ";
-																			var arr = JSON.parse(data);
-																			role_list = JSON.parse(data);
-																			var roleList=" ";
-																			var i;
-																			var count=0;
-																			for(i=0;i<arr.length;i++){
-																				roleList+="<option>"+arr[i].RoleName+"</option>";
-																				count++;
-																			}
-																			document.getElementById("choose_role").innerHTML=roleList;
-																			validate_and_get_tabs();
-																			getAssociatedTabs("associated_tabs");
-																		}
-																	},
-																	error: function(x,y,z){
-																		document.getElementById("choose_role").innerHTML="<option></option>";
-																		document.getElementById("associated_tabs").innerHTML="<center>Sorry! Unable to get server.</center>";
-																		document.getElementById("associated_tabs").style.color="red";
-																	}
-																});
 															}
 															else{
 																document.getElementById("choose_ou").innerHTML="<option></option>";
 															}
+															var orgunit=($("#choose_ou").val()).trim();
+															$.ajax({
+																type:"GET",
+																url: "getRoles.php",
+																data: "org="+org_name+"&org_unit="+orgunit+"&only_ou_roles=no",
+																success: function(data){
+																	if(data.trim()=="false"){
+																		document.getElementById("choose_role").innerHTML="<option></option>";
+																		document.getElementById("associated_tabs").innerHTML="<center>No role exists.</center>";
+																		document.getElementById("associated_tabs").style.color="red";
+																	}
+																	else{
+																		document.getElementById("associated_tabs").innerHTML=" ";
+																		var arr = JSON.parse(data);
+																		role_list = JSON.parse(data);
+																		var roleList=" ";
+																		var i;
+																		var count=0;
+																		for(i=0;i<arr.length;i++){
+																			roleList+="<option>"+arr[i].RoleName+"</option>";
+																			count++;
+																		}
+																		document.getElementById("choose_role").innerHTML=roleList;
+																		validate_and_get_tabs();
+																		getAssociatedTabs("associated_tabs");
+																	}
+																},
+																error: function(x,y,z){
+																	document.getElementById("choose_role").innerHTML="<option></option>";
+																	document.getElementById("associated_tabs").innerHTML="<center>Sorry! Unable to get server.</center>";
+																	document.getElementById("associated_tabs").style.color="red";
+																}
+															});
 														}
 													});
 													return false;

@@ -1,9 +1,11 @@
 <?php
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
-	$org_unit = $_GET['org_unit'];
+	$org_unit = empty($_GET['org_unit'])?'null':$_GET['org_unit'];
 	$only_ou_roles = $_GET['only_ou_roles'];//
-	$organisation=getOrgbyOU($conn,$org_unit);
+	$organisation=$_GET['org'];
+	if(empty($organisation)) 
+		$organisation=getOrgbyOU($conn,$org_unit);
 	if(empty($only_ou_roles) || $only_ou_roles=="no")
 	{
 		$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0 
