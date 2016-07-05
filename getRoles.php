@@ -1,7 +1,7 @@
 <?php
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
-	$org_unit = empty($_GET['org_unit'])?'null':$_GET['org_unit'];
+	$org_unit = empty($_GET['org_unit']) || $_GET['org_unit']==' '?'null':$_GET['org_unit'];
 	$only_ou_roles = $_GET['only_ou_roles'];//
 	$organisation=$_GET['org'];
 	if(empty($organisation)) 
