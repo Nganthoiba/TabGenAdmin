@@ -239,7 +239,7 @@ function getOUs($conn,$user_id){
 	$output=null;
 	$org = getOrg_Byuser_Id($conn,$user_id);
 	if(isUserUniversalAccessRight($conn,$user_id)){//checks whether the user is universal access right
-		$query="select OrganisationUnit as team_name 
+		$query="select Id,OrganisationUnit as team_name 
 				from OrganisationUnit  
 				where DeleteAt=0 and 
 				Organisation='$org'

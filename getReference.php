@@ -15,6 +15,7 @@ if(!empty($_GET['user_id'])){
 		$accessible_teams=null;
 		for($i=0;$i<sizeof($teams);$i++){//finding all the possible channels for a team
 			$team_name = $teams[$i]['team_name'];
+			$team_id = $teams[$i]['Id'];
 			$query = "SELECT Tab.Id as id,Tab.Name as tab_name
 					FROM Tab,RoleTabAsson,Role,TabTemplate
 						where Tab.Id=RoleTabAsson.TabId
@@ -44,13 +45,11 @@ if(!empty($_GET['user_id'])){
 					$channels=null;
 					$tab_list=null;
 					while($row=$res->fetch(PDO::FETCH_ASSOC)){
-						//$channels->tab_list[]=$row['tab_name'];
-						$channels->$row['tab_name']=$row;
+						$channels[]=$row;
 						$count++;
 					}	
 					if($count>0){
-						//$output->team_list[]=$team_name;
-						$output[]->$team_name=$channels;
+						$output->response->org_units[]=array("id"=>$team_id,"name"=>$team_name,"tabs"=>$channels);
 					}
 				}		
 				

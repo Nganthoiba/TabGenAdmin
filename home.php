@@ -238,7 +238,7 @@
 					<a href="#" data-toggle="modal" data-target="#create_tabstrip_modal"
 						onclick='refresh_all_entries();return false;'>Create Tabstrip</a>
 				</li>
-				<li><a href="#" data-toggle="modal" data-target="#">Add Tabs to Tabstrip</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#addTabsToTabstrips">Add Tabs to Tabstrip</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#createuser" 
 								onclick='getRoles("UserRole",$("#OrgUnitList").val(),"error4");refresh_all_entries();return false;'>
 									Create a user</a>
@@ -1063,6 +1063,66 @@
 							</div>
 					</form>
 			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- Modal for adding tabs to tabstrips -->
+<div class="modal fade" id="addTabsToTabstrips" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document" style="width:90%">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="addingTabToTabstripLabel">Add Tabs to tabstrips:
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+				</h4>
+			</div>
+			<div class="modal-body"
+				style="max-height:800px;
+						min-height:600px; overflow:hidden;
+						min-width:120px; 
+						overflow-x:auto;overflow-y:auto;">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="myorgselect">Select an Organisation:</label>
+						<div class="col-sm-6">
+							<select class="form-control" id="myorgselect" >			
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="myouselect">Select an Organisation Unit:</label>
+						<div class="col-sm-6">
+							<select class="form-control" id="myouselect" >			
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">OU Specific:</label>
+						<div class="col-sm-6">
+							<label class="radio-inline">	
+								<input type="radio" name="ouspecific_yes_no" checked/>yes
+							</label>
+							<label class="radio-inline">	
+								<input type="radio" name="ouspecific_yes_no" />No	
+							</label>
+						</div>
+					</div>
+				</form>
+				<table class='table table-bordered'>
+					<tr>
+						<th>List of Tabstrips</th>
+						<th>List of Tabs added to the Tabstrips</th>
+						<th>List of Available Tabs</th>
+					</tr>
+					<tr>
+						<td><table class="table table-striped" id="tabstrip_lists"></table></td>
+						<td><table class="table table-striped" id="tabs_added"></table></td>
+						<td><table class="table table-striped" id="tabs_to be_added"></table></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
