@@ -26,6 +26,7 @@ if(!empty($_GET['user_id'])){
 							and RoleTabAsson.RoleId = '$role_id'";
 				
 				$res = $conn->query($query);
+				/*
 				if($res){
 					$count=0;
 					$channels=null;
@@ -34,10 +35,22 @@ if(!empty($_GET['user_id'])){
 						$count++;
 					}	
 					if($count>0){
-						//$output[]=array($team_name=>$channels);
-						//$accessible_teams[]=$team_name;
 						$output->team_list[]=$team_name;
 						$output->channels->$team_name=$channels;
+					}
+				}*/
+				if($res){
+					$count=0;
+					$channels=null;
+					$tab_list=null;
+					while($row=$res->fetch(PDO::FETCH_ASSOC)){
+						$channels->tab_list[]=$row['tab_name'];
+						$channels->$row['tab_name']=$row;
+						$count++;
+					}	
+					if($count>0){
+						$output->team_list[]=$team_name;
+						$output->$team_name=$channels;
 					}
 				}		
 				
