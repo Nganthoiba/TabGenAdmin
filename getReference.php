@@ -44,13 +44,13 @@ if(!empty($_GET['user_id'])){
 					$channels=null;
 					$tab_list=null;
 					while($row=$res->fetch(PDO::FETCH_ASSOC)){
-						$channels->tab_list[]=$row['tab_name'];
+						//$channels->tab_list[]=$row['tab_name'];
 						$channels->$row['tab_name']=$row;
 						$count++;
 					}	
 					if($count>0){
-						$output->team_list[]=$team_name;
-						$output->$team_name=$channels;
+						//$output->team_list[]=$team_name;
+						$output[]->$team_name=$channels;
 					}
 				}		
 				
