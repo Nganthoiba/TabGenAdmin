@@ -245,8 +245,8 @@ body {
    border: 1px solid black;
 }
 .circular {
-					width: 30%;
-					height: 30%;
+					width: 100px;
+					height: 100px;
 					border-radius: 150px;
 					-webkit-border-radius: 150px;
 					-moz-border-radius: 150px;
