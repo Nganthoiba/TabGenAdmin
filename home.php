@@ -1079,8 +1079,8 @@
 				</h3>
 			</div>
 			<div class="modal-body"
-				style="max-height:650px;
-						min-height:630px; overflow:hidden;
+				style="max-height:620px;
+						min-height:600px; overflow:hidden;
 						min-width:120px; 
 						overflow-x:auto;overflow-y:auto;">
 				<form class="form-horizontal">
