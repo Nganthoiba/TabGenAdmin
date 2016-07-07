@@ -10,6 +10,7 @@ $tabstrip_id = $_POST['tabstrip_id'];
 $query=null;
 $query = "select * from Tab 
 	where Organisation='$org_name'
+	and DeleteAt=0
 	and Id not in (select tabId from Tabstrip_Tab_Mapping where tabstripId='$tabstrip_id')
 	order by CreateAt desc"; 
 /*
