@@ -43,6 +43,15 @@
 	border:#09f 1px solid;
 	border-radius:0px;
 }
+.btnSubmit:active{
+	background-color:#7BEA0B;
+	width:100%;
+	border:0;
+	padding:5px;
+	color:#FFF;
+	border:#09f 1px solid;
+	border-radius:0px;
+}
 .progress-div {
 	border:#1BAB22 1px solid;
 	margin:30px 0px;
