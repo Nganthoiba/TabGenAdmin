@@ -8,6 +8,11 @@ $ou_specific = $_POST['ou_specific']=="true"?1:0;
 $tabstrip_id = $_POST['tabstrip_id'];
 
 $query=null;
+$query = "select * from Tab 
+	where Organisation='$org_name'
+	and Id not in (select tabId from Tabstrip_Tab_Mapping where tabstripId='$tabstrip_id')
+	order by CreateAt desc"; 
+/*
 if($ou_specific==1){
 	$query = "select * from Tab 
 	where OrganisationUnit='$ou_name' 
@@ -21,7 +26,7 @@ else{
 	and OU_Specific=$ou_specific 
 	and Id not in (select tabId from Tabstrip_Tab_Mapping where tabstripId='$tabstrip_id')
 	order by CreateAt desc"; 
-}
+}*/
 $res = $conn->query($query);
 if($res){
 	$output=null;

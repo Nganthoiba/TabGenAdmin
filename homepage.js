@@ -1322,8 +1322,8 @@ $(document).ready(function(){
 					for(var i=0;i<tabs.length;i++){
 						view+="<tr><td><Button class='btn btn-link'"+
 						" onclick='addTabToTabstrip(\""+org_name+"\",\""+ou_name+"\",\""+
-						ou_specific+"\",\""+tabstrip_id+"\",\""+tabs[i].Id+"\",\""+display_layout+"\");'>Add</Button></td><td>"+
-						tabs[i].Name+"</td></tr>";
+						ou_specific+"\",\""+tabstrip_id+"\",\""+tabs[i].Id+"\",\""+display_layout+"\");'>Add</Button></td>"+
+						"<td><div>"+tabs[i].Name+"</div></td></tr>";
 					}
 					document.getElementById(display_layout).innerHTML=view;
 				}
