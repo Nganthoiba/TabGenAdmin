@@ -1142,6 +1142,8 @@
 								var ou = document.getElementById("myouselect").value;
 								//alert(ou);
 								getTabStrips(org,ou,"tabstrip_lists","result_for_add_tab_to_tabstrip");
+								document.getElementById("tabs_to_be_added").innerHTML="<div><center></center></div>";
+								document.getElementById("tabs_added").innerHTML="<div><center></center></div>";
 							}
 						</script>
 						<label class="col-sm-4 control-label" for="myorgselect">Select an Organisation:</label>

@@ -30,7 +30,7 @@ if(!empty($_GET['user_id'])){
 				$res = $conn->query($query);
 				if($res){
 					$count=0;
-					$channels=null;
+					$channels=null; 
 					$tab_list=null;
 					while($row=$res->fetch(PDO::FETCH_ASSOC)){
 						$channels[]=$row;
