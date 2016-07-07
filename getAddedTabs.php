@@ -11,8 +11,7 @@ $query=null;
 $query = "select * from Tab 
 	where Organisation='$org_name'
 	and DeleteAt=0
-	and Id in (select tabId from Tabstrip_Tab_Mapping where tabstripId='$tabstrip_id')
-	order by CreateAt desc";
+	and Id in (select tabId from Tabstrip_Tab_Mapping where tabstripId='$tabstrip_id' order by slno asc)";
 /*if($ou_specific==1){
 	$query = "select * from Tab 
 	where OrganisationUnit='$ou_name' 
