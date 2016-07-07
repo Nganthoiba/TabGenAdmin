@@ -1179,7 +1179,7 @@
 					<tr>
 						<th>List of Tabstrips</th>
 						<th>List of Tabs added</th>
-						<th>List of Available Tabs</th>
+						<th>List of Tabs not added</th>
 					</tr>
 					<tr>
 						<td><div id="result_for_add_tab_to_tabstrip"></div><div class="tab_disp_div"><table class="table" id="tabstrip_lists"></table></div></td>
