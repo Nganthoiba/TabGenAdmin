@@ -55,7 +55,7 @@
 }
 .tab_disp_div{
 	max-height:350px;
-	min-height:200px; 
+	min-height:320px; 
 	min-width:200px;
 	overflow:hidden;
 	overflow-x:auto;overflow-y:auto;
