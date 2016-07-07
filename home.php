@@ -1173,7 +1173,7 @@
 					
 				</form>
 				
-				<table class='table table-bordered' style="height:350px">
+				<table class='table table-bordered'>
 					<tr>
 						<th>List of Tabstrips</th>
 						<th>List of Tabs added to the Tabstrips</th>
