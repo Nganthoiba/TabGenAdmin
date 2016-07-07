@@ -1126,11 +1126,11 @@
 											for(var i=0;i<output.length;i++){
 												var tabstrip_id = output[i].Id;
 												//var tabs_to_be_added = "tabs_to_be_added";
-												layout+="<tr><td><Button class='btnSubmit' onclick='getUnaddedTab(\""+org_name+
+												layout+="<tr><td><a href='#' class='btnSubmit' onclick='getUnaddedTab(\""+org_name+
 												"\",\""+ou_name+"\",\""+ou_specific+"\",\""+tabstrip_id+"\",\""+
 												"tabs_to_be_added"+"\");getAddedTab(\""+org_name+
 												"\",\""+ou_name+"\",\""+ou_specific+"\",\""+tabstrip_id+"\",\""+
-												"tabs_added"+"\");'>"+output[i].Name+"</Button></td></tr>";
+												"tabs_added"+"\");'>"+output[i].Name+"</a></td></tr>";
 											}
 											document.getElementById(target_layout_id).innerHTML=layout;
 										}
