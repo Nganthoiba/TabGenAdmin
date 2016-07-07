@@ -27,6 +27,7 @@
 }
 .btnSubmit{
 	background-color:#09f;
+	width:100%;
 	border:0;
 	padding:5px;
 	color:#FFF;
@@ -35,6 +36,7 @@
 }
 .btnSubmit:hover{
 	background-color:#68BBF7;
+	width:100%;
 	border:0;
 	padding:5px;
 	color:#FFF;
@@ -50,4 +52,11 @@
 #targetLayer{
 	width:100%;
 	text-align:center;
+}
+.tab_disp_div{
+	max-height:350px;
+	min-height:200px; 
+	min-width:200px;
+	overflow:hidden;
+	overflow-x:auto;overflow-y:auto;
 }

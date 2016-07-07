@@ -716,8 +716,9 @@ function hasWhiteSpace(s) {
 					document.getElementById(target_id).innerHTML=list;
 				}
 				else{
-					document.getElementById(target_id).innerHTML=" ";
+					document.getElementById(target_id).innerHTML="<option></option>";
 				}
+				onChangeOU();
 			} 
 		});										
 	}
@@ -927,6 +928,81 @@ function hasWhiteSpace(s) {
 		});
 		return false;
 	}
+	
+	function viewOrgListWithOUs(orgListingId,ouListingId,resultDisplayId){
+		$.ajax({
+			type:"GET",
+				url: "view_org_list.php",
+				data: "username="+user_session.username,
+				success: function(data){
+					var view="";
+					var limit=0;				
+					if(data.trim()=="error"){
+						view="<option></option>";
+						document.getElementById(resultDisplayId).innerHTML="<p>We are very sorry that an error occurs, "+
+							"please try again after sometime.</p>";
+					}
+					else
+					{
+						document.getElementById(resultDisplayId).innerHTML="";
+						var json_arr = JSON.parse(data);
+						limit=json_arr.length;
+						if(limit==0){
+							view="<option></option>";
+							document.getElementById(resultDisplayId).innerHTML="<p><center>No organisation exists."+
+								"</center></p>";
+							return;
+						}
+						else{
+							document.getElementById(resultDisplayId).innerHTML="";
+						}
+						for(var i=0;i<limit;i++){
+							view+="<option>"+json_arr[i].name+"</option>";
+						}
+						document.getElementById(orgListingId).innerHTML=view;
+						var org_name=($("#"+orgListingId).val()).trim();
+						$.ajax({
+							type: "GET",
+							url: "orgUnitList.php",
+							data: {"org_name":org_name},
+							success: function(data){
+								if(data.trim()!="null"){
+									var ou_list = JSON.parse(data);
+									var list=" ";
+									if(ou_list.length==0){
+										list="<option></option>";
+										document.getElementById(resultDisplayId).innerHTML="<p><center>No organisation"+
+											" unit exists for the selected organisation.</center></p>";
+										return;
+									}
+									else{
+											document.getElementById(resultDisplayId).innerHTML="";
+									}
+									for(var i=0;i<ou_list.length;i++){
+										list+="<option>"+ou_list[i].OrganisationUnit+"</option>";
+									}
+									document.getElementById(ouListingId).innerHTML=list;	
+								}
+								else{
+									document.getElementById(ouListingId).innerHTML="<option></option>";
+								}
+								onChangeOU();
+								/*var ou = document.getElementById(ouListingId).value;
+								getTabStrips(org_name,ou,"tabstrip_lists");*/
+							}
+						});
+					}
+				},
+				error: function(x,y,z){
+					document.getElementById(resultDisplayId).innerHTML="<p>We are very sorry that an error occurs, "+
+						"please try again after sometime</p>";
+					document.getElementById(orgListingId).innerHTML="<option></option>";
+					
+				}
+		});
+		return false;
+	}
+	
 	/*$(document).ready(function(){
 		$("#viewAllOrgLists").click(function(){
 			document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
@@ -1189,7 +1265,99 @@ $(document).ready(function(){
 	function getEditRolePopupContent(index){
 		return $("#edit_role_popover"+index).html();
 	}
-	/* function to get tabs for seleted OU and Role */
+	/*js function to add a tab to a tabstrip*/
+	function addTabToTabstrip(org_name,ou_name,ou_specific,tabstrip_id,tab_id,display_layout){
+		//getUnaddedTab(org_name,ou_name,ou_specific,tabstrip_id,display_layout)
+		//alert("Org: "+org_name+" Tab Id: "+tab_id+"tabstrip_id: "+tabstrip_id);
+		$.ajax({
+			type: "POST",
+			url: "addTabToTabstrip.php",
+			data:{"tab_id":tab_id,"tabstrip_id":tabstrip_id},
+			success: function(resp){
+				//alert(resp);
+				var json_resp = JSON.parse(resp);
+				if(json_resp.status==true){
+					getUnaddedTab(org_name,ou_name,ou_specific,tabstrip_id,"tabs_to_be_added");
+					getAddedTab(org_name,ou_name,ou_specific,tabstrip_id,"tabs_added");
+				}
+			}
+		});
+	}
+	
+	/*js function to remove a tab from a tabstrip*/
+	function removeTabFromTabstrip(org_name,ou_name,ou_specific,tabstrip_id,tab_id,display_layout){
+		//getUnaddedTab(org_name,ou_name,ou_specific,tabstrip_id,display_layout)
+		//alert("Org: "+org_name+" Tab Id: "+tab_id+"tabstrip_id: "+tabstrip_id);
+		$.ajax({
+			type: "POST",
+			url: "removeTabFromTabstrip.php",
+			data:{"tab_id":tab_id,"tabstrip_id":tabstrip_id},
+			success: function(resp){
+				//alert(resp);
+				var json_resp = JSON.parse(resp);
+				if(json_resp.status==true){
+					getUnaddedTab(org_name,ou_name,ou_specific,tabstrip_id,"tabs_to_be_added");
+					getAddedTab(org_name,ou_name,ou_specific,tabstrip_id,"tabs_added");
+				}
+			}
+		});
+	}
+	/*function to get available tabs to be added in the tabstrip*/
+	function getUnaddedTab(org_name,ou_name,ou_specific,tabstrip_id,display_layout){
+		//alert(tabstrip_id);
+		//document.getElementById(display_layout).innerHTML="<tr><td>"+tabstrip_id+"<td></tr>";
+		$.ajax({
+			type: "POST",
+			url: "getUnaddedTabs.php",
+			data: {"org_name":org_name,"ou_name":ou_name,"ou_specific":ou_specific,"tabstrip_id":tabstrip_id},
+			success: function(resp){
+				//alert(resp);
+				var json_resp = JSON.parse(resp);
+				if(json_resp.status==false){
+					document.getElementById(display_layout).innerHTML="<div><center>"+json_resp.message+"</center></div>";
+				}
+				else{
+					var tabs = json_resp.output;
+					var view="";
+					for(var i=0;i<tabs.length;i++){
+						view+="<tr><td><Button class='btn btn-link'"+
+						" onclick='addTabToTabstrip(\""+org_name+"\",\""+ou_name+"\",\""+
+						ou_specific+"\",\""+tabstrip_id+"\",\""+tabs[i].Id+"\",\""+display_layout+"\");'>Add</Button></td><td>"+
+						tabs[i].Name+"</td></tr>";
+					}
+					document.getElementById(display_layout).innerHTML=view;
+				}
+			}
+		});
+	}
+	/*function to get tabs already added in the tabstrip*/
+	function getAddedTab(org_name,ou_name,ou_specific,tabstrip_id,display_layout){
+		//alert(tabstrip_id);
+		//document.getElementById(display_layout).innerHTML="<tr><td>"+tabstrip_id+"<td></tr>";
+		$.ajax({
+			type: "POST",
+			url: "getAddedTabs.php",
+			data: {"org_name":org_name,"ou_name":ou_name,"ou_specific":ou_specific,"tabstrip_id":tabstrip_id},
+			success: function(resp){
+				//alert(resp);
+				var json_resp = JSON.parse(resp);
+				if(json_resp.status==false){
+					document.getElementById(display_layout).innerHTML="<div><center>"+json_resp.message+"</center></div>";
+				}
+				else{
+					var tabs = json_resp.output;
+					var view="";
+					for(var i=0;i<tabs.length;i++){
+						view+="<tr><td>"+tabs[i].Name+"</td><td><Button style='float:right' "+
+						"onclick='removeTabFromTabstrip(\""+org_name+"\",\""+ou_name+"\",\""+
+						ou_specific+"\",\""+tabstrip_id+"\",\""+tabs[i].Id+"\",\""+display_layout+"\");' class='btn btn-link'>Remove</Button></td></tr>";
+					}
+					document.getElementById(display_layout).innerHTML=view;
+				}
+			}
+		});
+	}
+	/* function to get list of unassociated tabs for seleted OU and Role */
 	function getTabs(id,ou_specific_tab){
 		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";
 		document.getElementById(id).style.color="#A4A4A4";
@@ -1326,13 +1494,8 @@ $(document).ready(function(){
 	}
 	
 	function getAllTabs(id){
-		/*
-		document.getElementById(id).innerHTML="<p><h1 align='center'>Wait please...</h1></p>";*/
-		document.getElementById(id).style.color="#A4A4A4";
 		
-		/*var ou = document.getElementById("choose_ou2").value;
-		var role_name = document.getElementById("choose_role2").value;*/
-		//alert(ou);
+		document.getElementById(id).style.color="#A4A4A4";		
 		$.ajax({
 			url:"getAllTabs.php",
 			type:"GET",
@@ -1410,8 +1573,9 @@ $(document).ready(function(){
 									"<br/><span id='upadate_tab_resp"+i+"'></span>"+
 								"</div>"+
 							"</form>";*/
-							 see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
-											"' class='btn btn-info'>See More</a>";
+							/*see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
+											"' class='btn btn-info'>See More</a>";*/
+							 see_more="<a href='#' class='btn btn-info'>See More</a>";
 						}
 						else{
 							/*popup_content_form="<form class='form-horizontal' role='form'"+
@@ -2169,7 +2333,8 @@ $(document).ready(function(){
 					if(resp_arr.status==true){
 						document.getElementById("createTabstripResponse").innerHTML="<center><b>"+
 							resp_arr.message+"</b></center>";
-						document.getElementById("createTabstripResponse").style.color="green";		
+						document.getElementById("createTabstripResponse").style.color="green";	
+						onChangeOU();	
 					}
 					else{
 						document.getElementById("createTabstripResponse").innerHTML="<center>"+resp_arr.message+"</center>";

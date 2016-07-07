@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
 	<!--<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
 	
-	
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/simple-sidebar.css">
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
@@ -1072,54 +1072,117 @@
 	<div class="modal-dialog modal-lg" role="document" style="width:90%">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="addingTabToTabstripLabel">Add Tabs to tabstrips:
+				<h3 class="modal-title" id="addingTabToTabstripLabel">Add Tabs to tabstrips:
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span class="glyphicon glyphicon-remove"></span>
 					</button>
-				</h4>
+				</h3>
 			</div>
 			<div class="modal-body"
-				style="max-height:800px;
-						min-height:600px; overflow:hidden;
+				style="max-height:650px;
+						min-height:630px; overflow:hidden;
 						min-width:120px; 
 						overflow-x:auto;overflow-y:auto;">
 				<form class="form-horizontal">
 					<div class="form-group">
+						<script type="text/JavaScript">
+							viewOrgListWithOUs("myorgselect","myouselect","result_for_add_tab_to_tabstrip");
+							getAllTabs("tabs_to_be_added");
+							function getOU(){
+								var org = document.getElementById("myorgselect").value;
+								getOUlists(org,"myouselect");
+							}
+							function getTabStrips(org_name,ou_name,target_layout_id,resp_layout){
+								var ou_specific = document.getElementById("ou_specific_tabstrip_yes").checked;
+								//alert("OU Name: "+ou_name+" OU_specific: "+ou_specific);
+								if(ou_specific==true){
+									var ou_trim = ou_name.trim();
+									if(ou_trim.length==0 || ou_name==null){
+										document.getElementById(resp_layout).innerHTML="<center>It seems no OU exists"+
+										" for selected Organisation.</center>";
+										document.getElementById(target_layout_id).innerHTML="";
+										return false;
+									}
+									else{
+										document.getElementById(resp_layout).innerHTML="<center></center>";
+									}
+									//alert("OU name: "+ou_name);
+								}
+								$.ajax({
+									type: "POST",
+									url: "getTabStrips.php",
+									data: "org_name="+org_name+"&ou_specific="+ou_specific+"&ou_name="+ou_name,
+									success: function(resp){
+										//alert(resp);
+										var json_resp = JSON.parse(resp);
+										if(json_resp.status==false){
+											document.getElementById(resp_layout).innerHTML="<center>"+json_resp.message+"</center>";
+											document.getElementById(target_layout_id).innerHTML="";
+										}
+										else{
+											document.getElementById(resp_layout).innerHTML="<center></center>";
+											var output = json_resp.output;
+											var layout="";
+											for(var i=0;i<output.length;i++){
+												var tabstrip_id = output[i].Id;
+												//var tabs_to_be_added = "tabs_to_be_added";
+												layout+="<tr><td><Button class='btnSubmit' onclick='getUnaddedTab(\""+org_name+
+												"\",\""+ou_name+"\",\""+ou_specific+"\",\""+tabstrip_id+"\",\""+
+												"tabs_to_be_added"+"\");getAddedTab(\""+org_name+
+												"\",\""+ou_name+"\",\""+ou_specific+"\",\""+tabstrip_id+"\",\""+
+												"tabs_added"+"\");'>"+output[i].Name+"</Button></td></tr>";
+											}
+											document.getElementById(target_layout_id).innerHTML=layout;
+										}
+									}
+								});
+							}
+							function onChangeOU(){
+								var org = document.getElementById("myorgselect").value;
+								var ou = document.getElementById("myouselect").value;
+								//alert(ou);
+								getTabStrips(org,ou,"tabstrip_lists","result_for_add_tab_to_tabstrip");
+							}
+						</script>
 						<label class="col-sm-4 control-label" for="myorgselect">Select an Organisation:</label>
-						<div class="col-sm-6">
-							<select class="form-control" id="myorgselect" >			
+						<div class="col-sm-4">
+							<select class="form-control" id="myorgselect" 
+								onchange="getOU();">			
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label" for="myouselect">Select an Organisation Unit:</label>
-						<div class="col-sm-6">
-							<select class="form-control" id="myouselect" >			
+						<div class="col-sm-4">
+							<select class="form-control" id="myouselect" onchange="onChangeOU();">
+											
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label">OU Specific:</label>
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<label class="radio-inline">	
-								<input type="radio" name="ouspecific_yes_no" checked/>yes
+								<input type="radio" name="ouspecific_yes_no" onclick="onChangeOU();" id="ou_specific_tabstrip_yes" checked/>yes
 							</label>
 							<label class="radio-inline">	
-								<input type="radio" name="ouspecific_yes_no" />No	
+								<input type="radio" name="ouspecific_yes_no" onclick="onChangeOU();" id="ou_specific_tabstrip_no" />No	
 							</label>
 						</div>
 					</div>
+					
 				</form>
-				<table class='table table-bordered'>
+				
+				<table class='table table-bordered' style="height:350px">
 					<tr>
 						<th>List of Tabstrips</th>
 						<th>List of Tabs added to the Tabstrips</th>
 						<th>List of Available Tabs</th>
 					</tr>
 					<tr>
-						<td><table class="table table-striped" id="tabstrip_lists"></table></td>
-						<td><table class="table table-striped" id="tabs_added"></table></td>
-						<td><table class="table table-striped" id="tabs_to be_added"></table></td>
+						<td><div id="result_for_add_tab_to_tabstrip"></div><div class="tab_disp_div"><table class="table" id="tabstrip_lists"></table></div></td>
+						<td><div class="tab_disp_div"><table class="table" id="tabs_added"></table></div></td>
+						<td><div class="tab_disp_div"><table class="table" id="tabs_to_be_added"></table></div></td>
 					</tr>
 				</table>
 			</div>
