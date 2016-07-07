@@ -38,7 +38,7 @@ if($res){
 		echo json_encode(array("status"=>true,"output"=>$output));
 	}
 	else{
-		echo json_encode(array("status"=>false,"message"=>"No record found."));
+		echo json_encode(array("status"=>false,"message"=>"No Tab found."));
 	}
 }
 else{
