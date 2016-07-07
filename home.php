@@ -1178,7 +1178,7 @@
 				<table class='table table-bordered'>
 					<tr>
 						<th>List of Tabstrips</th>
-						<th>List of Tabs added to the Tabstrips</th>
+						<th>List of Tabs added</th>
 						<th>List of Available Tabs</th>
 					</tr>
 					<tr>
