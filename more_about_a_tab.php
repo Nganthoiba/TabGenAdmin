@@ -301,7 +301,7 @@
         <div id="page-content-wrapper">
 			
 			<div class="container-fluid">
-            <div class="box" id="tab_contents">	
+            <div class="" id="tab_contents">	
 				<script type='text/JavaScript'>
 					function editLink(i,article_link){
 						indicator=i;
