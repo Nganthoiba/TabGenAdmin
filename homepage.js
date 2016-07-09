@@ -658,7 +658,7 @@ function hasWhiteSpace(s) {
 							for(var i=0;i<limit;i++){
 								var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);
-								view+='<tr><td><div class="div_bg">'+json_arr[i].organisation_unit+'</div></td>'+
+								view+='<tr><td><div class="">'+json_arr[i].organisation_unit+'</div></td>'+
 								'</tr>';
 								/*
 								 *
@@ -784,7 +784,7 @@ function hasWhiteSpace(s) {
 							for(var i=0;i<limit;i++){
 								/*var created_date = new Date(json_arr[i].create_at);
 								var updated_date = new Date(json_arr[i].update_at);*/
-								view+="<tr><td><div class='div_bg'>"+json_arr[i].name+"</div></td>"+
+								view+="<tr><td><div class=''>"+json_arr[i].name+"</div></td>"+
 								'</tr>';
 							/*	
 							 * '<td>Date: '+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+

@@ -258,7 +258,7 @@
         <div id="page-content-wrapper">
 			<div class="container-fluid">
             <div class="box">	
-				<div class="heading">
+				<div class="headLine">
 							Organisations
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
@@ -287,7 +287,7 @@
 					<div> &nbsp; </div>			
 			</div>
 			<div class="box">
-				<div class="heading">Organisation Units
+				<div class="headLine">Organisation Units
 							<!--
 							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
 										-webkit-align-content: center; align-content: center;padding-top:0px"
@@ -1079,10 +1079,11 @@
 				</h3>
 			</div>
 			<div class="modal-body"
-				style="max-height:620px;
-						min-height:600px; overflow:hidden;
+				style="max-height:630px;
+						min-height:620px; overflow:hidden;
 						min-width:120px; 
 						overflow-x:auto;overflow-y:auto;">
+				<div>
 				<form class="form-horizontal">
 					<div class="form-group">
 						<script type="text/JavaScript">
@@ -1187,6 +1188,7 @@
 						<td><div class="tab_disp_div"><table class="table" id="tabs_to_be_added"></table></div></td>
 					</tr>
 				</table>
+				</div>
 			</div>
 		</div>
 	</div>

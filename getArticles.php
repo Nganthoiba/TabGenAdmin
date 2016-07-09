@@ -20,6 +20,8 @@
 				$row['UpdateAt']=(double)$row['UpdateAt'];
 				$row['Name']=str_replace("''","'",$row['Name']);
 				$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
+				$row['Images']=($row['Images']==null)?"":$row['Images'];
+				$row['Filenames']=($row['Filenames']==null)?"":$row['Filenames'];
 				$output[]=$row;
 			}
 			$result->state=true;
