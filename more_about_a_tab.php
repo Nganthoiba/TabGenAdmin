@@ -26,9 +26,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<!-- This is what you need for sweet alert -->
-  <script src="dist/sweetalert-dev.js"></script>
-  <link rel="stylesheet" href="dist/sweetalert.css">
-  <!--.......................-->
+	<script src="dist/sweetalert-dev.js"></script>
+	<link rel="stylesheet" href="dist/sweetalert.css">
+	<!--.......................-->
 	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -615,7 +615,7 @@
 					function closeImageUpload(i){
 						var image = image_path[i];
 						//alert(image);
-						if(image==null) {
+						if(image==null || image=="") {
 							document.getElementById("image_content"+i).innerHTML="";	
 						}
 						else{
@@ -625,7 +625,7 @@
 					}
 					function closeFileUpload(i){
 						var files = files_path[i];
-						if(files==null) {
+						if(files==null || files=="") {
 							document.getElementById("files_content"+i).innerHTML="";	
 						}
 						else{

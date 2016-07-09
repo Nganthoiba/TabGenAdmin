@@ -15,6 +15,12 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/npm.js"></script>
+	
+	<!-- This is what you need for sweet alert -->
+	<script src="dist/sweetalert-dev.js"></script>
+	<link rel="stylesheet" href="dist/sweetalert.css">
+	<!--.......................-->
+	
 	<script type="text/JavaScript" src="homepage.js"></script>
 	<script type="text/JavaScript">
 		/*

@@ -1958,30 +1958,50 @@ $(document).ready(function(){
 	}
 	
 	function deleteTab(tab_id){
-		var confirm_var = confirm("Are you sure to delete this tab?");
-		if(confirm_var){
-			$.ajax({
-				type: "POST",
-				url: "delete_a_tab.php",
-				data: {"tab_id":tab_id},
-				success: function(resp){
-					var resp_arr = JSON.parse(resp);
-					//alert(resp);
-					if(resp_arr.status==true){
-						getAllTabs("get_all_tabs");
-						var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
-						getTabs("list_of_tabs",ou_specific);
-						getAssociatedTabs("associated_tabs");
+		swal({   
+			title: "Are you sure to delete this tab?", 
+			text: "Once it is deleted, you will not be able to recover it!",   
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "YES",   
+			cancelButtonText: "NO",   
+			closeOnConfirm: false,   
+			closeOnCancel: false 
+		}, 
+		function(isConfirm){   
+			if (isConfirm) {     
+				$.ajax({
+					type: "POST",
+					url: "delete_a_tab.php",
+					data: {"tab_id":tab_id},
+					success:function(resp){
+						var json_resp=JSON.parse(resp);
+						if(json_resp.status==true){
+							swal("Deleted!", json_resp.message, "success"); 
+							getAllTabs("get_all_tabs");
+							var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+							getTabs("list_of_tabs",ou_specific);
+							getAssociatedTabs("associated_tabs");
+						}
+						else{
+							swal("Failed!", json_resp.message, "error");
+						}
+					},
+					error: function(x,y,z){
+						swal("Failed!", "Something goes wrong...", "error");
 					}
-					else{
-						alert(resp_arr.message);
-					}
-				},
-				error: function(x,y,z){
-					alert("Something goes wrong...");
-				}
-			});
-		}
+				});  
+			} else {     
+				//swal(" ", "Your tab is safe now.", "error"); 
+				swal({   
+						title: "Deletion Cancelled!",  
+						text: "Your tab is safe now.",   
+						timer: 1000,   
+						showConfirmButton: false 
+				});  
+			} 
+		});
 		return false;
 	}
 	
