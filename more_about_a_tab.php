@@ -136,7 +136,7 @@
 										//image==null?"":
 										var image_layout=(image==null || image=="")?"":"<center><img src='"+image+
 											"' height='80%' width='100%'/></center>";
-										var files_layout=(files==null || files=="")?"":"Attached File: <a href='"+files+
+										var files_layout=(files==null || files=="")?"":"Attached File: <br/><a href='"+files+
 												"' target='_blank'>"+extractFileName(files)+"</a>";
 										if(Link.trim()==0){
 											link_layout="";
@@ -629,7 +629,7 @@
 							document.getElementById("files_content"+i).innerHTML="";	
 						}
 						else{
-						document.getElementById("files_content"+i).innerHTML="Attached File: <a href='"+files+
+						document.getElementById("files_content"+i).innerHTML="Attached File: <br/><a href='"+files+
 												"' target='_blank'>"+extractFileName(files)+"</a>";
 						}
 					}

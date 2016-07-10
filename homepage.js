@@ -1323,7 +1323,7 @@ $(document).ready(function(){
 						view+="<tr><td><Button class='btn btn-link'"+
 						" onclick='addTabToTabstrip(\""+org_name+"\",\""+ou_name+"\",\""+
 						ou_specific+"\",\""+tabstrip_id+"\",\""+tabs[i].Id+"\",\""+display_layout+"\");'>Add</Button></td>"+
-						"<td><div>"+tabs[i].Name+"</div></td></tr>";
+						"<td><div class='col-sm-8'>"+tabs[i].Name+"</div></td></tr>";
 					}
 					document.getElementById(display_layout).innerHTML=view;
 				}
@@ -1348,9 +1348,10 @@ $(document).ready(function(){
 					var tabs = json_resp.output;
 					var view="";
 					for(var i=0;i<tabs.length;i++){
-						view+="<tr><td>"+tabs[i].Name+"</td><td><Button style='float:right' "+
+						view+="<tr><td><div class='col-sm-8'>"+tabs[i].Name+"</div></td><td><Button style='float:right' "+
 						"onclick='removeTabFromTabstrip(\""+org_name+"\",\""+ou_name+"\",\""+
-						ou_specific+"\",\""+tabstrip_id+"\",\""+tabs[i].Id+"\",\""+display_layout+"\");' class='btn btn-link'>Remove</Button></td></tr>";
+						ou_specific+"\",\""+tabstrip_id+"\",\""+tabs[i].Id+"\",\""+display_layout+"\");' "+
+						"class='btn btn-link'>Remove</Button></td></tr>";
 					}
 					document.getElementById(display_layout).innerHTML=view;
 				}

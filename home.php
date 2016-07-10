@@ -1181,19 +1181,33 @@
 					</div>
 					
 				</form>
-				
-				<table class='table table-bordered'>
-					<tr>
-						<th>List of Tabstrips</th>
-						<th>List of Tabs added</th>
-						<th>List of Tabs not added</th>
-					</tr>
-					<tr>
-						<td><div id="result_for_add_tab_to_tabstrip"></div><div class="tab_disp_div"><table class="table" id="tabstrip_lists"></table></div></td>
-						<td><div class="tab_disp_div"><table class="table" id="tabs_added"></table></div></td>
-						<td><div class="tab_disp_div"><table class="table" id="tabs_to_be_added"></table></div></td>
-					</tr>
-				</table>
+				<div class="table-responsive">
+					<table border="0" class="table" style="background-color:#FAFAFA;border: 1px solid #D8D8D8">
+						<tr>
+							<th>List of Tabstrips</th>
+							<th>List of Tabs added</th>
+							<th>List of Tabs not added</th>
+						</tr>
+						<tr>
+							<td align="center">
+								<div class="tab_disp_div">
+									<div id="result_for_add_tab_to_tabstrip"></div>
+									<table class="table table-hover" id="tabstrip_lists"></table>
+								</div>
+							</td>
+							<td align="center">
+								<div class="tab_disp_div">
+									<table id="tabs_added" class="table table-hover"></table>
+								</div>
+							</td>
+							<td align="center">
+								<div class="tab_disp_div">
+									<table id="tabs_to_be_added" class="table table-hover"></table>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
 				</div>
 			</div>
 		</div>
