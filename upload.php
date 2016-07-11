@@ -57,7 +57,8 @@ if(!empty($_FILES)) {
 				$file_id = randId(26);//creating unique id
 				$query = "insert into ArticleFiles(Id,article_id,file_name) values('$file_id','$article_id','$targetPath')";
 				if($conn->query($query)){
-					echo json_encode(array("status"=>true,"message"=>"Successfully uploaded..","files_storage_path"=>$targetPath));
+					$file_list = getFiles($conn,$article_id);
+					echo json_encode(array("status"=>true,"message"=>"Successfully uploaded..","files_storage_path"=>$file_list));
 				}
 				else{
 					echo json_encode(array("status"=>false,"message"=>"Something went wrong.. Try again later."));

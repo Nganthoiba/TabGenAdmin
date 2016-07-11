@@ -129,20 +129,28 @@
 										var Link=output[i].Links;
 										var image=output[i].Images;
 										image_path[i]=output[i].Images;
-										var files=output[i].Filenames;
 										files_path[i]=output[i].Filenames;
+										
+										var file_list=files_path[i];
+										var files_layout="";//+JSON.Stringify(output[i].Filenames);
+										var j=0;
+										for(var j=0;j<file_list.length;j++){
+											var files=file_list[j].file_name;
+											files_layout+=(files==null || files=="")?"":"<br/><a href='"+files+
+												"' target='_blank'>"+extractFileName(files)+"</a>";
+										}
+										files_layout=j>0?"Attached files: "+files_layout:"";		
 										Link=Link.trim();
 										var link_layout="";
 										//image==null?"":
 										var image_layout=(image==null || image=="")?"":"<center><img src='"+image+
 											"' height='80%' width='100%'/></center>";
-										var files_layout=(files==null || files=="")?"":"Attached File: <br/><a href='"+files+
-												"' target='_blank'>"+extractFileName(files)+"</a>";
+										
 										if(Link.trim()==0){
 											link_layout="";
 										}
 										else{
-											link_layout="<a href='"+output[i].Links+"' target='_blank'>"+
+											link_layout="Reference: <a href='"+output[i].Links+"' target='_blank'>"+
 											output[i].Links+"</a>";
 										}
 										var textual_content=output[i].Textual_content;
@@ -334,7 +342,7 @@
 							success: function(resp){
 								var json_resp = JSON.parse(resp);
 								if(json_resp.status==true){
-									document.getElementById("link_content"+indicator).innerHTML="<a href='"+new_link+
+									document.getElementById("link_content"+indicator).innerHTML="Reference: <a href='"+new_link+
 										"' target='_blank'>"+new_link+"</a>";
 									document.getElementById("editLinkResponse").innerHTML=json_resp.message;
 									document.getElementById("editLinkResponse").style.color="green";
@@ -516,8 +524,15 @@
 										var json_resp = JSON.parse(resp);
 										if(json_resp.status==true){
 											files_path[i]=json_resp.files_storage_path;
+											/*var file_list=files_path[i];
+											var j=0;
+											var file_layout="";
+											for(j=0;j<file_list.length;j++){
+												
+											}
 											$("#files_content"+i).html("Attached File: <a href='"+files_path[i]+
-												"' target='_blank'>"+extractFileName(files_path[i])+"</a>");
+												"' target='_blank'>"+extractFileName(files_path[i])+"</a>");*/
+											closeFileUpload(i);
 										}
 										else{
 											$("#files_content"+i).html("<center><div class='alert alert-danger'>"+
@@ -624,6 +639,19 @@
 						}
 					}
 					function closeFileUpload(i){
+						var file_list=files_path[i];
+						var files_layout="";
+						var j=0;
+						for(j=0;j<file_list.length;j++){
+							var files=file_list[j].file_name;
+							files_layout+=(files==null || files=="")?"":"<br/><a href='"+files+
+												"' target='_blank'>"+extractFileName(files)+"</a>";
+						}
+						
+						files_layout=j>0?"Attached Files: "+files_layout:"";
+						
+						document.getElementById("files_content"+i).innerHTML=files_layout;
+						/*
 						var files = files_path[i];
 						if(files==null || files=="") {
 							document.getElementById("files_content"+i).innerHTML="";	
@@ -631,7 +659,7 @@
 						else{
 						document.getElementById("files_content"+i).innerHTML="Attached File: <br/><a href='"+files+
 												"' target='_blank'>"+extractFileName(files)+"</a>";
-						}
+						}*/
 					}
 					function deleteArticle(i){
 						var article_id = document.getElementById("article_id"+i).value;
