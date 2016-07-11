@@ -39,10 +39,8 @@ if(!empty($_GET['user_id'])){
 					if($count>0){
 						$output->response->org_units[]=array("id"=>$team_id,"name"=>$team_name,"tabs"=>$channels);
 					}
-				}		
-				
+				}			
 		}
-		
 		//$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
 		print json_encode($output);
 	}	
