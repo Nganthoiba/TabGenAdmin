@@ -805,7 +805,7 @@ function getOrgbyOU($conn,$ou){
 
 //get list of attached files in an article
 function getFiles($conn,$article_id){
-	$query = "select * from ArticleFiles where article_id='$article_id'";
+	$query = "select Id,attachment_url,caption,file_name from ArticleFiles where article_id='$article_id'";
 	$res = $conn->query($query);
 	$files_output=array();
 	while($row = $res->fetch(PDO::FETCH_ASSOC)){
