@@ -790,4 +790,15 @@ function getOrgbyOU($conn,$ou){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['Organisation'];
 }
+
+//get list of attached files in an article
+function getFiles($conn,$article_id){
+	$query = "select * from ArticleFiles where article_id='$article_id'";
+	$res = $conn->query($query);
+	$files_output=array();
+	while($row = $res->fetch(PDO::FETCH_ASSOC)){
+		$files_output[]=$row;
+	}
+	return $files_output;
+}
 ?>

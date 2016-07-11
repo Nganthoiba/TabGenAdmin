@@ -21,7 +21,8 @@
 				$row['Name']=str_replace("''","'",$row['Name']);
 				$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
 				$row['Images']=($row['Images']==null)?"":$row['Images'];
-				$row['Filenames']=($row['Filenames']==null)?"":$row['Filenames'];
+				//$row['Filenames']=($row['Filenames']==null)?"":$row['Filenames'];
+				$row['Filenames']=getFiles($conn,$row['Id']);
 				$output[]=$row;
 			}
 			$result->state=true;

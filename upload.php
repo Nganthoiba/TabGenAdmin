@@ -53,7 +53,9 @@ if(!empty($_FILES)) {
 			 //echo "Target: ".$targetPath;
 			if($conn){
 				$time=time()*1000;
-				$query = "Update Article set Filenames='$targetPath', UpdateAt=$time where Id='$article_id'";
+				//$query = "Update Article set Filenames='$targetPath', UpdateAt=$time where Id='$article_id'";
+				$file_id = randId(26);//creating unique id
+				$query = "insert into ArticleFiles(Id,article_id,file_name) values('$file_id','$article_id','$targetPath')";
 				if($conn->query($query)){
 					echo json_encode(array("status"=>true,"message"=>"Successfully uploaded..","files_storage_path"=>$targetPath));
 				}
