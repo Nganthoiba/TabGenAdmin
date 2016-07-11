@@ -256,9 +256,22 @@ function getOUs($conn,$user_id){
 	}
 	else{		
 		$my_ou = getOU_Byuser_Id($conn,$user_id);
-		$output= array(array("team_name"=>$my_ou));
-		//echo "OU: ".$my_ou;
+		$query="select Id,OrganisationUnit as team_name 
+				from OrganisationUnit  
+				where DeleteAt=0 and 
+				OrganisationUnit='$my_ou'";
+		$res = $conn->query($query);
+		if($res){
+			$count=0;
+			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$output[]=$row;
+				$count++;
+			}
+			//$output[$count]['team_name']="Associated Tabs";
+		}
 	}
+	//$output= array(array("team_name"=>$my_ou));
+	//echo "OU: ".$my_ou;
 	return $output;
 }
 
