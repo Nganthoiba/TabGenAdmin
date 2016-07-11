@@ -90,6 +90,13 @@ label {color:#848484; font-weight:normal}
     background-color: #f7f7f7;
     border-radius:5px
 }
+.attachment_bg
+{
+    padding: 2px 5px 2px 5px;
+    background-color: #F6FCF7;
+    border: 2px solid #D8D8D8;
+    border-radius:0px
+}
 .select_img_bg
 {
     padding: 10px 5px 10px 5px;

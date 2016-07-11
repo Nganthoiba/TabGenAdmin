@@ -136,8 +136,8 @@
 										var j=0;
 										for(var j=0;j<file_list.length;j++){
 											var files=file_list[j].file_name;
-											files_layout+=(files==null || files=="")?"":"<br/><a href='"+files+
-												"' target='_blank'>"+extractFileName(files)+"</a>";
+											files_layout+=(files==null || files=="")?"":"<div class='attachment_bg'><a href='"+files+
+												"' target='_blank'>"+extractFileName(files)+"</a></div>";
 										}
 										files_layout=j>0?"Attached files: "+files_layout:"";		
 										Link=Link.trim();
@@ -208,6 +208,7 @@
 													"<br/>"+
 													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
 														"id='files_content"+i+"'>"+files_layout+"</div>"+
+													"<div id='file_attachment_layout"+i+"'></div>"+
 													"<div style='height:50px;width:98%;overflow:hidden;overflow-x:auto' "+
 														"id='link_content"+i+"'>"+link_layout+"</div>"+
 												"</div>"+
@@ -493,14 +494,15 @@
 									"<img src='img/loading.gif' /></div>"+
 								"</center>"+
 							"</div>";
-						document.getElementById("files_content"+i).innerHTML=file_upload_layout;
+						document.getElementById("file_attachment_layout"+i).innerHTML=file_upload_layout;
+						//document.getElementById("files_content"+i).innerHTML=file_upload_layout;
 						$("#uploadFileForm"+i).submit(function(e) {	
 							var path = $("#userFile"+i).val();
 							//var Extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
 							var path_length = $('#userFile'+i).val().trim().length;
 							
 							if(path==null || path_length==0){
-								$("#files_content"+i).html("<center><div class='alert alert-danger'>"+
+								$("#file_attachment_layout"+i).html("<center><br/><div class=''>"+
 									"No file has been selected. Please select one."+
 									"<button type='button' class='close' "+
 									"onclick='attachFile(\""+i+"\");'>&times;</button>"+
@@ -524,18 +526,10 @@
 										var json_resp = JSON.parse(resp);
 										if(json_resp.status==true){
 											files_path[i]=json_resp.files_storage_path;
-											/*var file_list=files_path[i];
-											var j=0;
-											var file_layout="";
-											for(j=0;j<file_list.length;j++){
-												
-											}
-											$("#files_content"+i).html("Attached File: <a href='"+files_path[i]+
-												"' target='_blank'>"+extractFileName(files_path[i])+"</a>");*/
-											closeFileUpload(i);
+											refreshFileLayout(i);
 										}
 										else{
-											$("#files_content"+i).html("<center><div class='alert alert-danger'>"+
+											$("#file_attachment_layout"+i).html("<center><br/><div class=''>"+
 												json_resp.message+
 												"<button type='button' class='close' "+
 													"onclick='attachFile(\""+i+"\");'>&times;</button>"+
@@ -639,27 +633,23 @@
 						}
 					}
 					function closeFileUpload(i){
+						document.getElementById("file_attachment_layout"+i).innerHTML="";
+					}
+					
+					function refreshFileLayout(i){
 						var file_list=files_path[i];
 						var files_layout="";
 						var j=0;
 						for(j=0;j<file_list.length;j++){
 							var files=file_list[j].file_name;
-							files_layout+=(files==null || files=="")?"":"<br/><a href='"+files+
-												"' target='_blank'>"+extractFileName(files)+"</a>";
+							files_layout+=(files==null || files=="")?"":"<div class='attachment_bg'><a href='"+files+
+												"' target='_blank'>"+extractFileName(files)+"</a></div>";
 						}
 						
 						files_layout=j>0?"Attached Files: "+files_layout:"";
 						
 						document.getElementById("files_content"+i).innerHTML=files_layout;
-						/*
-						var files = files_path[i];
-						if(files==null || files=="") {
-							document.getElementById("files_content"+i).innerHTML="";	
-						}
-						else{
-						document.getElementById("files_content"+i).innerHTML="Attached File: <br/><a href='"+files+
-												"' target='_blank'>"+extractFileName(files)+"</a>";
-						}*/
+						document.getElementById("file_attachment_layout"+i).innerHTML="";
 					}
 					function deleteArticle(i){
 						var article_id = document.getElementById("article_id"+i).value;

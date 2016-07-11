@@ -267,7 +267,6 @@ function getOUs($conn,$user_id){
 				$output[]=$row;
 				$count++;
 			}
-			//$output[$count]['team_name']="Associated Tabs";
 		}
 	}
 	//$output= array(array("team_name"=>$my_ou));
