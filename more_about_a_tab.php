@@ -611,7 +611,7 @@
 											$("#image_content"+i).html("<img src='"+image_path[i]+"' width='100%' height='80%'/>");
 										}
 										else{
-											$("#image_content"+i).html("<center>"+json_resp.status+"</center>");
+											$("#image_content"+i).html("<center>"+json_resp.message+"</center>");
 										}
 									},
 									resetForm: true 

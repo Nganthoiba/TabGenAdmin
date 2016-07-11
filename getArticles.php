@@ -20,9 +20,9 @@
 				$row['UpdateAt']=(double)$row['UpdateAt'];
 				$row['Name']=str_replace("''","'",$row['Name']);
 				$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
-				//$row['Images']=($row['Images']==null)?"":$row['Images'];
+				$row['Images']=($row['Images']==null)?"":$row['Images'];
 				//$row['Filenames']=($row['Filenames']==null)?"":$row['Filenames'];
-				$row['Images']=($row['Images']==null)?"":"http://".IP."/TabGenAdmin/".$row['Images'];
+				$row['images_url']=($row['Images']==null)?"":"http://".IP."/TabGenAdmin/".$row['Images'];
 				$row['Filenames']=getFiles($conn,$row['Id']);
 				$output[]=$row;
 			}
