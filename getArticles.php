@@ -22,7 +22,7 @@
 				$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
 				$row['Images']=($row['Images']==null)?"":$row['Images'];
 				//$row['Filenames']=($row['Filenames']==null)?"":$row['Filenames'];
-				$row['images_url']=($row['Images']==null)?"":"http://".IP."/TabGenAdmin/".$row['Images'];
+				$row['images_url']=($row['Images']==null)?"":"http://128.199.111.18/TabGenAdmin/".$row['Images'];
 				$row['Filenames']=getFiles($conn,$row['Id']);
 				$output[]=$row;
 			}
