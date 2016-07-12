@@ -209,10 +209,10 @@
 													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
 														"id='files_content"+i+"'>"+files_layout+"</div>"+
 													"<div id='file_attachment_layout"+i+"'></div>"+
-													"<div style='height:50px;width:98%;overflow:hidden;overflow-x:auto' "+
+													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
 														"id='link_content"+i+"'>"+link_layout+"</div>"+
 												"</div>"+
-												"<br/>"+status_layout+
+												""+status_layout+
 												"<div id='btn_group"+i+"' "+
 													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
 													"<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+

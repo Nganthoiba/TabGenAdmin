@@ -1087,7 +1087,10 @@
 			<div class="modal-body"
 				style="max-height:630px;
 						min-height:620px; overflow:hidden;
-						min-width:120px; 
+						min-width:120px;background-color:#ffffff;
+						-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+						-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+						box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3); 
 						overflow-x:auto;overflow-y:auto;">
 				<div>
 				<form class="form-horizontal">
@@ -1182,7 +1185,7 @@
 					
 				</form>
 				<div class="table-responsive">
-					<table border="0" class="table" style="background-color:#FAFAFA;border: 1px solid #D8D8D8">
+					<table border="0" class="table" style="background-color:#E6E1E1;border: 1px solid #D8D8D8">
 						<tr>
 							<th>List of Tabstrips</th>
 							<th>List of Tabs added</th>
