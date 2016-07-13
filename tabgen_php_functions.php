@@ -809,7 +809,7 @@ function getFiles($conn,$article_id){
 	$res = $conn->query($query);
 	$files_output=array();
 	while($row = $res->fetch(PDO::FETCH_ASSOC)){
-		$row['attachment_url']="http://".IP."/TabGenAdmin/".$row['file_name'];
+		$row['attachment_url']="http://128.199.111.18/TabGenAdmin/".$row['file_name'];
 		$row['caption']=($row['caption']==null)?"":$row['caption'];
 		$files_output[]=$row;
 	}

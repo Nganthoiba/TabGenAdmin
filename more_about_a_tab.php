@@ -125,12 +125,12 @@
 										return false;
 									}
 									var article_layout="";
+									
 									for(var i=0;i<output.length;i++){
 										var Link=output[i].Links;
 										var image=output[i].Images;
 										image_path[i]=output[i].Images;
 										files_path[i]=output[i].Filenames;
-										
 										var file_list=files_path[i];
 										var files_layout="";//+JSON.Stringify(output[i].Filenames);
 										var j=0;
@@ -140,12 +140,12 @@
 												"' target='_blank'>"+extractFileName(files)+"</a></div>";
 										}
 										files_layout=j>0?"Attached files: "+files_layout:"";		
-										Link=Link.trim();
-										var link_layout="";
+										
 										//image==null?"":
 										var image_layout=(image==null || image=="")?"":"<center><img src='"+image+
 											"' height='80%' width='100%'/></center>";
 										
+										var link_layout="";
 										if(Link.trim()==0){
 											link_layout="";
 										}
