@@ -94,10 +94,10 @@
 					?> <span class="sr-only">(current)</span></a>
 				</li>
 				<script type="text/JavaScript">
+					var indicator;
 					var image_path=[];
 					var files_path=[];
 					var queryString = new Array();
-					var indicator;
 					if (window.location.search.split('?').length > 1) {
 						var params = window.location.search.split('?')[1].split('&');
 						for (var i = 0; i < params.length; i++) {
@@ -217,7 +217,8 @@
 													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
 													"<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+
 														"<span class='glyphicon glyphicon-picture'></span></button>"+
-													"<button class='btn btn-info' onclick='attachFile(\""+i+"\");'><span class='glyphicon glyphicon-paperclip'></span></button>"+
+													"<button class='btn btn-info' onclick='attachFile(\""+i+"\");'>"+
+													"<span class='glyphicon glyphicon-paperclip'></span></button>"+
 													"<a href='#' data-toggle='modal' data-target='#Editlink' "+
 														"onclick='editLink(\""+i+"\",\""+Link+"\");'"+
 														"class='btn btn-info'><span class='glyphicon glyphicon-link'>"+
@@ -566,7 +567,7 @@
 									"<div class='progress-bar' id='progress-bar"+i+"'></div>"+
 								"</div>"+
 							"</form>"+
-							"<center><div id='loader-icon"+i+"' style='display:none;'><img src='img/loading.gif' /></div></center>"+
+							"<center><div id='loader-icon"+i+"' style='display:none;'><img src='img/loading.gif'/></div></center>"+
 							"</div>";
 						document.getElementById("image_content"+i).innerHTML=image_upload_layout;
 						$("#uploadForm"+i).submit(function(e) {	

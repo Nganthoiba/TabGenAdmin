@@ -1576,7 +1576,7 @@ $(document).ready(function(){
 							"</form>";*/
 							/*see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
 											"' class='btn btn-info'>See More</a>";*/
-							 see_more="<a href='#' class='btn btn-info'>See More</a>";
+							 see_more="<a href='more_on_news.php?tab_id="+json_arr[i].Id+"' class='btn btn-info'>See More</a>";
 						}
 						else{
 							/*popup_content_form="<form class='form-horizontal' role='form'"+

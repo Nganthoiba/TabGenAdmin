@@ -34,7 +34,7 @@
 		 var json_arr;
 		 var role_list;
 		 var js_session = sessionStorage.getItem('user_details');
-		if(js_session==null){
+		if(js_session=="null"){
 			window.location.assign("index.html");
 		}
 		var user_session = JSON.parse(js_session);
@@ -64,6 +64,10 @@
 				$("#wrapper").toggleClass("toggled");
 			});
 		});
+		
+		function removeSession(){
+			sessionStorage.setItem('user_details', "null");
+		}
 		function getSession(){
 			document.getElementById("user_detail_section").innerHTML=user_session.username;
 			setInterval(
@@ -183,7 +187,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" data-toggle="modal" data-target="#logoutConfirmation">
+				<a href="#" data-toggle="modal" data-target="#logoutConfirmation" onclick="removeSession();">
 					  <span class="glyphicon glyphicon-log-out"></span>&nbsp;logout</a>
 			</li>
 			<!--<li><a href="#">Link</a></li>
