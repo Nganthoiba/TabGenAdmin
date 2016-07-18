@@ -22,6 +22,9 @@ else if(isNewsTitleExists($conn,$news_title)){
 }
 else{
 	$id = randId(26);//creating unique id
+	$news_title=str_replace ("'","''", $news_title);
+	$news_headline=str_replace ("'","''", $news_headline);
+	$news_details=str_replace ("'","''", $news_details);
 	$created_at = time()*1000;
 	$query = "insert into News(Id,CreateAt,title,headline,Details,tab_id) values('$id',$created_at,'$news_title',
 	'$news_headline','$news_details','$tab_id')";

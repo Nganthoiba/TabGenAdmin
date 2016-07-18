@@ -213,6 +213,7 @@
 														"id='link_content"+i+"'>"+link_layout+"</div>"+
 												"</div>"+
 												""+status_layout+
+												"<br/><hr/>"+
 												"<div id='btn_group"+i+"' "+
 													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
 													"<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+
