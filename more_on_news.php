@@ -98,6 +98,7 @@
 	<!-- text editing features -->
 	<script src="tinymce/js/tinymce/tinymce.min.js"></script>
 	<script src="tinymce/js/tinymce/jquery.tinymce.min.js"></script>
+	<!--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>-->
 	<script>
 		
 		tinymce.init({ 
@@ -222,7 +223,7 @@
 												"<div style='height:70%;padding:10px'>"+
 													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
 												"</div><br/><hr/>"+
-												"<button class='btn' style='float:right;padding-right:5px;"+
+												"<button class='btn' style='float:left;padding-right:5px;"+
 													"padding-bottom:5px' onclick='attachFile(\""+i+"\");'>"+
 													"<span class='glyphicon glyphicon-paperclip'></span>"+
 												"</button>"+	

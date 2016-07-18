@@ -24,8 +24,21 @@
 				$row['Attachments']=getFiles($conn,$row['Id']);
 				$output[]=$row;
 			}
+			/*
+			 “Response”:[
+				“items": {
+					“Content_type”:”3”,
+					”Sub_items”:[
+					{“name":”news1”,”id”:”news_id1”,”image_url”:”_____”,”title”:”THIS is new article”,”Headline”:”amazing article”,”click_category_type”:”_____” },
+					{“name":”news1”,”id”:”news_id1”,”image_url”:””},
+					{“name":”news1”,”id”:”news_id1”,”image_url”:””}
+					] 
+				}
+			] 
+			*/
 			$result->state=true;
-			$result->output=$output;
+			$result->Response->items->Content_type=0;
+			$result->Response->items->Sub_items=$output;
 			echo json_encode($result);
 		}
 	}

@@ -1120,11 +1120,11 @@
 											for(var i=0;i<output.length;i++){
 												var tabstrip_id = output[i].Id;
 												//var tabs_to_be_added = "tabs_to_be_added";
-												layout+="<tr><td><Button class='btnSubmit' onclick='getUnaddedTab(\""+org_name+
+												layout+="<tr><td><button class='btnSubmit' onclick='getUnaddedTab(\""+org_name+
 												"\",\""+ou_name+"\",\""+ou_specific+"\",\""+tabstrip_id+"\",\""+
 												"tabs_to_be_added"+"\");getAddedTab(\""+org_name+
 												"\",\""+ou_name+"\",\""+ou_specific+"\",\""+tabstrip_id+"\",\""+
-												"tabs_added"+"\");'>"+output[i].Name+"</Button></td></tr>";
+												"tabs_added"+"\");'>"+output[i].Name+"</button></td></tr>";
 											}
 											document.getElementById(target_layout_id).innerHTML=layout;
 										}
@@ -1203,7 +1203,7 @@
 
 <!-- Modal for displaying Users-->
 <div class="modal fade" id="displayUsers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document" style="width:90%;min-height:50%;overflow-x:auto">
+	<div class="modal-dialog modal-lg" role="document" style="width:90%;min-height:60%;overflow-x:auto">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="myModalLabel">List of Users Created:
@@ -1234,7 +1234,7 @@
 				</h4>
 			</div>
 			<div class="modal-body"
-				style="max-height:500px;
+				style="max-height:570px;
 						min-height:350px; overflow:hidden;
 						min-width:120px; 
 						overflow-x:auto;overflow-y:auto;">

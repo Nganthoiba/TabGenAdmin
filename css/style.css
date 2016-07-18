@@ -41,6 +41,7 @@
 	padding:5px;
 	color:#FFF;
 	border:#09f 1px solid;
+	text-decoration:none;
 	border-radius:0px;
 }
 .btnSubmit:active{
