@@ -41,6 +41,9 @@
 				$("#wrapper").toggleClass("toggled");
 			});
 		});
+		function toggle(){
+			$("#wrapper").toggleClass("toggled");
+		}
 		function getSession(){
 			document.getElementById("user_detail_section").innerHTML=user_session.username;
 			setInterval(
@@ -71,7 +74,7 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#menu-toggle" id="menu-toggle">
+				<a class="navbar-brand" onclick="toggle();" href="#menu-toggle" id="menu-toggle">
 				  <span class="glyphicon glyphicon-align-justify"></span>
 			  </a>
 			</div>
@@ -294,7 +297,7 @@
             <ul class="sidebar-nav">
 				<br/>
 				<li>
-					<a href="#" onclick="window.history.back();">
+					<a href="home.php">
 						Back to home
 					</a>
 				</li>

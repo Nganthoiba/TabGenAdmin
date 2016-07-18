@@ -10,37 +10,36 @@
 	<!--<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
 	<!--Toast package-->
 	<link href="css/toast.css" rel="stylesheet" media="screen">
-	<!--<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>-->
 	<script type="text/javascript" src="js/toast.js"></script>
 	<!-- ********************************************** -->
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<!--<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>-->
-	<style>
-	.uploadForm {border-top:#F0F0F0 2px solid;background:#FAF8F8;padding:10px;}
-	.uploadForm label {margin:2px; font-size:1em; font-weight:bold;}
-	.demoInputBox{padding:5px; border:#F0F0F0 1px solid; border-radius:4px; background-color:#FFF; width:100%}
-	#progress-bar {background-color: #12CC1A;height:20px;color: #FFFFFF;width:0%;-webkit-transition: width .3s;-moz-transition: width .3s;transition: width .3s;}
-	.btnSubmit{
-		background-color:#09f;
-		border:0;
-		padding:10px 40px;
-		color:#FFF;
-		border:#F0F0F0 1px solid;
-		border-radius:4px;
-	}
-	.progress-div {
-		border:#0FA015 1px solid;
-		display:none;
-		padding: 5px 0px;
-		margin:30px 0px;
-		border-radius:4px;
-		text-align:center;
-	}
-	#textual_content{
-		resize:vertical;
-		overflow:auto;
-	}
-	#targetLayer{width:100%;text-align:center;}
+	<style type="text/css">
+		.uploadForm {border-top:#F0F0F0 2px solid;background:#FAF8F8;padding:10px;}
+		.uploadForm label {margin:2px; font-size:1em; font-weight:bold;}
+		.demoInputBox{padding:5px; border:#F0F0F0 1px solid; border-radius:4px; background-color:#FFF; width:100%}
+		#progress-bar {background-color: #12CC1A;height:20px;color: #FFFFFF;width:0%;-webkit-transition: width .3s;-moz-transition: width .3s;transition: width .3s;}
+		.btnSubmit{
+			background-color:#09f;
+			border:0;
+			padding:10px 40px;
+			color:#FFF;
+			border:#F0F0F0 1px solid;
+			border-radius:4px;
+		}
+		.progress-div {
+			border:#0FA015 1px solid;
+			display:none;
+			padding: 5px 0px;
+			margin:30px 0px;
+			border-radius:4px;
+			text-align:center;
+		}
+		#textual_content{
+			resize:vertical;
+			overflow:auto;
+		}
+		#targetLayer{width:100%;text-align:center;}
 	</style>
 	<script>
 	/* jquery.form.min.js */
@@ -50,14 +49,24 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/simple-sidebar.css">
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 	
 	<!-- This is what you need for sweet alert -->
 	<script src="dist/sweetalert-dev.js"></script>
 	<link rel="stylesheet" href="dist/sweetalert.css">
 	<!--.......................-->
 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+		});
+	});
+	function toggle(){
+		$("#wrapper").toggleClass("toggled");
+	}
 	$(document).ready(function() { 
+		
 		/*
 		 $('#uploadForm').submit(function(e) {	
 			if($('#attachFile').val()) {
@@ -88,7 +97,7 @@
 	</script>
 	<!-- text editing features -->
 	<script src="tinymce/js/tinymce/tinymce.min.js"></script>
-	<!--<script src="tinymce/js/tinymce/jquery.tinymce.min.js"></script>-->
+	<script src="tinymce/js/tinymce/jquery.tinymce.min.js"></script>
 	<script>
 		
 		tinymce.init({ 
@@ -127,12 +136,7 @@
 	<script src="js/npm.js"></script>
 	<script src="homepage.js"></script>
 	<script type="text/JavaScript">
-		$(document).ready(function(){
-			$("#menu-toggle").click(function(e) {
-				e.preventDefault();
-				$("#wrapper").toggleClass("toggled");
-			});
-		});
+		
 		function getSession(){
 			document.getElementById("user_detail_section").innerHTML=user_session.username;
 			setInterval(
@@ -144,12 +148,11 @@
 						success:function(data){
 							if(data.trim()=="null"){
 								//user_session=null;
-								window.location.assign("index.html");
+								//window.location.assign("index.html");
 							}
 							else{
 								//user_session=JSON.parse(data);
 							}
-							//alert("Token: "+user_session.token+" User id: "+user_session.id);
 						},
 						error:function(error_data,y,z){
 							//user_session=null;
@@ -163,10 +166,19 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#menu-toggle" id="menu-toggle">
-				  <span class="glyphicon glyphicon-align-justify"></span>
-			  </a>
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle"
+				data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  
+				<a class="navbar-brand" onclick="toggle();" id="menu-toggle">
+					<span class="glyphicon glyphicon-align-justify"></span>
+				</a>
 			</div>
+			
 			<script type="text/JavaScript">
 					var queryString = new Array();
 					if (window.location.search.split('?').length > 1) {
@@ -191,7 +203,7 @@
 								if(result.state==true){
 									var output = result.output;
 									if(output==null){
-										document.getElementById("tab_contents").innerHTML="<center>No article found, create a new one.</center>";
+										document.getElementById("tab_contents").innerHTML="<center>No news article found, create a new one.</center>";
 										return false;
 									}
 									var article_layout="";
@@ -199,7 +211,7 @@
 									for(var i=0;i<output.length;i++){
 										
 										article_layout+=""+
-											"<div class='article'>"+
+											"<div class='news_article'>"+
 												"<div class='headLine' id='article_title"+i+"'>"+
 													"<h2>"+output[i].title+"</h2>"+
 													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
@@ -243,8 +255,7 @@
 						}
 						
 					?> <span class="sr-only">(current)</span></a>
-				</li>
-				
+				</li>	
 			  </ul>
 			</div>
 		  </div>
@@ -259,7 +270,7 @@
             <ul class="sidebar-nav">
 				<br/>
 				<li>
-					<a href="#" onclick="window.history.back();">
+					<a href="home.php" ><!--onclick="window.history.back();"-->
 						Back to home
 					</a>
 				</li>
@@ -275,7 +286,6 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-			
 			<div class="container-fluid">
             <div class="" id="tab_contents">	
 				

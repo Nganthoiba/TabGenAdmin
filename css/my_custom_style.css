@@ -202,6 +202,20 @@ body {
     background-color:#FFFFFF;
     color:#7D8080
 }
+.news_article {
+    float: left;
+    margin: 5px;
+    width: 93.33333333%;
+    min-height: 200px;
+    padding:1px;
+    border-radius:2px;
+    border: 1px solid #D8D8D8;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    background-color:#FFFFFF;
+    color:#7D8080
+}
 .div_layout {
     float: left;
     margin: 5px;

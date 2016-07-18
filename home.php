@@ -38,26 +38,7 @@
 			window.location.assign("index.html");
 		}
 		var user_session = JSON.parse(js_session);
-		 
-		
-		
-		 /*
-		 $(document).ready(function(){
-			function alignModal(){
-				var modalDialog = $(this).find(".modal-dialog");
-				
-				// Applying the top margin on modal dialog to align it vertically center
-				modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
-			}
-			// Align modal when it is displayed
-			$(".modal").on("shown.bs.modal", alignModal);
-			
-			// Align modal when user resize the window
-			$(window).on("resize", function(){
-				$(".modal:visible").each(alignModal);
-			});   
-		});
-		*/
+
 		$(document).ready(function(){
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
@@ -94,7 +75,6 @@
 				}, 30000);	
 		}
 	</script>
-	<!--ul.listShow li:hover {background-color:#F0F0F0;cursor:pointer;color:#202020}-->
 	<style type="text/css">		
 		
 		.my_background {
@@ -146,7 +126,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		  </button>
-		  <a class="navbar-brand" href="#menu-toggle" id="menu-toggle">
+		  <a class="navbar-brand" href="#" id="menu-toggle">
 			  <span class="glyphicon glyphicon-align-justify"></span>
 		  </a>
 		</div>
