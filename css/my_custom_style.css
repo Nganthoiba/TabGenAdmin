@@ -191,7 +191,7 @@ body {
 .article {
     float: left;
     margin: 5px;
-    width: 420px;
+    width: 100%;
     min-height: 200px;
     padding:1px;
     border-radius:2px;
@@ -207,7 +207,7 @@ body {
     margin: 5px;
     width: 350px;
     padding:10px;
-    border-radius:10px;
+    border-radius:3px;
     border: 1px solid #D8D8D8;
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
