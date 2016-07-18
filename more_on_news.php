@@ -181,13 +181,16 @@
 										article_layout+=""+
 											"<div class='article'>"+
 												"<div class='headLine' id='article_title"+i+"'>"+
-													output[i].title+
+													"<h2>"+output[i].title+"</h2>"+
 													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 												"</div>"+
+												"<div class='heading' id='article_title"+i+"'>"+
+													output[i].headline+	
+												"</div><br/>"+
 												"<div style='height:70%;padding:10px'>"+
 													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
 												"</div><br/><hr/>"+
-												"<button class='btn btn-info' style='float:right;padding-right:5px;"+
+												"<button class='btn' style='float:right;padding-right:5px;"+
 													"padding-bottom:5px' onclick='attachFile(\""+i+"\");'>"+
 													"<span class='glyphicon glyphicon-paperclip'></span>"+
 												"</button>"+	
