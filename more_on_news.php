@@ -219,9 +219,9 @@
 														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 												"<br/><hr/>"+
 												"<div id='file_attachment_layout"+i+"'></div>"+
-												"<button class='btn' style='float:left;padding-right:5px;"+
-													"padding-bottom:5px' onclick='attachFile(\""+i+"\");'>"+
-													"<span class='glyphicon glyphicon-paperclip'></span>"+
+												"<button class='btn btn-success' style='padding:5px;"+
+													"float:right' onclick='attachFile(\""+i+"\");'>"+
+													"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
 												"</button>"+	
 											"</div>";
 										document.getElementById("tab_contents").innerHTML=article_layout;
@@ -237,8 +237,8 @@
 					/*js for uploading any file*/
 					function attachFile(i){
 						var article_id = document.getElementById("article_id"+i).value;
-						var file_upload_layout=""+
-							"<div class='select_img_bg'>"+
+						var file_upload_layout="<center>"+
+							"<div class='select_file_bg'>"+
 								"<form id='uploadFileForm"+i+"' action='upload.php' method='post'>"+
 									"<div id='FileAttachtargetLayer"+i+"'></div>"+
 									"<button type='button' class='close' "+
@@ -262,7 +262,7 @@
 								"<center><div id='file_loader-icon"+i+"' style='display:none;'>"+
 									"<img src='img/loading.gif' /></div>"+
 								"</center>"+
-							"</div>";
+							"</div></center>";
 						document.getElementById("file_attachment_layout"+i).innerHTML=file_upload_layout;
 						//document.getElementById("files_content"+i).innerHTML=file_upload_layout;
 						$("#uploadFileForm"+i).submit(function(e) {	
@@ -271,7 +271,7 @@
 							var path_length = $('#userFile'+i).val().trim().length;
 							
 							if(path==null || path_length==0){
-								$("#file_attachment_layout"+i).html("<center><br/><div class=''>"+
+								$("#file_attachment_layout"+i).html("<center><br/><div class='select_file_bg'>"+
 									"No file has been selected. Please select one."+
 									"<button type='button' class='close' "+
 									"onclick='attachFile(\""+i+"\");'>&times;</button>"+
