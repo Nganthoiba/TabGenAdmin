@@ -210,7 +210,7 @@
 													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 												"</div>"+
 												"<div style='height:70%;padding:10px'>"+
-													"<div id='image_content"+i+"'>"+image_layout+"</div>"+
+													"<div id='image_content"+i+"'>"+image_layout+"</div><br/>"+
 													"<div id='textual_content"+i+"'>"+output[i].Textual_content+
 														"<button class='btn btn-link' style='float:right' onclick='editArticle(\""+i+"\");'>"+
 														"<span class='glyphicon glyphicon-pencil'></span></button>"+
