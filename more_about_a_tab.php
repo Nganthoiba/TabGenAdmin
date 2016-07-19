@@ -113,6 +113,20 @@
 					var tab_id=queryString['tab_id'];
 					getArticles(tab_id);
 					
+					function getFiles(i){
+						var file_list=files_path[i];
+						var files_layout="";
+										
+						var j=0;
+						for(var j=0;j<file_list.length;j++){
+							var files=file_list[j].file_name;
+							files_layout+=(files==null || files=="")?"":"<div class='attachment_bg'><a href='"+files+
+												"' target='_blank'>"+extractFileName(files)+"</a></div>";
+						}
+						files_layout=j>0?"Attached files: "+files_layout:"";
+						return files_layout;
+					}
+					
 					function getArticles(tab_id){
 						//alert(tab_id);
 						$.ajax({
@@ -135,14 +149,6 @@
 										image_path[i]=output[i].Images;
 										files_path[i]=output[i].Filenames;
 										var file_list=files_path[i];
-										var files_layout="";//+JSON.Stringify(output[i].Filenames);
-										var j=0;
-										for(var j=0;j<file_list.length;j++){
-											var files=file_list[j].file_name;
-											files_layout+=(files==null || files=="")?"":"<div class='attachment_bg'><a href='"+files+
-												"' target='_blank'>"+extractFileName(files)+"</a></div>";
-										}
-										files_layout=j>0?"Attached files: "+files_layout:"";		
 										
 										//image==null?"":
 										var image_layout=(image==null || image=="")?"":"<center><img src='"+image+
@@ -210,7 +216,7 @@
 														"' value='"+textual_content+"'/></div>"+
 													"<br/>"+
 													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
-														"id='files_content"+i+"'>"+files_layout+"</div>"+
+														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 													"<div id='file_attachment_layout"+i+"'></div>"+
 													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
 														"id='link_content"+i+"'>"+link_layout+"</div>"+
@@ -230,6 +236,7 @@
 												"</div>"+
 											"</div>";
 										document.getElementById("tab_contents").innerHTML=article_layout;
+										refreshFileLayout(i);
 									}
 								}
 								else{
@@ -642,18 +649,7 @@
 					}
 					
 					function refreshFileLayout(i){
-						var file_list=files_path[i];
-						var files_layout="";
-						var j=0;
-						for(j=0;j<file_list.length;j++){
-							var files=file_list[j].file_name;
-							files_layout+=(files==null || files=="")?"":"<div class='attachment_bg'><a href='"+files+
-												"' target='_blank'>"+extractFileName(files)+"</a></div>";
-						}
-						
-						files_layout=j>0?"Attached Files: "+files_layout:"";
-						
-						document.getElementById("files_content"+i).innerHTML=files_layout;
+						document.getElementById("files_content"+i).innerHTML=getFiles(i);
 						document.getElementById("file_attachment_layout"+i).innerHTML="";
 					}
 					function deleteArticle(i){
