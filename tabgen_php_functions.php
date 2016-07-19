@@ -809,10 +809,50 @@ function getFiles($conn,$article_id){
 	$res = $conn->query($query);
 	$files_output=array();
 	while($row = $res->fetch(PDO::FETCH_ASSOC)){
+		$row['file_icon']=file_icon($row['file_name']);
 		$row['attachment_url']="http://128.199.111.18/TabGenAdmin/".$row['file_name'];
 		$row['caption']=($row['caption']==null)?"":$row['caption'];
 		$files_output[]=$row;
 	}
 	return $files_output;
+}
+
+function file_icon($filename){
+	$ext = pathinfo($filename, PATHINFO_EXTENSION);
+	$icon_path="file_icons/";
+	switch($ext){
+		case "gif": $icon_path=$icon_path."gif.png";
+					break;
+		case "jpeg":
+		case "jpg":	$icon_path=$icon_path."jpeg.png";
+					break;
+		case "zip":	$icon_path=$icon_path."zip.png";
+					break;
+		case "pdf": $icon_path=$icon_path."pdf.png";
+					break;
+		case "xlsx": $icon_path=$icon_path."xlsx.png";
+					break;
+		case "accdb":$icon_path=$icon_path."accdb.png";
+					break;
+		case "docx":
+		case "doc":	$icon_path=$icon_path."docx_win.png";
+					break;
+		case "ppt":	$icon_path=$icon_path."pptx_win.png";
+					break;
+		case "bmp":	$icon_path=$icon_path."bmp.png";
+					break;
+		case "rar":	$icon_path=$icon_path."rar.png";
+					break;
+		case "psd":	$icon_path=$icon_path."psd.png";
+					break;	
+		case "png":	$icon_path=$icon_path."png.png";
+					break;
+		case "mp4":	$icon_path=$icon_path."mp4.png";
+					break;
+		case "java":	$icon_path=$icon_path."java.png";
+					break;
+		default: 	$icon_path=$icon_path."default.png";	
+	}
+	return $icon_path;
 }
 ?>

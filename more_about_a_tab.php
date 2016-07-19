@@ -120,10 +120,13 @@
 						var j=0;
 						for(var j=0;j<file_list.length;j++){
 							var files=file_list[j].file_name;
+							/*attachment_bg*/
 							files_layout+=(files==null || files=="")?"":"<div class='attachment_bg'><a href='"+files+
-												"' target='_blank'>"+extractFileName(files)+"</a></div>";
+												"' target='_blank'>"+
+												"<img src='"+file_list[j].file_icon+"' alt='No Icon'/><br/>"+
+												extractFileName(files)+"</a></div>";
 						}
-						files_layout=j>0?"Attached files: "+files_layout:"";
+						files_layout=j>0?"<div><h5>Attached files:</h5></div>"+files_layout:"";
 						return files_layout;
 					}
 					
