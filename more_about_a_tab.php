@@ -123,7 +123,7 @@
 							/*attachment_bg*/
 							files_layout+=(files==null || files=="")?"":"<div class='attachment_bg'><a href='"+files+
 												"' target='_blank'>"+
-												"<img src='"+file_list[j].file_icon+"' alt='No Icon'/><br/>"+
+												"<img src='"+file_list[j].file_icon+"' height='60px' width='60px' alt='No Icon'/>"+
 												extractFileName(files)+"</a></div>";
 						}
 						files_layout=j>0?"<div><h5>Attached files:</h5></div>"+files_layout:"";
