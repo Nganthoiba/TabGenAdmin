@@ -12,7 +12,7 @@
 		}
 		else{
 			$output=null;
-			$query = "select Id,CreateAt,title,headline,Details from News where tab_id='$tab_id' 
+			$query = "select Id,CreateAt,title,headline,Details,Image from News where tab_id='$tab_id' 
 			order by CreateAt desc";
 			$res = $conn->query($query);
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
@@ -21,6 +21,7 @@
 				$row['headline']=str_replace("''","'",$row['headline']);
 				$row['snippet']=substr($row['headline'],0,60)."...";
 				$row['Details']=str_replace("''","'",$row['Details']);
+				$row['Image']=$row['Image']==null?"":"http://128.199.111.18/TabGenAdmin/".$row['Image'];
 				$row['Attachments']=getFiles($conn,$row['Id']);
 				$output[]=$row;
 			}
