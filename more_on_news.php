@@ -194,7 +194,7 @@
 									" <button class='btn' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Put a picture</button></div></center></div>";
 						}
 						else{
-							layout="<div id='image_layout"+i+"'><center><img src='"+img_src+"' alt='No Image' "+
+							layout="<div id='image_layout"+i+"'><center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
 										"height='350px' width='80%' class=''/><br/><br/>"+
 									"<div id='image_upload_layout"+i+"'><button class='btn'"+
 									" onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Replace the picture</button>"+
@@ -276,6 +276,13 @@
 											"onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>&times;</button>"+
 											"</div></center>");
 										}
+									},
+									error: function(){
+										$("#image_upload_layout"+i).html("<center><div style='width:55.55%' class='alert alert-danger'>"+
+										"Failed to upload image, please check your connection or unable to reach server."+
+										"<button type='button' class='close' "+
+										"onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>&times;</button>"+
+										"</div></center>");
 									},
 									resetForm: true 
 								}); 
