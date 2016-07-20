@@ -185,19 +185,105 @@
 						files_layout=j>0?"<div><h5>Attached files:</h5></div>"+files_layout:"";
 						return files_layout;
 					}
+					
 					function displayArticleImage(i,img_src){
 						var layout="";
 						if(img_src=="" || img_src==null){
-							layout="<center>"+
-									"<div>News article contains no image,"+
-									" <button class='btn'>Put a picture</button></div></center>";
+							layout="<div id='image_layout"+i+"'><center><div id='image_upload_layout"+i+"'>News article contains no image,"+
+									" <button class='btn' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Put a picture</button></div></center></div>";
 						}
 						else{
-							layout="<center><img src='"+img_src+"' alt='No Image' "+
-										"height='350px' width='80%' class='img-thumbnail'/><br/>"+
-									"<div><button class='btn'>Relace the picture</button></div></center>";
+							layout="<div id='image_layout"+i+"'><center><img src='"+img_src+"' alt='No Image' "+
+										"height='350px' width='80%' class=''/><br/><br/>"+
+									"<div id='image_upload_layout"+i+"'><button class='btn'"+
+									" onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Replace the picture</button>"+
+									"</div></center></div>";
 						}
 						return layout;
+					}
+					
+					function upload_news_image(i,img_src){
+						var article_id = document.getElementById("article_id"+i).value;
+						var image_upload_layout="<center>"+
+							"<div class='select_file_bg'>"+
+							"<form id='uploadForm"+i+"' action='upload.php' method='post'>"+
+								"<div id='targetLayer"+i+"'></div>"+
+								"<button type='button' class='close' "+
+									"onclick='closeImageUpload(\""+i+"\",\""+img_src+"\");'>&times;</button>"+
+									"<label>Upload an image:</label>"+
+									"<table><tr>"+
+										"<td>"+
+											"<input name='news_image' id='news_image"+i+"' type='file' class='demoInputBox' />"+
+											"<input name='article_id' type='hidden' value='"+article_id+"'/>"+
+										"</td>"+
+										"<td>"+
+											"<input type='submit' id='SubmitPhoto"+i+"' value='Upload' class='btnSubmit'/>"+
+										"</td>"+
+									"</tr></table>"+	
+								"<div class='progress-div' style='display:none;' id='image_progress_div"+i+"'>"+
+									"<div class='progress-bar' id='image_progress_bar"+i+"'></div>"+
+								"</div>"+
+							"</form>"+
+							"<center><div id='image_loader_icon"+i+"' style='display:none;'><img src='img/loading.gif'/></div></center>"+
+							"</div></center>";
+						document.getElementById("image_upload_layout"+i).innerHTML=image_upload_layout;
+						$("#uploadForm"+i).submit(function(e) {	
+							var img_path = $("#news_image"+i).val();
+							var Extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
+							var path_length = $('#news_image'+i).val().trim().length;
+							
+							if(img_path==null || path_length==0){
+								$("#image_upload_layout"+i).html("<center><div class='alert alert-danger'>"+
+									"Please select an image."+
+									"<button type='button' class='close' "+
+									"onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>&times;</button>"+
+									"</div></center>");
+								return false;
+							}
+							else if(!(Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")){
+								$("#image_upload_layout"+i).html("<center><div class='alert alert-danger'>"+
+									"Not a valid image file.."+
+									"<button type='button' class='close' "+
+									"onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>&times;</button>"+
+									"</div></center>");
+								return false;
+							}
+							else{
+								e.preventDefault();
+								$("#image_loader_icon"+i).show();
+								$("#image_progress_div"+i).show();
+								$(this).ajaxSubmit({
+									url: "upload.php", 
+									beforeSubmit: function() {
+									  $("#progress-bar"+i).width('0%');
+									},
+									uploadProgress: function (event, position, total, percentComplete){	
+										$("#image_progress_bar"+i).width(percentComplete + '%');
+										$("#image_progress_bar"+i).html('<div id="image_progress_status'+i+'">' + percentComplete +' %</div>');
+									},
+									success:function (resp){
+										$("#image_loader_icon"+i).hide();
+										var json_resp = JSON.parse(resp);
+										//alert(json_resp.image_path);
+										if(json_resp.status==true){
+											closeImageUpload(i,json_resp.image_path);
+										}
+										else{
+											$("#image_upload_layout"+i).html("<center><div class='alert alert-danger'>"+
+											json_resp.message+
+											"<button type='button' class='close' "+
+											"onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>&times;</button>"+
+											"</div></center>");
+										}
+									},
+									resetForm: true 
+								}); 
+								return false; 
+							}
+						});
+					}
+					function closeImageUpload(i,img_src){
+						document.getElementById("image_content"+i).innerHTML=displayArticleImage(i,img_src);
 					}
 					function getNewsArticles(tab_id){
 						//alert(tab_id);
@@ -226,7 +312,7 @@
 												"<div class='heading' id='article_title"+i+"'>"+
 													output[i].headline+	
 												"</div><br/>"+
-												"<div id='image_box"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
+												"<div id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
 												"<div style='height:70%;padding:10px'>"+
 													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
 												"</div>"+

@@ -72,16 +72,23 @@ if(!empty($_FILES)) {
 			echo json_encode(array("status"=>false,"message"=>"Failed to upload your image. Try again later."));
 		}
 	}
-	else if(is_uploaded_file($_FILES['news_attachment']['tmp_name'])) {
-		$sourcePath = $_FILES['news_attachment']['tmp_name'];
+	else if(is_uploaded_file($_FILES['news_image']['tmp_name'])) {
+		$sourcePath = $_FILES['news_image']['tmp_name'];
 		$new_path = 'uploaded_file/';
 				
 		if(!is_dir($new_path) || !file_exists($new_path)) {  
 			mkdir($new_path , 0777);
         }
-        $targetPath = $new_path.$_FILES['news_attachment']['name'];
+        $targetPath = $new_path.$_FILES['news_image']['name'];
 		if(move_uploaded_file($sourcePath,$targetPath)) {
-			echo json_encode(array("status"=>true,"message"=>"File uploaded."));	
+			$query = "Update News set Image='$targetPath' where Id='$article_id'";
+			if($conn->query($query)){
+				echo json_encode(array("status"=>true,"message"=>"Successfully uploaded..","image_path"=>$targetPath));
+			}
+			else{
+				echo json_encode(array("status"=>false,"message"=>"Something went wrong.. Try again later."));
+			}
+				
 		}
 		else{
 			echo json_encode(array("status"=>false,"message"=>"Failed to upload your image. Try again later."));
