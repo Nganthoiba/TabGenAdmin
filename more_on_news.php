@@ -234,7 +234,7 @@
 							var path_length = $('#news_image'+i).val().trim().length;
 							
 							if(img_path==null || path_length==0){
-								$("#image_upload_layout"+i).html("<center><div class='alert alert-danger'>"+
+								$("#image_upload_layout"+i).html("<center><div style='width:55.55%' class='alert alert-danger'>"+
 									"Please select an image."+
 									"<button type='button' class='close' "+
 									"onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>&times;</button>"+
@@ -242,7 +242,7 @@
 								return false;
 							}
 							else if(!(Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")){
-								$("#image_upload_layout"+i).html("<center><div class='alert alert-danger'>"+
+								$("#image_upload_layout"+i).html("<center><div style='width:55.55%' class='alert alert-danger'>"+
 									"Not a valid image file.."+
 									"<button type='button' class='close' "+
 									"onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>&times;</button>"+
