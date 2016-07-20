@@ -185,6 +185,20 @@
 						files_layout=j>0?"<div><h5>Attached files:</h5></div>"+files_layout:"";
 						return files_layout;
 					}
+					function displayArticleImage(i,img_src){
+						var layout="";
+						if(img_src=="" || img_src==null){
+							layout="<center>"+
+									"<div>News article contains no image,"+
+									" <button class='btn'>Put a picture</button></div></center>";
+						}
+						else{
+							layout="<center><img src='"+img_src+"' alt='No Image' "+
+										"height='350px' width='80%' class='img-thumbnail'/><br/>"+
+									"<div><button class='btn'>Relace the picture</button></div></center>";
+						}
+						return layout;
+					}
 					function getNewsArticles(tab_id){
 						//alert(tab_id);
 						$.ajax({
@@ -212,6 +226,7 @@
 												"<div class='heading' id='article_title"+i+"'>"+
 													output[i].headline+	
 												"</div><br/>"+
+												"<div id='image_box"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
 												"<div style='height:70%;padding:10px'>"+
 													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
 												"</div>"+
