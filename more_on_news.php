@@ -189,7 +189,8 @@
 					function displayArticleImage(i,img_src){
 						var layout="";
 						if(img_src=="" || img_src==null){
-							layout="<div id='image_layout"+i+"'><center><div id='image_upload_layout"+i+"'>News article contains no image,"+
+							layout="<div id='image_layout"+i+"'>"+
+								"<center><div id='image_upload_layout"+i+"'>This article contains no picture,<br/>"+
 									" <button class='btn' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Put a picture</button></div></center></div>";
 						}
 						else{
