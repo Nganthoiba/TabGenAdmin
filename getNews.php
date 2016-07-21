@@ -51,6 +51,9 @@ if(!empty($_GET['user_id'])){
 				$j=$j+$lim;
 			}	
 		}
+		else if($count==0){
+			$outer_arr=null;
+		}
 		else{
 			$j=0;
 			while($j<$count){
