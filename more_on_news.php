@@ -31,6 +31,7 @@
 	<!--.......................-->
 	<script type="text/javascript">
 	$(document).ready(function(){
+		
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled");
@@ -46,6 +47,8 @@
 	<script src="tinymce/js/tinymce/jquery.tinymce.min.js"></script>
 	<!--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>-->
 	<script>
+		var before_timestamp;
+		var after_timestamp;
 		
 		tinymce.init({ 
 			selector:'textarea',
@@ -68,7 +71,7 @@
 			'//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
 			'//www.tinymce.com/css/codepen.min.css'
 		  ]
-		 */
+		*/
 	</script>
 	
 	<!--
@@ -109,7 +112,7 @@
 				}, 30000);	
 		}
 	</script>
-	<body onload='getSession();'>
+	<body onload='getSession();getNewsArticles(tab_id,"first_time_load");'>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 			<div class="navbar-header">
@@ -141,7 +144,7 @@
 						}
 					}	
 					var tab_id=queryString['tab_id'];
-					getNewsArticles(tab_id);
+					getNewsArticles(tab_id,'first_time_load');
 					
 					function getFiles(i){
 						var file_list=files_path[i];
@@ -330,10 +333,20 @@
 							}
 						});
 					}
-					function getNewsArticles(tab_id){
-						//alert(tab_id);
+					function getNewsArticles(tab_id,loading_mode){
+						var data;
+						if(loading_mode=="first_time_load"){
+							data="tab_id="+tab_id+"&loading_mode="+loading_mode;
+						}
+						else if(loading_mode=="before"){
+							data="tab_id="+tab_id+"&loading_mode="+loading_mode+"&timestamp="+before_timestamp;
+						}
+						else if(loading_mode=="after"){
+							data="tab_id="+tab_id+"&loading_mode="+loading_mode+"&timestamp="+after_timestamp;
+						}
+						//$("#tab_contents").html("<center><p>Loading...</p></center>");
 						$.ajax({
-							url: "getNewsArticle.php?tab_id="+tab_id,
+							url: "getNewsArticle.php?"+data,
 							type: "GET",
 							success: function(resp){
 								//alert(resp);
@@ -341,7 +354,17 @@
 								if(result.state==true){
 									output = result.output;
 									if(output==null){
-										document.getElementById("tab_contents").innerHTML="<center>No news article found, create a new one.</center>";
+										if(loading_mode=="first_time_load"){
+											document.getElementById("tab_contents").innerHTML="<center>No news article found, create a new one.</center>";
+										}
+										else if(loading_mode=="before"){
+											//do nothing
+											swal("No more news article!");
+										}
+										else if(loading_mode=="after"){
+											//do nothing
+											swal("No more news article!");
+										}
 										return false;
 									}
 									var article_layout="";
@@ -379,6 +402,9 @@
 											"</div>";
 										document.getElementById("tab_contents").innerHTML=article_layout;
 									}
+									before_timestamp=output[output.length-1].CreateAt;
+									after_timestamp=output[0].CreateAt;
+									
 								}
 								else{
 									document.getElementById("tab_contents").innerHTML="<center>"+result.message+"</center>";
@@ -505,7 +531,24 @@
 						}
 						
 					?> <span class="sr-only">(current)</span></a>
+				</li>
+				<li>
+					<a>
+						<button class='btn' onclick="getNewsArticles(tab_id,'first_time_load');">
+							<span class="glyphicon glyphicon-repeat"></span> Reload
+						</button>
+					</a>
 				</li>	
+			  </ul>
+			  <ul class="nav navbar-nav navbar-right">	 
+				<li>
+					<a>
+						<div class="btn-group">
+							<button onclick="getNewsArticles(tab_id,'after');" class='btn btn-default'><span class="glyphicon glyphicon-chevron-left"></span></button>
+							<button onclick="getNewsArticles(tab_id,'before');" class='btn btn-default'><span class="glyphicon glyphicon-chevron-right"></span></button>
+						</div>	
+					</a>
+				</li>
 			  </ul>
 			</div>
 		  </div>
@@ -638,7 +681,7 @@
 															j_resp.message+"</strong></center>");
 															if(j_resp.status==true){
 																$("#publishNewsResponse").css('color', 'green');
-																getNewsArticles(tab_id);
+																getNewsArticles(tab_id,'first_time_load');
 															}
 															else{
 																$("#publishNewsResponse").css('color', 'red');

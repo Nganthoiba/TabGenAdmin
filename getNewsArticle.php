@@ -12,8 +12,24 @@
 		}
 		else{
 			$output=null;
-			$query = "select Id,CreateAt,title,headline,Details,Image from News where tab_id='$tab_id' 
-			order by CreateAt desc";
+			$query=null;
+			$loading_mode=$_GET['loading_mode'];
+			if($loading_mode=="first_time_load"){
+				$query = "select Id,CreateAt,title,headline,Details,Image from News where tab_id='$tab_id' 
+						order by CreateAt desc limit 10";
+			}
+			else if($loading_mode=="after"){
+				$timestamp = $_GET['timestamp'];
+				$query = "select Id,CreateAt,title,headline,Details,Image from News where tab_id='$tab_id' 
+							and CreateAt>'$timestamp'
+						order by CreateAt desc limit 10";
+			}
+			else if($loading_mode=="before"){
+				$timestamp = $_GET['timestamp'];
+				$query = "select Id,CreateAt,title,headline,Details,Image from News where tab_id='$tab_id' 
+							and CreateAt<'$timestamp'
+						order by CreateAt desc limit 10";
+			}
 			$res = $conn->query($query);
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
 				$row['CreateAt']=(double)$row['CreateAt'];
