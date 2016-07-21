@@ -397,8 +397,8 @@
 									"<button type='button' class='close' "+
 										"onclick='closeFileUpload(\""+i+"\");'>&times;</button>"+
 										"<center>"+
+										"<label>Attach a file:</label>"+
 										"<table><tr>"+
-											"<td><label>Attach a file:</label></td>"+
 											"<td>"+
 												"<input name='userFile' id='userFile"+i+"' type='file' class='demoInputBox' />"+
 												"<input name='article_id' type='hidden' value='"+article_id+"'/>"+
