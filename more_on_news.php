@@ -363,7 +363,7 @@
 										}
 										else if(loading_mode=="after"){
 											//do nothing
-											swal("No more news article!");
+											//swal("No more news article!");
 										}
 										return false;
 									}
