@@ -46,11 +46,16 @@ if(isset($_SESSION['user_details'])){
 						}							
 					}
 					else if($template_name=="Latest News Template"){
-						if(createNews($conn,$tab_name)){
-							create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific);
+						if(isNewsTitleExists($conn,$title)){
+							echo json_encode(array("status"=>false,"message"=>"News with the same title already existed."));
 						}
 						else{
-							echo json_encode(array("status"=>false,"message"=>"Unable to create news"));
+							if(createNews($conn,$tab_name)){
+								create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific);
+							}
+							else{
+								echo json_encode(array("status"=>false,"message"=>"Unable to create news"));
+							}
 						}
 					}
 					else{

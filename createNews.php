@@ -60,15 +60,5 @@ else{
 	echo json_encode(array("status"=>false,"message"=>"No file sent. Try again later."));
 }	
 */
-function isNewsTitleExists($conn,$title){
-	$query = "select count(*) as count from News where title='$title'";
-	$res = $conn->query($query);
-	$row = $res->fetch(PDO::FETCH_ASSOC);
-	if((int)$row['count']>0){
-			return true;
-	}
-	else{
-			return false;
-	}
-}
+
 ?>
