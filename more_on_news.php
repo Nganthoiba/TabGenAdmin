@@ -409,6 +409,10 @@
 								else{
 									document.getElementById("tab_contents").innerHTML="<center>"+result.message+"</center>";
 								}
+							},
+							error: function(){
+								swal("Server unreachable!", "Sorry, we are unable to reach server,"+
+								" please check your connection or try again later.", "error");
 							}
 						});
 					}
