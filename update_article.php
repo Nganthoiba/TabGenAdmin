@@ -43,6 +43,17 @@
 				echo json_encode(array("status"=>false,"message"=>"Update failed..."));
 			}
 		}
+		else if(!empty($_POST['news_headline'])){
+			$news_headline = $_POST['news_headline'];
+			$news_headline = str_replace ("'","''", $news_headline);
+			$query = "update News set headline='$news_headline' where Id='$id'";
+			if($conn->query($query)){
+				echo json_encode(array("status"=>true,"message"=>"Successfully updated..."));
+			} 
+			else{
+				echo json_encode(array("status"=>false,"message"=>"Update failed..."));
+			}
+		}
 	}
 	
 ?>

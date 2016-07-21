@@ -55,31 +55,10 @@
 			height: 200,
 			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
 		});
-		/*tinymce.init({
-		  selector: 'textarea',
-		  height: 200,
-		  plugins: [
-			'advlist autolink lists link image charmap print preview anchor',
-			'searchreplace visualblocks code fullscreen',
-			'insertdatetime media table contextmenu paste code'
-		  ],
-		  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-		  
-		});*/
-		/*
-		  content_css: [
-			'//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
-			'//www.tinymce.com/css/codepen.min.css'
-		  ]
-		*/
+		
 	</script>
 	
-	<!--
-	<script type="text/javascript" src="nicEdit/nicEdit.js"></script>
-	<script type="text/javascript">
-		bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
-	</script>
-	-->
+
 	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -112,7 +91,7 @@
 				}, 30000);	
 		}
 	</script>
-	<body onload='getSession();getNewsArticles(tab_id,"first_time_load");'>
+	<body onload='getSession();getNews(tab_id);'>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 			<div class="navbar-header">
@@ -144,8 +123,8 @@
 						}
 					}	
 					var tab_id=queryString['tab_id'];
-					getNewsArticles(tab_id,'first_time_load');
-					
+					//getNewsArticles(tab_id,'first_time_load');
+					getNews(tab_id);
 					function getFiles(i){
 						var file_list=files_path[i];
 						var files_layout="";
@@ -291,12 +270,14 @@
 					
 					//js function to cancel edit and hide the edit layout
 					function cancel_edit_content(i){
+						var edit_content_button=output[i].Details==null||output[i].Details==""?"Add Content":"Edit Content";
+										
 						var layout="<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
-													"<div class='pull-right'>"+
+													"<div class=''>"+
 														"<button class='btn btn-link' "+
 														"onclick='edit_content(\""+i+"\");'"+
 														"id='edit_content"+i+"'>"+
-														"Edit Content</button>"+
+														edit_content_button+"</button>"+
 													"</div>";
 						$("#textual_content_layout"+i).html(layout);
 					}
@@ -315,7 +296,7 @@
 								if(json_resp.status==true){
 									swal("Update Successful!", json_resp.message, "success");
 									var layout="<div id='textual_content"+i+"'>"+news_details+"</div>"+
-													"<div class='pull-right'>"+
+													"<div class=''>"+
 														"<button class='btn btn-link' "+
 														"onclick='edit_content(\""+i+"\");'"+
 														"id='edit_content"+i+"'>"+
@@ -333,6 +314,126 @@
 							}
 						});
 					}
+					
+					
+					function get_headline(i){
+						var button_val=output[i].headline==null||output[i].headline==""?"Add News Headline here":"Edit News headline";
+						var layout = "<div class='heading' id='article_headline"+i+"'>"+output[i].headline+	
+									"</div><button onclick='edit_news_headline(\""+i+"\");' class='btn btn-link'>"+button_val+"</button><br/>";
+						return layout;
+					}
+					
+					function edit_news_headline(i){
+						var edit_layout="<textarea class='form-control' id='news_headline_id"+i+"'>"+output[i].headline+"</textarea>"+
+						"<div class='pull-right'>"+
+						"<button onclick='cancel_edit_headline(\""+i+"\");' class='btn btn-default'>Cancel</button>&nbsp;"+
+						"<button onclick='save_edit_headline(\""+i+"\");' class='btn btn-default'>Save</button>"+
+						"</div><br/><br/>";
+						document.getElementById("headline_layout"+i).innerHTML=edit_layout;
+						/*"#news_details_id"+i*/
+						tinymce.init({ 
+							selector:'textarea',
+							height: 200,
+							toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+						});
+					}
+					function cancel_edit_headline(i){			
+						var layout=get_headline(i);
+						$("#headline_layout"+i).html(layout);
+					}
+					
+					//js function to save the new edited contents of news details
+					function save_edit_headline(i){
+						var news_headline = tinyMCE.get('news_headline_id'+i).getContent();
+						var article_id = document.getElementById("article_id"+i).value;
+						//alert(news_headline);
+						
+						$.ajax({
+							url: "update_article.php",
+							type:"POST",
+							data:{"article_id":article_id,"news_headline":news_headline},
+							success: function(resp){
+								//alert(resp);
+								var json_resp = JSON.parse(resp);
+								if(json_resp.status==true){
+									swal("Update Successful!", json_resp.message, "success");
+									output[i].headline=news_headline;
+									var layout=get_headline(i);
+									$("#headline_layout"+i).html(layout);
+								}
+								else{
+									swal("Update Failed!", json_resp.message, "error");
+								}
+							},
+							error: function(){
+								swal("Update Failed!", "Unable to reach server. Please check your connection or try again later.", "error");
+							}
+						});
+						
+					}
+					
+					function getNews(tab_id){
+						
+						var data="tab_id="+tab_id;
+						//alert(data);
+						$.ajax({
+							url: "getNews_details.php",
+							data: data,
+							type: "GET",
+							success: function(resp){
+								//alert(resp);
+								var result = JSON.parse(resp);
+								if(result.state==true){
+									output = result.output;
+									if(output==null){
+										return false;
+									}
+									var article_layout="";
+									
+									for(var i=0;i<output.length;i++){
+										files_path[i]=output[i].Attachments;
+										/*"onclick='edit_content(\""+i+"\",\""+output[i].Details+"\");' "+*/
+										var edit_content_button=output[i].Details==null||output[i].Details==""?"Add Content":"Edit Content";
+										article_layout+=""+
+											"<div class='news_article' style='width:97%'>"+
+												"<div class='headLine' id='article_title"+i+"'>"+
+													"<h2>"+output[i].title+"</h2>"+
+													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
+												"</div>"+
+												"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
+												"<div id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
+												"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
+													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
+													"<div class=''>"+
+														"<button class='btn btn-link' "+
+														"onclick='edit_content(\""+i+"\");'"+
+														"id='edit_content"+i+"'>"+
+														edit_content_button+"</button>"+
+													"</div>"+
+												"</div>"+
+												"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:10px' "+
+														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
+												"<br/><hr/>"+
+												"<div id='file_attachment_layout"+i+"'></div>"+
+												"<button class='btn btn-success' style='padding:5px;"+
+													"float:right' onclick='attachFile(\""+i+"\");'>"+
+													"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
+												"</button>"+	
+											"</div>";
+										document.getElementById("tab_contents").innerHTML=article_layout;
+									}
+								}
+								else{
+									document.getElementById("tab_contents").innerHTML="<center>"+result.message+"</center>";
+								}
+							},
+							error: function(){
+								swal("Server unreachable!", "Sorry, we are unable to reach server,"+
+								" please check your connection or try again later.", "error");
+							}
+						});
+					}
+					
 					function getNewsArticles(tab_id,loading_mode){
 						var data;
 						if(loading_mode=="first_time_load"){
@@ -537,21 +638,22 @@
 					?> <span class="sr-only">(current)</span></a>
 				</li>
 				<li>
-					<a>
-						<button class='btn' onclick="getNewsArticles(tab_id,'first_time_load');">
+					<!--<a>
+						<button class='btn' onclick="getNews(tab_id);">
 							<span class="glyphicon glyphicon-repeat"></span> Reload
 						</button>
-					</a>
+					</a>-->
 				</li>	
 			  </ul>
 			  <ul class="nav navbar-nav navbar-right">	 
 				<li>
+					<!--
 					<a>
 						<div class="btn-group">
 							<button onclick="getNewsArticles(tab_id,'after');" class='btn btn-default'><span class="glyphicon glyphicon-chevron-left"></span></button>
 							<button onclick="getNewsArticles(tab_id,'before');" class='btn btn-default'><span class="glyphicon glyphicon-chevron-right"></span></button>
 						</div>	
-					</a>
+					</a>-->
 				</li>
 			  </ul>
 			</div>
@@ -571,12 +673,13 @@
 						Back to home
 					</a>
 				</li>
+				<!--
 				<li>
 					<a href="#" data-toggle="modal" data-target="#post_a_news"
 					 onclick="reset_news_form();">
 						Add a news
 					</a>
-				</li>
+				</li>-->
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
