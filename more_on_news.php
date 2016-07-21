@@ -272,8 +272,7 @@
 					
 					//This function is to display an edit layout of the news details description
 					function edit_content(i){
-						var contents=document.getElementById("textual_content"+i).innerHTML
-						var edit_layout="<textarea class='form-control' id='news_details_id"+i+"'>"+contents+"</textarea>"+
+						var edit_layout="<textarea class='form-control' id='news_details_id"+i+"'>"+output[i].Details+"</textarea>"+
 						"<div class='pull-right'>"+
 						"<button onclick='cancel_edit_content(\""+i+"\");' class='btn btn-default'>Cancel</button>&nbsp;"+
 						"<button onclick='save_edit_content(\""+i+"\");' class='btn btn-default'>Save</button>"+
