@@ -310,8 +310,8 @@
 							success: function(resp){
 								//alert(resp);
 								var json_resp = JSON.parse(resp);
-								swal("Update Successful!", json_resp.message, "success");
 								if(json_resp.status==true){
+									swal("Update Successful!", json_resp.message, "success");
 									var layout="<div id='textual_content"+i+"'>"+news_details+"</div>"+
 													"<div class='pull-right'>"+
 														"<button class='btn btn-link' "+
