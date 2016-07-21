@@ -152,7 +152,7 @@
 							var files=file_list[j].file_name;
 							files_layout+=(files==null || files=="")?"":"<div class='col-sm-4'><a href='"+files+
 												"' target='_blank'>"+
-												"<img src='"+file_list[j].file_icon+"' alt='No Icon'/><br/>"+
+												"<img src='"+file_list[j].file_icon+"' height='50px' width='50px' alt='No Icon'/><br/>"+
 												extractFileName(files)+"</a></div>";
 						}
 						files_layout=j>0?"<div><h5>Attached files:</h5></div>"+files_layout:"";
