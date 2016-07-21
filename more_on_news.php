@@ -171,7 +171,6 @@
 										"height='350px' width='80%' class=''/><br/>"+
 									"<div id='image_upload_layout"+i+"'>"+
 									"<div class='btn-group'>"+
-									"<button class='btn'>Remove picture</button>"+
 									"<button class='btn'"+
 									" onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Replace the image</button>"+
 									"</div></div></center></div>";
