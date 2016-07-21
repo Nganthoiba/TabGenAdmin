@@ -527,7 +527,7 @@
 				<li>
 					<a href="#" data-toggle="modal" data-target="#post_a_news"
 					 onclick="reset_news_form();">
-						Post a news
+						Add a news
 					</a>
 				</li>
             </ul>
