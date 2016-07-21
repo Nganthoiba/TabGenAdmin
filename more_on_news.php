@@ -25,7 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 	
-	<!-- This is what you need for sweet alert -->
+	<!-- This is for sweet alert -->
 	<script src="dist/sweetalert-dev.js"></script>
 	<link rel="stylesheet" href="dist/sweetalert.css">
 	<!--.......................-->
@@ -39,35 +39,7 @@
 	function toggle(){
 		$("#wrapper").toggleClass("toggled");
 	}
-	$(document).ready(function() { 
-		
-		/*
-		 $('#uploadForm').submit(function(e) {	
-			if($('#attachFile').val()) {
-				e.preventDefault();
-				$('#loader-icon').show();
-				$('#progress-div').show();
-				$(this).ajaxSubmit({ 
-					target:   '#targetLayer', 
-					beforeSubmit: function() {
-						$("#progress-bar").width('0%');
-					},
-					uploadProgress: function (event, position, total, percentComplete){	
-						$("#progress-bar").width(percentComplete + '%');
-						$("#progress-bar").html('<div id="progress-status">' + percentComplete +' %</div>')
-					},
-					success:function (resp){
-						$('#loader-icon').hide();
-						var json_resp = JSON.parse(resp);
-						$('#targetLayer').html(json_resp.message);
-					},
-					resetForm: true 
-				}); 
-				return false; 
-			}
-		});
-		*/
-	}); 
+	
 	</script>
 	<!-- text editing features -->
 	<script src="tinymce/js/tinymce/tinymce.min.js"></script>
@@ -155,6 +127,7 @@
 			</div>
 			
 			<script type="text/JavaScript">
+					var output;//contains list of articles
 					var files_path=[];
 					
 					var queryString = new Array();
@@ -191,14 +164,17 @@
 						if(img_src=="" || img_src==null){
 							layout="<div id='image_layout"+i+"'>"+
 								"<center><div id='image_upload_layout"+i+"'>This article contains no picture,<br/>"+
-									" <button class='btn' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Put a picture</button></div></center></div>";
+									" <button class='btn' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Put an image</button></div></center></div>";
 						}
 						else{
 							layout="<div id='image_layout"+i+"'><center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
-										"height='350px' width='80%' class=''/><br/><br/>"+
-									"<div id='image_upload_layout"+i+"'><button class='btn'"+
-									" onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Replace the picture</button>"+
-									"</div></center></div>";
+										"height='350px' width='80%' class=''/><br/>"+
+									"<div id='image_upload_layout"+i+"'>"+
+									"<div class='btn-group'>"+
+									"<button class='btn'>Remove picture</button>"+
+									"<button class='btn'"+
+									" onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Replace the image</button>"+
+									"</div></div></center></div>";
 						}
 						return layout;
 					}
@@ -293,6 +269,69 @@
 					function closeImageUpload(i,img_src){
 						document.getElementById("image_content"+i).innerHTML=displayArticleImage(i,img_src);
 					}
+					
+					//This function is to display an edit layout of the news details description
+					function edit_content(i){
+						var contents=document.getElementById("textual_content"+i).innerHTML
+						var edit_layout="<textarea class='form-control' id='news_details_id"+i+"'>"+contents+"</textarea>"+
+						"<div class='pull-right'>"+
+						"<button onclick='cancel_edit_content(\""+i+"\");' class='btn btn-default'>Cancel</button>&nbsp;"+
+						"<button onclick='save_edit_content(\""+i+"\");' class='btn btn-default'>Save</button>"+
+						"</div>";
+						document.getElementById("textual_content_layout"+i).innerHTML=edit_layout;
+						/*"#news_details_id"+i*/
+						tinymce.init({ 
+							selector:'textarea',
+							height: 200,
+							toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+						});
+						//var news_details = tinyMCE.get('news_details_id'+i).getContent();
+					}
+					
+					//js function to cancel edit and hide the edit layout
+					function cancel_edit_content(i){
+						var layout="<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
+													"<div class='pull-right'>"+
+														"<button class='btn btn-link' "+
+														"onclick='edit_content(\""+i+"\");'"+
+														"id='edit_content"+i+"'>"+
+														"Edit Content</button>"+
+													"</div>";
+						$("#textual_content_layout"+i).html(layout);
+					}
+					
+					//js function to save the new edited contents of news details
+					function save_edit_content(i){
+						var news_details = tinyMCE.get('news_details_id'+i).getContent();
+						var article_id = document.getElementById("article_id"+i).value;
+						$.ajax({
+							url: "update_article.php",
+							type:"POST",
+							data:{"article_id":article_id,"news_details":news_details},
+							success: function(resp){
+								//alert(resp);
+								var json_resp = JSON.parse(resp);
+								swal("Update Successful!", json_resp.message, "success");
+								if(json_resp.status==true){
+									var layout="<div id='textual_content"+i+"'>"+news_details+"</div>"+
+													"<div class='pull-right'>"+
+														"<button class='btn btn-link' "+
+														"onclick='edit_content(\""+i+"\");'"+
+														"id='edit_content"+i+"'>"+
+														"Edit Content</button>"+
+													"</div>";
+									$("#textual_content_layout"+i).html(layout);
+									output[i].Details=news_details;
+								}
+								else{
+									swal("Update Failed!", json_resp.message, "error");
+								}
+							},
+							error: function(){
+								swal("Update Failed!", "Unable to reach server. Please check your connection or try again later.", "error");
+							}
+						});
+					}
 					function getNewsArticles(tab_id){
 						//alert(tab_id);
 						$.ajax({
@@ -302,7 +341,7 @@
 								//alert(resp);
 								var result = JSON.parse(resp);
 								if(result.state==true){
-									var output = result.output;
+									output = result.output;
 									if(output==null){
 										document.getElementById("tab_contents").innerHTML="<center>No news article found, create a new one.</center>";
 										return false;
@@ -311,6 +350,7 @@
 									
 									for(var i=0;i<output.length;i++){
 										files_path[i]=output[i].Attachments;
+										/*"onclick='edit_content(\""+i+"\",\""+output[i].Details+"\");' "+*/
 										article_layout+=""+
 											"<div class='news_article'>"+
 												"<div class='headLine' id='article_title"+i+"'>"+
@@ -321,8 +361,14 @@
 													output[i].headline+	
 												"</div><br/>"+
 												"<div id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
-												"<div style='height:70%;padding:10px'>"+
+												"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
 													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
+													"<div class='pull-right'>"+
+														"<button class='btn btn-link' "+
+														"onclick='edit_content(\""+i+"\");'"+
+														"id='edit_content"+i+"'>"+
+														"Edit Content</button>"+
+													"</div>"+
 												"</div>"+
 												"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:10px' "+
 														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
@@ -552,7 +598,6 @@
 											<textarea class="form-control" name="news_details" id="news_details" 
 											placeholder="Write news detail here..."
 											style="resize:vertical;overflow:auto;"
-											onkeyup="alert(tinyMCE.activeEditor.selection.getContent());"
 											required="true"
 											rows="5" cols="20"></textarea>
 										</div>
@@ -565,42 +610,6 @@
 										<Button type="button" class="btn btn-info" id="publishNews"
 											onclick="publish(); return false;">Publish</Button>
 										<script type="text/JavaScript">
-											/*
-											function submitFile(){
-												$('#uploadForm').submit(function(e) {	
-													if($('#attachFile').val()) {
-														e.preventDefault();
-														$('#loader-icon').show();
-														$('#progress-div').show();
-														$(this).ajaxSubmit({ 
-															target:   '#targetLayer', 
-															beforeSubmit: function() {
-																$("#progress-bar").width('0%');
-															},
-															uploadProgress: function (event, position, total, percentComplete){	
-																$("#progress-bar").width(percentComplete + '%');
-																$("#progress-bar").html('<div id="progress-status">' + percentComplete +' %</div>')
-															},
-															success:function (resp){
-																$('#loader-icon').hide();
-																var json_resp = JSON.parse(resp);
-																$('#targetLayer').html(json_resp.message);
-															},
-															resetForm: true 
-														}); 
-														return false; 
-													}
-												});
-												if(document.getElementById("attachFile").value==""){
-													alert("Please select a file...");
-													return false;
-												}
-												else
-												{
-													document.forms.submit();
-												}									
-											}
-											*/
 											function reset_news_form(){
 												document.getElementById('publish_a_news').reset();
 												$('#publishNewsResponse').html("");
