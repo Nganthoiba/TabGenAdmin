@@ -37,7 +37,7 @@ if(!empty($news_id)){
 	</head>
 	
 	<body>
-		<center><div class="col-sm-12">
+		<div class="col-sm-12" style="padding-bottom:10px">
 		<?php 
 			$query="select * from News where Id='$news_id'";
 			if($conn){
@@ -56,7 +56,7 @@ if(!empty($news_id)){
 				}
 			}
 		?>
-		</div></center>
+		</div>
 	</body>
 </html>
 <?php
