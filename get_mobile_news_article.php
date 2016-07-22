@@ -37,7 +37,7 @@ if(!empty($news_id)){
 	</head>
 	
 	<body>
-		<center><div>
+		<center><div class="col-sm-12">
 		<?php 
 			$query="select * from News where Id='$news_id'";
 			if($conn){
