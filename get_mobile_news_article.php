@@ -35,8 +35,8 @@ if(!empty($news_id)){
 		<script src="js/npm.js"></script>
 		<script src="homepage.js"></script>
 	</head>
-	<body class='news_article2'>
-		<div >
+	<body >
+		<center><div style="width:80%" class='news_article2'>
 		<?php 
 			$query="select * from News where Id='$news_id'";
 			if($conn){
@@ -55,7 +55,7 @@ if(!empty($news_id)){
 				}
 			}
 		?>
-		</div>
+		</div></center>
 	</body>
 </html>
 <?php
