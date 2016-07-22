@@ -38,8 +38,8 @@ if(!empty($news_id)){
 		<script src="js/npm.js"></script>
 		<script src="homepage.js"></script>
 	</head>
-	<body>
-		<div class='news_article'>
+	<body bgcolor='#FFFFFF'>
+		<div class='col-sm-12'>
 		<?php 
 			$query="select * from News where Id='$news_id'";
 			if($conn){
