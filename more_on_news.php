@@ -162,8 +162,8 @@
 					
 					function upload_news_image(i,img_src){
 						var article_id = document.getElementById("article_id"+i).value;
-						var image_upload_layout="<center>"+
-							"<div class='select_file_bg'>"+
+						var image_upload_layout=""+
+							"<div style='width:47.33%;margin: 0 auto;' class='select_file_bg'>"+
 							"<form id='uploadForm"+i+"' action='upload.php' method='post'>"+
 								"<div id='targetLayer"+i+"'></div>"+
 								"<button type='button' class='close' "+
@@ -183,7 +183,7 @@
 								"</div>"+
 							"</form>"+
 							"<center><div id='image_loader_icon"+i+"' style='display:none;'><img src='img/loading.gif'/></div></center>"+
-							"</div></center>";
+							"</div>";
 						document.getElementById("image_upload_layout"+i).innerHTML=image_upload_layout;
 						$("#uploadForm"+i).submit(function(e) {	
 							var img_path = $("#news_image"+i).val();
@@ -326,12 +326,12 @@
 					function edit_news_headline(i){
 						/*"<textarea class='form-control' id='news_headline_id"+i+"'>"+
 						output[i].headline+"</textarea>"+*/
-						var edit_layout="<center><div class='edit_headline'><label for='news_headline_id"+i+"'>News Headline:</label>"+
+						var edit_layout="<div class='edit_headline'><label for='news_headline_id"+i+"'>News Headline:</label>"+
 						"<button onclick='cancel_edit_headline(\""+i+"\");' class='close'>&times;</button>"+
-						"<input type='text' class='form-control' id='news_headline_id"+i+"' "+
+						"<input type='text' placeholder='Put your news headline here' class='form-control' id='news_headline_id"+i+"' "+
 						"value='"+output[i].headline+"'/><br/>"+
 						"<center><button onclick='save_edit_headline(\""+i+"\");' class='btn btn-default'>Save</button></center>"+
-						"</div></center><br/><br/>";
+						"</div><br/><br/>";
 						document.getElementById("headline_layout"+i).innerHTML=edit_layout;
 						/*"#news_details_id"+i*/
 						tinymce.init({ 
@@ -350,7 +350,9 @@
 						var news_headline = document.getElementById('news_headline_id'+i).value;//tinyMCE.get('news_headline_id'+i).getContent();
 						var article_id = document.getElementById("article_id"+i).value;
 						//alert(news_headline);
-						
+						var trim=news_headline.trim();
+						if(trim.length==0)
+						alert("No input");
 						$.ajax({
 							url: "update_article.php",
 							type:"POST",
@@ -524,13 +526,13 @@
 					/*js for uploading any file*/
 					function attachFile(i){
 						var article_id = document.getElementById("article_id"+i).value;
-						var file_upload_layout="<center>"+
-							"<div class='select_file_bg'>"+
+						var file_upload_layout=""+
+							"<div style='width:47.33%;' class='select_file_bg'>"+
 								"<form id='uploadFileForm"+i+"' action='upload.php' method='post'>"+
 									"<div id='FileAttachtargetLayer"+i+"'></div>"+
 									"<button type='button' class='close' "+
 										"onclick='closeFileUpload(\""+i+"\");'>&times;</button>"+
-										"<center>"+
+										
 										"<label>Attach a file:</label>"+
 										"<table><tr>"+
 											"<td>"+
@@ -541,7 +543,7 @@
 												"<input type='submit' id='SubmitFile"+i+"' value='Upload' class='btnSubmit'/>"+
 											"</td>"+
 										"</tr></table>"+
-										"</center>"+	
+											
 									"<div class='progress-div' style='display:none;' id='file_progress-div"+i+"'>"+
 										"<div class='progress-bar' id='file_progress-bar"+i+"'></div>"+
 									"</div>"+
@@ -549,7 +551,7 @@
 								"<center><div id='file_loader-icon"+i+"' style='display:none;'>"+
 									"<img src='img/loading.gif' /></div>"+
 								"</center>"+
-							"</div></center>";
+							"</div>";
 						document.getElementById("file_attachment_layout"+i).innerHTML=file_upload_layout;
 						//document.getElementById("files_content"+i).innerHTML=file_upload_layout;
 						$("#uploadFileForm"+i).submit(function(e) {	
