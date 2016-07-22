@@ -20,7 +20,7 @@ if(!empty($_GET['user_id'])){
 			$row['CreateAt']=(double)$row['CreateAt'];
 			$row['title']=str_replace("''","'",$row['title']);
 			$row['headline']=str_replace("''","'",$row['headline']);
-			//$row['snippet']=$row['Details']==""||$row['Details']==null?"":substr($row['Details'],0,60)."...";
+			//$row['snippet']=$row['Details']==""||$row['Details']==null?"":substr($row['Details'],0,160)."...";
 			$row['Details']="http://128.199.111.18/TabGenAdmin/get_mobile_news_article.php?news_id=".$row['Id'];
 			//str_replace("''","'",$row['Details']);
 			$row['Image']=$row['Image']==null?"":$row['Image'];
