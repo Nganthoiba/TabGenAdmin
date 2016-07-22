@@ -21,7 +21,7 @@ if(!empty($_GET['user_id'])){
 			$row['title']=str_replace("''","'",$row['title']);
 			$row['headline']=str_replace("''","'",$row['headline']);
 			$row['Details']=str_replace("''","'",$row['Details']);
-			$row['snippet']=substr($row['Details'],0,60)."...";
+			$row['snippet']=$row['Details']==""||$row['Details']==null?"":substr($row['Details'],0,60)."...";
 			$row['Image']=$row['Image']==null?"":$row['Image'];
 			$row['image_url']=$row['Image']==null?"":"http://128.199.111.18/TabGenAdmin/".$row['Image'];
 			$row['Attachments']=getFiles($conn,$row['Id']);
