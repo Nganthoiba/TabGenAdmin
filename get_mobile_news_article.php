@@ -48,6 +48,10 @@ if(!empty($news_id)){
 				echo "<div class='headline'><h1>".$row['headline']."</h1></div>";
 				echo $row['Details'];
 				$attachment=getFiles($conn,$row['Id']);
+				for($i=0;$i<sizeof($attachment);$i++){
+					echo "<div class='col-sm-4'><a href='".$attachment['attachment_url']."' target='_blank'>
+					<img height='50px' width='50px' src='".$attachment['file_icon']."'/>".$attachment['file_name']."</a></div>";
+				}
 			}
 		?>
 		</div>
