@@ -10,19 +10,16 @@ if(!empty($news_id)){
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-		<!--<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
-		<!--Toast package-->
+		<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		
 		<link href="css/toast.css" rel="stylesheet" media="screen">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="js/toast.js"></script>
 		<!-- ********************************************** -->
-		<link rel="stylesheet" type="text/css" href="css/style.css" />
-		<!--<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>-->
 		
 		
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="stylesheet" type="text/css" href="css/simple-sidebar.css">
-		<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
 		<!-- This is what you need for sweet alert -->
@@ -35,12 +32,12 @@ if(!empty($news_id)){
 		<script src="js/npm.js"></script>
 		<script src="homepage.js"></script>
 		<style type="text/css">
-			body {color:#FFFFFF}
+			body {background-color:#FFFFFF}
 		</style>
 	</head>
 	
-	<body >
-		<center><div style="width:80%" class='news_article2'>
+	<body>
+		<center><div>
 		<?php 
 			$query="select * from News where Id='$news_id'";
 			if($conn){
