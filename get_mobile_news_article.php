@@ -39,14 +39,17 @@ if(!empty($news_id)){
 		<script src="homepage.js"></script>
 	</head>
 	<body>
+		<div class='news_article'>
 		<?php 
 			$query="select * from News where Id='$news_id'";
 			if($conn){
 				$res=$conn->query($query);
 				$row=$res->fetch(PDO::FETCH_ASSOC);
+				echo "<div class='headline'>".$row['headline']."</div>";
 				echo $row['Details'];
 			}
 		?>
+		</div>
 	</body>
 </html>
 <?php
