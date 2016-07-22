@@ -324,11 +324,14 @@
 					}
 					
 					function edit_news_headline(i){
-						var edit_layout="<textarea class='form-control' id='news_headline_id"+i+"'>"+output[i].headline+"</textarea>"+
-						"<div class='pull-right'>"+
-						"<button onclick='cancel_edit_headline(\""+i+"\");' class='btn btn-default'>Cancel</button>&nbsp;"+
-						"<button onclick='save_edit_headline(\""+i+"\");' class='btn btn-default'>Save</button>"+
-						"</div><br/><br/>";
+						/*"<textarea class='form-control' id='news_headline_id"+i+"'>"+
+						output[i].headline+"</textarea>"+*/
+						var edit_layout="<center><div class='edit_headline'><label for='news_headline_id"+i+"'>News Headline:</label>"+
+						"<button onclick='cancel_edit_headline(\""+i+"\");' class='close'>&times;</button>"+
+						"<input type='text' class='form-control' id='news_headline_id"+i+"' "+
+						"value='"+output[i].headline+"'/><br/>"+
+						"<center><button onclick='save_edit_headline(\""+i+"\");' class='btn btn-default'>Save</button></center>"+
+						"</div></center><br/><br/>";
 						document.getElementById("headline_layout"+i).innerHTML=edit_layout;
 						/*"#news_details_id"+i*/
 						tinymce.init({ 
@@ -344,7 +347,7 @@
 					
 					//js function to save the new edited contents of news details
 					function save_edit_headline(i){
-						var news_headline = tinyMCE.get('news_headline_id'+i).getContent();
+						var news_headline = document.getElementById('news_headline_id'+i).value;//tinyMCE.get('news_headline_id'+i).getContent();
 						var article_id = document.getElementById("article_id"+i).value;
 						//alert(news_headline);
 						
