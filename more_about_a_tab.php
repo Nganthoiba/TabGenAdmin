@@ -518,7 +518,7 @@
 									"</b></center>";
 									if(result.status==true){
 										document.getElementById("createArticleResp").style.color="green";
-										getArticles(tab_id);
+										getArticles(tab_id,"first_time_load");
 									}
 									else{
 										document.getElementById("createArticleResp").style.color="red";
