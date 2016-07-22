@@ -49,8 +49,9 @@ if(!empty($news_id)){
 				echo $row['Details'];
 				$attachment=getFiles($conn,$row['Id']);
 				for($i=0;$i<sizeof($attachment);$i++){
-					echo "<div class='col-sm-4'><a href='".$attachment['attachment_url']."' target='_blank'>
-					<img height='50px' width='50px' src='".$attachment['file_icon']."'/>".$attachment['file_name']."</a></div>";
+					echo "<div class='col-sm-4'><a href='".$attachment[$i]['attachment_url']."' target='_blank'>
+					<img height='50px' width='50px' src='".$attachment[$i]['file_icon']."'/>
+					".$attachment[$i]['file_name']."</a></div>";
 				}
 			}
 		?>
