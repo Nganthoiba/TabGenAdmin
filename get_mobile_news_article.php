@@ -46,6 +46,9 @@ if(!empty($news_id)){
 				$res=$conn->query($query);
 				$row=$res->fetch(PDO::FETCH_ASSOC);
 				echo "<div class='headline'><h1>".$row['headline']."</h1></div>";
+				if($row['Image']!=null){
+					echo "<center><img class='img-thumbnail' src='".$row['Image']."'/></center>";
+				}
 				echo $row['Details'];
 				$attachment=getFiles($conn,$row['Id']);
 				for($i=0;$i<sizeof($attachment);$i++){
