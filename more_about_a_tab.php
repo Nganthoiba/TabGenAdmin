@@ -98,7 +98,7 @@
 				</li>
 				<li>
 					<a>
-						<button class='btn' onclick="reload();getArticles(tab_id,'first_time_load');">
+						<button class='btn' onclick="location.reload();getArticles(tab_id,'first_time_load');">
 							<span class="glyphicon glyphicon-repeat"></span> Reload Latest Articles
 						</button>
 					</a>
