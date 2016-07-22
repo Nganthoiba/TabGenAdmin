@@ -24,7 +24,7 @@ if(!empty($_GET['user_id'])){
 			$row['snippet']=$row['Details']==""||$row['Details']==null?"":substr($row['Details'],0,60)."...";
 			$row['Image']=$row['Image']==null?"":$row['Image'];
 			$row['image_url']=$row['Image']==null?"":"http://128.199.111.18/TabGenAdmin/".$row['Image'];
-			$row['Attachments']=getFiles($conn,$row['Id']);
+			//$row['Attachments']=getFiles($conn,$row['Id']);
 			$item[]=$row; 
 			$count++;		
 		}
