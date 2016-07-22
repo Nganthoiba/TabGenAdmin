@@ -163,12 +163,12 @@
 					function upload_news_image(i,img_src){
 						var article_id = document.getElementById("article_id"+i).value;
 						var image_upload_layout=""+
-							"<div style='width:47.33%;margin: 0 auto;' class='select_file_bg'>"+
+							"<div style='width:47.33%;' class='select_file_bg'>"+
 							"<form id='uploadForm"+i+"' action='upload.php' method='post'>"+
 								"<div id='targetLayer"+i+"'></div>"+
 								"<button type='button' class='close' "+
 									"onclick='closeImageUpload(\""+i+"\",\""+img_src+"\");'>&times;</button>"+
-									"<label>Upload an image:</label>"+
+								"<label for='news_image"+i+"'>Upload an image:</label>"+
 									"<table><tr>"+
 										"<td>"+
 											"<input name='news_image' id='news_image"+i+"' type='file' class='demoInputBox' />"+

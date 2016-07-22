@@ -96,7 +96,16 @@
 						
 					?> <span class="sr-only">(current)</span></a>
 				</li>
+				<li>
+					<a>
+						<button class='btn' onclick="getArticles(tab_id,'first_time_load');">
+							<span class="glyphicon glyphicon-repeat"></span> Reload Latest Article
+						</button>
+					</a>
+				</li>
 				<script type="text/JavaScript">
+					var before_timestamp;//for pagination
+					var after_timestamp;//for pagination
 					var indicator;
 					var image_path=[];
 					var files_path=[];
@@ -111,7 +120,7 @@
 						}
 					}	
 					var tab_id=queryString['tab_id'];
-					getArticles(tab_id);
+					getArticles(tab_id,"first_time_load");
 					
 					function getFiles(i){
 						var file_list=files_path[i];
@@ -130,10 +139,20 @@
 						return files_layout;
 					}
 					
-					function getArticles(tab_id){
+					function getArticles(tab_id,loading_mode){
 						//alert(tab_id);
+						var data;
+						if(loading_mode=="first_time_load"){
+							data="tab_id="+tab_id+"&loading_mode="+loading_mode;
+						}
+						else if(loading_mode=="before"){
+							data="tab_id="+tab_id+"&loading_mode="+loading_mode+"&timestamp="+before_timestamp;
+						}
+						else if(loading_mode=="after"){
+							data="tab_id="+tab_id+"&loading_mode="+loading_mode+"&timestamp="+after_timestamp;
+						}
 						$.ajax({
-							url: "getArticles.php?tab_id="+tab_id,
+							url: "getArticles.php?"+data,
 							type: "GET",
 							success: function(resp){
 								//alert(resp);
@@ -141,7 +160,17 @@
 								if(result.state==true){
 									var output = result.output;
 									if(output==null){
-										document.getElementById("tab_contents").innerHTML="<center>No article found, create a new one.</center>";
+										if(loading_mode=="first_time_load"){
+											document.getElementById("tab_contents").innerHTML="<center>No article found, create a new one.</center>";
+										}
+										else if(loading_mode=="before"){
+											//do nothing
+											swal("No more article!");
+										}
+										else if(loading_mode=="after"){
+											//do nothing
+											//swal("No more news article!");
+										}
 										return false;
 									}
 									var article_layout="";
@@ -241,10 +270,16 @@
 										document.getElementById("tab_contents").innerHTML=article_layout;
 										refreshFileLayout(i);
 									}
+									before_timestamp=output[output.length-1].CreateAt;
+									after_timestamp=output[0].CreateAt;
 								}
 								else{
 									document.getElementById("tab_contents").innerHTML="<center>"+result.message+"</center>";
 								}
+							},
+							error: function(){
+								swal("Server unreachable!", "Sorry, we are unable to reach server or requested resource is not found,"+
+								" please check your connection or try again later.", "error");
 							}
 						});
 					}
@@ -293,6 +328,17 @@
 						}); 
 					}
 				</script>
+			  </ul>
+			  <ul class="nav navbar-nav navbar-right">	 
+				<li>
+					
+					<a>
+						<div class="btn-group">
+							<button onclick="getArticles(tab_id,'after');" class='btn btn-default'><span class="glyphicon glyphicon-chevron-left"></span></button>
+							<button onclick="getArticles(tab_id,'before');" class='btn btn-default'><span class="glyphicon glyphicon-chevron-right"></span></button>
+						</div>	
+					</a>
+				</li>
 			  </ul>
 			</div>
 		  </div>
