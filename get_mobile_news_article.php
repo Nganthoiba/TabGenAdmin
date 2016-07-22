@@ -36,7 +36,7 @@ if(!empty($news_id)){
 		<script src="homepage.js"></script>
 	</head>
 	<body bgcolor='#FFFFFF'>
-		<div class='news_article'>
+		<div class='news_article2'>
 		<?php 
 			$query="select * from News where Id='$news_id'";
 			if($conn){
