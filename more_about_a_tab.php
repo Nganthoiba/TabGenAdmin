@@ -98,8 +98,8 @@
 				</li>
 				<li>
 					<a>
-						<button class='btn' onclick="getArticles(tab_id,'first_time_load');">
-							<span class="glyphicon glyphicon-repeat"></span> Reload Latest Article
+						<button class='btn' onclick="reload();getArticles(tab_id,'first_time_load');">
+							<span class="glyphicon glyphicon-repeat"></span> Reload Latest Articles
 						</button>
 					</a>
 				</li>
