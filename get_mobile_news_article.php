@@ -34,7 +34,11 @@ if(!empty($news_id)){
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/npm.js"></script>
 		<script src="homepage.js"></script>
+		<style type="text/css">
+			body {color:#FFFFFF}
+		</style>
 	</head>
+	
 	<body >
 		<center><div style="width:80%" class='news_article2'>
 		<?php 
