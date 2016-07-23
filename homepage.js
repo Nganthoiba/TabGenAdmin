@@ -2112,6 +2112,10 @@ $(document).ready(function(){
 										"<div class='col-sm-4' id='user_email"+i+"'>"+resp_arr[i].Email+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
+										"<label class='col-sm-4'>Organisation Unit : </label>"+
+										"<div class='col-sm-4'>"+resp_arr[i].OrganisationUnit+"</div>"+
+									"</div>"+
+									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Role : </label>"+
 										"<div class='col-sm-4'>"+resp_arr[i].Roles+"</div>"+
 									"</div>"+
