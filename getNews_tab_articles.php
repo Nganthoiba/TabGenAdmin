@@ -50,7 +50,7 @@ if(!empty($_GET['tab_id'])){
 					else
 						$grp_arr[$k]=$item[$j];
 				}
-				$outer_arr[]=array("item_count"=>$k,"items"=>$grp_arr);
+				if($k==2) $outer_arr[]=array("item_count"=>$k,"items"=>$grp_arr);//temporary condition
 				$j=$j+$lim;
 			}	
 		}

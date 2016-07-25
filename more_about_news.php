@@ -50,16 +50,21 @@
 		var before_timestamp;
 		var after_timestamp;
 		
-		tinymce.init({ 
-			selector:'textarea',
-			plugins: "textcolor",
-			height: 200,
-			font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier '+
-			'new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
-			fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
-			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter '+
-			'alignright alignjustify | bullist numlist outdent indent | link image | fontsizeselect | forecolor backcolor'
-		});
+		function embed_text_editor(){
+			tinymce.init({ 
+				selector:'#news_details,textarea',
+				height: 200,
+				plugins: ["textcolor,link"],
+				toolbar: 'insertfile undo redo | styleselect | bold italic | '+
+						'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | '+
+						'link image | fontsizeselect | forecolor backcolor',
+				default_link_target: "_blank",
+				link_assume_external_targets: true,
+				fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+				font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,'+
+							'monospace;AkrutiKndPadmini=Akpdmi-n'
+			});
+		}
 		/*tinymce.init({
 		  selector: 'textarea',
 		  height: 200,
@@ -68,7 +73,8 @@
 			'searchreplace visualblocks code fullscreen',
 			'insertdatetime media table contextmenu paste code'
 		  ],
-		  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+		  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft 
+		  aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
 		  
 		});*/
 		/*
@@ -286,16 +292,20 @@
 						"</div>";
 						document.getElementById("textual_content_layout"+i).innerHTML=edit_layout;
 						/*"#news_details_id"+i*/
+						embed_text_editor();
+						/*
 						tinymce.init({ 
 							selector:'textarea',
-							plugins: "textcolor",
 							height: 200,
+							plugins: "textcolor,link",
 							toolbar: 'insertfile undo redo | styleselect | bold italic | '+
 							'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | '+
 							'link image | fontsizeselect | forecolor backcolor',
+							default_link_target: "_blank",
 							fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
-							font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n'
-						});
+							font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,'+
+							'monospace;AkrutiKndPadmini=Akpdmi-n'
+						});*/
 						//var news_details = tinyMCE.get('news_details_id'+i).getContent();
 					}
 					
@@ -366,7 +376,8 @@
 						tinymce.init({ 
 							selector:'textarea',
 							height: 200,
-							toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+							toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter '+
+							'alignright alignjustify | bullist numlist outdent indent | link image',
 						});
 					}
 					function cancel_edit_headline(i){			
@@ -713,7 +724,7 @@
 								<div class="form-group">
 									<label class="col-sm-2  control-label" for="news_details">News Details:</label>
 									<div class="col-sm-10">
-										<div id="sample">
+										<div id="news_in_details">
 											<textarea class="form-control" name="news_details" id="news_details" 
 											placeholder="Write news detail here..."
 											style="resize:vertical;overflow:auto;"
@@ -729,6 +740,7 @@
 										<Button type="button" class="btn btn-info" id="publishNews"
 											onclick="publish(); return false;">Publish</Button>
 										<script type="text/JavaScript">
+											embed_text_editor();
 											function reset_news_form(){
 												document.getElementById('publish_a_news').reset();
 												$('#publishNewsResponse').html("");
