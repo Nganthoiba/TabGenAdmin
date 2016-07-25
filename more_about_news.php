@@ -609,11 +609,12 @@
 					?> <span class="sr-only">(current)</span></a>
 				</li>
 				<li>
+					<!--
 					<a>
 						<button class='btn' onclick="getNewsArticles(tab_id,'first_time_load');">
 							<span class="glyphicon glyphicon-repeat"></span> Reload
 						</button>
-					</a>
+					</a>-->
 				</li>	
 			  </ul>
 			  <ul class="nav navbar-nav navbar-right">	 
