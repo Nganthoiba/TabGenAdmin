@@ -54,7 +54,11 @@
 			selector:'textarea',
 			plugins: "textcolor",
 			height: 200,
-			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor',
+			font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier '+
+			'new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
+			fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter '+
+			'alignright alignjustify | bullist numlist outdent indent | link image | fontsizeselect | forecolor backcolor'
 		});
 		/*tinymce.init({
 		  selector: 'textarea',
@@ -286,7 +290,11 @@
 							selector:'textarea',
 							plugins: "textcolor",
 							height: 200,
-							toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor',
+							toolbar: 'insertfile undo redo | styleselect | bold italic | '+
+							'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | '+
+							'link image | fontsizeselect | forecolor backcolor',
+							fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+							font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n'
 						});
 						//var news_details = tinyMCE.get('news_details_id'+i).getContent();
 					}
