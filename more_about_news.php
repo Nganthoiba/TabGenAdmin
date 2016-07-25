@@ -52,8 +52,9 @@
 		
 		tinymce.init({ 
 			selector:'textarea',
+			plugins: "textcolor",
 			height: 200,
-			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor',
 		});
 		/*tinymce.init({
 		  selector: 'textarea',
@@ -283,8 +284,9 @@
 						/*"#news_details_id"+i*/
 						tinymce.init({ 
 							selector:'textarea',
+							plugins: "textcolor",
 							height: 200,
-							toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+							toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor',
 						});
 						//var news_details = tinyMCE.get('news_details_id'+i).getContent();
 					}
