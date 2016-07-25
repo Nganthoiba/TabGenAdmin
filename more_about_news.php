@@ -52,18 +52,19 @@
 		
 		function embed_text_editor(){
 			tinymce.init({ 
-				selector:'#news_details,textarea',
+				selector:'textarea',
 				height: 200,
-				plugins: ["textcolor,link"],
+				plugins: ['textcolor','link'],
 				toolbar: 'insertfile undo redo | styleselect | bold italic | '+
 						'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | '+
-						'link image | fontsizeselect | forecolor backcolor',
+						'link | fontsizeselect | forecolor backcolor',
 				default_link_target: "_blank",
 				link_title: false,
 				link_assume_external_targets: true,
 				fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
 				font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,'+
 							'monospace;AkrutiKndPadmini=Akpdmi-n'
+					
 			});
 		}
 		/*tinymce.init({
@@ -76,7 +77,56 @@
 		  ],
 		  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft 
 		  aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-		  
+		  			
+				file_picker_types: 'file image media',
+				file_picker_callback: function(callback, value, meta) {
+					// Provide file and text for the link dialog
+					if (meta.filetype == 'file') {
+					  callback('mypage.html', {text: 'My text'});
+					}
+
+					// Provide image and alt text for the image dialog
+					if (meta.filetype == 'image') {
+					  callback('myimage.jpg', {alt: 'My alt text'});
+					}
+
+					// Provide alternative source and posted for the media dialog
+					if (meta.filetype == 'media') {
+					  callback('movie.mp4', {source2: 'alt.ogg', poster: 'image.jpg'});
+					}
+				},
+				images_upload_base_path: '/some/basepath',
+				images_upload_credentials: true,
+				images_upload_handler: function (blobInfo, success, failure) {
+					var xhr, formData;
+
+					xhr = new XMLHttpRequest();
+					xhr.withCredentials = false;
+					xhr.open('POST', 'upload.php');
+
+					xhr.onload = function() {
+					  var json;
+
+					  if (xhr.status != 200) {
+						failure('HTTP Error: ' + xhr.status);
+						return;
+					  }
+
+					  json = JSON.parse(xhr.responseText);
+
+					  if (!json || typeof json.location != 'string') {
+						failure('Invalid JSON: ' + xhr.responseText);
+						return;
+					  }
+					  success(json.location);
+					};
+
+					formData = new FormData();
+					formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+					xhr.send(formData);
+				},
+				images_upload_url: 'upload.php'
 		});*/
 		/*
 		  content_css: [
@@ -182,8 +232,8 @@
 									" <button class='btn' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Put an image</button></div></center></div>";
 						}
 						else{
-							layout="<br/><div class='col-sm-12' id='image_layout"+i+"'><center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
-										"height='350px' width='80%' class=''/><br/>"+
+							layout="<br/><div id='image_layout"+i+"'><center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
+										"height='350px' width='80%'/><br/>"+
 									"<div id='image_upload_layout"+i+"'>"+
 									"<div class='btn-group'>"+
 									"<button class='btn'"+
@@ -286,12 +336,14 @@
 					
 					//This function is to display an edit layout of the news details description
 					function edit_content(i){
-						var edit_layout="<textarea class='form-control' id='news_details_id"+i+"'>"+output[i].Details+"</textarea>"+
+						var edit_layout="<br/>"+
+						"<textarea class='form-control' id='news_details_id"+i+"'>"+output[i].Details+"</textarea>"+
 						"<div class='pull-right'>"+
 						"<button onclick='cancel_edit_content(\""+i+"\");' class='btn btn-default'>Cancel</button>&nbsp;"+
 						"<button onclick='save_edit_content(\""+i+"\");' class='btn btn-default'>Save</button>"+
 						"</div>";
 						document.getElementById("textual_content_layout"+i).innerHTML=edit_layout;
+						
 						/*"#news_details_id"+i*/
 						embed_text_editor();
 					}
