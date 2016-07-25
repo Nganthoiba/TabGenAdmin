@@ -59,6 +59,7 @@
 						'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | '+
 						'link image | fontsizeselect | forecolor backcolor',
 				default_link_target: "_blank",
+				link_title: false,
 				link_assume_external_targets: true,
 				fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
 				font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,'+
@@ -293,20 +294,6 @@
 						document.getElementById("textual_content_layout"+i).innerHTML=edit_layout;
 						/*"#news_details_id"+i*/
 						embed_text_editor();
-						/*
-						tinymce.init({ 
-							selector:'textarea',
-							height: 200,
-							plugins: "textcolor,link",
-							toolbar: 'insertfile undo redo | styleselect | bold italic | '+
-							'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | '+
-							'link image | fontsizeselect | forecolor backcolor',
-							default_link_target: "_blank",
-							fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
-							font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,'+
-							'monospace;AkrutiKndPadmini=Akpdmi-n'
-						});*/
-						//var news_details = tinyMCE.get('news_details_id'+i).getContent();
 					}
 					
 					//js function to cancel edit and hide the edit layout
@@ -725,7 +712,9 @@
 									<label class="col-sm-2  control-label" for="news_details">News Details:</label>
 									<div class="col-sm-10">
 										<div id="news_in_details">
-											
+											<!--<textarea name='news_details' id='news_details' class='form-control'
+											placeholder='Write something in details here...'
+											onclick='display_editor();'></textarea>-->
 										</div>
 										<span id="details_validate"></span>
 									</div>
@@ -736,11 +725,21 @@
 										<Button type="button" class="btn btn-info" id="publishNews"
 											onclick="publish(); return false;">Publish</Button>
 										<script type="text/JavaScript">
-											var edit_news_detail_layout=""+
-											"<textarea class='form-control' name='news_details' id='news_details'>"+ 
-											"</textarea>";
-											document.getElementById("news_in_details").innerHTML=edit_news_detail_layout;
-											embed_text_editor();
+											display_editor();
+											/*enable focus for tinymce link dialog*/
+											$(document).on('focusin', function(e) {
+												if ($(e.target).closest(".mce-window").length) {
+													e.stopImmediatePropagation();
+												}
+											});
+											
+											function display_editor(){
+												var edit_news_detail_layout=""+
+												"<textarea class='form-control' name='news_details' id='news_details'>"+ 
+												"</textarea>";
+												document.getElementById("news_in_details").innerHTML=edit_news_detail_layout;
+												embed_text_editor();
+											}
 											
 											function reset_news_form(){
 												document.getElementById('publish_a_news').reset();
