@@ -725,11 +725,7 @@
 									<label class="col-sm-2  control-label" for="news_details">News Details:</label>
 									<div class="col-sm-10">
 										<div id="news_in_details">
-											<textarea class="form-control" name="news_details" id="news_details" 
-											placeholder="Write news detail here..."
-											style="resize:vertical;overflow:auto;"
-											required="true"
-											rows="5" cols="20"></textarea>
+											
 										</div>
 										<span id="details_validate"></span>
 									</div>
@@ -740,7 +736,12 @@
 										<Button type="button" class="btn btn-info" id="publishNews"
 											onclick="publish(); return false;">Publish</Button>
 										<script type="text/JavaScript">
+											var edit_news_detail_layout=""+
+											"<textarea class='form-control' name='news_details' id='news_details'>"+ 
+											"</textarea>";
+											document.getElementById("news_in_details").innerHTML=edit_news_detail_layout;
 											embed_text_editor();
+											
 											function reset_news_form(){
 												document.getElementById('publish_a_news').reset();
 												$('#publishNewsResponse').html("");
