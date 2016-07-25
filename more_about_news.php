@@ -53,7 +53,7 @@
 		function embed_text_editor(){
 			tinymce.init({ 
 				selector:'textarea',
-				height: 200,
+				height: 300,
 				plugins: ['textcolor','link'],
 				toolbar: 'insertfile undo redo | styleselect | bold italic | '+
 						'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | '+
