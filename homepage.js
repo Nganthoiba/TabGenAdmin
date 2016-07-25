@@ -1549,7 +1549,7 @@ $(document).ready(function(){
 								"</form>";*/
 								see_more="";
 						}
-						else if(json_arr[i].Template_Name=="Latest News Template" || json_arr[i].Template_Name=="Latest News Template"){
+						else if(json_arr[i].Template_Name=="Latest News Template"){
 							/*popup_content_form="<form class='form-horizontal' role='form'>"+
 								"<div>"+
 									"<label>Tab Name</label>"+
@@ -1576,7 +1576,7 @@ $(document).ready(function(){
 							"</form>";*/
 							/*see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
 											"' class='btn btn-info'>See More</a>";*/
-							 see_more="<a href='more_on_news.php?tab_id="+json_arr[i].Id+"' class='btn btn-info'>See More</a>";
+							 see_more="<a href='more_about_news.php?tab_id="+json_arr[i].Id+"' class='btn btn-info'>See More</a>";
 						}
 						else{
 							/*popup_content_form="<form class='form-horizontal' role='form'"+

@@ -45,6 +45,7 @@ if(isset($_SESSION['user_details'])){
 							echo json_encode(array("status"=>false,"message"=>"Please Login Again, we are unable to get your token"));
 						}							
 					}
+					/*
 					else if($template_name=="Latest News Template"){
 						if(isNewsTitleExists($conn,$title)){
 							echo json_encode(array("status"=>false,"message"=>"News with the same title already existed."));
@@ -57,7 +58,7 @@ if(isset($_SESSION['user_details'])){
 								echo json_encode(array("status"=>false,"message"=>"Unable to create news"));
 							}
 						}
-					}
+					}*/
 					else{
 						create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific);
 					}
