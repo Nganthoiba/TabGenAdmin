@@ -177,12 +177,12 @@
 					function displayArticleImage(i,img_src){
 						var layout="";
 						if(img_src=="" || img_src==null){
-							layout="<div id='image_layout"+i+"'>"+
+							layout="<div class='col-sm-12' id='image_layout"+i+"'>"+
 								"<center><div id='image_upload_layout"+i+"'>This article contains no picture,<br/>"+
 									" <button class='btn' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Put an image</button></div></center></div>";
 						}
 						else{
-							layout="<div id='image_layout"+i+"'><center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
+							layout="<br/><div class='col-sm-12' id='image_layout"+i+"'><center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
 										"height='350px' width='80%' class=''/><br/>"+
 									"<div id='image_upload_layout"+i+"'>"+
 									"<div class='btn-group'>"+
@@ -451,8 +451,8 @@
 													"<h2>"+output[i].title+"</h2>"+
 													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 												"</div>"+
-												"<div class='col-sm-12' id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
-												"<div class='col-sm-12' id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
+												"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
+												"<div id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
 												"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
 													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
 													"<div class='pull-right'>"+
