@@ -451,8 +451,8 @@
 													"<h2>"+output[i].title+"</h2>"+
 													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 												"</div>"+
-												"<div style='width:100%' id='headline_layout"+i+"'>"+get_headline(i)+"</div><br/>"+
-												"<div style='width:100%' id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
+												"<div class='col-sm-12' id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
+												"<div class='col-sm-12' id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
 												"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
 													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
 													"<div class='pull-right'>"+
