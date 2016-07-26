@@ -496,10 +496,34 @@
 									
 									for(var i=0;i<output.length;i++){
 										files_path[i]=output[i].Attachments;
-										/*"onclick='edit_content(\""+i+"\",\""+output[i].Details+"\");' "+*/
-										/*"<div class='heading' id='article_title"+i+"'>"+
-													output[i].headline+	
-												"</div><br/>"+*/
+										var status = output[i].Active;//whether the article is active or inactive
+										var status_layout="";
+										if(status==null || status.trim()=="false"){
+											 status_layout=""+
+												"<div class='form-group'>"+
+													"<div class='col-sm-1 control-label'>"+
+														"<input type='checkbox' "+
+															"onclick='activateOrDeactivateArticle(\""+i+"\");'"+
+															"id='myonoffswitch"+i+"'/>"+
+													"</div>"+
+													"<label class='col-sm-8' id='statusLabel"+i+"' for='myonoffswitch"+i+"'>"+
+														"Check here to activate article."+
+													"</label>"+
+												"</div>";
+										}
+										else if(status.trim()=="true"){
+											status_layout=""+
+												"<div class='form-group'>"+
+													"<div class='col-sm-1 control-label'>"+
+														"<input type='checkbox' "+
+															"onclick='activateOrDeactivateArticle(\""+i+"\");'"+
+															"id='myonoffswitch"+i+"' checked/>"+
+													"</div>"+
+													"<label class='col-sm-8' id='statusLabel"+i+"' for='myonoffswitch"+i+"'>"+
+													"Uncheck here to deactivate article."+
+													"</label>"+
+												"</div>";
+										}
 										article_layout+=""+
 											"<div class='news_article'>"+
 												"<div class='headLine' id='article_title"+i+"'>"+
@@ -521,7 +545,7 @@
 														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 												"<br/><hr/>"+
 												"<div id='file_attachment_layout"+i+"'></div>"+
-												"<br/>"+
+												"<br/>"+status_layout+
 												"<button class='btn btn-success' style='padding:5px;"+
 													"float:right' onclick='attachFile(\""+i+"\");'>"+
 													"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
@@ -543,7 +567,50 @@
 							}
 						});
 					}
-					
+					/*js for activating and deactivating news article*/
+					function activateOrDeactivateArticle(i){
+						var article_id = document.getElementById("article_id"+i).value;
+						var status = document.getElementById("myonoffswitch"+i).checked;
+
+						if(status==false){
+							swal({   
+									title: "Article Deactivating...",  
+									text: "you are deactivating this article",   
+									timer: 1000,   
+									showConfirmButton: false 
+								}); 
+						}
+						else{
+							swal({   
+									title: "Article Activating...",  
+									text: "you are activating this article",   
+									timer: 1000,   
+									showConfirmButton: false 
+								});  
+						}
+						$.ajax({
+							url: "activateOrDeactivateArticle.php",
+							type: "POST",
+							data: {"article_id":article_id,"status":status,"type":"news"},
+							success: function(resp){
+								var json_resp = JSON.parse(resp);
+								swal({   
+									title: "",  
+									text: json_resp.message,   
+									timer: 1500,   
+									showConfirmButton: false 
+								});
+								if(status==true){
+									document.getElementById("statusLabel"+i).innerHTML="Uncheck here to "+
+											"deactivate article.";
+								}
+								else{
+									document.getElementById("statusLabel"+i).innerHTML="Check here to "+
+											"activate article.";
+								}
+							}
+						}); 
+					}
 					/*js for uploading any file*/
 					function attachFile(i){
 						var article_id = document.getElementById("article_id"+i).value;

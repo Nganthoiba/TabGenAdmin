@@ -309,7 +309,7 @@
 						$.ajax({
 							url: "activateOrDeactivateArticle.php",
 							type: "POST",
-							data: {"article_id":article_id,"status":status},
+							data: {"article_id":article_id,"status":status,"type":"article"},
 							success: function(resp){
 								var json_resp = JSON.parse(resp);
 								swal({   
