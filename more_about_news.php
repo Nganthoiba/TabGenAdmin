@@ -228,11 +228,14 @@
 						var layout="";
 						if(img_src=="" || img_src==null){
 							layout="<div class='col-sm-12' id='image_layout"+i+"'>"+
-								"<center><div id='image_upload_layout"+i+"'>This article contains no picture,<br/>"+
+								"<center><img class='img-thumbnail' src='uploaded_file/noimage.jpg' alt='No Image' "+
+										"height='350px' width='80%'/><br/>"+
+								"<div id='image_upload_layout"+i+"'>"+
 									" <button class='btn' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Put an image</button></div></center></div>";
 						}
 						else{
-							layout="<br/><div id='image_layout"+i+"'><center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
+							layout="<br/><div id='image_layout"+i+"'>"+
+								"<center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
 										"height='350px' width='80%'/><br/>"+
 									"<div id='image_upload_layout"+i+"'>"+
 									"<div class='btn-group'>"+
