@@ -66,122 +66,7 @@
 							'monospace;AkrutiKndPadmini=Akpdmi-n'	
 			});
 		}
-		/*
-		tinyMCE.init({
-			mode: "textareas",
-			plugins: [
-							"advlist autolink lists link image charmap print preview anchor",
-							"searchreplace visualblocks code fullscreen",
-							"insertdatetime media table contextmenu paste "
-							],
-			toolbar: " undo redo | styleselect | bullist numlist outdent indent | link image",
-			,
-				setup: function (editor) {
-					editor.addMenuItem('save_doc', {
-						text: 'Save',
-						context: 'file',
-						onclick: function () {
-							//ed.insertContent('Hello world!!');
-							alert("Hi");
-						}
-					});
-				},
-			setup: function (ed) {
-
-				ed.addMenuItem('example', {
-					text: 'My menu item',
-					context: 'tools',
-					onclick: function () {
-						ed.insertContent('Hello world!!');
-					}
-				});
-			},
-			setup: function (editor) {
-					editor.addButton('File', {
-						type: 'menubutton',
-						text: 'File',
-						icon: false,
-						menu: [{
-							text: 'Menu item 1',
-							onclick: function() {
-							  editor.insertContent('&nbsp;<strong>Menu item 1 here!</strong>&nbsp;');
-							}
-						  }, {
-							text: 'Menu item 2',
-							onclick: function() {
-							  editor.insertContent('&nbsp;<em>Menu item 2 here!</em>&nbsp;');
-							}
-						  }]
-					});
-				}
-		});
-		tinymce.init({
-		  selector: 'textarea',
-		  height: 200,
-		  plugins: [
-			'advlist autolink lists link image charmap print preview anchor',
-			'searchreplace visualblocks code fullscreen',
-			'insertdatetime media table contextmenu paste code'
-		  ],
-		  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft 
-		  aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-		  			
-				file_picker_types: 'file image media',
-				file_picker_callback: function(callback, value, meta) {
-					// Provide file and text for the link dialog
-					if (meta.filetype == 'file') {
-					  callback('mypage.html', {text: 'My text'});
-					}
-
-					// Provide image and alt text for the image dialog
-					if (meta.filetype == 'image') {
-					  callback('myimage.jpg', {alt: 'My alt text'});
-					}
-
-					// Provide alternative source and posted for the media dialog
-					if (meta.filetype == 'media') {
-					  callback('movie.mp4', {source2: 'alt.ogg', poster: 'image.jpg'});
-					}
-				},
-				images_upload_base_path: '/some/basepath',
-				images_upload_credentials: true,
-				images_upload_handler: function (blobInfo, success, failure) {
-					var xhr, formData;
-
-					xhr = new XMLHttpRequest();
-					xhr.withCredentials = false;
-					xhr.open('POST', 'upload.php');
-
-					xhr.onload = function() {
-					  var json;
-
-					  if (xhr.status != 200) {
-						failure('HTTP Error: ' + xhr.status);
-						return;
-					  }
-
-					  json = JSON.parse(xhr.responseText);
-
-					  if (!json || typeof json.location != 'string') {
-						failure('Invalid JSON: ' + xhr.responseText);
-						return;
-					  }
-					  success(json.location);
-					};
-
-					formData = new FormData();
-					formData.append('file', blobInfo.blob(), blobInfo.filename());
-
-					xhr.send(formData);
-				},
-				images_upload_url: 'upload.php'
-		});*/
-		/*
-		  content_css: [
-			'//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
-			'//www.tinymce.com/css/codepen.min.css'
-		  ]
-		*/
+		
 	</script>
 	
 	<!--
@@ -387,11 +272,10 @@
 					
 					//This function is to display an edit layout of the news details description
 					function edit_content(i){
-						var edit_layout="<br/><div class=''>"+
-						"<label>Edit contents below:</label>"+
-						"<button onclick='cancel_edit_content(\""+i+"\");' class='close'>&times;</button>&nbsp;"+
-						"<textarea class='form-control' id='news_details_id"+i+"'>"+output[i].Details+"</textarea></div>"+
-						"<div style='float:right'>"+
+						var edit_layout="<br/>Edit content below:"+
+						"<button onclick='cancel_edit_content(\""+i+"\");' class='close'>&times</button>&nbsp;"+
+						"<textarea class='form-control' id='news_details_id"+i+"'>"+output[i].Details+"</textarea>"+
+						"<div class='pull-right'>"+
 						"<button onclick='save_edit_content(\""+i+"\");' class='btn btn-default'>Save</button>"+
 						"</div>";
 						document.getElementById("textual_content_layout"+i).innerHTML=edit_layout;
@@ -857,8 +741,7 @@
 		<div class="modal-dialog modal-lg" style='width:78%;' role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span class="glyphicon glyphicon-remove"></span></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
 					<h4 class="modal-title" id="myModalLabel">Publish a news</h4>
 				</div>
 				<div class="modal-body">	
