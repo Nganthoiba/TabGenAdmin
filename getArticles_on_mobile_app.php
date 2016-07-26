@@ -15,7 +15,7 @@
 		else{
 			$output=null;
 			$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links,Active 
-			from Article where TabId='$tab_id' and DeleteAt=0 order by CreateAt desc";
+			from Article where TabId='$tab_id' and DeleteAt=0 and Active='true' order by CreateAt desc";
 			
 			$res = $conn->query($query);
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
