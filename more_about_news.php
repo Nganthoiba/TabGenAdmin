@@ -54,7 +54,7 @@
 			tinymce.init({ 
 				selector:'textarea',
 				height: 300,
-				plugins: ['textcolor','link'],
+				plugins: ["textcolor","link"],
 				toolbar: 'insertfile undo redo | styleselect | bold italic | '+
 						'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | '+
 						'link | fontsizeselect | forecolor backcolor',
@@ -63,11 +63,59 @@
 				link_assume_external_targets: true,
 				fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
 				font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,'+
-							'monospace;AkrutiKndPadmini=Akpdmi-n'
-					
+							'monospace;AkrutiKndPadmini=Akpdmi-n'	
 			});
 		}
-		/*tinymce.init({
+		/*
+		tinyMCE.init({
+			mode: "textareas",
+			plugins: [
+							"advlist autolink lists link image charmap print preview anchor",
+							"searchreplace visualblocks code fullscreen",
+							"insertdatetime media table contextmenu paste "
+							],
+			toolbar: " undo redo | styleselect | bullist numlist outdent indent | link image",
+			,
+				setup: function (editor) {
+					editor.addMenuItem('save_doc', {
+						text: 'Save',
+						context: 'file',
+						onclick: function () {
+							//ed.insertContent('Hello world!!');
+							alert("Hi");
+						}
+					});
+				},
+			setup: function (ed) {
+
+				ed.addMenuItem('example', {
+					text: 'My menu item',
+					context: 'tools',
+					onclick: function () {
+						ed.insertContent('Hello world!!');
+					}
+				});
+			},
+			setup: function (editor) {
+					editor.addButton('File', {
+						type: 'menubutton',
+						text: 'File',
+						icon: false,
+						menu: [{
+							text: 'Menu item 1',
+							onclick: function() {
+							  editor.insertContent('&nbsp;<strong>Menu item 1 here!</strong>&nbsp;');
+							}
+						  }, {
+							text: 'Menu item 2',
+							onclick: function() {
+							  editor.insertContent('&nbsp;<em>Menu item 2 here!</em>&nbsp;');
+							}
+						  }]
+					});
+				}
+		});
+		tinymce.init({
 		  selector: 'textarea',
 		  height: 200,
 		  plugins: [
@@ -339,10 +387,11 @@
 					
 					//This function is to display an edit layout of the news details description
 					function edit_content(i){
-						var edit_layout="<br/>"+
-						"<textarea class='form-control' id='news_details_id"+i+"'>"+output[i].Details+"</textarea>"+
-						"<div class='pull-right'>"+
-						"<button onclick='cancel_edit_content(\""+i+"\");' class='btn btn-default'>Cancel</button>&nbsp;"+
+						var edit_layout="<br/><div class=''>"+
+						"<label>Edit contents below:</label>"+
+						"<button onclick='cancel_edit_content(\""+i+"\");' class='close'>&times;</button>&nbsp;"+
+						"<textarea class='form-control' id='news_details_id"+i+"'>"+output[i].Details+"</textarea></div>"+
+						"<div style='float:right'>"+
 						"<button onclick='save_edit_content(\""+i+"\");' class='btn btn-default'>Save</button>"+
 						"</div>";
 						document.getElementById("textual_content_layout"+i).innerHTML=edit_layout;
@@ -608,6 +657,10 @@
 									document.getElementById("statusLabel"+i).innerHTML="Check here to "+
 											"activate article.";
 								}
+							},
+							error: function(){
+								swal("Server unreachable!", "Sorry, we are unable to reach server,"+
+								" please check your connection or try again later.", "error");
 							}
 						}); 
 					}
@@ -804,7 +857,8 @@
 		<div class="modal-dialog modal-lg" style='width:78%;' role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span class="glyphicon glyphicon-remove"></span></button>
 					<h4 class="modal-title" id="myModalLabel">Publish a news</h4>
 				</div>
 				<div class="modal-body">	
