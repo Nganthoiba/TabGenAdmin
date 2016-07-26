@@ -1,5 +1,7 @@
+
 <?php 
-	/*php file for creating article*/
+	
+	/*getArticles_on_mobile_app.php: php file for listing out article*/
 	include('tabgen_php_functions.php');
 	include('connect_db.php');
 	$tab_id = $_GET['tab_id'];
