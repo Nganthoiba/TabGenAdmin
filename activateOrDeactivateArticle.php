@@ -13,7 +13,7 @@ include('connect_db.php');
 			$query=null;
 			if($type=="article")
 				$query = "update Article set UpdateAt=$time,Active='$activation_status' where Id='$article_id'";
-			else if($type=="news"){
+			else if($type=="news"){//for news articles
 				$query = "update News set UpdateAt=$time,Active='$activation_status' where Id='$article_id'";
 			}
 			if($conn->query($query)){

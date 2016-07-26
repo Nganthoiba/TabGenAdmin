@@ -7,10 +7,8 @@ if(!empty($_GET['tab_id'])){
 	include('tabgen_php_functions.php');
 	if($conn){
 		$role_id = findRoleIdByUser_id($conn,$user_id);
-		/*$query="select Id,CreateAt,title,headline,Details,Image from News where title in
-		 (select Tab.Name from Tab where Tab.Id in (select TabId from RoleTabAsson where RoleId='$role_id')) order by CreateAt desc";
-		*/
-		$query = "select Id,CreateAt,title,headline,Details,Image from News where tab_id='$tab_id' 
+		
+		$query = "select Id,CreateAt,title,headline,Details,Image from News where tab_id='$tab_id' and Active='true'
 						order by CreateAt desc ";
 		$outer_arr=null;
 		$inner_arr=null;
