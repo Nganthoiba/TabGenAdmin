@@ -497,7 +497,6 @@
 									for(var i=0;i<output.length;i++){
 										files_path[i]=output[i].Attachments;
 										var status = output[i].Active;//whether the article is active or inactive
-										alert(status);
 										var status_layout="";
 										if(status==null || status.trim()=="false"){
 											 status_layout=""+
