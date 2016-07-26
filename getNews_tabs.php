@@ -25,7 +25,8 @@ if(!empty($_GET['user_id'])){
 							and Tab.RoleId =Role.Id
                             and Role.OrganisationUnit='$team_name'
 							and Tab.DeleteAt=0
-							and RoleTabAsson.RoleId = '$role_id'";
+							and RoleTabAsson.RoleId = '$role_id'
+						order by Tab.CreatAt asc";
 				
 				$res = $conn->query($query);
 				if($res){
