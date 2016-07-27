@@ -301,6 +301,7 @@
 					function save_edit_content(i){
 						var news_details = tinyMCE.get('news_details_id'+i).getContent();
 						var article_id = document.getElementById("article_id"+i).value;
+						$("#textual_content_layout"+i).html("<center>Wait please...</center>");
 						$.ajax({
 							url: "update_article.php",
 							type:"POST",
