@@ -162,7 +162,7 @@
 						var layout="";
 						if(img_src=="" || img_src==null){
 							layout="<div class='col-sm-12' id='image_layout"+i+"'>"+
-								"<center><img class='img-thumbnail' src='uploaded_file/noimage.jpg' alt='No Image' "+
+								"<center><img class='img-thumbnail' src='img/noimage.jpg' alt='No Image' "+
 										"height='350px' width='80%'/><br/>"+
 								"<div id='image_upload_layout"+i+"'>"+
 									" <button class='btn' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Put an image</button></div></center></div>";
@@ -480,8 +480,8 @@
 												"<br/><hr/>"+
 												"<div id='file_attachment_layout"+i+"'></div>"+
 												"<br/>"+status_layout+
-												"<button class='btn btn-success' style='padding:5px;"+
-													"float:right' onclick='attachFile(\""+i+"\");'>"+
+												"<button class='btn btn-success' style='padding:5px;float:right"+
+													"' onclick='attachFile(\""+i+"\");'>"+
 													"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
 												"</button>"+	
 											"</div>";
@@ -717,7 +717,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
 			<div class="container-fluid">
-            <div class="" id="tab_contents">	
+            <div class="container" id="tab_contents"></div>	
 				
 			</div>
         </div>
