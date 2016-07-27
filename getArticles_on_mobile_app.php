@@ -17,7 +17,10 @@
 			$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links,Active 
 			from Article where TabId='$tab_id' and DeleteAt=0 and Active='true' order by CreateAt desc";
 			
-			$res = $conn->query($query);
+			$item=null;
+			$res=$conn->query($query);
+			$count=0;
+			
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
 				$row['CreateAt']=(double)$row['CreateAt'];
 				$row['DeleteAt']=(double)$row['DeleteAt'];
@@ -28,11 +31,47 @@
 				//$row['Filenames']=($row['Filenames']==null)?"":$row['Filenames'];
 				$row['images_url']=($row['Images']==null)?"":"http://128.199.111.18/TabGenAdmin/".$row['Images'];
 				$row['Filenames']=getFiles($conn,$row['Id']);
-				$output[]=$row;
+				$item[]=$row; 
+				$count++;		
 			}
-			$result->state=true;
-			$result->output=$output;
-			echo json_encode($result);
+			
+			$outer_arr=null;
+			$inner_arr=null;
+			if($count>3){
+				$i=0;
+				while($i<=2){
+					$inner_arr[$i]=$item[$i];
+					$i++;
+				}
+				$outer_arr[]=array("item_count"=>$i,"items"=>$inner_arr);
+				$j=$i;
+				while($j<$count){
+					$k=0;
+					$grp_arr=null;
+					$lim=($count-$j>=2)?2:$count-$j;
+					for($k=0;$k<$lim;$k++){
+						if($k>0)
+							$grp_arr[$k]=$item[$j+1];
+						else
+							$grp_arr[$k]=$item[$j];
+					}
+					$outer_arr[]=array("item_count"=>$k,"items"=>$grp_arr);
+					$j=$j+$lim;
+				}	
+			}
+			else if($count==0){
+				$outer_arr=null;
+			}
+			else{
+				$j=0;
+				while($j<$count){
+					$inner_arr[$j]=$item[$j];
+					$j++;
+				}
+				$outer_arr[]=array("item_count"=>$j,"items"=>$inner_arr);
+			}
+			$response=array("response"=>$outer_arr);
+			print json_encode($response);
 		}
 	}
 	else{
