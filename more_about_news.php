@@ -327,6 +327,14 @@
 							},
 							error: function(){
 								swal("Update Failed!", "Unable to reach server. Please check your connection or try again later.", "error");
+								var layout="<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
+													"<div class='pull-right'>"+
+														"<button class='btn btn-link' "+
+														"onclick='edit_content(\""+i+"\");'"+
+														"id='edit_content"+i+"'>"+
+														"Edit Content</button>"+
+													"</div>";
+								$("#textual_content_layout"+i).html(layout);
 							}
 						});
 					}
