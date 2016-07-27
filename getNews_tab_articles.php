@@ -24,7 +24,7 @@ if(!empty($_GET['tab_id'])){
 			$row['Details']="http://128.199.111.18/TabGenAdmin/get_mobile_news_article.php?news_id=".$row['Id'];
 			//str_replace("''","'",$row['Details']);
 			$row['Image']=$row['Image']==null?"":$row['Image'];
-			$row['image_url']=$row['Image']==null?"http://128.199.111.18/TabGenAdmin/uploaded_file/noimage.jpg":"http://128.199.111.18/TabGenAdmin/".$row['Image'];
+			$row['image_url']=$row['Image']==null?"http://128.199.111.18/TabGenAdmin/img/noimage.jpg":"http://128.199.111.18/TabGenAdmin/".$row['Image'];
 			//$row['Attachments']=getFiles($conn,$row['Id']);
 			$item[]=$row; 
 			$count++;		
