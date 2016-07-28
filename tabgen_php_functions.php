@@ -238,7 +238,7 @@ function getTeams($conn,$user_id){
 function getOUs($conn,$user_id){
 	$output=null;
 	$org = getOrg_Byuser_Id($conn,$user_id);
-	if(isUserUniversalAccessRight($conn,$user_id)){//checks whether the user is universal access right
+	if(isUserUniversalAccessRight($conn,$user_id)){//checks whether the user has universal access right
 		$query="select Id,OrganisationUnit as team_name 
 				from OrganisationUnit  
 				where DeleteAt=0 and 
@@ -809,6 +809,7 @@ function getFiles($conn,$article_id){
 	$res = $conn->query($query);
 	$files_output=array();
 	while($row = $res->fetch(PDO::FETCH_ASSOC)){
+		$row['file_type']=pathinfo($row['file_name'], PATHINFO_EXTENSION);
 		$row['file_icon']=file_icon($row['file_name']);
 		$row['attachment_url']="http://128.199.111.18/TabGenAdmin/".$row['file_name'];
 		$row['caption']=($row['caption']==null)?"":$row['caption'];
