@@ -23,8 +23,8 @@ else{
 			$row['images_url']=($row['Images']==null)?"http://128.199.111.18/TabGenAdmin/img/noimage.jpg":
 			"http://128.199.111.18/TabGenAdmin/".$row['Images'];
 			$row['Filenames']=getFiles($conn,$row['Id']);
-			$output = $row;
-			echo json_decode(array("status"=>true,"response"=>$row));
+			$output[] = $row;
+			echo json_decode(array("status"=>true,"response"=>$output));
 		}
 		else json_encode(array("status"=>false,"message"=>"Sorry, unable to get result."));
 		
