@@ -809,7 +809,7 @@ function getFiles($conn,$article_id){
 	$res = $conn->query($query);
 	$files_output=array();
 	while($row = $res->fetch(PDO::FETCH_ASSOC)){
-		$row['file_type']=pathinfo($row['file_name'], PATHINFO_EXTENSION);
+		//$row['file_type']=pathinfo($row['file_name'], PATHINFO_EXTENSION);
 		$row['file_icon']=file_icon($row['file_name']);
 		$row['attachment_url']="http://128.199.111.18/TabGenAdmin/".$row['file_name'];
 		$row['caption']=($row['caption']==null)?"":$row['caption'];
