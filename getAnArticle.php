@@ -20,11 +20,11 @@ else{
 			$row['Name']=str_replace("''","'",$row['Name']);
 			$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
 			$row['Images']=($row['Images']==null)?"":$row['Images'];
-			//$row['Filenames']=($row['Filenames']==null)?"":$row['Filenames'];
-			$row['images_url']=($row['Images']==null)?"http://128.199.111.18/TabGenAdmin/img/noimage.jpg":"http://128.199.111.18/TabGenAdmin/".$row['Images'];
+			$row['images_url']=($row['Images']==null)?"http://128.199.111.18/TabGenAdmin/img/noimage.jpg":
+			"http://128.199.111.18/TabGenAdmin/".$row['Images'];
 			$row['Filenames']=getFiles($conn,$row['Id']);
 			$output = $row;
-			echo json_decode(array("status"=>true,"response"=>$output));
+			echo json_decode(array("status"=>true,"response"=>$row));
 		}
 		else json_encode(array("status"=>false,"message"=>"Sorry, unable to get result."));
 		
