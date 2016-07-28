@@ -30,7 +30,8 @@
 				$row['Images']=($row['Images']==null)?"":$row['Images'];
 				//$row['Filenames']=($row['Filenames']==null)?"":$row['Filenames'];
 				$row['images_url']=($row['Images']==null)?"http://128.199.111.18/TabGenAdmin/img/noimage.jpg":"http://128.199.111.18/TabGenAdmin/".$row['Images'];
-				$row['Filenames']=getFiles($conn,$row['Id']);
+				//$row['Filenames']=getFiles($conn,$row['Id']);
+				$row['detail_url']="http://128.199.111.18/TabGenAdmin/getAnArticle.php?article_id=".$row['Id'];
 				$item[]=$row; 
 				$count++;		
 			}
