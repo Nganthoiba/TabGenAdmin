@@ -27,6 +27,7 @@
 				$row['UpdateAt']=(double)$row['UpdateAt'];
 				$row['Name']=str_replace("''","'",$row['Name']);
 				$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
+				$row['short_description']=substr($row['Textual_content'],0,80)."...";
 				$row['Images']=($row['Images']==null)?"":$row['Images'];
 				//$row['Filenames']=($row['Filenames']==null)?"":$row['Filenames'];
 				$row['images_url']=($row['Images']==null)?"http://128.199.111.18/TabGenAdmin/img/noimage.jpg":"http://128.199.111.18/TabGenAdmin/".$row['Images'];
