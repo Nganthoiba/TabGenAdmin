@@ -560,8 +560,7 @@
 						document.getElementById("file_attachment_layout"+i).innerHTML=file_upload_layout;
 						//document.getElementById("files_content"+i).innerHTML=file_upload_layout;
 						$("#uploadFileForm"+i).submit(function(e) {	
-							var path = $("#userFile"+i).val();
-							//var Extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
+							var path = $("#userFile"+i).val();	
 							var path_length = $('#userFile'+i).val().trim().length;
 							
 							if(path==null || path_length==0){
@@ -570,6 +569,16 @@
 									"<button type='button' class='close' "+
 									"onclick='attachFile(\""+i+"\");'>&times;</button>"+
 									"</div></center>");
+								return false;
+							}
+							else if(is_valid_file(path)==false){
+								$("#file_attachment_layout"+i).html("<br/><div class=''>"+
+									"Unsupported file type, please select one of the supported files as listed below:<br/>"+
+									"<p><strong>PDF, MS Word Document,PNG, CSV, SVG, Power Point(pptx), text file(txt), "+
+									"JPEG, Rich text(rtf), html, Spreadsheet MS Excel(xlsx), JSON file, MP4 video file </strong></p>"+
+									"<center><button type='button' class='btn' "+
+									"onclick='attachFile(\""+i+"\");'>OK</button></center>"+
+									"</div>");
 								return false;
 							}
 							else{
@@ -585,6 +594,7 @@
 										$("#file_progress-bar"+i).html('<div id="file_progress-status'+i+'">' + percentComplete +' %</div>');
 									},
 									success:function (resp){
+										//alert(resp);
 										$("#file_loader-icon"+i).hide();
 										var json_resp = JSON.parse(resp);
 										if(json_resp.status==true){
@@ -605,6 +615,7 @@
 							}
 						});
 					}
+										
 					/*js for uploading image file*/
 					function uploadImage(i){
 						var article_id = document.getElementById("article_id"+i).value;

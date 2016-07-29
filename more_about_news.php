@@ -602,6 +602,16 @@
 									"</div></center>");
 								return false;
 							}
+							else if(is_valid_file(path)==false){
+								$("#file_attachment_layout"+i).html("<br/><div class=''>"+
+									"Unsupported file type, please select one of the supported files as listed below:<br/>"+
+									"<p><strong>PDF, MS Word Document,PNG, CSV, SVG, Power Point(pptx), text file(txt), "+
+									"JPEG, Rich text(rtf), html, Spreadsheet MS Excel(xlsx), JSON file, MP4 video file </strong></p>"+
+									"<center><button type='button' class='btn' "+
+									"onclick='attachFile(\""+i+"\");'>OK</button></center>"+
+									"</div>");
+								return false;
+							}
 							else{
 								e.preventDefault();
 								$("#file_loader-icon"+i).show();

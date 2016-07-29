@@ -2372,6 +2372,29 @@ $(document).ready(function(){
 		//return false;
 	}
 	
+	/*function to validate file type*/
+					function is_valid_file(file_name){
+						var file_ext = file_name.substring(file_name.lastIndexOf('.') + 1).toLowerCase();
+						var flag;
+						switch(file_ext){
+							case "txt":
+							case "pdf":
+							case "doc":
+							case "csv":
+							case "png":
+							case "svg":
+							case "rtf":
+							case "mp4":
+							case "docx":
+							case "pptx":
+							case "html":
+							case "xlsx": 
+							case "json":flag=true;
+										break;
+							default: flag=false;
+						}
+						return flag;
+					}
 
 	
 	

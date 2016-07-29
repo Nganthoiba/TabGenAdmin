@@ -838,6 +838,7 @@ function file_icon($filename){
 		case "docx":
 		case "doc":	$icon_path=$icon_path."docx_win.png";
 					break;
+		case "pptx":
 		case "ppt":	$icon_path=$icon_path."pptx_win.png";
 					break;
 		case "bmp":	$icon_path=$icon_path."bmp.png";

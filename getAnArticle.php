@@ -64,6 +64,7 @@ function getFileType($filename){
 		case "docx":
 		case "doc":	$file_type="word";
 					break;
+		case "pptx":
 		case "ppt":	$file_type="power_point";
 					break;	
 		case "mkv":

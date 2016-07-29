@@ -69,7 +69,7 @@ if(!empty($_FILES)) {
 			}
 		}
 		else{
-			echo json_encode(array("status"=>false,"message"=>"Failed to upload your image. Try again later."));
+			echo json_encode(array("status"=>false,"message"=>"Failed to upload your file. Try again later."));
 		}
 	}
 	else if(is_uploaded_file($_FILES['news_image']['tmp_name'])) {
@@ -95,6 +95,6 @@ if(!empty($_FILES)) {
 		}
 	}
 }
-else echo "No file is received....";
+else echo json_encode(array("status"=>false,"message"=>"No file is received...."));
 
 ?>
