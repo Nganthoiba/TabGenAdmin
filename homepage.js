@@ -2385,6 +2385,8 @@ $(document).ready(function(){
 							case "svg":
 							case "rtf":
 							case "mp4":
+							case "jpg":
+							case "jpeg":
 							case "docx":
 							case "pptx":
 							case "html":
