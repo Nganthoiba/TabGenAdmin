@@ -902,7 +902,7 @@ function get_filename($conn,$file_id){
 }
 /*delete a file*/
 function delete_a_file($file_name){
-	if(unlink($file_name)){
+	if(unlink($file_name) || !file_exists($file_name)){
 		return true;
 	}
 	else{
