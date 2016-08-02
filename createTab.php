@@ -5,8 +5,8 @@ include('connect_db.php');
 include('tabgen_php_functions.php');// all the function/ methodes are in this php file
 include('ConnectAPI.php');
 //$ou_specific = $_POST['ou_specific'];
-if(isset($_SESSION['user_details'])){
-	$user_details = json_decode($_SESSION['user_details']);
+if(!empty($_POST['token'])){
+	//$user_details = json_decode($_SESSION['user_details']);
 	
 	if(!empty($_POST['ou_specific'])){
 		
@@ -24,7 +24,7 @@ if(isset($_SESSION['user_details'])){
 				$template_id=findTemplateId($conn,$template_name);
 				if($template_id!=null){
 					if($template_name=="Chat Template"){
-						$token_id = get_token();
+						$token_id = $_POST['token'];
 						if($token_id!=null){
 							$user_details = json_decode($_SESSION['user_details']);
 							$team_id = $user_details->team_id;
@@ -80,7 +80,7 @@ if(isset($_SESSION['user_details'])){
 	
 }
 else 
-	echo json_encode(array("status"=>false,"message"=>"Session expired, please login again."));
+	echo json_encode(array("status"=>false,"message"=>"Unauthorized user.."));
 //echo json_encode(array("status"=>true,"message"=>$ou_specific));
 
 //php function to create News

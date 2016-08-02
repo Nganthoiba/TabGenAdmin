@@ -236,6 +236,7 @@ function createTab(){
 			var ou_name = ($("#ou_selector").val()).trim();
 			var role_name = ($("#role_selector").val()).trim();
 			var role_id = getRoleId(role_name,role_list);
+			var token=user_session.token;
 			//alert("org_unit="+org_unit+"&role_name="+role_name+"&tab_name="+tab_name+"&template_name="+template_name);
 			if(tab_name.length==0){
 				document.getElementById("createTabResponse").innerHTML="<center><b>Dont leave tab name blank.</b></center>";
@@ -269,7 +270,7 @@ function createTab(){
 						type: "POST",
 						url: "createTab.php",
 						data: {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name,
-						"ou_name":ou_name,"role_name":role_name,"role_id":role_id},
+						"ou_name":ou_name,"role_name":role_name,"role_id":role_id,"token":token},
 						success: function(resp){
 							//alert("Response: "+resp);
 							var resp_arr = JSON.parse(resp);

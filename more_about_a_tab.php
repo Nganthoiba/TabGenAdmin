@@ -130,17 +130,25 @@
 										
 						var j=0;
 						for(var j=0;j<file_list.length;j++){
+							var id=file_list[j].Id;
 							var files=file_list[j].file_name;
 							/*attachment_bg*/
-							files_layout+=(files==null || files=="")?"":"<div class='attachment_bg'><a href='"+files+
+							files_layout+=(files==null || files=="")?"":"<div class='attachment_bg'>"+
+											"<button class='close' onclick='deleteFile(\""+id+"\");'>&times;</button>"+
+											"<a href='"+files+
 												"' target='_blank'>"+
 												"<img src='"+file_list[j].file_icon+"' height='60px' width='60px' alt='No Icon'/>"+
-												extractFileName(files)+"</a></div>";
+												extractFileName(files)+"</a>"+
+												"</div>";
 						}
 						files_layout=j>0?"<div><h5>Attached files:</h5></div>"+files_layout:"";
 						return files_layout;
 					}
-					
+					function deleteFile(file_id){
+						
+						alert("file Id: "+file_id);
+						
+					}
 					function getArticles(tab_id,loading_mode){
 						//alert(tab_id);
 						var data;

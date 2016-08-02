@@ -5,7 +5,7 @@
 	$new_password=$_POST['new_password'];
 	//echo "UserID: ".$user_id;
 	
-	include('connect_db.php');
+	include('server_IP.php');
 	include('ConnectAPI.php');
 	include('tabgen_php_functions.php');
 	

@@ -262,7 +262,7 @@
 							</form>-->
 				</div>
 				<div>
-					<table  class='table' cellspacing="10" 
+					<table  class='table table-striped' cellspacing="20" 
 							id="showOrgsList" border='0' style="padding-top:20px">
 							<script>
 								$(document).ready(function(){									
@@ -280,8 +280,6 @@
 			<div class="box">
 				<div class="headLine">Organisation Units
 							<!--
-							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
-										-webkit-align-content: center; align-content: center;padding-top:0px"
 							<form class="navbar-form navbar-right">
 								<input type="text" class="form-control" placeholder="Search...">
 								<button type="button" class="btn btn-default">
@@ -290,7 +288,7 @@
 							</form>-->
 				</div>
 				<div>		
-					<table  class='table' cellspacing="10" 
+					<table  class='table table-striped' cellspacing="20" 
 							
 						id="showOrgUnits" border="0" style="padding-top:20px">
 						<script>
