@@ -43,6 +43,7 @@
 			});
 		});
 		function toggle(){
+			//alert("Hi");
 			$("#wrapper").toggleClass("toggled");
 		}
 	
@@ -431,7 +432,10 @@
 									output = result.output;
 									if(output==null){
 										if(loading_mode=="first_time_load"){
-											document.getElementById("tab_contents").innerHTML="<center>No news article found, create a new one.</center>";
+											document.getElementById("tab_contents").innerHTML="<br/><center>"+
+											"<img src='img/empty_article_box.jpg' class='img-circle' alt='No Article'"+
+											" height='50%' width='60%'/>"+
+											"<br/>No news article found, create a new one.</center>";
 										}
 										else if(loading_mode=="before"){
 											//do nothing

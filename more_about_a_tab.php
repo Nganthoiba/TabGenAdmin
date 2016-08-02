@@ -48,6 +48,7 @@
 			});
 		});
 		function toggle(){
+			//alert("Hi");
 			$("#wrapper").toggleClass("toggled");
 		}
 		function getSession(){
@@ -212,7 +213,10 @@
 									var output = result.output;
 									if(output==null){
 										if(loading_mode=="first_time_load"){
-											document.getElementById("tab_contents").innerHTML="<center>No article found, create a new one.</center>";
+											document.getElementById("tab_contents").innerHTML="<br/><center>"+
+											"<img class='img-circle' src='img/empty_article_box.jpg' alt='No Article'"+
+											" height='50%' width='60%'/>"+
+											"<br/>No article found, create a new one.</center>";
 										}
 										else if(loading_mode=="before"){
 											//do nothing
