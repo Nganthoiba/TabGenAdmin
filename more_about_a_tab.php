@@ -182,8 +182,9 @@
 										}
 									},
 									error: function(){
-										swal("Update Failed!",
-										 "Unable to reach server. Please check your connection or try again later.",
+										swal("File deletion Failed!",
+										 "Unable to reach server or the requested resource is not available at server."+
+										 " Please check your connection or try again later.",
 										  "error");
 									}
 								});
