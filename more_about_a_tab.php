@@ -146,8 +146,8 @@
 					}
 					function deleteFile(file_id){
 						
-						alert("file Id: "+file_id);
-						
+						//alert("file Id: "+file_id);
+						alert("File deletion is Under development");
 					}
 					function getArticles(tab_id,loading_mode){
 						//alert(tab_id);
