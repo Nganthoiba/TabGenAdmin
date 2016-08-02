@@ -35,6 +35,12 @@
 	<script src="js/npm.js"></script>
 	<script src="homepage.js"></script>
 	<script type="text/JavaScript">
+		var js_session = sessionStorage.getItem('user_details');
+		if(js_session=="null"){
+			window.location.assign("index.html");
+		}
+		var user_session = JSON.parse(js_session);
+		
 		$(document).ready(function(){
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
@@ -134,7 +140,7 @@
 							var files=file_list[j].file_name;
 							/*attachment_bg*/
 							files_layout+=(files==null || files=="")?"":"<div class='attachment_bg'>"+
-											"<button class='close' onclick='deleteFile(\""+id+"\");'>&times;</button>"+
+											"<button class='close' onclick='deleteFile(\""+i+"\",\""+id+"\");'>&times;</button>"+
 											"<a href='"+files+
 												"' target='_blank'>"+
 												"<img src='"+file_list[j].file_icon+"' height='60px' width='60px' alt='No Icon'/>"+
@@ -144,10 +150,45 @@
 						files_layout=j>0?"<div><h5>Attached files:</h5></div>"+files_layout:"";
 						return files_layout;
 					}
-					function deleteFile(file_id){
-						
-						//alert("file Id: "+file_id);
-						alert("File deletion is Under development");
+					/*js function to delete a file*/
+					function deleteFile(i,file_id){
+						var article_id = document.getElementById("article_id"+i).value;
+						swal({   
+							title: "Are you sure to delete this file?", 
+							text: "Once it is deleted, you will not be able to recover it!",   
+							type: "warning",   
+							showCancelButton: true,   
+							confirmButtonColor: "#DD6B55",   
+							confirmButtonText: "YES",   
+							cancelButtonText: "NO",   
+							closeOnConfirm: false,   
+							closeOnCancel: true 
+						}, 
+						function(isConfirm){
+							if(isConfirm){
+								$.ajax({
+									url: "delete_file.php",
+									type: "POST",
+									data: {"user_id":user_session.id,"file_id":file_id,"article_id":article_id},
+									success: function(resp){
+										var json_resp = JSON.parse(resp);
+										if(json_resp.status==true){
+											swal("Delete Successful!", json_resp.message, "success");
+											files_path[i]=json_resp.file_lists;
+											refreshFileLayout(i);
+										}
+										else{
+											swal("File deletion Failed!", json_resp.message, "error");
+										}
+									},
+									error: function(){
+										swal("Update Failed!",
+										 "Unable to reach server. Please check your connection or try again later.",
+										  "error");
+									}
+								});
+							}
+						});	
 					}
 					function getArticles(tab_id,loading_mode){
 						//alert(tab_id);

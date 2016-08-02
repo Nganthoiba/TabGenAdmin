@@ -857,6 +857,8 @@ function file_icon($filename){
 	}
 	return $icon_path;
 }
+
+/* function to check if news with a given title already exists or not */
 function isNewsTitleExists($conn,$title){
 	$query = "select count(*) as count from News where title='$title'";
 	$res = $conn->query($query);
@@ -866,6 +868,45 @@ function isNewsTitleExists($conn,$title){
 	}
 	else{
 			return false;
+	}
+}
+
+function isAdmin($conn,$user_id){
+	$query = "select * from Users where Id='$user_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	if($row['Roles']=='system_admin')
+		return true;
+	else
+		return false;
+}
+
+/*php function to check whether the user is a valid user or not.*/
+function isValidUser($conn,$user_id){
+	$query = "select count(*) as count from Users where Id='$user_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	if((int)$row['count']>0){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+/*get file names from db*/
+function get_filename($conn,$file_id){
+	$query = "select * from ArticleFiles where Id='$file_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['file_name'];
+}
+/*delete a file*/
+function delete_a_file($file_name){
+	if(unlink($file_name)){
+		return true;
+	}
+	else{
+		return false;
 	}
 }
 ?>
