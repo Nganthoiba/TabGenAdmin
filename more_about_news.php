@@ -435,7 +435,7 @@
 											document.getElementById("tab_contents").innerHTML="<br/><center>"+
 											"<img src='img/empty_article_box.jpg' class='img-circle' alt='No Article'"+
 											" height='50%' width='60%'/>"+
-											"<br/>No news article found, create a new one.</center>";
+											"<br/><div class='well'>No news article found, create a new one.</div></center>";
 										}
 										else if(loading_mode=="before"){
 											//do nothing

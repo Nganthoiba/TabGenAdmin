@@ -1,6 +1,6 @@
 
 <?php 
-	phpInfo(); 
+	/*phpInfo(); 
 	
 	$new_path="userdata/profile_pics";
 	if(!is_dir($new_path) || !file_exists($new_path)) {
@@ -10,8 +10,8 @@
 			else{
 				echo json_encode(array("status"=>false,"message"=>"Directory not created.."));
 			}  
-			//echo json_encode(array("status"=>false,"message"=>"Directory not exists.."));
         }else{
 			echo json_encode(array("status"=>false,"message"=>"Directory already exists.."));
-		}
+		}*/
+	echo "Hi";
 ?>

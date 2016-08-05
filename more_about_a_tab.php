@@ -191,6 +191,7 @@
 							}
 						});	
 					}
+					
 					function getArticles(tab_id,loading_mode){
 						//alert(tab_id);
 						var data;
@@ -216,7 +217,7 @@
 											document.getElementById("tab_contents").innerHTML="<br/><center>"+
 											"<img class='img-circle' src='img/empty_article_box.jpg' alt='No Article'"+
 											" height='50%' width='60%'/>"+
-											"<br/>No article found, create a new one.</center>";
+											"<br/><div class='well'>No article found, create a new one.</div></center>";
 										}
 										else if(loading_mode=="before"){
 											//do nothing
@@ -246,8 +247,9 @@
 											link_layout="";
 										}
 										else{
-											link_layout="Reference: <a href='"+output[i].Links+"' target='_blank'>"+
+											link_layout="Reference url: <a href='"+output[i].Links+"' target='_blank'>"+
 											output[i].Links+"</a>";
+											
 										}
 										var textual_content=output[i].Textual_content;
 										textual_content = textual_content.replace("'","%");
@@ -323,7 +325,7 @@
 												"</div>"+
 											"</div>";
 										document.getElementById("tab_contents").innerHTML=article_layout;
-										refreshFileLayout(i);
+										refreshFileLayout(i);									
 									}
 									before_timestamp=output[output.length-1].CreateAt;
 									after_timestamp=output[0].CreateAt;

@@ -25,7 +25,9 @@ else{
 				$row['Filenames']=getAttatchment($conn,$row['Id']);
 				$output[] = $row;
 			}
-			echo json_encode(array("status"=>true,"response"=>$output));
+			echo json_encode(array("status"=>true,
+			"response"=>$output,
+			"web_view"=>"http://128.199.111.18/TabGenAdmin/getAnArticleWebView.php?article_id=".$id));
 		}
 		else {
 			echo json_encode(array("status"=>false,"message"=>"Sorry, unable to get result."));

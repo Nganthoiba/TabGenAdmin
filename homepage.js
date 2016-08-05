@@ -1609,7 +1609,7 @@ $(document).ready(function(){
 							ou_specific="No";
 							layout+= "<tr>"+
 								"<td>"+
-									"<div class='col-sm-4'>"+
+									"<div class='col-sm-6'>"+
 										"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 										"<div><b>Organisation:</b> "+ORG+
 											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
