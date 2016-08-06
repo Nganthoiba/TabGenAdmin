@@ -24,7 +24,7 @@
 			$links = $_POST['Links'];
 			$query = "update Article set Links='$links', UpdateAt=$time where Id='$id'";
 			if($conn->query($query)){
-				echo json_encode(array("status"=>true,"message"=>"Successfully updated..."));
+				echo json_encode(array("status"=>true,"message"=>"Successfully updated...","link"=>$links));
 			} 
 			else{
 				echo json_encode(array("status"=>false,"message"=>"Update failed..."));

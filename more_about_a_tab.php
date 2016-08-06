@@ -36,6 +36,7 @@
 	<script src="homepage.js"></script>
 	<script type="text/JavaScript">
 		var js_session = sessionStorage.getItem('user_details');
+		var output;
 		if(js_session=="null"){
 			window.location.assign("index.html");
 		}
@@ -211,7 +212,7 @@
 								//alert(resp);
 								var result = JSON.parse(resp);
 								if(result.state==true){
-									var output = result.output;
+									output = result.output;
 									if(output==null){
 										if(loading_mode=="first_time_load"){
 											document.getElementById("tab_contents").innerHTML="<br/><center>"+
@@ -232,27 +233,19 @@
 									var article_layout="";
 									
 									for(var i=0;i<output.length;i++){
-										var Link=output[i].Links;
+										
 										var image=output[i].Images;
 										image_path[i]=output[i].Images;
 										files_path[i]=output[i].Filenames;
 										var file_list=files_path[i];
+										var Link=output[i].Links;
+										var link_layout=get_link(i);
 										
-										//image==null?"":
 										var image_layout=(image==null || image=="")?"":"<center><img src='"+image+
 											"' height='80%' width='100%'/></center>";
 										
-										var link_layout="";
-										if(Link.trim()==0){
-											link_layout="";
-										}
-										else{
-											link_layout="Reference url: <a href='"+output[i].Links+"' target='_blank'>"+
-											output[i].Links+"</a>";
-											
-										}
-										var textual_content=output[i].Textual_content;
-										textual_content = textual_content.replace("'","%");
+										/*var textual_content=output[i].Textual_content;
+										textual_content = textual_content.replace("'","%");*/
 										
 										var status = output[i].Active;//whether the article is active or inactive
 										var status_layout="";
@@ -288,7 +281,10 @@
 														"onclick='deleteArticle(\""+i+"\");'"+
 														"class='close' aria-label='Close' id='deleteArticle"+i+"'>"+
 														"<span class='glyphicon glyphicon-remove'></span>"+
-													"</button>"+*/
+													"</button>"+
+													"<div><input type='hidden' id='edit_text"+i+
+														"' value='"+textual_content+"'/></div>"+
+													*/
 										article_layout+=""+
 											"<div class='article'>"+
 												"<div class='headLine' id='article_title"+i+"'>"+
@@ -298,30 +294,21 @@
 												"<div style='height:70%;padding:10px'>"+
 													"<div id='image_content"+i+"'>"+image_layout+"</div><br/>"+
 													"<div id='textual_content"+i+"'>"+output[i].Textual_content+
-														"<button class='btn btn-link' style='float:right' onclick='editArticle(\""+i+"\");'>"+
+														"<button class='close' onclick='editArticle(\""+i+"\");'>"+
 														"<span class='glyphicon glyphicon-pencil'></span></button>"+
 													"</div>"+
-													"<div><input type='hidden' id='edit_text"+i+
-														"' value='"+textual_content+"'/></div>"+
 													"<br/>"+
 													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
-														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
-													"<div id='file_attachment_layout"+i+"'></div>"+
-													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
 														"id='link_content"+i+"'>"+link_layout+"</div>"+
+													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
+														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
+													"<div id='file_attachment_layout"+i+"'></div>"+	
 												"</div>"+
 												""+status_layout+
 												"<br/><hr/>"+
 												"<div id='btn_group"+i+"' "+
 													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
-													"<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+
-														"<span class='glyphicon glyphicon-picture'></span></button>"+
-													"<button class='btn btn-info' onclick='attachFile(\""+i+"\");'>"+
-													"<span class='glyphicon glyphicon-paperclip'></span></button>"+
-													"<a href='#' data-toggle='modal' data-target='#Editlink' "+
-														"onclick='editLink(\""+i+"\",\""+Link+"\");'"+
-														"class='btn btn-info'><span class='glyphicon glyphicon-link'>"+
-														"</span></a>"+
+													get_button_layout(i)+
 												"</div>"+
 											"</div>";
 										document.getElementById("tab_contents").innerHTML=article_layout;
@@ -428,8 +415,47 @@
         <div id="page-content-wrapper">
 			
 			<div class="container-fluid">
+				<!--
+				<object width="425" height="344">
+					<embed src="http://www.youtube.com/v/F9Bo89m2f6g&hl=en&fs=1"
+						type="application/x-shockwave-flash" allowfullscreen="true" width="425" height="344">
+					</embed>
+				</object>
+				<video width="420" height="315" controls>
+				  <source src="uploaded_file/movie.mp4" type="video/mp4">
+				  <source src="uploaded_file/movie.ogg" type="video/ogg">
+					Your browser does not support the video tag.
+				</video>
+				<video width="420" height="315" controls>
+				  <source src="https://youtu.be/kGIftVM8b1o">
+					Your browser does not support the video tag.
+				</video>
+				<iframe width="420" height="315"
+				src="https://www.youtube.com/embed/pYSvk18d-48?autoplay=0">
+				
+				</iframe>-->
+				<!--
+				https://www.youtube.com/watch?v=kGIftVM8b1o
+				video url: https://youtu.be/kGIftVM8b1o
+				video url at current time: https://youtu.be/kGIftVM8b1o?t=14-->
             <div class="" id="tab_contents">	
 				<script type='text/JavaScript'>
+					//youtube_parser("https://youtu.be/kGIftVM8b1o?t=14");
+					function youtube_parser(url){
+						var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+						var match = url.match(regExp);
+						if (match&&match[7].length==11){
+							var id=match[7];
+							return id;
+						}else{
+							return null;
+						}
+					}
+					function is_youtube_url(url){
+						var reg_exp="^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$";
+						return url.match(reg_exp);
+					}
+					
 					function editLink(i,article_link){
 						indicator=i;
 						var article_id = document.getElementById("article_id"+i).value;
@@ -443,6 +469,39 @@
 						}
 						document.getElementById("article_ID").value=article_id;
 						document.getElementById("editLinkResponse").innerHTML="";
+					}
+					function get_link(i){
+						var Link=output[i].Links;
+						var link_layout="";
+						if(Link.trim()==0){
+							link_layout="";
+						}
+						else{
+							if(is_youtube_url(Link) && youtube_parser(Link)!=null){
+								var video_id = youtube_parser(Link);
+								link_layout=""+
+								"<center><iframe height='315' width='420' allowfullscreen='true'"+
+									" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
+								"</iframe></center>";
+							}
+							else{
+								link_layout="<br/><a href='"+output[i].Links+"' target='_blank'>"+
+											output[i].Links+"</a>";
+							}				
+						}
+						return link_layout;
+					}
+					
+					function get_button_layout(i){
+						var btn_layout="<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+
+						"<span class='glyphicon glyphicon-picture'></span></button>"+
+						"<button class='btn btn-info' onclick='attachFile(\""+i+"\");'>"+
+							"<span class='glyphicon glyphicon-paperclip'></span></button>"+
+							"<a href='#' data-toggle='modal' data-target='#Editlink' "+
+								"onclick='editLink(\""+i+"\",\""+output[i].Links+"\");'"+
+								"class='btn btn-info'><span class='glyphicon glyphicon-link'>"+
+								"</span></a>";
+						return btn_layout;
 					}
 					function edit_link_done(){
 						//alert(indicator);
@@ -461,17 +520,11 @@
 							success: function(resp){
 								var json_resp = JSON.parse(resp);
 								if(json_resp.status==true){
-									document.getElementById("link_content"+indicator).innerHTML="Reference: <a href='"+new_link+
-										"' target='_blank'>"+new_link+"</a>";
+									output[indicator].Links=json_resp.link;
+									document.getElementById("link_content"+indicator).innerHTML=get_link(indicator);
 									document.getElementById("editLinkResponse").innerHTML=json_resp.message;
 									document.getElementById("editLinkResponse").style.color="green";
-									document.getElementById("btn_group"+indicator).innerHTML=""+
-												"<button class='btn btn-info' onclick='uploadImage(\""+indicator+"\");'><span class='glyphicon glyphicon-picture'></span></button>"+
-												"<button class='btn btn-info' onclick='attachFile(\""+indicator+"\");'>"+
-													"<span class='glyphicon glyphicon-paperclip'></span></button>"+
-												"<a href='#' data-toggle='modal' data-target='#Editlink' "+
-														"onclick='editLink(\""+indicator+"\",\""+new_link+"\");'"+
-														"class='btn btn-info'><span class='glyphicon glyphicon-link'></span></a>";
+									document.getElementById("btn_group"+indicator).innerHTML=get_button_layout(indicator);
 								}
 								else{
 									document.getElementById("editLinkResponse").innerHTML=json_resp.message;
@@ -488,8 +541,8 @@
 						
 					}
 					function editArticle(i){
-						var content = document.getElementById("edit_text"+i).value;
-						content = content.replace("%","'");
+						var content = output[i].Textual_content;//document.getElementById("edit_text"+i).value;
+						//content = content.replace("%","'");
 						//alert(content);
 						document.getElementById("textual_content"+i).innerHTML="<div class='textarea_bg'>"+
 							"<div class='div_bg'><label for='edited_text"+i+"'>Edit the content:</label>"+
@@ -501,17 +554,17 @@
 					
 					function cancel_edit(i){
 						//alert(i);
-						var content = document.getElementById("edit_text"+i).value;
-						content = content.replace("%","'");
+						var content = output[i].Textual_content;//document.getElementById("edit_text"+i).value;
+						//content = content.replace("%","'");
 						document.getElementById("textual_content"+i).innerHTML=content+
-							"<button class='btn btn-link' style='float:right' onclick='editArticle(\""+i+"\");'>"+
+							"<button class='close' onclick='editArticle(\""+i+"\");'>"+
 								"<span class='glyphicon glyphicon-pencil'></span></button>";
 					}
 					
 					function done_edit(i){
 						//alert(i);
 						var content = document.getElementById("edited_text"+i).value;
-						content = content.replace("%","'");
+						//content = content.replace("%","'");
 						var article_id = document.getElementById("article_id"+i).value;
 						$.ajax({
 							url: "update_article.php",
@@ -520,10 +573,11 @@
 							success: function(resp){
 								var resp_json = JSON.parse(resp);
 								if(resp_json.status==true){
+									output[i].Textual_content=content;
 									document.getElementById("textual_content"+i).innerHTML=content+
-										"<button class='btn btn-link' style='float:right' onclick='editArticle(\""+i+"\");'>"+
+										"<button class='close' onclick='editArticle(\""+i+"\");'>"+
 											"<span class='glyphicon glyphicon-pencil'></span></button>";
-									document.getElementById("edit_text"+i).value=content;
+									//document.getElementById("edit_text"+i).value=content;
 								}
 								else{
 									alert(resp_json.message);
