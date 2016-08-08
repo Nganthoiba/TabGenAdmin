@@ -171,10 +171,10 @@
 						var layout="";
 						if(img_src=="" || img_src==null){
 							layout="<div class='col-sm-12' id='image_layout"+i+"'>"+
-								"<center><img class='img-thumbnail' src='img/noimage.jpg' alt='No Image' "+
-										"height='350px' width='80%'/><br/>"+
-								"<div id='image_upload_layout"+i+"'>"+
-									" <button class='btn' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Put an image</button></div></center></div>";
+								"<center><div id='image_upload_layout"+i+"'>"+
+									" <button class='' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>"+
+									"<span class='glyphicon glyphicon-picture'></span>"+
+									"</button></div></center></div>";
 						}
 						else{
 							layout="<br/><div id='image_layout"+i+"'>"+
@@ -182,8 +182,8 @@
 										"height='350px' width='80%'/><br/>"+
 									"<div id='image_upload_layout"+i+"'>"+
 									"<div class='btn-group'>"+
-									"<button class='btn'"+
-									" onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Replace the image</button>"+
+									"<button class='close'"+
+									" onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Replace</button>"+
 									"</div></div></center></div>";
 						}
 						return layout;

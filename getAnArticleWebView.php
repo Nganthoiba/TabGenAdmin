@@ -11,9 +11,7 @@
 		<link href="css/toast.css" rel="stylesheet" media="screen">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="js/toast.js"></script>
-		<!-- ********************************************** -->
-		
-		
+		<!-- ********************************************** -->	
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
 		<!-- This is what you need for sweet alert -->

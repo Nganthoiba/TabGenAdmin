@@ -416,6 +416,20 @@
 			
 			<div class="container-fluid">
 				<!--
+				<p id="p1"><a href="http://cnet.com">Cnet</a></p>
+				<p id="p2"><a href="http://codegena.com">Codegena</a></p>
+				<p id="p3"><a href="http://apple.com">Apple</a></p>
+
+				<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+				  <link href="http://codegena.com/assets/css/image-preview-for-link.css" rel="stylesheet">     
+				  <script type="text/javascript">
+					$(function() {
+								$('#p1 a').miniPreview({ prefetch: 'pageload' });
+								$('#p2 a').miniPreview({ prefetch: 'parenthover' });
+								$('#p3 a').miniPreview({ prefetch: 'none' });
+							});
+				  </script> <script src="http://codegena.com/assets/js/image-preview-for-link.js"></script>
+				
 				<object width="425" height="344">
 					<embed src="http://www.youtube.com/v/F9Bo89m2f6g&hl=en&fs=1"
 						type="application/x-shockwave-flash" allowfullscreen="true" width="425" height="344">
@@ -442,12 +456,17 @@
 				<script type='text/JavaScript'>
 					//youtube_parser("https://youtu.be/kGIftVM8b1o?t=14");
 					function youtube_parser(url){
-						var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-						var match = url.match(regExp);
-						if (match&&match[7].length==11){
-							var id=match[7];
-							return id;
-						}else{
+						if(is_youtube_url(url)){
+							var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+							var match = url.match(regExp);
+							if (match&&match[7].length==11){
+								var id=match[7];
+								return id;
+							}else{
+								return null;
+							}
+						}
+						else {
 							return null;
 						}
 					}
@@ -477,16 +496,17 @@
 							link_layout="";
 						}
 						else{
-							if(is_youtube_url(Link) && youtube_parser(Link)!=null){
+							if(youtube_parser(Link)!=null){
 								var video_id = youtube_parser(Link);
 								link_layout=""+
-								"<center><iframe height='315' width='420' allowfullscreen='true'"+
+								"<center><iframe height='315' width='480' allowfullscreen='true'"+
 									" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
 								"</iframe></center>";
 							}
 							else{
-								link_layout="<br/><a href='"+output[i].Links+"' target='_blank'>"+
-											output[i].Links+"</a>";
+								link_layout="<br/><a href='"+Link+"' target='_blank'>"+Link+"</a>"+
+								"<center><div class='preview_link'><iframe height='800' width='480'"+
+								" src='"+Link+"'></iframe></div></center>";
 							}				
 						}
 						return link_layout;
@@ -545,11 +565,12 @@
 						//content = content.replace("%","'");
 						//alert(content);
 						document.getElementById("textual_content"+i).innerHTML="<div class='textarea_bg'>"+
-							"<div class='div_bg'><label for='edited_text"+i+"'>Edit the content:</label>"+
-							"<textarea class='form-control' rows='10' cols='50' id='edited_text"+i+"'>"+content+"</textarea></div></div>"+
-							"<div class='textarea_bg' style='float:right'><input type='button' value='CANCEL' class='btn btn-primary' "+
+							"<div class=''><label for='edited_text"+i+"'>Edit the content:</label>"+
+							"<textarea class='form-control' rows='10' cols='50' id='edited_text"+i+"'>"+content+"</textarea>"+
+							"</div></div>"+
+							"<div class='textarea_bg' style='float:right'><input type='button' value='CANCEL' class='btn' "+
 								"onclick='cancel_edit(\""+i+"\");'/>&nbsp;"+
-							"<input type='button' value='DONE' class='btn btn-primary' onclick='done_edit(\""+i+"\");'/></div><br/><br/>";
+							"<input type='button' value='DONE' class='btn' onclick='done_edit(\""+i+"\");'/></div><br/><br/>";
 					}
 					
 					function cancel_edit(i){
@@ -643,7 +664,7 @@
 					function attachFile(i){
 						var article_id = document.getElementById("article_id"+i).value;
 						var file_upload_layout=""+
-							"<div class='select_img_bg'>"+
+							"<div style='padding-right:20px'>"+
 								"<form id='uploadFileForm"+i+"' action='upload.php' method='post'>"+
 									"<div id='FileAttachtargetLayer"+i+"'></div>"+
 									"<button type='button' class='close' "+
@@ -651,7 +672,7 @@
 										"<label>Attach a file:</label>"+
 										"<table><tr>"+
 											"<td>"+
-												"<input name='userFile' id='userFile"+i+"' type='file' class='demoInputBox' />"+
+												"<input name='userFile' id='userFile"+i+"' type='file' class='demoInputBox'/>"+
 												"<input name='article_id' type='hidden' value='"+article_id+"'/>"+
 											"</td>"+
 											"<td>"+
