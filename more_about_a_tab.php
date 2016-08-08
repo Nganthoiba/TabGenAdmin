@@ -505,7 +505,7 @@
 							}
 							else{
 								link_layout="<br/><a href='"+Link+"' target='_blank'>"+Link+"</a>"+
-								"<center><div class='preview_link'><iframe height='800' width='480'"+
+								"<center><div class='preview_link'><iframe height='500' width='480'"+
 								" src='"+Link+"'></iframe></div></center>";
 							}				
 						}

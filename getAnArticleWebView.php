@@ -61,7 +61,7 @@
 							$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
 							$row['short_description']=substr($row['Textual_content'],0,80)."...";
 							$link=$row['external_link_url'];
-							echo "<a href='$link'>".$link."</a><br/>";
+							echo curl($link);//"<a href='$link'>".$link."</a><br/>";
 							$row['Filenames']=getAttatchment($conn,$row['Id']);
 							$attachment=getAttatchment($conn,$row['Id']);
 							for($i=0;$i<sizeof($attachment);$i++){
