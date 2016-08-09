@@ -76,6 +76,22 @@
 					});
 				}, 30000);	
 		}
+		
+		function test_token(){
+			var js_session = sessionStorage.getItem('user_details');
+			var user_session = JSON.parse(js_session);
+			alert(js_session);
+			/*$.ajax({
+				url: "test.php",
+				type: "GET",
+				beforeSend: function (xhr) {			
+					xhr.setRequestHeader('X-AUTHENTICATION-TOKEN', user_session.token);
+				},
+				success: function(resp){
+					alert(resp);
+				}
+			});*/
+		}
 	</script>
 	<body onload='getSession();'>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -104,13 +120,13 @@
 					?> <span class="sr-only">(current)</span></a>
 				</li>
 				<li>
-					<!--
+					
 					<a>
-						<button class='btn' onclick="location.reload();getArticles(tab_id,'first_time_load');">
-							<span class="glyphicon glyphicon-repeat"></span> Reload Latest Articles
+						<button class='btn' onclick="test_token();">
+							<span class="glyphicon glyphicon-repeat"></span> Get Token
 						</button>
 					</a>
-					-->
+					
 				</li>
 				<script type="text/JavaScript">
 					var before_timestamp;//for pagination
