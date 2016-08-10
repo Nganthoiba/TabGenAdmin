@@ -1319,7 +1319,7 @@
 						<span id='token_span'></span>
 						<button type="button" style='width:45%' class="btn btn-default" data-dismiss="modal" aria-label="Close">No</button>
 						&nbsp;&nbsp;
-						<button type="submit" style='width:45%' onclick="removeSession();
+						<button type="submit" style='width:45%' onclick="removeSession();"
 						class="btn btn-default" id="YesLogout">Yes</button>
 						<!--<a href="logout.php"  style='width:45%' class="btn btn-default" onclick="removeSession();"
 						style="width:20%" id="YesLogout">Yes</a>-->
