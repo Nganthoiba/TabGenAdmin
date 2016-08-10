@@ -894,7 +894,7 @@
 												var news_details = tinyMCE.get('news_details').getContent();
 												//alert(news_details);
 												if(validateNews()){
-													$("#publishNewsResponse").css('color', 'black');
+													$('#publishNewsResponse').css('color', 'black');
 													$('#publishNewsResponse').html("<center><strong>Wait Please...</strong></center>");
 													
 													$.ajax({
