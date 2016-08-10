@@ -315,6 +315,9 @@
 							url: "update_article.php",
 							type:"POST",
 							data:{"article_id":article_id,"news_details":news_details},
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader('Authorization',user_session.token);
+							},
 							success: function(resp){
 								//alert(resp);
 								var json_resp = JSON.parse(resp);
@@ -391,6 +394,9 @@
 							url: "update_article.php",
 							type:"POST",
 							data:{"article_id":article_id,"news_headline":news_headline},
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader('Authorization',user_session.token);
+							},
 							success: function(resp){
 								//alert(resp);
 								var json_resp = JSON.parse(resp);

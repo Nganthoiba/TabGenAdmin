@@ -47,6 +47,7 @@
 					url: "authenticate.php",
 					data: "username="+login_email+"&password="+login_password,
 					success: function(resp){
+						//alert(resp);
 						var jarr = jQuery.parseJSON(resp);		
 						if(jarr.state=="true"){
 							window.location.assign(""+jarr.location);
@@ -57,6 +58,7 @@
 						}
 					},
 					error: function(x,y,z){
+						//alert(z);
 						document.getElementById("login_response").innerHTML="<p align='center' style='color:red'>Oops! An unknown problem occurs, try again later</P>";
 					}
 				});

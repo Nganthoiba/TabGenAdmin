@@ -80,17 +80,18 @@
 		function test_token(){
 			var js_session = sessionStorage.getItem('user_details');
 			var user_session = JSON.parse(js_session);
-			alert(js_session);
-			/*$.ajax({
+			//alert(js_session);
+			$.ajax({
 				url: "test.php",
-				type: "GET",
+				type: "POST",
 				beforeSend: function (xhr) {			
-					xhr.setRequestHeader('X-AUTHENTICATION-TOKEN', user_session.token);
+					//xhr.setRequestHeader('X-AUTHENTICATION-TOKEN', user_session.token);
+					xhr.setRequestHeader('Authorization',user_session.token);
 				},
 				success: function(resp){
 					alert(resp);
 				}
-			});*/
+			});
 		}
 	</script>
 	<body onload='getSession();'>
@@ -120,12 +121,12 @@
 					?> <span class="sr-only">(current)</span></a>
 				</li>
 				<li>
-					
+					<!--
 					<a>
 						<button class='btn' onclick="test_token();">
 							<span class="glyphicon glyphicon-repeat"></span> Get Token
 						</button>
-					</a>
+					</a>-->
 					
 				</li>
 				<script type="text/JavaScript">
@@ -553,6 +554,9 @@
 							url: "update_article.php",
 							type: "POST",
 							data: {"article_id":article_id,"Links":new_link},
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader('Authorization',user_session.token);
+							},
 							success: function(resp){
 								var json_resp = JSON.parse(resp);
 								if(json_resp.status==true){
@@ -607,6 +611,9 @@
 							url: "update_article.php",
 							type: "POST",
 							data: {"article_id":article_id,"textual_content":content},
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader('Authorization',user_session.token);
+							},
 							success: function(resp){
 								var resp_json = JSON.parse(resp);
 								if(resp_json.status==true){

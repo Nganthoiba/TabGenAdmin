@@ -38,7 +38,7 @@
 			window.location.assign("index.html");
 		}
 		var user_session = JSON.parse(js_session);
-
+		
 		$(document).ready(function(){
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
@@ -168,7 +168,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" data-toggle="modal" data-target="#logoutConfirmation" onclick="removeSession();">
+				<a href="#" data-toggle="modal" data-target="#logoutConfirmation" >
 					  <span class="glyphicon glyphicon-log-out"></span>&nbsp;logout</a>
 			</li>
 			<!--<li><a href="#">Link</a></li>
@@ -1309,9 +1309,21 @@
 				  <center><strong>Logout &nbsp;</strong> Are you sure?</center>
 				</div>
 				<center>
-					<button type="button" style='width:45%' class="btn btn-default" data-dismiss="modal" aria-label="Close">No</button>
-					&nbsp;&nbsp;
-					<a href="logout.php"  style='width:45%' class="btn btn-default" style="width:20%" id="YesLogout">Yes</a>
+					<script type='text/javascript'>
+						$(document).ready(function(){
+							$('#token_span').html("<input type='hidden' name='token' "+
+							"id='token' value='"+user_session.token+"'/>");
+						});
+					</script>
+					<form name='logout_form' method='POST' action='logout.php'>
+						<span id='token_span'></span>
+						<button type="button" style='width:45%' class="btn btn-default" data-dismiss="modal" aria-label="Close">No</button>
+						&nbsp;&nbsp;
+						<button type="submit" style='width:45%' 
+						class="btn btn-default" id="YesLogout">Yes</button>
+						<!--<a href="logout.php"  style='width:45%' class="btn btn-default" onclick="removeSession();"
+						style="width:20%" id="YesLogout">Yes</a>-->
+					</form>
 				</center>
 			</div>	
 		</div>

@@ -420,36 +420,31 @@ function get_token(){
 		session_start();
 		$token=null;
 		if(isset($_SESSION['login_header_response'])){
-			$connect = new ConnectAPI();
 			$header = $_SESSION['login_header_response'];
-			$header_array = $connect->http_parse_headers($header);
-					
-			foreach ($header_array as $name => $value) {
-				//echo "The value of '$name' is '$value'<br>";
-				if($name=="Token"){
-					$token = $value;
-					break;
-				}
-			}
+			$token = getTokenFromHeader($header);			
 		}
 		else if(isset($_COOKIE['login_header_response'])){
-			$connect = new ConnectAPI();
 			$header = $_COOKIE['login_header_response'];
-			$header_array = $connect->http_parse_headers($header);
-					
-			foreach ($header_array as $name => $value) {
-				//echo "The value of '$name' is '$value'<br>";
-				if($name=="Token"){
-					$token = $value;
-					break;
-				}
-			}
+			$token = getTokenFromHeader($header);
 		}
 		else 
 			$token=null;
 											
 		return $token;
 }
+
+function getTokenFromHeader($header){
+	$header_array = http_parse_headers($header); 
+	$token = null;				
+	foreach ($header_array as $name => $value) {
+		if($name=="Token"){
+			$token = $value;
+			break;
+		}
+	}
+	return $token;
+}
+
 function getUserNameById($conn,$user_id){
 	$name=null;
 	$query = "select * from Users where Id='$user_id'";
@@ -919,4 +914,52 @@ function curl($url) {
         curl_close($ch);    // Closing cURL
         return $data;   // Returning the data from the function
  }
+ 
+/*php function to parse header data received from other api*/
+function http_parse_headers( $header )
+{
+	$retVal = array();
+	$fields = explode("\r\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $header));
+	foreach( $fields as $field ) {
+		if( preg_match('/([^:]+): (.+)/m', $field, $match) ) {
+			$match[1] = preg_replace('/(?<=^|[\x09\x20\x2D])./e', 'strtoupper("\0")', strtolower(trim($match[1])));
+		    if( isset($retVal[$match[1]]) ) {
+				$retVal[$match[1]] = array($retVal[$match[1]], $match[2]);
+		    } 
+		    else{
+		        $retVal[$match[1]] = trim($match[2]);
+		    }
+		}
+	}
+	return $retVal;
+}
+
+/*php function to get token / any data from header passed from client side.*/	
+function get_token_from_header(){
+	$request_header=null;
+	if (isset($_SERVER['Authorization'])) {
+		$request_header = $_SERVER['Authorization'];
+		return $request_header;
+	} else {
+		if (function_exists('getallheaders')) {
+			foreach (getallheaders() as $header_name => $header_value) {
+				if ($header_name == 'Authorization') {
+					$request_header = $header_value;
+				}
+			}
+			return $request_header;
+		}
+		else return null;
+	}
+}
+
+function getUserIdByToken($conn,$token){
+	$query = "select UserId from Sessions where Token='$token'";
+	$res = $conn->query($query);
+	if($res){
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return $row['UserId'];
+	}
+	else return null;
+}
 ?>

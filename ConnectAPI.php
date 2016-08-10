@@ -58,6 +58,7 @@ class ConnectAPI{
 			return null;
 		}
 	}
+	
 	//Getting data from an api by passing token
 	function getDataByToken($url,$token){
 		try{
@@ -84,7 +85,7 @@ class ConnectAPI{
 	}
 
 	//php function to read/parse HTTP response header
-	function http_parse_headers( $header )
+	function parse_headers($header)
 	{
 		$retVal = array();
 		$fields = explode("\r\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $header));
