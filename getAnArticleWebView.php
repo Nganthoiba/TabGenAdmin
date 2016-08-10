@@ -52,7 +52,7 @@
 							$row['Name']=str_replace("''","'",$row['Name']);
 							echo "<div class='headline'><h1>".$row['Name']."</h1></div>";
 							$row['Images']=($row['Images']==null)?"":$row['Images'];
-							$row['images_url']=($row['Images']==null)?"http://128.199.111.18/TabGenAdmin/img/noimage.jpg":
+							$row['images_url']=($row['Images']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
 							"http://128.199.111.18/TabGenAdmin/".$row['Images'];
 							if($row['Images']!=null){
 								echo "<center><img class='img-thumbnail' src='".$row['Images']."'/></center>";
@@ -100,7 +100,7 @@
 				while($row = $res->fetch(PDO::FETCH_ASSOC)){
 					$row['file_type']=getFileType($row['file_name']);
 					$row['file_name']=substr($row['file_name'],strpos($row['file_name'],"/")+1);
-					$row['attachment_url']="http://128.199.111.18/TabGenAdmin/".$row['file_name'];
+					$row['attachment_url']="http://".SERVER_IP."/TabGenAdmin/".$row['file_name'];
 					$row['caption']=($row['caption']==null)?"":$row['caption'];
 					$files_output[]=$row;
 				}

@@ -20,14 +20,14 @@ else{
 				$row['Name']=str_replace("''","'",$row['Name']);
 				$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
 				$row['Images']=($row['Images']==null)?"":$row['Images'];
-				$row['images_url']=($row['Images']==null)?"http://128.199.111.18/TabGenAdmin/img/noimage.jpg":
-				"http://128.199.111.18/TabGenAdmin/".$row['Images'];
+				$row['images_url']=($row['Images']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
+				"http://".SERVER_IP."/TabGenAdmin/".$row['Images'];
 				$row['Filenames']=getAttatchment($conn,$row['Id']);
 				$output[] = $row;
 			}
 			echo json_encode(array("status"=>true,
 			"response"=>$output,
-			"web_view"=>"http://128.199.111.18/TabGenAdmin/getAnArticleWebView.php?article_id=".$id));
+			"web_view"=>"http://".SERVER_IP."/TabGenAdmin/getAnArticleWebView.php?article_id=".$id));
 		}
 		else {
 			echo json_encode(array("status"=>false,"message"=>"Sorry, unable to get result."));
@@ -45,7 +45,7 @@ function getAttatchment($conn,$article_id){
 	while($row = $res->fetch(PDO::FETCH_ASSOC)){
 		$row['file_type']=getFileType($row['file_name']);
 		$row['file_name']=substr($row['file_name'],strpos($row['file_name'],"/")+1);
-		$row['attachment_url']="http://128.199.111.18/TabGenAdmin/".$row['file_name'];
+		$row['attachment_url']="http://".SERVER_IP."/TabGenAdmin/".$row['file_name'];
 		$row['caption']=($row['caption']==null)?"":$row['caption'];
 		$files_output[]=$row;
 	}

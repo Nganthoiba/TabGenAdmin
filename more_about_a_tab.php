@@ -662,11 +662,13 @@
 						}
 						else{
 							var post_data = {"tab_id":tab_id,"Name":name,"textual_content":textual_content,"link":link_site};
-							//alert(JSON.stringify(post_data));
 							$.ajax({
 								type: "POST",
 								url: "createArticle.php",
 								data: post_data,
+								beforeSend: function (xhr) {
+									xhr.setRequestHeader('Authorization',user_session.token);
+								},
 								success: function(resp){
 									var result = JSON.parse(resp);
 									document.getElementById("createArticleResp").innerHTML="<center><b>"+result.message+

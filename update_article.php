@@ -10,7 +10,7 @@
 		
 		$user_id = getUserIdByToken($conn,$token);
 		if($user_id==null){
-			echo json_encode(array("status"=>false,"message"=>"Invalid token: ".$token));
+			echo json_encode(array("status"=>false,"message"=>"Invalid token"));
 		}
 		else
 		{
