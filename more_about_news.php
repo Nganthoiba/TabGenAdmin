@@ -453,8 +453,9 @@
 										}
 										return false;
 									}
-									var article_layout="";
-									
+									//var article_layout="";
+									var article_left="";
+									var article_right="";
 									for(var i=0;i<output.length;i++){
 										files_path[i]=output[i].Attachments;
 										var status = output[i].Active;//whether the article is active or inactive
@@ -485,7 +486,8 @@
 													"</label>"+
 												"</div>";
 										}
-										article_layout+=""+
+										if(i%2==0){
+											article_left+=""+
 											"<div class='news_article'>"+
 												"<div class='headLine' id='article_title"+i+"'>"+
 													"<h2>"+output[i].title+"</h2>"+
@@ -512,7 +514,38 @@
 													"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
 												"</button>"+	
 											"</div>";
-										document.getElementById("tab_contents").innerHTML=article_layout;
+											document.getElementById("left_column").innerHTML=article_left;
+										}
+										else{
+											article_right+=""+
+											"<div class='news_article'>"+
+												"<div class='headLine' id='article_title"+i+"'>"+
+													"<h2>"+output[i].title+"</h2>"+
+													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
+												"</div>"+
+												"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
+												"<div id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
+												"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
+													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
+													"<div class='pull-right'>"+
+														"<button class='btn btn-link' "+
+														"onclick='edit_content(\""+i+"\");'"+
+														"id='edit_content"+i+"'>"+
+														"Edit Content</button>"+
+													"</div>"+
+												"</div>"+
+												"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:10px' "+
+														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
+												"<br/><hr/>"+
+												"<div id='file_attachment_layout"+i+"'></div>"+
+												"<br/>"+status_layout+
+												"<button class='btn btn-success' style='padding:5px;float:right"+
+													"' onclick='attachFile(\""+i+"\");'>"+
+													"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
+												"</button>"+	
+											"</div>";
+											document.getElementById("right_column").innerHTML=article_right;
+										}
 									}
 									before_timestamp=output[output.length-1].CreateAt;
 									after_timestamp=output[0].CreateAt;
@@ -796,7 +829,8 @@
         <div id="page-content-wrapper">
 			<div class="container-fluid">
             <div class="container" id="tab_contents"></div>	
-				
+				<div id="left_column" class="column"></div>	
+				<div id="right_column" class="column"></div>
 			</div>
         </div>
         <!-- /#page-content-wrapper -->

@@ -1328,15 +1328,6 @@
 			</div>	
 		</div>
 	</div>
-</div>
-<?php  //echo get_token();
-/*
-	}else{
-		echo "<p><center>Sorry! NO user session available, try login again.</center></p>";
-	}
-}*/
-
- ?>
- 
+</div> 
 </body>
 </html>

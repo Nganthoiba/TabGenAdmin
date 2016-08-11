@@ -247,8 +247,9 @@
 										}
 										return false;
 									}
-									var article_layout="";
-									
+									//var article_layout="";
+									var article_left="";
+									var article_right="";
 									for(var i=0;i<output.length;i++){
 										
 										var image=output[i].Images;
@@ -260,9 +261,6 @@
 										
 										var image_layout=(image==null || image=="")?"":"<center><img src='"+image+
 											"' height='80%' width='100%'/></center>";
-										
-										/*var textual_content=output[i].Textual_content;
-										textual_content = textual_content.replace("'","%");*/
 										
 										var status = output[i].Active;//whether the article is active or inactive
 										var status_layout="";
@@ -302,7 +300,8 @@
 													"<div><input type='hidden' id='edit_text"+i+
 														"' value='"+textual_content+"'/></div>"+
 													*/
-										article_layout+=""+
+										if(i%2==0){
+											article_left+=""+
 											"<div class='article'>"+
 												"<div class='headLine' id='article_title"+i+"'>"+
 													output[i].Name+
@@ -328,7 +327,38 @@
 													get_button_layout(i)+
 												"</div>"+
 											"</div>";
-										document.getElementById("tab_contents").innerHTML=article_layout;
+											document.getElementById("left_column").innerHTML=article_left;
+										}
+										else{
+											article_right+=""+
+											"<div class='article'>"+
+												"<div class='headLine' id='article_title"+i+"'>"+
+													output[i].Name+
+													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
+												"</div>"+
+												"<div style='height:70%;padding:10px'>"+
+													"<div id='image_content"+i+"'>"+image_layout+"</div><br/>"+
+													"<div id='textual_content"+i+"'>"+output[i].Textual_content+
+														"<button class='close' onclick='editArticle(\""+i+"\");'>"+
+														"<span class='glyphicon glyphicon-pencil'></span></button>"+
+													"</div>"+
+													"<br/>"+
+													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
+														"id='link_content"+i+"'>"+link_layout+"</div>"+
+													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
+														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
+													"<div id='file_attachment_layout"+i+"'></div>"+	
+												"</div>"+
+												""+status_layout+
+												"<br/><hr/>"+
+												"<div id='btn_group"+i+"' "+
+													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
+													get_button_layout(i)+
+												"</div>"+
+											"</div>";
+											document.getElementById("right_column").innerHTML=article_right;
+										}
+										//document.getElementById("tab_contents").innerHTML=article_layout;										
 										refreshFileLayout(i);									
 									}
 									before_timestamp=output[output.length-1].CreateAt;
@@ -469,7 +499,9 @@
 				https://www.youtube.com/watch?v=kGIftVM8b1o
 				video url: https://youtu.be/kGIftVM8b1o
 				video url at current time: https://youtu.be/kGIftVM8b1o?t=14-->
-            <div class="" id="tab_contents">	
+            <div class="" id="tab_contents">
+				<div id="left_column" class="column"></div>	
+				<div id="right_column" class="column"></div>
 				<script type='text/JavaScript'>
 					//youtube_parser("https://youtu.be/kGIftVM8b1o?t=14");
 					function youtube_parser(url){
@@ -516,13 +548,13 @@
 							if(youtube_parser(Link)!=null){
 								var video_id = youtube_parser(Link);
 								link_layout=""+
-								"<center><iframe height='315' width='480' allowfullscreen='true'"+
+								"<center><iframe height='310' width='460' allowfullscreen='true'"+
 									" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
 								"</iframe></center>";
 							}
 							else{
 								link_layout="<br/><a href='"+Link+"' target='_blank'>"+Link+"</a>"+
-								"<center><div class='preview_link'><iframe height='500' width='480'"+
+								"<center><div class='preview_link'><iframe height='500' width='460'"+
 								" src='"+Link+"'></iframe></div></center>";
 							}				
 						}

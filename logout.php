@@ -35,7 +35,6 @@
 						<a href='index.html' class='btn btn-link'>Login again</a></P>";
 				}
 				else{
-					echo "<P align='center' class='alert alert-error'> Failed to logout...</P>".$token;
 					echo "<br/>HTTP Response Code: ".$getOut->httpResponseCode;
 					$resp = json_decode($result);
 					echo "<br/>Message: ".$resp->message;

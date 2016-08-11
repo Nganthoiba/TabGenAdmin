@@ -16,17 +16,17 @@
 			$loading_mode=$_GET['loading_mode'];
 			if($loading_mode=="first_time_load"){
 				$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links,Active 
-			from Article where TabId='$tab_id' and DeleteAt=0 order by CreateAt desc limit 10";
+			from Article where TabId='$tab_id' and DeleteAt=0 order by CreateAt desc limit 6";
 			}
 			else if($loading_mode=="after"){
 				$timestamp = $_GET['timestamp'];
 				$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links,Active 
-				from Article where TabId='$tab_id' and DeleteAt=0 and CreateAt>'$timestamp' order by CreateAt desc limit 10";
+				from Article where TabId='$tab_id' and DeleteAt=0 and CreateAt>'$timestamp' order by CreateAt desc limit 6";
 			}
 			else if($loading_mode=="before"){
 				$timestamp = $_GET['timestamp'];
 				$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links,Active 
-				from Article where TabId='$tab_id' and DeleteAt=0 and CreateAt<'$timestamp' order by CreateAt desc limit 10";
+				from Article where TabId='$tab_id' and DeleteAt=0 and CreateAt<'$timestamp' order by CreateAt desc limit 6";
 			}
 			
 			$res = $conn->query($query);
