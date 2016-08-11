@@ -5,6 +5,7 @@ $news_title = $_POST['news_title'];
 $news_headline = $_POST['news_headline'];
 $news_details = $_POST['news_details'];
 $tab_id = $_POST['tab_id'];
+$ext_link = $_POST['ext_link'];
 if(empty($news_title)){
 	echo json_encode(array("status"=>false,"message"=>"Please send title of the news.."));
 }
@@ -27,8 +28,8 @@ else{
 	$news_details=str_replace ("'","''", $news_details);
 	$created_at = time()*1000;
 	$status = "true";
-	$query = "insert into News(Id,CreateAt,title,headline,Details,Active,tab_id) values('$id',$created_at,'$news_title',
-	'$news_headline','$news_details','$status','$tab_id')";
+	$query = "insert into News(Id,CreateAt,title,headline,Details,Link,Active,tab_id) values('$id',$created_at,'$news_title',
+	'$news_headline','$news_details','$ext_link','$status','$tab_id')";
 	if($conn->query($query)){
 		echo json_encode(array("status"=>true,"message"=>"News posted successfully."));
 	}

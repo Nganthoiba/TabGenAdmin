@@ -59,7 +59,7 @@
 		function embed_text_editor(){
 			tinymce.init({ 
 				selector:'textarea',
-				height: 300,
+				height: 350,
 				plugins: ["textcolor","link"],
 				toolbar: 'insertfile undo redo | styleselect | bold italic | '+
 						'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | '+
@@ -131,7 +131,7 @@
 			</div>
 			
 			<script type="text/JavaScript">
-					var output;//contains list of articles
+					var output;//contains list of articles, global variable
 					var files_path=[];
 					
 					var queryString = new Array();
@@ -172,26 +172,21 @@
 						if(img_src=="" || img_src==null){
 							layout="<div class='col-sm-12' id='image_layout"+i+"'>"+
 								"<center><div id='image_upload_layout"+i+"'>"+
-									" <button class='' onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>"+
-									"<span class='glyphicon glyphicon-picture'></span>"+
-									"</button></div></center></div>";
+									"</div></center></div>";
 						}
 						else{
 							layout="<br/><div id='image_layout"+i+"'>"+
 								"<center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
 										"height='350px' width='80%'/><br/>"+
 									"<div id='image_upload_layout"+i+"'>"+
-									"<div class='btn-group'>"+
-									"<button class='close'"+
-									" onclick='upload_news_image(\""+i+"\",\""+img_src+"\");'>Replace</button>"+
-									"</div></div></center></div>";
+									"</div></center></div>";
 						}
 						return layout;
 					}
 					
 					function upload_news_image(i,img_src){
 						var article_id = document.getElementById("article_id"+i).value;
-						var image_upload_layout="<center>"+
+						var image_upload_layout="<br/><center>"+
 							"<div class='select_file_bg'>"+
 							"<form id='uploadForm"+i+"' action='upload.php' method='post'>"+
 								"<div id='targetLayer"+i+"'></div>"+
@@ -296,13 +291,7 @@
 					
 					//js function to cancel edit and hide the edit layout
 					function cancel_edit_content(i){
-						var layout="<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
-													"<div class='pull-right'>"+
-														"<button class='btn btn-link' "+
-														"onclick='edit_content(\""+i+"\");'"+
-														"id='edit_content"+i+"'>"+
-														"Edit Content</button>"+
-													"</div>";
+						var layout="<div id='textual_content"+i+"'>"+output[i].Details+"</div>";
 						$("#textual_content_layout"+i).html(layout);
 					}
 					
@@ -352,10 +341,8 @@
 					}
 					/*displaying headlines*/
 					function get_headline(i){
-						var button_val=output[i].headline==null||output[i].headline==""?"Add News Headline here":"<span class='glyphicon glyphicon-pencil'></span>";
 						var layout = "<div class='heading' id='article_headline"+i+"'>"+output[i].headline+	
-									"<button onclick='edit_news_headline(\""+i+"\");' "+
-									"class='btn btn-link'>"+button_val+"</button></div><br/>";
+									"</div><br/>";
 						return layout;
 					}
 					
@@ -416,157 +403,248 @@
 						});
 						
 					}
-					function getNewsArticles(tab_id,loading_mode){
-						var data;
+	
+	function update_link(i){
+		var article_id = output[i].Id;
+		swal({
+		  title: "Add Reference",
+		  text: "Enter your link below:",
+		  type: "input",
+		  showCancelButton: true,
+		  closeOnConfirm: false,
+		  showLoaderOnConfirm: true,
+		  inputPlaceholder: "Paste your link here"
+		}, function (inputValue) {
+		  if (inputValue === false) return false;
+		  if (inputValue === "") {
+			swal.showInputError("You need to enter the link!");
+			return false
+		  }
+		  else if(!isValidUrl(inputValue)){
+			swal.showInputError("You need to enter a valid link!");
+			return false
+		  }
+		  else{
+			  setTimeout(function () {
+				
+				$.ajax({
+						url: "update_article.php",
+						type:"POST",
+						data:{"article_id":article_id,"news_link":inputValue},
+						beforeSend: function (xhr) {
+							xhr.setRequestHeader('Authorization',user_session.token);
+						},
+						success: function(resp){
+							var json_resp = JSON.parse(resp);
+							if(json_resp.status==true){
+								swal("Update Successful!", json_resp.message, "success");
+								output[i].Link=inputValue;
+								$("#link_layout"+i).html(get_News_link(i));
+							}
+							else{
+								swal("Update Failed!", json_resp.message, "error");
+							}
+						},
+						error: function(x,y,z){
+							swal(z+"!", "Request could not be fulfilled due to server error or "+
+							"requested resource is not found or not working well.", "error");
+						}
+				});
+				//swal("Ajax request finished!");		
+			  }, 3000);
+			  //swal("Nice!", "You wrote: " + article_id, "success");
+		  }
+		});
+	}
+	
+	function get_News_link(i){
+		var link_layout="";
+		var url = output[i].Link;
+		if(url.trim().length==0){
+			link_layout="";
+		}
+		else{
+			if(youtube_parser(url)!=null){
+				var video_id = youtube_parser(url);
+				link_layout=""+
+					"<center><iframe height='310' width='460' allowfullscreen='true'"+
+							" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
+							"</iframe></center>";
+			}
+			else{
+				link_layout="<br/><a href='"+url+"' target='_blank'>"+url+"</a><br/>";
+								/*"<center><div class='preview_link'><iframe height='500' width='460'"+
+								" src='"+Link+"'></iframe></div></center>";*/
+			}
+		}
+		return link_layout;
+	}
+					
+	/*function for getting news articles*/
+	function getNewsArticles(tab_id,loading_mode){
+		var data;
+		if(loading_mode=="first_time_load"){
+			data="tab_id="+tab_id+"&loading_mode="+loading_mode;
+		}
+		else if(loading_mode=="before"){
+			data="tab_id="+tab_id+"&loading_mode="+loading_mode+"&timestamp="+before_timestamp;
+		}
+		else if(loading_mode=="after"){
+			data="tab_id="+tab_id+"&loading_mode="+loading_mode+"&timestamp="+after_timestamp;
+		}
+		//$("#tab_contents").html("<center><p>Loading...</p></center>");
+		$.ajax({
+			url: "getNewsArticle.php?"+data,
+			type: "GET",
+			success: function(resp){
+				//alert(resp);
+				var result = JSON.parse(resp);
+				if(result.state==true){
+					output = result.output;
+					if(output==null){
 						if(loading_mode=="first_time_load"){
-							data="tab_id="+tab_id+"&loading_mode="+loading_mode;
+							document.getElementById("left_column").innerHTML="<br/><center>"+
+							"<img src='img/empty_article_box.jpg' class='img-circle' alt='No Article'"+
+							" height='50%' width='60%'/>"+
+							"<br/><div class='well'>No news article found, create a new one.</div></center>";
 						}
 						else if(loading_mode=="before"){
-							data="tab_id="+tab_id+"&loading_mode="+loading_mode+"&timestamp="+before_timestamp;
+							//do nothing
+							swal("No more news article!");
 						}
 						else if(loading_mode=="after"){
-							data="tab_id="+tab_id+"&loading_mode="+loading_mode+"&timestamp="+after_timestamp;
+							//do nothing
+							//swal("No more news article!");
 						}
-						//$("#tab_contents").html("<center><p>Loading...</p></center>");
-						$.ajax({
-							url: "getNewsArticle.php?"+data,
-							type: "GET",
-							success: function(resp){
-								//alert(resp);
-								var result = JSON.parse(resp);
-								if(result.state==true){
-									output = result.output;
-									if(output==null){
-										if(loading_mode=="first_time_load"){
-											document.getElementById("left_column").innerHTML="<br/><center>"+
-											"<img src='img/empty_article_box.jpg' class='img-circle' alt='No Article'"+
-											" height='50%' width='60%'/>"+
-											"<br/><div class='well'>No news article found, create a new one.</div></center>";
-										}
-										else if(loading_mode=="before"){
-											//do nothing
-											swal("No more news article!");
-										}
-										else if(loading_mode=="after"){
-											//do nothing
-											//swal("No more news article!");
-										}
-										return false;
-									}
-									//var article_layout="";
-									var article_left="";
-									var article_right="";
-									for(var i=0;i<output.length;i++){
-										files_path[i]=output[i].Attachments;
-										var status = output[i].Active;//whether the article is active or inactive
-										var status_layout="";
-										if(status==null || status.trim()=="false"){
-											 status_layout=""+
-												"<div class='form-group'>"+
-													"<div class='col-sm-1 control-label'>"+
-														"<input type='checkbox' "+
-															"onclick='activateOrDeactivateArticle(\""+i+"\");'"+
-															"id='myonoffswitch"+i+"'/>"+
-													"</div>"+
-													"<label class='col-sm-8' id='statusLabel"+i+"' for='myonoffswitch"+i+"'>"+
-														"Check here to activate article."+
-													"</label>"+
-												"</div>";
-										}
-										else if(status.trim()=="true"){
-											status_layout=""+
-												"<div class='form-group'>"+
-													"<div class='col-sm-1 control-label'>"+
-														"<input type='checkbox' "+
-															"onclick='activateOrDeactivateArticle(\""+i+"\");'"+
-															"id='myonoffswitch"+i+"' checked/>"+
-													"</div>"+
-													"<label class='col-sm-8' id='statusLabel"+i+"' for='myonoffswitch"+i+"'>"+
-													"Uncheck here to deactivate article."+
-													"</label>"+
-												"</div>";
-										}
-										var created_at = new Date(output[i].CreateAt);
-										/*left and right adjustment*/
-										if(i%2==0){
-											article_left+=""+
-											"<div class='news_article'>"+
-												"<div class='headLine' id='article_title"+i+"'>"+
-													"<h2>"+output[i].title+"</h2>"+
-													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
-												"</div>"+
-												"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
-												"<div id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
-												"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
-													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
-													"<div class='pull-right'>"+
-														"<button class='btn btn-link' "+
-														"onclick='edit_content(\""+i+"\");'"+
-														"id='edit_content"+i+"'>"+
-														"Edit Content</button>"+
-													"</div>"+
-												"</div>"+
-												"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:10px' "+
-														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
-												"<br/><hr/>"+
-												"<div id='file_attachment_layout"+i+"'></div>"+
-												"<br/>"+status_layout+"<br/>"+
-												"<span style='font-size:8pt;float:left'>"+
-												getHumanReadableDate(created_at)+"</span>"+
-												"<button class='btn btn-success' style='padding:5px;float:right"+
-													"' onclick='attachFile(\""+i+"\");'>"+
-													"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
-												"</button>"+	
-											"</div>";
-											document.getElementById("left_column").innerHTML=article_left;
-										}
-										else{
-											article_right+=""+
-											"<div class='news_article'>"+
-												"<div class='headLine' id='article_title"+i+"'>"+
-													"<h2>"+output[i].title+"</h2>"+
-													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
-												"</div>"+
-												"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
-												"<div id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
-												"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
-													"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
-													"<div class='pull-right'>"+
-														"<button class='btn btn-link' "+
-														"onclick='edit_content(\""+i+"\");'"+
-														"id='edit_content"+i+"'>"+
-														"Edit Content</button>"+
-													"</div>"+
-												"</div>"+
-												"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:10px' "+
-														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
-												"<br/><hr/>"+
-												"<div id='file_attachment_layout"+i+"'></div>"+
-												"<br/>"+status_layout+"<br/>"+
-												"<span style='font-size:8pt;float:left'>"+
-												getHumanReadableDate(created_at)+"</span>"+
-												"<button class='btn btn-success' style='padding:5px;float:right"+
-													"' onclick='attachFile(\""+i+"\");'>"+
-													"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
-												"</button>"+	
-											"</div>";
-											document.getElementById("right_column").innerHTML=article_right;
-										}
-									}
-									before_timestamp=output[output.length-1].CreateAt;
-									after_timestamp=output[0].CreateAt;
-									
-								}
-								else{
-									document.getElementById("tab_contents").innerHTML="<center>"+result.message+"</center>";
-								}
-							},
-							error: function(){
-								swal("Server unreachable!", "Sorry, we are unable to reach server,"+
-								" please check your connection or try again later.", "error");
-							}
-						});
+						return false;
 					}
+					//var article_layout="";
+					var article_left="";
+					var article_right="";
+					for(var i=0;i<output.length;i++){
+						files_path[i]=output[i].Attachments;
+						var status = output[i].Active;//whether the article is active or inactive
+						var status_layout="";
+						if(status==null || status.trim()=="false"){
+								status_layout=""+
+								"<div class='form-group'>"+
+									"<div class='col-sm-1 control-label'>"+
+										"<input type='checkbox' "+
+											"onclick='activateOrDeactivateArticle(\""+i+"\");'"+
+											"id='myonoffswitch"+i+"'/>"+
+									"</div>"+
+									"<label class='col-sm-8' id='statusLabel"+i+"' for='myonoffswitch"+i+"'>"+
+										"Check here to activate article."+
+									"</label>"+
+								"</div>";
+						}
+						else if(status.trim()=="true"){
+							status_layout=""+
+								"<div class='form-group'>"+
+									"<div class='col-sm-1 control-label'>"+
+										"<input type='checkbox' "+
+											"onclick='activateOrDeactivateArticle(\""+i+"\");'"+
+											"id='myonoffswitch"+i+"' checked/>"+
+									"</div>"+
+									"<label class='col-sm-8' id='statusLabel"+i+"' for='myonoffswitch"+i+"'>"+
+									"Uncheck here to deactivate article."+
+									"</label>"+
+								"</div>";
+						}
+						var created_at = new Date(output[i].CreateAt);
+						/*left and right adjustment*/
+						var headline_label=output[i].headline==null||output[i].headline==""?"Add News Headline here":
+						"Edit Headline";
+						var image_label=output[i].Image==null||output[i].Image==""?"Add a picture":"Replace the picture";
+						var link_label=output[i].Link==null||output[i].Link==""?"Add a Link":"Edit the Link";
+						var tools = ""+
+						"<ul style='float:right' class='nav navbar-nav navbar-right'>"+
+							"<li class='dropdown'>"+
+							  "<a class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'"+ 
+							  "aria-expanded='false'><span class='glyphicon glyphicon-option-vertical'></span></a>"+
+							  "<ul class='dropdown-menu'>"+
+								"<li><a href='#' onclick='edit_news_headline(\""+i+"\");'>"+headline_label+"</a></li>"+
+								"<li role='separator' class='divider'></li>"+
+								"<li><a href='#' onclick='edit_content(\""+i+"\");'>Edit Content</a></li>"+
+								"<li role='separator' class='divider'></li>"+
+								"<li><a href='#' onclick='upload_news_image(\""+i+"\",\""+output[i].Image+"\");'>"+image_label+"</a></li>"+
+								"<li role='separator' class='divider'></li>"+
+								"<li><a href='#' onclick='update_link(\""+i+"\");'>"+link_label+"</a></li>"+
+								"<li role='separator' class='divider'></li>"+
+								"<li><a href='#' onclick='attachFile(\""+i+"\");'>Attach files</a></li>"+
+							  "</ul>"+
+							"</li>"+
+						"</ul>";
+						if(i%2==0){
+							article_left+=""+
+							"<div class='news_article'>"+tools+
+								"<div class='headLine' id='article_title"+i+"'>"+
+									"<h2>"+output[i].title+"</h2>"+
+									"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
+								"</div>"+
+								"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
+								"<div id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
+								"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
+									"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
+								"</div>"+
+								"<div id='link_layout"+i+"' style='padding:10px'>"+get_News_link(i)+"</div>"+
+								"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:10px' "+
+										"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
+								"<br/><hr/>"+
+								"<div id='file_attachment_layout"+i+"'></div>"+
+								"<br/>"+status_layout+"<br/>"+
+								"<span style='font-size:8pt;float:left'>"+
+								getHumanReadableDate(created_at)+"</span>"+
+								/*"<button class='btn btn-success' style='padding:5px;float:right"+
+									"' onclick='attachFile(\""+i+"\");'>"+
+									"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
+								"</button>"+*/	
+							"</div>";
+							document.getElementById("left_column").innerHTML=article_left;
+						}
+						else{
+							article_right+=""+
+							"<div class='news_article'>"+tools+
+								"<div class='headLine' id='article_title"+i+"'>"+
+								"<h2>"+output[i].title+"</h2>"+
+									"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
+								"</div>"+
+								"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
+								"<div id='image_content"+i+"'>"+displayArticleImage(i,output[i].Image)+"</div>"+
+								"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
+									"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
+								"</div>"+
+								"<div id='link_layout"+i+"' style='padding:10px'>"+get_News_link(i)+"</div>"+
+								"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:10px' "+
+										"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
+								"<br/><hr/>"+
+								"<div id='file_attachment_layout"+i+"'></div>"+
+								"<br/>"+status_layout+"<br/>"+
+								"<span style='font-size:8pt;float:left'>"+
+								getHumanReadableDate(created_at)+"</span>"+
+								/*"<button class='btn btn-success' style='padding:5px;float:right"+
+									"' onclick='attachFile(\""+i+"\");'>"+
+									"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
+								"</button>"+*/	
+							"</div>";
+							document.getElementById("right_column").innerHTML=article_right;
+						}
+					}
+					before_timestamp=output[output.length-1].CreateAt;
+					after_timestamp=output[0].CreateAt;
+									
+				}
+				else{
+					document.getElementById("tab_contents").innerHTML="<center>"+result.message+"</center>";
+				}
+			},
+			error: function(){
+				swal("Server unreachable!", "Sorry, we are unable to reach server,"+
+				" please check your connection or try again later.", "error");
+			}
+		});
+	}
+	/*end of getNewsArticles()*/
 					/*js for activating and deactivating news article*/
 					function activateOrDeactivateArticle(i){
 						var article_id = document.getElementById("article_id"+i).value;
@@ -898,6 +976,16 @@
 										<span id="details_validate"></span>
 									</div>
 								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-2  control-label" for="external_link">External Link:</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="external_link" required="true"
+										maxlength="100"
+										placeholder="Paste here any link."/>
+										<span id="url_validate"></span>
+									</div>
+								</div>
 							</div>
 								<div class="panel-footer clearfix">
 									<div class="pull-right">
@@ -917,7 +1005,20 @@
 												"<textarea class='form-control' name='news_details' id='news_details'>"+ 
 												"</textarea>";
 												document.getElementById("news_in_details").innerHTML=edit_news_detail_layout;
-												embed_text_editor();
+												tinymce.init({ 
+													selector:'#news_details',
+													height: 150,
+													plugins: ["textcolor","link"],
+													toolbar: 'insertfile undo redo | styleselect | bold italic | '+
+															'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | '+
+															'link | fontsizeselect | forecolor backcolor',
+													default_link_target: "_blank",
+													link_title: false,
+													link_assume_external_targets: true,
+													fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+													font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,'+
+																'monospace;AkrutiKndPadmini=Akpdmi-n'	
+												});
 											}
 											
 											function reset_news_form(){
@@ -932,17 +1033,19 @@
 												var news_title = document.getElementById("news_title").value;
 												var news_headline = document.getElementById("news_headline").value;
 												var news_details = tinyMCE.get('news_details').getContent();
+												var ext_link = document.getElementById("external_link").value;
 												//alert(news_details);
 												if(validateNews()){
 													$('#publishNewsResponse').css('color', 'black');
 													$('#publishNewsResponse').html("<center><strong>Wait Please...</strong></center>");
-													
+													ext_link=isEmpty(ext_link.trim())?"":ext_link;
 													$.ajax({
 														url: "createNews.php",
 														type: "POST",
 														data:{"news_title":news_title,
 															"news_headline":news_headline,
 															"news_details":news_details,
+															"ext_link":ext_link,
 															"tab_id":tab_id},
 														success: function(resp){
 															var j_resp=JSON.parse(resp);
@@ -968,6 +1071,7 @@
 												var news_title = document.getElementById("news_title").value;
 												var news_headline = document.getElementById("news_headline").value;
 												var news_details = tinyMCE.get('news_details').getContent();
+												var ext_link = document.getElementById("external_link").value;
 												var flag=true;
 												if(isEmpty(news_title.trim())){
 													$('#title_validate').html("<strong>Put title of the news.</strong>");
@@ -994,6 +1098,15 @@
 												}
 												else{
 													$('#details_validate').html("");
+												}
+												
+												if(!isEmpty(ext_link.trim()) && !isValidUrl(ext_link)){
+													$('#url_validate').html("<strong>URL is invalid, please put a valid url.</strong>");
+													$("#url_validate").css('color', 'red');
+													flag=false;
+												}
+												else{
+													$('#url_validate').html("");
 												}
 												return flag;
 											}

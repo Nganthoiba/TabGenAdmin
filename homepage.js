@@ -608,7 +608,30 @@ $(document).ready(function (){
 function hasWhiteSpace(s) {
   return /\s/g.test(s);
 }
-	
+function youtube_parser(url){
+	if(is_youtube_url(url)){
+		var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+		var match = url.match(regExp);
+		if (match&&match[7].length==11){
+			var id=match[7];
+			return id;
+		}else{
+			return null;
+		}
+	}
+	else {
+		return null;
+	}
+}
+function is_youtube_url(url){
+	var reg_exp="^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$";
+	return url.match(reg_exp);
+}
+/*Javascript to check if url is valid or not*/
+function isValidUrl(url){
+	var regExp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;//regular expression
+	return regExp.test(url);
+}	
 /*JavaScript for finding organisation */		
 	$(document).ready(function(){
 		$("#search_org").click(function(){
@@ -773,7 +796,7 @@ function hasWhiteSpace(s) {
 	//get human readable date
 	function getHumanReadableDate(created_date){
 		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-		return created_date.getDate()+" "+months[created_date.getMonth()]+" "+created_date.getFullYear();
+		return months[created_date.getMonth()]+" "+created_date.getDate()+", "+created_date.getFullYear();
 	}
 
 /*JavaScript for viewing list of organisations*/	

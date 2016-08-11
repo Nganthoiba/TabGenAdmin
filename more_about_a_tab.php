@@ -509,25 +509,7 @@
 				<div id="right_column" class="column"></div>
 				<script type='text/JavaScript'>
 					//youtube_parser("https://youtu.be/kGIftVM8b1o?t=14");
-					function youtube_parser(url){
-						if(is_youtube_url(url)){
-							var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-							var match = url.match(regExp);
-							if (match&&match[7].length==11){
-								var id=match[7];
-								return id;
-							}else{
-								return null;
-							}
-						}
-						else {
-							return null;
-						}
-					}
-					function is_youtube_url(url){
-						var reg_exp="^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$";
-						return url.match(reg_exp);
-					}
+					
 					
 					function editLink(i,article_link){
 						indicator=i;

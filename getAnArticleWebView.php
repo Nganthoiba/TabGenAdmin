@@ -133,29 +133,7 @@
 				}
 				return $file_type;
 			}
-			function getYouTubeID($youtube_url){
-				if(is_youtube_url($youtube_url)){
-					$regex = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?(\S+)?/";
-					/*'![?&]{1}v=([^&]+)!'*/
-					$YouTubeCheck = preg_match($regex, $youtube_url, $Data);
-					If($YouTubeCheck){
-						$VideoID = $Data[4];
-						return $VideoID;
-					}
-					else{
-						return null;
-					}
-				}
-				else{
-					//echo "Not a youtube url...<br/>";
-					return null; 
-				}
-			}
-
-			function is_youtube_url($youtube_url){
-				$valid = preg_match("/((http\:\/\/){0,}(www\.){0,}(youtube\.com){1} || (youtu\.be){1}(\/watch\?v\=[^\s]){1})/", $youtube_url);
-				return $valid;	
-			}
+			
 			?>
 		</div>
 	</body>

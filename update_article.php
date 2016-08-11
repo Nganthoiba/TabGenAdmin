@@ -49,7 +49,7 @@
 					else if(!empty($_POST['news_details'])){
 						$news_details = $_POST['news_details'];
 						$news_details = str_replace ("'","''", $news_details);
-						$query = "update News set Details='$news_details' where Id='$id'";
+						$query = "update News set Details='$news_details', UpdateAt=$time where Id='$id'";
 						if($conn->query($query)){
 							echo json_encode(array("status"=>true,"message"=>"Successfully updated..."));
 						} 
@@ -60,7 +60,17 @@
 					else if(!empty($_POST['news_headline'])){
 						$news_headline = $_POST['news_headline'];
 						$news_headline = str_replace ("'","''", $news_headline);
-						$query = "update News set headline='$news_headline' where Id='$id'";
+						$query = "update News set headline='$news_headline', UpdateAt=$time where Id='$id'";
+						if($conn->query($query)){
+							echo json_encode(array("status"=>true,"message"=>"Successfully updated..."));
+						} 
+						else{
+							echo json_encode(array("status"=>false,"message"=>"Update failed..."));
+						}
+					}
+					else if(!empty($_POST['news_link'])){
+						$news_link = $_POST['news_link'];
+						$query = "update News set Link='$news_link', UpdateAt=$time where Id='$id'";
 						if($conn->query($query)){
 							echo json_encode(array("status"=>true,"message"=>"Successfully updated..."));
 						} 
