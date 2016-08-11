@@ -609,7 +609,7 @@ function getUserNameById($conn,$user_id){
 	}
 
 	//function to unlike a post
-	function unlikeAPost($conn,$post_id,$user_id){
+	function dislikeAPost($conn,$post_id,$user_id){
 		$query = "delete from Likes where post_id='$post_id' and user_id='$user_id'";
 		$res = $conn->query($query);
 		return $res;
