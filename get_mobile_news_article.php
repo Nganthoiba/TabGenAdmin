@@ -49,14 +49,15 @@ if(!empty($news_id)){
 				}
 				echo $row['Details'];
 				$link=$row['Link'];
-							
-				if(getYouTubeID($link)!=null){
-					$video_id=getYouTubeID($link);
-					echo "<iframe height='315' width='480' 
-							allowfullscreen='true' src='https://www.youtube.com/embed/".$video_id."?autoplay=0'></iframe>";
-				}
-				else{
-					echo curl($link);//"<a href='$link'>".$link."</a><br/>";
+				if($link!=null || $link!=""){			
+					if(getYouTubeID($link)!=null){
+						$video_id=getYouTubeID($link);
+						echo "<iframe height='315' width='480' 
+								allowfullscreen='true' src='https://www.youtube.com/embed/".$video_id."?autoplay=0'></iframe>";
+					}
+					else{
+						echo curl($link);//"<a href='$link'>".$link."</a><br/>";
+					}
 				}
 				$attachment=getFiles($conn,$row['Id']);
 				for($i=0;$i<sizeof($attachment);$i++){
