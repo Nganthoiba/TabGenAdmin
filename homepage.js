@@ -751,6 +751,30 @@ function hasWhiteSpace(s) {
 			}
 		});
 	}
+	//get human readable time
+	function getHumanReadableTime(date){
+		var hour;
+		var min;
+		var sec;
+		var shift;
+		if(date.getHours()>12){
+			hour = date.getHours()-12;
+			shift = "P.M.";
+		}
+		else{
+			hour = date.getHours();
+			shift = "A.M.";
+		}
+		min = date.getMinutes();
+		sec = date.getSeconds();
+		return (hour+":"+min+":"+sec+" "+shift);
+	}
+	
+	//get human readable date
+	function getHumanReadableDate(created_date){
+		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+		return created_date.getDate()+" "+months[created_date.getMonth()]+" "+created_date.getFullYear();
+	}
 
 /*JavaScript for viewing list of organisations*/	
 /* Here in this function, 
@@ -1003,13 +1027,7 @@ function hasWhiteSpace(s) {
 		});
 		return false;
 	}
-	
-	/*$(document).ready(function(){
-		$("#viewAllOrgLists").click(function(){
-			document.getElementById("showOrgsList").innerHTML="<center><img src='img/loading_data.gif'/></center>";
-			viewOrgs("list","showOrgsList","all");
-		});
-	});*/
+
 	function getOUandRole(org_selector,ou_selector,role_selector,res_display){
 		var org_name=($("#"+org_selector).val()).trim();
 		$.ajax({
@@ -2293,24 +2311,6 @@ $(document).ready(function(){
 			return "Yes";
 	}
 	
-	//get human readable time
-	function getHumanReadableTime(date){
-		var hour;
-		var min;
-		var sec;
-		var shift;
-		if(date.getHours()>12){
-			hour = date.getHours()-12;
-			shift = "P.M.";
-		}
-		else{
-			hour = date.getHours();
-			shift = "A.M.";
-		}
-		min = date.getMinutes();
-		sec = date.getSeconds();
-		return (hour+":"+min+":"+sec+" "+shift);
-	}
 	
 	/*function to create tabstrips*/
 	function createTabstrip(){

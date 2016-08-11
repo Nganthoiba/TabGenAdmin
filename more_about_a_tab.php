@@ -300,6 +300,7 @@
 													"<div><input type='hidden' id='edit_text"+i+
 														"' value='"+textual_content+"'/></div>"+
 													*/
+										var created_at = new Date(output[i].CreateAt);			
 										if(i%2==0){
 											article_left+=""+
 											"<div class='article'>"+
@@ -322,6 +323,8 @@
 												"</div>"+
 												""+status_layout+
 												"<br/><hr/>"+
+												"<span style='font-size:8pt;float:left'>"+
+												getHumanReadableDate(created_at)+"</span>"+
 												"<div id='btn_group"+i+"' "+
 													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
 													get_button_layout(i)+
@@ -351,6 +354,7 @@
 												"</div>"+
 												""+status_layout+
 												"<br/><hr/>"+
+												"<span style='font-size:8pt;float:left'>"+getHumanReadableDate(created_at)+"</span>"+
 												"<div id='btn_group"+i+"' "+
 													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
 													get_button_layout(i)+

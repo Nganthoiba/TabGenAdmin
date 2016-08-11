@@ -486,6 +486,7 @@
 													"</label>"+
 												"</div>";
 										}
+										var created_at = new Date(output[i].CreateAt);
 										if(i%2==0){
 											article_left+=""+
 											"<div class='news_article'>"+
@@ -509,6 +510,8 @@
 												"<br/><hr/>"+
 												"<div id='file_attachment_layout"+i+"'></div>"+
 												"<br/>"+status_layout+
+												"<span style='font-size:8pt;float:left'>"+
+												getHumanReadableDate(created_at)+"</span>"+
 												"<button class='btn btn-success' style='padding:5px;float:right"+
 													"' onclick='attachFile(\""+i+"\");'>"+
 													"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
@@ -539,6 +542,8 @@
 												"<br/><hr/>"+
 												"<div id='file_attachment_layout"+i+"'></div>"+
 												"<br/>"+status_layout+
+												"<span style='font-size:8pt;float:left'>"+
+												getHumanReadableDate(created_at)+"</span>"+
 												"<button class='btn btn-success' style='padding:5px;float:right"+
 													"' onclick='attachFile(\""+i+"\");'>"+
 													"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
