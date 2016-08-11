@@ -300,7 +300,8 @@
 													"<div><input type='hidden' id='edit_text"+i+
 														"' value='"+textual_content+"'/></div>"+
 													*/
-										var created_at = new Date(output[i].CreateAt);			
+										var created_at = new Date(output[i].CreateAt);	
+										/*left and right adjustment*/		
 										if(i%2==0){
 											article_left+=""+
 											"<div class='article'>"+

@@ -487,6 +487,7 @@
 												"</div>";
 										}
 										var created_at = new Date(output[i].CreateAt);
+										/*left and right adjustment*/
 										if(i%2==0){
 											article_left+=""+
 											"<div class='news_article'>"+
