@@ -60,8 +60,8 @@
 						success:function(data){
 							if(data.trim()=="null"){
 								//user_session=null;
-								alert("Your session has expired, you have to login again..");
-								window.location.assign("index.html");
+								//alert("Your session has expired, you have to login again..");
+								//window.location.assign("index.html");
 							}
 							else{
 								//user_session=JSON.parse(data);

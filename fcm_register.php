@@ -1,4 +1,12 @@
 <?php
+/*this will register the user of the mobile app. Every time the user 
+ * logs in the app on a particular mobile device, the mattermost api will give back the user details with his/her user id.
+ * Then the mobile app need to request a token from the FCM server, with this token and user id the app will
+ * request our local server to register(save) the details in our remote database in a separate table.
+*/
+ 
+
+
 header('Content-Type: application/json');
 include ('connect_db');
 if(empty($_POST['user_id'])){

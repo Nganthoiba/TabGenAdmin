@@ -53,7 +53,7 @@
 							echo "<div class='headline'><h1>".$row['Name']."</h1></div>";
 							$row['Images']=($row['Images']==null)?"":$row['Images'];
 							$row['images_url']=($row['Images']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
-							"http://128.199.111.18/TabGenAdmin/".$row['Images'];
+							"http://".SERVER_IP."/TabGenAdmin/".$row['Images'];
 							if($row['Images']!=null){
 								echo "<center><img class='img-thumbnail' src='".$row['Images']."'/></center>";
 							}
