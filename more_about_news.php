@@ -509,7 +509,7 @@
 														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 												"<br/><hr/>"+
 												"<div id='file_attachment_layout"+i+"'></div>"+
-												"<br/>"+status_layout+
+												"<br/>"+status_layout+"<br/>"+
 												"<span style='font-size:8pt;float:left'>"+
 												getHumanReadableDate(created_at)+"</span>"+
 												"<button class='btn btn-success' style='padding:5px;float:right"+
@@ -541,7 +541,7 @@
 														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 												"<br/><hr/>"+
 												"<div id='file_attachment_layout"+i+"'></div>"+
-												"<br/>"+status_layout+
+												"<br/>"+status_layout+"<br/>"+
 												"<span style='font-size:8pt;float:left'>"+
 												getHumanReadableDate(created_at)+"</span>"+
 												"<button class='btn btn-success' style='padding:5px;float:right"+
