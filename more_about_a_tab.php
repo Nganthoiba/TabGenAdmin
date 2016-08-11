@@ -558,9 +558,9 @@
 								"</iframe></center>";
 							}
 							else{
-								link_layout="<br/><a href='"+Link+"' target='_blank'>"+Link+"</a>"+
-								"<center><div class='preview_link'><iframe height='500' width='460'"+
-								" src='"+Link+"'></iframe></div></center>";
+								link_layout="<br/><a href='"+Link+"' target='_blank'>"+Link+"</a><br/>";
+								/*"<center><div class='preview_link'><iframe height='500' width='460'"+
+								" src='"+Link+"'></iframe></div></center>";*/
 							}				
 						}
 						return link_layout;
