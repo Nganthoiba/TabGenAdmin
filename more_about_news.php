@@ -945,7 +945,7 @@
 										<input type="text" class="form-control" id="news_title" 
 											maxlength="40"
 											required="true" placeholder="Write news title here"/>
-										<span class="form-group has-error has-feedback" id="title_validate"></span>
+										<div id="title_validate"></div>
 									</div>
 								</div>
 								
@@ -955,7 +955,7 @@
 										<input type="text" class="form-control" id="news_headline" required="true"
 										maxlength="100"
 										placeholder="Write news headline"/>
-										<span class="form-group has-error has-feedback" id="headline_validate"></span>
+										<div id="headline_validate"></div>
 									</div>
 								</div>
 								
@@ -967,7 +967,7 @@
 											placeholder='Write something in details here...'
 											onclick='display_editor();'></textarea>-->
 										</div>
-										<span class="form-group has-error has-feedback" id="details_validate"></span>
+										<div id="details_validate"></div>
 									</div>
 								</div>
 								
@@ -977,11 +977,12 @@
 										<input type="text" class="form-control" id="external_link" required="true"
 										maxlength="100"
 										placeholder="Paste here any link."/>
-										<span class="form-group has-error has-feedback" id="url_validate"></span>
+										<div id="url_validate"></div>
 									</div>
 								</div>
 							</div>
 								<div class="panel-footer clearfix">
+									<div id="publishNewsResponse"></div>
 									<div class="pull-right">
 										<Button type="button" class="btn btn-info" id="publishNews"
 											onclick="publish(); return false;">Publish</Button>
@@ -1021,6 +1022,7 @@
 												$('#title_validate').html("");
 												$('#headline_validate').html("");
 												$('#details_validate').html("");
+												$('#url_validate').html("");
 											}
 											
 											function publish(){
@@ -1046,18 +1048,22 @@
 															"tab_id":tab_id},
 														success: function(resp){
 															var j_resp=JSON.parse(resp);
-															$('#publishNewsResponse').html("<center><strong>"+
-															j_resp.message+"</strong></center>");
+															
 															if(j_resp.status==true){
-																$("#publishNewsResponse").css('color', 'green');
+																$('#publishNewsResponse').html("<div class='isa_success'><center>"+
+																j_resp.message+"</center></div>");
+																//$("#publishNewsResponse").css('color', 'green');
 																getNewsArticles(tab_id,'first_time_load');
 															}
 															else{
-																$("#publishNewsResponse").css('color', 'red');
+																$('#publishNewsResponse').html("<div class='isa_error'><center>"+
+															j_resp.message+"</center></div>");
+																//$("#publishNewsResponse").css('color', 'red');
 															}
 														},
 														error: function(){
-															$('#publishNewsResponse').html("<center><strong>Unable to get response from server, try again later.</strong></center>");
+															$('#publishNewsResponse').html("<div class='isa_error'><center>Unable to get response "+
+															"from server, try again later.</center></div>");
 														}
 													});
 												}
@@ -1071,7 +1077,8 @@
 												var ext_link = document.getElementById("external_link").value;
 												var flag=true;
 												if(isEmpty(news_title.trim())){
-													$('#title_validate').html("Put title of the news.");
+													$('#title_validate').html("<div class='isa_warning'>"+
+													"Put title of the news.</div>");
 													//$("#title_validate").css('color', 'red');
 													flag=false;
 												}
@@ -1080,7 +1087,7 @@
 												}
 												
 												if(isEmpty(news_headline.trim())){
-													$('#headline_validate').html("Put headline of the news.");
+													$('#headline_validate').html("<div class='isa_warning'>Put headline of the news.</div>");
 													flag=false;
 												}
 												else{
@@ -1088,7 +1095,7 @@
 												}
 												
 												if(isEmpty(news_details.trim())){
-													$('#details_validate').html("Put details of the news.");
+													$('#details_validate').html("<div class='isa_warning'>Put details of the news.</div>");
 													flag=false;
 												}
 												else{
@@ -1096,7 +1103,7 @@
 												}
 												
 												if(!isEmpty(ext_link.trim()) && !isValidUrl(ext_link)){
-													$('#url_validate').html("URL is invalid, please put a valid url.");
+													$('#url_validate').html("<div class='isa_warning'>URL is invalid, please put a valid url.</div>");
 													flag=false;
 												}
 												else{
@@ -1113,9 +1120,8 @@
 											
 										</script>
 									</div>
-									<span id="publishNewsResponse"></span>
-								</div>
 									
+								</div>	
 						</form>
 						<div>		
 						</div>
