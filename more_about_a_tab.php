@@ -953,9 +953,10 @@
 					}
 					
 					function resetArticle(){
-						document.getElementById("title").value="";
+						/*document.getElementById("title").value="";
 						document.getElementById("textual_content").value="";
-						document.getElementById("link").value="";
+						document.getElementById("link").value="";*/
+						document.getElementById("create_article_form").reset();
 						document.getElementById("createArticleResp").innerHTML="";
 						$("#createArticleResp").html("");
 					}
@@ -1017,7 +1018,7 @@
 				  <h4 class="modal-title">Create an article:</h4>
 				</div>
 				<div class="modal-body">
-				  <form class="form-horizontal" role="form" method="post" action="#">
+				  <form class="form-horizontal" id="create_article_form" role="form" method="post" action="#">
 					 <div class="form-group">	
 							<div class="col-sm-12">
 								<label for="title" class="control-label">Name:</label>
