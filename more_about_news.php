@@ -559,13 +559,11 @@
 							  "aria-expanded='false'><span class='glyphicon glyphicon-option-vertical'></span></a>"+
 							  "<ul class='dropdown-menu'>"+
 								"<li><a href='#' onclick='edit_news_headline(\""+i+"\");'>"+headline_label+"</a></li>"+
-								"<li role='separator' class='divider'></li>"+
 								"<li><a href='#' onclick='edit_content(\""+i+"\");'>Edit Content</a></li>"+
-								"<li role='separator' class='divider'></li>"+
-								"<li><a href='#' onclick='upload_news_image(\""+i+"\",\""+output[i].Image+"\");'>"+image_label+"</a></li>"+
+								"<li><a href='#' onclick='upload_news_image(\""+i+"\",\""+output[i].Image+"\");'>"+
+								image_label+"</a></li>"+
 								"<li role='separator' class='divider'></li>"+
 								"<li><a href='#' onclick='update_link(\""+i+"\");'>"+link_label+"</a></li>"+
-								"<li role='separator' class='divider'></li>"+
 								"<li><a href='#' onclick='attachFile(\""+i+"\");'>Attach file</a></li>"+
 							  "</ul>"+
 							"</li>"+
