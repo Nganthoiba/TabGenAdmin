@@ -462,7 +462,7 @@
 			if(youtube_parser(url)!=null){
 				var video_id = youtube_parser(url);
 				link_layout=""+
-					"<center><iframe height='310' width='460' allowfullscreen='true'"+
+					"<center><iframe class='embed-responsive-item' allowfullscreen='true'"+
 							" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
 							"</iframe></center>";
 			}
