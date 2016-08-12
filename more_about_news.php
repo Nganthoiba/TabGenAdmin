@@ -571,15 +571,15 @@
 								"<li role='separator' class='divider'></li>"+
 								"<li><a href='#' onclick='update_link(\""+i+"\");'>"+link_label+"</a></li>"+
 								"<li role='separator' class='divider'></li>"+
-								"<li><a href='#' onclick='attachFile(\""+i+"\");'>Attach files</a></li>"+
+								"<li><a href='#' onclick='attachFile(\""+i+"\");'>Attach file</a></li>"+
 							  "</ul>"+
 							"</li>"+
 						"</ul>";
 						if(i%2==0){
 							article_left+=""+
-							"<div class='news_article'>"+tools+
-								"<div class='headLine' id='article_title"+i+"'>"+
-									"<h2>"+output[i].title+"</h2>"+
+							"<div class='news_article'>"+
+								"<div id='article_title"+i+"'>"+tools+
+									"<h2 class='headLine'>"+output[i].title+"</h2>"+
 									"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 								"</div>"+
 								"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
@@ -592,8 +592,8 @@
 										"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 								"<br/><hr/>"+
 								"<div id='file_attachment_layout"+i+"'></div>"+
-								"<br/>"+status_layout+"<br/>"+
-								"<span style='font-size:8pt;float:left'>"+
+								"<div>"+status_layout+"</div>"+
+								"<span style='font-size:8pt;float:right'>"+
 								getHumanReadableDate(created_at)+"</span>"+
 								/*"<button class='btn btn-success' style='padding:5px;float:right"+
 									"' onclick='attachFile(\""+i+"\");'>"+
@@ -604,9 +604,9 @@
 						}
 						else{
 							article_right+=""+
-							"<div class='news_article'>"+tools+
-								"<div class='headLine' id='article_title"+i+"'>"+
-								"<h2>"+output[i].title+"</h2>"+
+							"<div class='news_article'>"+
+								"<div id='article_title"+i+"'>"+tools+
+								"<h2 class='headLine'>"+output[i].title+"</h2>"+
 									"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 								"</div>"+
 								"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
@@ -619,8 +619,8 @@
 										"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 								"<br/><hr/>"+
 								"<div id='file_attachment_layout"+i+"'></div>"+
-								"<br/>"+status_layout+"<br/>"+
-								"<span style='font-size:8pt;float:left'>"+
+								"<div>"+status_layout+"</div>"+
+								"<span style='font-size:8pt;float:right'>"+
 								getHumanReadableDate(created_at)+"</span>"+
 								/*"<button class='btn btn-success' style='padding:5px;float:right"+
 									"' onclick='attachFile(\""+i+"\");'>"+

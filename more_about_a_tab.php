@@ -324,7 +324,7 @@
 												"</div>"+
 												""+status_layout+
 												"<br/><hr/>"+
-												"<span style='font-size:8pt;float:left'>"+
+												"<span style='padding:3px;font-size:8pt;float:left'>"+
 												getHumanReadableDate(created_at)+"</span>"+
 												"<div id='btn_group"+i+"' "+
 													"class='btn-group' style='float:right;padding-right:5px;padding-bottom:5px' >"+
