@@ -796,7 +796,8 @@ function isValidUrl(url){
 	//get human readable date
 	function getHumanReadableDate(created_date){
 		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-		return months[created_date.getMonth()]+" "+created_date.getDate()+", "+created_date.getFullYear();
+		var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+		return days[created_date.getDay()]+", "+months[created_date.getMonth()]+" "+created_date.getDate()+", "+created_date.getFullYear();
 	}
 
 /*JavaScript for viewing list of organisations*/	
