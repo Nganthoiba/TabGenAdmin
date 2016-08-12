@@ -945,7 +945,7 @@
 										<input type="text" class="form-control" id="news_title" 
 											maxlength="40"
 											required="true" placeholder="Write news title here"/>
-										<span id="title_validate"></span>
+										<span class="form-group has-error has-feedback" id="title_validate"></span>
 									</div>
 								</div>
 								
@@ -955,7 +955,7 @@
 										<input type="text" class="form-control" id="news_headline" required="true"
 										maxlength="100"
 										placeholder="Write news headline"/>
-										<span id="headline_validate"></span>
+										<span class="form-group has-error has-feedback" id="headline_validate"></span>
 									</div>
 								</div>
 								
@@ -967,7 +967,7 @@
 											placeholder='Write something in details here...'
 											onclick='display_editor();'></textarea>-->
 										</div>
-										<span id="details_validate"></span>
+										<span class="form-group has-error has-feedback" id="details_validate"></span>
 									</div>
 								</div>
 								
@@ -977,7 +977,7 @@
 										<input type="text" class="form-control" id="external_link" required="true"
 										maxlength="100"
 										placeholder="Paste here any link."/>
-										<span id="url_validate"></span>
+										<span class="form-group has-error has-feedback" id="url_validate"></span>
 									</div>
 								</div>
 							</div>
@@ -1071,8 +1071,8 @@
 												var ext_link = document.getElementById("external_link").value;
 												var flag=true;
 												if(isEmpty(news_title.trim())){
-													$('#title_validate').html("<strong>Put title of the news.</strong>");
-													$("#title_validate").css('color', 'red');
+													$('#title_validate').html("Put title of the news.");
+													//$("#title_validate").css('color', 'red');
 													flag=false;
 												}
 												else{
@@ -1080,8 +1080,7 @@
 												}
 												
 												if(isEmpty(news_headline.trim())){
-													$('#headline_validate').html("<strong>Put headline of the news.</strong>");
-													$("#headline_validate").css('color', 'red');
+													$('#headline_validate').html("Put headline of the news.");
 													flag=false;
 												}
 												else{
@@ -1089,8 +1088,7 @@
 												}
 												
 												if(isEmpty(news_details.trim())){
-													$('#details_validate').html("<strong>Put details of the news.</strong>");
-													$("#details_validate").css('color', 'red');
+													$('#details_validate').html("Put details of the news.");
 													flag=false;
 												}
 												else{
@@ -1098,8 +1096,7 @@
 												}
 												
 												if(!isEmpty(ext_link.trim()) && !isValidUrl(ext_link)){
-													$('#url_validate').html("<strong>URL is invalid, please put a valid url.</strong>");
-													$("#url_validate").css('color', 'red');
+													$('#url_validate').html("URL is invalid, please put a valid url.");
 													flag=false;
 												}
 												else{

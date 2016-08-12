@@ -953,9 +953,6 @@
 					}
 					
 					function resetArticle(){
-						/*document.getElementById("title").value="";
-						document.getElementById("textual_content").value="";
-						document.getElementById("link").value="";*/
 						document.getElementById("create_article_form").reset();
 						document.getElementById("createArticleResp").innerHTML="";
 						$("#createArticleResp").html("");
