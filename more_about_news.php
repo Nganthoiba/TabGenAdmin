@@ -312,13 +312,7 @@
 								var json_resp = JSON.parse(resp);
 								if(json_resp.status==true){
 									swal("Update Successful!", json_resp.message, "success");
-									var layout="<div id='textual_content"+i+"'>"+news_details+"</div>"+
-													"<div class='pull-right'>"+
-														"<button class='btn btn-link' "+
-														"onclick='edit_content(\""+i+"\");'"+
-														"id='edit_content"+i+"'>"+
-														"Edit Content</button>"+
-													"</div>";
+									var layout="<div id='textual_content"+i+"'>"+news_details+"</div>";
 									$("#textual_content_layout"+i).html(layout);
 									output[i].Details=news_details;
 								}
