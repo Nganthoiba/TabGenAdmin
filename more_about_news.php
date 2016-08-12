@@ -249,6 +249,7 @@
 										//alert(json_resp.image_path);
 										if(json_resp.status==true){
 											closeImageUpload(i,json_resp.image_path);
+											$("image_label"+i).html("Replace the picture");
 										}
 										else{
 											$("#image_upload_layout"+i).html("<center><div class='alert alert-danger'>"+
@@ -561,7 +562,7 @@
 								"<li><a href='#' onclick='edit_news_headline(\""+i+"\");'>"+headline_label+"</a></li>"+
 								"<li><a href='#' onclick='edit_content(\""+i+"\");'>Edit Content</a></li>"+
 								"<li><a href='#' onclick='upload_news_image(\""+i+"\",\""+output[i].Image+"\");'>"+
-								image_label+"</a></li>"+
+								"<span id='image_label"+i+"'>"+image_label+"</span></a></li>"+
 								"<li role='separator' class='divider'></li>"+
 								"<li><a href='#' onclick='update_link(\""+i+"\");'>"+link_label+"</a></li>"+
 								"<li><a href='#' onclick='attachFile(\""+i+"\");'>Attach file</a></li>"+
