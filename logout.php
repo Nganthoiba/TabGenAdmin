@@ -27,12 +27,9 @@
 						unset($_SESSION['user_details']);
 						session_destroy();
 						//setcookie("user_details", "", time() - 3600,'/');
-						echo "You have successfully log out.</P>";
-						echo "<a href='index.html' class='btn btn-link'>Click here to Log in</a></center>";
-					
-					 }
-					 else echo "<P align='center' class='alert alert-error'> Session expired, 
-						<a href='index.html' class='btn btn-link'>Login again</a></P>";
+					}
+					echo "You have successfully log out.</P>";
+					echo "<a href='index.html' class='btn btn-link'>Click here to Log in</a></center>";
 				}
 				else{
 					echo "<br/>HTTP Response Code: ".$getOut->httpResponseCode;
