@@ -546,18 +546,13 @@
 						"Edit Headline";
 						var image_label=output[i].Image==null||output[i].Image==""?"Add a picture":"Replace the picture";
 						var link_label=output[i].Link==null||output[i].Link==""?"Add a Link":"Edit the Link";
-						/*<div class="dropdown">
-							<button onclick="myFunction()" class="dropbtn">Dropdown</button>
-							  <div id="myDropdown" class="dropdown-content">
-								<a href="#home">Home</a>
-								<a href="#about">About</a>
-								<a href="#contact">Contact</a>
-							  </div>
-							</div>*/
+						
+						/*
 						var tools=""+
-						"<div class='dropdown' style='float:right'>"+
-							"<button onclick='myFunction(\""+i+"\");' class='dropbtn'><span class='glyphicon glyphicon-option-vertical'></span></button>"+
-							"<div id='myDropdown"+i+"' class='dropdown-content'>"+
+						"<div class='dropdown_list' style='float:right'>"+
+							"<button onclick='myFunction(\""+i+"\");' class='dropbtn'>"+
+							"<span class='glyphicon glyphicon-option-vertical'></span></button>"+
+							"<div id='myDropdown"+i+"' class='dropdown_list-content'>"+
 								"<a class='tools' onclick='edit_news_headline(\""+i+"\");'>"+headline_label+"</a>"+
 								"<a class='tools' onclick='edit_content(\""+i+"\");'>Edit Content</a>"+
 								"<a class='tools' onclick='upload_news_image(\""+i+"\",\""+output[i].Image+"\");'>"+
@@ -565,8 +560,9 @@
 								"<a class='tools' onclick='update_link(\""+i+"\");'>"+link_label+"</a>"+
 								"<a class='tools' onclick='attachFile(\""+i+"\");'>Attach file</a>"+
 							"</div>"+
-						"</div>";
-						/*var tools = ""+
+						"</div>";*/
+						
+						var tools = ""+
 						"<ul style='float:right' class='nav navbar-nav navbar-right'>"+
 							"<li class='dropdown'>"+
 							  "<a class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'"+ 
@@ -581,7 +577,7 @@
 								"<li><a class='tools' onclick='attachFile(\""+i+"\");'>Attach file</a></li>"+
 							  "</ul>"+
 							"</li>"+
-						"</ul>";*/
+						"</ul>";
 						if(i%2==0){
 							article_left+=""+
 							"<div class='news_article'>"+tools+
