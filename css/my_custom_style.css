@@ -452,4 +452,5 @@ a:hover + .preview_link,.preview_link:hover{
     color: #D8000C;
     background-color: #FFBABA;
 }
+a:hover {cursor:pointer}
 
