@@ -5,10 +5,8 @@
  * request our local server to register(save) the details in our remote database in a separate table.
 */
  
-
-
 header('Content-Type: application/json');
-include ('connect_db.php');
+include('connect_db.php');
 if(empty($_POST['user_id'])){
 	echo json_encode(array("status"=>false,"message"=>"Sorry! Registration failed. You have not passed user id"));
 }

@@ -56,7 +56,8 @@ if(!empty($news_id)){
 								allowfullscreen='true' src='https://www.youtube.com/embed/".$video_id."?autoplay=0'></iframe>";
 					}
 					else{
-						echo curl($link);//"<a href='$link'>".$link."</a><br/>";
+						//echo curl($link);
+						header('Location: '.$link);
 					}
 				}
 				$attachment=getFiles($conn,$row['Id']);
