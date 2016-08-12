@@ -7,7 +7,6 @@
 		echo json_encode(array("status"=>false,"message"=>"Your request is unauthorized."));
 	}
 	else{
-		
 		$user_id = getUserIdByToken($conn,$token);
 		if($user_id==null){
 			echo json_encode(array("status"=>false,"message"=>"Invalid token"));

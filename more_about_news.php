@@ -1042,6 +1042,9 @@
 													$.ajax({
 														url: "createNews.php",
 														type: "POST",
+														beforeSend: function (xhr) {
+															xhr.setRequestHeader('Authorization',user_session.token);
+														},
 														data:{"news_title":news_title,
 															"news_headline":news_headline,
 															"news_details":news_details,
