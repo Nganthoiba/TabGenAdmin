@@ -12,7 +12,7 @@ if(!empty($_FILES)) {
 	//userFile
 	if(is_uploaded_file($_FILES['userImage']['tmp_name'])) {
 		$sourcePath = $_FILES['userImage']['tmp_name'];
-		$new_path = "uploaded_image/";		
+		$new_path = "uploaded_image/".$article_id."/";		
 		if(!is_dir($new_path) || !file_exists($new_path)){
             mkdir($new_path , 0777);
         }
@@ -39,7 +39,7 @@ if(!empty($_FILES)) {
 	}
 	else if(is_uploaded_file($_FILES['userFile']['tmp_name'])) {
 		$sourcePath = $_FILES['userFile']['tmp_name'];
-		$new_path = 'uploaded_file/';
+		$new_path = "uploaded_file/".$article_id."/";
 				
 		if(!is_dir($new_path) || !file_exists($new_path)) {
 			/*
@@ -84,7 +84,7 @@ if(!empty($_FILES)) {
 	//for news image
 	else if(is_uploaded_file($_FILES['news_image']['tmp_name'])) {
 		$sourcePath = $_FILES['news_image']['tmp_name'];
-		$new_path = 'uploaded_image/';
+		$new_path = "uploaded_image/".$article_id."/";
 				
 		if(!is_dir($new_path) || !file_exists($new_path)) {  
 			mkdir($new_path , 0777);
