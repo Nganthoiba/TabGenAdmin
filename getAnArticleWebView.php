@@ -61,14 +61,16 @@
 							$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
 							$row['short_description']=substr($row['Textual_content'],0,80)."...";
 							$link=$row['external_link_url'];
-							
-							if(getYouTubeID($link)!=null){
-								$video_id=getYouTubeID($link);
-								echo "<iframe height='315' width='480' 
-								allowfullscreen='true' src='https://www.youtube.com/embed/".$video_id."?autoplay=0'></iframe>";
-							}
-							else{
-								echo curl($link);//"<a href='$link'>".$link."</a><br/>";
+							if($link!="" && $link!=null){
+								if(getYouTubeID($link)!=null){
+									$video_id=getYouTubeID($link);
+									echo "<iframe height='315' width='480' 
+									allowfullscreen='true' src='https://www.youtube.com/embed/".$video_id."?autoplay=0'></iframe>";
+								}
+								else{
+									//echo curl($link);//"<a href='$link'>".$link."</a><br/>";
+									header('Location: '.$link);
+								}
 							}
 							$row['Filenames']=getAttatchment($conn,$row['Id']);
 							$attachment=getAttatchment($conn,$row['Id']);

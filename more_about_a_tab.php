@@ -957,6 +957,7 @@
 						document.getElementById("textual_content").value="";
 						document.getElementById("link").value="";
 						document.getElementById("createArticleResp").innerHTML="";
+						$("#createArticleResp").html("");
 					}
 					/*js for extracting file name from a given file path with file name*/
 					function extractFileName(path){

@@ -49,7 +49,7 @@ if(!empty($news_id)){
 				}
 				echo $row['Details'];
 				$link=$row['Link'];
-				if($link!=null || $link!=""){			
+				if($link!=null && $link!=""){			
 					if(getYouTubeID($link)!=null){
 						$video_id=getYouTubeID($link);
 						echo "<iframe class='embed-responsive-item' 
