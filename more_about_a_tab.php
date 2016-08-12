@@ -37,6 +37,7 @@
 	<script type="text/JavaScript">
 		var js_session = sessionStorage.getItem('user_details');
 		var output;
+		var template_type;
 		if(js_session=="null"){
 			window.location.assign("index.html");
 		}
@@ -230,6 +231,10 @@
 								var result = JSON.parse(resp);
 								if(result.state==true){
 									output = result.output;
+									template_type=result.template_type;
+									if(template_type=="CME Template"){
+										$("#link_input_layout").html("");
+									}
 									if(output==null){
 										if(loading_mode=="first_time_load"){
 											document.getElementById("left_column").innerHTML="<br/><center>"+
@@ -526,37 +531,51 @@
 						document.getElementById("editLinkResponse").innerHTML="";
 					}
 					function get_link(i){
-						var Link=output[i].Links;
-						var link_layout="";
-						if(Link.trim()==0){
-							link_layout="";
+						if(template_type=="CME Template"){
+								return "";
 						}
 						else{
-							if(youtube_parser(Link)!=null){
-								var video_id = youtube_parser(Link);
-								link_layout=""+
-								"<center><iframe height='310' width='460' allowfullscreen='true'"+
-									" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
-								"</iframe></center>";
+							var Link=output[i].Links;
+							var link_layout="";
+							if(Link.trim()==0){
+								link_layout="";
 							}
 							else{
-								link_layout="<br/><a href='"+Link+"' target='_blank'>"+Link+"</a><br/>";
-								/*"<center><div class='preview_link'><iframe height='500' width='460'"+
-								" src='"+Link+"'></iframe></div></center>";*/
-							}				
+								if(youtube_parser(Link)!=null){
+									var video_id = youtube_parser(Link);
+									link_layout=""+
+									"<center><iframe height='310' width='460' allowfullscreen='true'"+
+										" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
+									"</iframe></center>";
+								}
+								else{
+									link_layout="<br/><a href='"+Link+"' target='_blank'>"+Link+"</a><br/>";
+									/*"<center><div class='preview_link'><iframe height='500' width='460'"+
+									" src='"+Link+"'></iframe></div></center>";*/
+								}				
+							}
+							return link_layout;
 						}
-						return link_layout;
 					}
 					
 					function get_button_layout(i){
-						var btn_layout="<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+
-						"<span class='glyphicon glyphicon-picture'></span></button>"+
-						"<button class='btn btn-info' onclick='attachFile(\""+i+"\");'>"+
-							"<span class='glyphicon glyphicon-paperclip'></span></button>"+
-							"<a href='#' data-toggle='modal' data-target='#Editlink' "+
-								"onclick='editLink(\""+i+"\",\""+output[i].Links+"\");'"+
-								"class='btn btn-info'><span class='glyphicon glyphicon-link'>"+
-								"</span></a>";
+						var btn_layout="";
+						if(template_type=="CME Template"){
+							btn_layout="<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+
+							"<span class='glyphicon glyphicon-picture'></span></button>"+
+							"<button class='btn btn-info' onclick='attachFile(\""+i+"\");'>"+
+								"<span class='glyphicon glyphicon-paperclip'></span></button>";
+						}
+						else{
+							btn_layout="<button class='btn btn-info' onclick='uploadImage(\""+i+"\");'>"+
+							"<span class='glyphicon glyphicon-picture'></span></button>"+
+							"<button class='btn btn-info' onclick='attachFile(\""+i+"\");'>"+
+								"<span class='glyphicon glyphicon-paperclip'></span></button>"+
+								"<a href='#' data-toggle='modal' data-target='#Editlink' "+
+									"onclick='editLink(\""+i+"\",\""+output[i].Links+"\");'"+
+									"class='btn btn-info'><span class='glyphicon glyphicon-link'>"+
+									"</span></a>";
+						}
 						return btn_layout;
 					}
 					function edit_link_done(){
@@ -659,7 +678,7 @@
 						//alert("Tab Id: "+tab_id);
 						var name = document.getElementById("title").value;
 						var textual_content = document.getElementById("textual_content").value;
-						var link_site = document.getElementById("link").value;
+						var link_site = (template_type=="CME Template")?"":document.getElementById("link").value;
 						var re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
 						name=name.trim();
 						textual_content=textual_content.trim();
@@ -1011,7 +1030,7 @@
 							</div>
 						
 						
-							<div class="col-sm-12">
+							<div class="col-sm-12" id="link_input_layout">
 								<label for="link" class="control-label">Link:</label>
 								<input type="text" class="form-control" value="" name="link" id="link"
 										placeholder="Paste here any link related to the article">

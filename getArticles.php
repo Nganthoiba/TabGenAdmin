@@ -43,6 +43,7 @@
 				$output[]=$row;
 			}
 			$result->state=true;
+			$result->template_type=getTemplateNameByTab_id($conn,$tab_id);
 			$result->output=$output;
 			echo json_encode($result);
 		}

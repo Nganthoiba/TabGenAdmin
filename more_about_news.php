@@ -248,8 +248,8 @@
 										var json_resp = JSON.parse(resp);
 										//alert(json_resp.image_path);
 										if(json_resp.status==true){
-											closeImageUpload(i,json_resp.image_path);
 											$("image_label"+i).html("Replace the picture");
+											closeImageUpload(i,json_resp.image_path);	
 										}
 										else{
 											$("#image_upload_layout"+i).html("<center><div class='alert alert-danger'>"+

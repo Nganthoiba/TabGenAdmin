@@ -111,11 +111,18 @@ function findTemplateId($conn,$template_name){
 }
 //for getting template name
 function getTemplateName($conn,$template_id){
-	//include('connect_db.php');
 	$query_res = $conn->query("select TabTemplate.Name as Template_Name from TabTemplate where id='$template_id'");
 	$result_row=$query_res->fetch(PDO::FETCH_ASSOC);
 	return($result_row['Template_Name']);
 }
+//function to get Template name for a tab
+function getTemplateNameByTab_id($conn,$tab_id){
+	$query_res = $conn->query("select TabTemplate.Name as Template_Name 
+	from TabTemplate where id=(select TabTemplate from Tab where Tab.Id='$tab_id')");
+	$result_row=$query_res->fetch(PDO::FETCH_ASSOC);
+	return($result_row['Template_Name']);
+}
+
 //to check if the user role in an OU is a universal or not
 function isUniversalRole($conn,$role_name,$orgunit){
 	$resp = $conn->query("select * from Role where RoleName='$role_name' and OrganisationUnit='$orgunit'");
