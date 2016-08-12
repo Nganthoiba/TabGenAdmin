@@ -234,7 +234,7 @@ a:hover + .preview_link,.preview_link:hover{
 }
 .article {
 	float: left;
-    margin: 5px;
+    margin: 10px;
 	max-width:95%;
     min-width: 500px;
     height: auto !important;
@@ -250,9 +250,12 @@ a:hover + .preview_link,.preview_link:hover{
 }
 .news_article {
 	float: left;
-    margin: 5px;
+    margin: 10px;
     max-width:95%;
     min-width: 500px;
+    height: auto !important;
+    overflow:hidden;
+    overflow-y:auto;
     padding:5px;
     border-radius:2px;
     border: 1px solid #D8D8D8;

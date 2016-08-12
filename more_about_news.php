@@ -343,22 +343,13 @@
 					}
 					
 					function edit_news_headline(i){
-						/*"<textarea class='form-control' id='news_headline_id"+i+"'>"+
-						output[i].headline+"</textarea>"+*/
 						var edit_layout="<div class='edit_headline'><label for='news_headline_id"+i+"'>News Headline:</label>"+
 						"<button onclick='cancel_edit_headline(\""+i+"\");' class='close'>&times;</button>"+
 						"<input type='text' placeholder='Put your news headline here' class='form-control' id='news_headline_id"+i+"' "+
 						"value='"+output[i].headline+"'/><br/>"+
-						"<center><button onclick='save_edit_headline(\""+i+"\");' class='btn btn-default'>Save</button></center>"+
+						"<center><button onclick='save_edit_headline(\""+i+"\");' class='btn'>Save</button></center>"+
 						"</div><br/><br/>";
-						document.getElementById("headline_layout"+i).innerHTML=edit_layout;
-						/*"#news_details_id"+i*/
-						tinymce.init({ 
-							selector:'textarea',
-							height: 200,
-							toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter '+
-							'alignright alignjustify | bullist numlist outdent indent | link image',
-						});
+						document.getElementById("headline_layout"+i).innerHTML=edit_layout;		
 					}
 					function cancel_edit_headline(i){			
 						var layout=get_headline(i);
@@ -559,20 +550,20 @@
 							  "<a class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'"+ 
 							  "aria-expanded='false'><span class='glyphicon glyphicon-option-vertical'></span></a>"+
 							  "<ul class='dropdown-menu'>"+
-								"<li><a href='#' onclick='edit_news_headline(\""+i+"\");'>"+headline_label+"</a></li>"+
-								"<li><a href='#' onclick='edit_content(\""+i+"\");'>Edit Content</a></li>"+
-								"<li><a href='#' onclick='upload_news_image(\""+i+"\",\""+output[i].Image+"\");'>"+
+								"<li><a onclick='edit_news_headline(\""+i+"\");'>"+headline_label+"</a></li>"+
+								"<li><a onclick='edit_content(\""+i+"\");'>Edit Content</a></li>"+
+								"<li><a onclick='upload_news_image(\""+i+"\",\""+output[i].Image+"\");'>"+
 								"<span id='image_label"+i+"'>"+image_label+"</span></a></li>"+
 								"<li role='separator' class='divider'></li>"+
-								"<li><a href='#' onclick='update_link(\""+i+"\");'>"+link_label+"</a></li>"+
-								"<li><a href='#' onclick='attachFile(\""+i+"\");'>Attach file</a></li>"+
+								"<li><a onclick='update_link(\""+i+"\");'>"+link_label+"</a></li>"+
+								"<li><a onclick='attachFile(\""+i+"\");'>Attach file</a></li>"+
 							  "</ul>"+
 							"</li>"+
 						"</ul>";
 						if(i%2==0){
 							article_left+=""+
-							"<div class='news_article'>"+
-								"<div id='article_title"+i+"'>"+tools+
+							"<div class='news_article'>"+tools+
+								"<div id='article_title"+i+"'>"+
 									"<h2 class='headLine'>"+output[i].title+"</h2>"+
 									"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 								"</div>"+
@@ -598,8 +589,8 @@
 						}
 						else{
 							article_right+=""+
-							"<div class='news_article'>"+
-								"<div id='article_title"+i+"'>"+tools+
+							"<div class='news_article'>"+tools+
+								"<div id='article_title"+i+"'>"+
 								"<h2 class='headLine'>"+output[i].title+"</h2>"+
 									"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 								"</div>"+
