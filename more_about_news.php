@@ -299,13 +299,20 @@
 					function save_edit_content(i){
 						var news_details = tinyMCE.get('news_details_id'+i).getContent();
 						var article_id = document.getElementById("article_id"+i).value;
-						$("#textual_content_layout"+i).html("<center>Wait please...</center>");
+						//$("#textual_content_layout"+i).html("<center>Wait please...</center>");
 						$.ajax({
 							url: "update_article.php",
 							type:"POST",
 							data:{"article_id":article_id,"news_details":news_details},
 							beforeSend: function (xhr) {
 								xhr.setRequestHeader('Authorization',user_session.token);
+							},
+							progress: function(e){
+								swal({   
+									title: "Wait please...",  
+									text: "Saving the content of the article",    
+									showConfirmButton: false 
+								});
 							},
 							success: function(resp){
 								//alert(resp);
@@ -322,13 +329,7 @@
 							},
 							error: function(){
 								swal("Update Failed!", "Unable to reach server. Please check your connection or try again later.", "error");
-								var layout="<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
-													"<div class='pull-right'>"+
-														"<button class='btn btn-link' "+
-														"onclick='edit_content(\""+i+"\");'"+
-														"id='edit_content"+i+"'>"+
-														"Edit Content</button>"+
-													"</div>";
+								var layout="<div id='textual_content"+i+"'>"+output[i].Details+"</div>";
 								$("#textual_content_layout"+i).html(layout);
 							}
 						});
