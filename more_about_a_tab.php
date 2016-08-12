@@ -535,7 +535,7 @@
 							if(youtube_parser(Link)!=null){
 								var video_id = youtube_parser(Link);
 								link_layout=""+
-								"<center><iframe class='embed-responsive-item' allowfullscreen='true'"+
+								"<center><iframe class='embed-responsive embed-responsive-4by3' allowfullscreen='true'"+
 									" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
 								"</iframe></center>";
 							}
