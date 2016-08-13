@@ -1,5 +1,6 @@
 /*code for displaying modals verically centered*/
 var modalVerticalCenterClass = ".modal";
+var user_list;
 function centerModals($element) {
     var $modals;
     if ($element.length) {
@@ -1558,7 +1559,7 @@ $(document).ready(function(){
 				}
 				else{
 					var json_arr = JSON.parse(resp);
-					var layout=" ";
+					var layout="";
 					var popup_content_form=" ";
 					var see_more="";
 					var i;
@@ -1593,57 +1594,10 @@ $(document).ready(function(){
 								see_more="";
 						}
 						else if(json_arr[i].Template_Name=="Latest News Template"){
-							/*popup_content_form="<form class='form-horizontal' role='form'>"+
-								"<div>"+
-									"<label>Tab Name</label>"+
-										"<input type='text' value='"+json_arr[i].Name+"'"+
-											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
-								"</div>"+
-								"<div>"+
-									"<label>Contents</label>"+
-									"<textarea rows='4' cols='50' class='form-control' id='contents_id"+i+"'"+
-										"placeholder='Paste your html contents here'>"+
-										json_arr[i].news_details+
-									"</textarea>"+
-								"</div>"+
-								"<div><br/>"+
-									"<button type='button' class='btn btn-info'"+ 
-											"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
-															"\",\""+json_arr[i].Template_Name+"\")'"+
-											"id='saveTabName"+i+"'"+
-											"style='float:right'>Save</button>"+
-								"</div>"+
-								"<div style='height:50px'>"+
-									"<br/><span id='upadate_tab_resp"+i+"'></span>"+
-								"</div>"+
-							"</form>";*/
-							/*see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
-											"' class='btn btn-info'>See More</a>";
-											* 
-											* href='more_on_news.php?tab_id="+json_arr[i].Id+"'*/
-							 see_more="<a href='more_about_news.php?tab_id="+json_arr[i].Id+"' class='btn btn-info'>See More</a>";
+							see_more="<a href='more_about_news.php?tab_id="+json_arr[i].Id+"' class='btn btn-info'>See More</a>";
 						}
 						else{
-							/*popup_content_form="<form class='form-horizontal' role='form'"+
-								"style='max-width:300px;min-width:250px'>"+
-									"<div>"+
-											"<label>Tab Name</label>"+
-											"<input type='text' value='"+json_arr[i].Name+"'"+
-											"id='updated_tab_name"+i+"' name='tab_name"+i+"' class='form-control'/>"+
-													
-									"</div>"+
-									"<div><br/>"+
-											"<button type='button' class='btn btn-info'"+ 
-														"onclick='updateTab(\""+i+"\",\""+json_arr[i].Id+
-															"\",\""+json_arr[i].Template_Name+"\")'"+
-														"id='saveTabName"+i+"'"+
-														"style='float:right'>Save</button>"+
-									"</div>"+
-									"<div style='height:50px'>"+
-										"<br/><span id='upadate_tab_resp"+i+"'></span>"+
-									"</div>"+
-								"</form>";*/
-								see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
+							see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
 											"' class='btn btn-info'>See More</a>";
 						}
 						if(parseInt(json_arr[i].OU_Specific) == 0){
@@ -2026,7 +1980,7 @@ $(document).ready(function(){
 						if(json_resp.status==true){
 							swal("Deleted!", json_resp.message, "success"); 
 							getAllTabs("get_all_tabs");
-							var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
+							var ou_specific=document.getElementById("ou_specific_tab_yes").checked;
 							getTabs("list_of_tabs",ou_specific);
 							getAssociatedTabs("associated_tabs");
 						}
@@ -2100,9 +2054,9 @@ $(document).ready(function(){
 	
 	//function to display list of users
 	function displayUsers(display_id,data){
-		var resp_arr = JSON.parse(data);
-		//alert(resp_arr.length);
-		if(resp_arr.length==0){
+		user_list = JSON.parse(data);
+		//alert(user_list.length);
+		if(user_list.length==0){
 			document.getElementById(display_id).innerHTML="<h1 align='center'>No user found</h1>";
 		}
 		else{
@@ -2112,30 +2066,21 @@ $(document).ready(function(){
 						"overflow-x:auto;overflow-y:auto;'"+
 				">";
 			var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-			for(var i=0;i<resp_arr.length;i++){
+			for(var i=0;i<user_list.length;i++){
 				/*
-				var created_date = new Date(parseFloat(resp_arr[i].CreateAt));
-				var updated_date = new Date(parseFloat(resp_arr[i].UpdateAt));*/
-				/*
-				 * for displaying user id
-				 * "<div class='form-group'>"+
-										"<label class='col-sm-4'>ID : </label>"+
-										"<div class='col-sm-4'><div>"+resp_arr[i].Id+"</div></div>"+
-									"</div>"+
-									* 
-				  for displaying Org, OU, and accessibility
+				for displaying Org, OU, and accessibility
 				  * 
 				  * "<div class='form-group'>"+
 										"<label class='col-sm-4'>Organisation Unit : </label>"+
-										"<div class='col-sm-4'>"+resp_arr[i].OrganisationUnit+"</div>"+
+										"<div class='col-sm-4'>"+user_list[i].OrganisationUnit+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Organisation Name : </label>"+
-										"<div class='col-sm-4'>"+resp_arr[i].Organisation+"</div>"+
+										"<div class='col-sm-4'>"+user_list[i].Organisation+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Has access across all other OU : </label>"+
-										"<div class='col-sm-4'>"+yesOrNo(resp_arr[i].UniversalAccess)+"</div>"+
+										"<div class='col-sm-4'>"+yesOrNo(user_list[i].UniversalAccess)+"</div>"+
 									"</div>"+ 
 				*/
 				layout+="<tr>"+
@@ -2146,90 +2091,88 @@ $(document).ready(function(){
 								"<form class='form-horizontal'>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Display Name : </label>"+
-										"<div class='col-sm-4' id='user_display_name"+i+"'>"+resp_arr[i].FirstName+"</div>"+
+										"<div class='col-sm-4' id='user_display_name"+i+"'>"+user_list[i].FirstName+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Username : </label>"+
-										"<div class='col-sm-4' id='user_name"+i+"'>"+resp_arr[i].Username+"</div>"+
+										"<div class='col-sm-4' id='user_name"+i+"'>"+user_list[i].Username+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Email : </label>"+
-										"<div class='col-sm-4' id='user_email"+i+"'>"+resp_arr[i].Email+"</div>"+
+										"<div class='col-sm-4' id='user_email"+i+"'>"+user_list[i].Email+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Organisation Unit : </label>"+
-										"<div class='col-sm-4'>"+resp_arr[i].OrganisationUnit+"</div>"+
+										"<div class='col-sm-4'>"+user_list[i].OrganisationUnit+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Role : </label>"+
-										"<div class='col-sm-4'>"+resp_arr[i].Roles+"</div>"+
+										"<div class='col-sm-4'>"+user_list[i].Roles+"</div>"+
 									"</div>"+
 								"</form>"+
 								"<Button type='button' id='reset_password"+i+"' class='btn btn-success'"+
-									" onclick='showPswdResetLayout(\""+i+"\",\""+resp_arr[i].Id+"\");'>"+
+									" onclick='showPswdResetLayout(\""+i+"\",\""+user_list[i].Id+"\");'>"+
 									"RESET PASSWORD"+
 								"</Button>"+
 								"<div id='psw_reset_layout"+i+"'></div>"+
 							"</td>"+
-							"<td>"+
+							/*"<td>"+
 								"<div>"+
-								"<Button type='button' id='edit_user"+i+"' data-toggle='popover_edit_user"+i+"' class='btn btn-sm btn-link btn-block'>"+
+								"<Button type='button' onclick='get_popover(\""+i+"\");' id='edit_user"+i+"' data-toggle='popover_edit_user"+i+"' "+
+								"class='btn'>"+
 								"<span class='glyphicon glyphicon-pencil'></span>&nbsp;&nbsp"+
 								"Edit</Button></div>"+
 								"<div class='hide' id='edit_user_popover"+i+"'>"+
 									"<form style='max-width:250px;min-width:200px;max-height:270px'>"+
 										"<div class='form-group'>"+
-											"<label>Display Name : </label>"+
-											"<div><input type='text' id='update_display_name"+i+"' class='form-control' value='"+resp_arr[i].FirstName+"'/></div>"+
+											"<label>Display Name: </label>"+
+											"<div><input type='text' id='update_display_name"+i+"' class='form-control' value='"+user_list[i].FirstName+"'/></div>"+
 										"</div>"+
 										"<div class='form-group'>"+
 											"<label>Username : </label>"+
-											"<div><input type='text' id='update_username"+i+"' class='form-control' value='"+resp_arr[i].Username+"'/></div>"+
+											"<div><input type='text' id='update_username"+i+"' class='form-control' value='"+user_list[i].Username+"'/></div>"+
 										"</div>"+
 										"<div class='form-group'>"+
 											"<label>Email : </label>"+
-											"<div><input type='email' id='update_email"+i+"' class='form-control' value='"+resp_arr[i].Email+"'/></div>"+
+											"<div><input type='email' id='update_email"+i+"' class='form-control' value='"+user_list[i].Email+"'/></div>"+
 										"</div>"+
 										"<div class='form-group'>"+
 											"<center>"+
 											"<Button type='button' class='btn btn-default' onclick='cancel_update_user(\""+i+"\");' id='cancel_update"+i+"'>Close</Button>"+
 											"&nbsp;&nbsp;<Button type='button' class='btn btn-default'"+
-											" id='update_user"+i+"' onclick='update_user(\""+i+"\",\""+resp_arr[i].Id+"\")'>Update</Button>"+
+											" id='update_user"+i+"' onclick='update_user(\""+i+"\",\""+user_list[i].Id+"\")'>Update</Button>"+
 											"</center>"+
 										"</div>"+
 										"<center><div class='form-group' style='min-height:20px' id='update_user_resp"+i+"'></div></center>"+
 									"</form>"+
 								"</div>"+
-							"</td>"+
+							"</td>"+*/
 						"</tr>";
-						/*
-						 * 
-							"<td align='right'>"+
-								"<div>"+
-								"<label><b>Created on :</b></label> "+created_date.getDate()+" - "+months[created_date.getMonth()]+" - "+
-															created_date.getFullYear()+"<br/>"+
-								"<label><b>Time: </b>&nbsp;</label>"+getHumanReadableTime(created_date)+"<br/>"+
-								"<label><b>Last updated on:</b></label> "+updated_date.getDate()+" - "+months[updated_date.getMonth()]+" - "+
-															updated_date.getFullYear()+"<br/>"+
-								"<label><b>Time: </b>&nbsp;</label>"+getHumanReadableTime(updated_date)+"<br/>"+
-								"</div>"+
-							"</td>"+
-						 * */
 			}
 			layout+="</table>";
 			document.getElementById(display_id).innerHTML=layout;
-			
-			for(var i=0;i<resp_arr.length;i++){
-				$("#edit_user"+i).popover({
-					html: true,
-					title: "Edit user here:",
-					placement: "bottom", 
-					content: getEditUserContent(i)
-				});
-				
-			}
 		}
 	}
+	
+	function get_popover(i){
+		$("#edit_user"+i).popover({
+			html: true,
+			title: "Edit user here:",
+			placement: "bottom", 
+			content: getEditUserContent(i)
+		});
+	}
+	
+	/*function to close popover for editing user*/
+	function cancel_update_user(index){
+		//$("#edit_user"+i).popover("hide");
+		$("[data-toggle='popover_edit_user"+index+"']").popover('hide');
+	}
+	//function to get edit user content
+	function getEditUserContent(index){
+		return $("#edit_user_popover"+index).html();
+	}
+	
 	function showPswdResetLayout(index,user_id){
 		//resp_arr is the array that contains user list
 		document.getElementById("psw_reset_layout"+index).innerHTML="<br/>"+
@@ -2293,14 +2236,7 @@ $(document).ready(function(){
 			});
 		}
 	}
-	function cancel_update_user(index){
-		//$("#edit_user"+i).popover("hide");
-		$("[data-toggle='popover_edit_user"+index+"']").popover('hide');
-	}
-	//function to get edit user content
-	function getEditUserContent(index){
-		return $("#edit_user_popover"+index).html();
-	}
+	
 	function update_user(index,user_id){
 		//alert("Index: "+index+" User ID: "+user_id);
 		$("#update_user_resp"+index).html("Wait Please...");
