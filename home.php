@@ -26,7 +26,7 @@
 		/*
 		 * global variables
 		 * */
-		 
+		 var IP="128.199.111.18";
 		 var arr; /*array for tab template association*/
 		 var prev_tab_name = [];/*Global array for tab name*/
 		 var templates_arr=""; /*list of templates*/
@@ -165,7 +165,7 @@
 						set_profile(user_session.id,"profile_image");
 						function set_profile(user_id,display_layout_id){	
 							document.getElementById(display_layout_id).innerHTML="<img class='circular'"+
-							"src='http://localhost:8065/api/v1/users/"+user_id+"/image'/>";					
+							"src='http://"+IP+":8065/api/v1/users/"+user_id+"/image'/>";					
 						}
 					</script>
 				</div>

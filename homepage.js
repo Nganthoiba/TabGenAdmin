@@ -2085,7 +2085,7 @@ $(document).ready(function(){
 				*/
 				layout+="<tr>"+
 							"<td width='10%'>"+
-								"<img src='img/user.png' class='circular' alt='No profile Image found'/>"+
+								"<div id='user_profile"+i+"'></div>"+
 							"</td>"+
 							"<td width='60%'>"+
 								"<form class='form-horizontal'>"+
@@ -2151,6 +2151,9 @@ $(document).ready(function(){
 			}
 			layout+="</table>";
 			document.getElementById(display_id).innerHTML=layout;
+			for(var i=0;i<user_list.length;i++){
+				set_profile(user_session.id,"user_profile"+i);//setting profile image
+			}
 		}
 	}
 	
