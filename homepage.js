@@ -2152,7 +2152,7 @@ $(document).ready(function(){
 			layout+="</table>";
 			document.getElementById(display_id).innerHTML=layout;
 			for(var i=0;i<user_list.length;i++){
-				set_profile(user_session.id,"user_profile"+i);//setting profile image
+				set_profile(user_list[i].Id,"user_profile"+i);//setting profile image
 			}
 		}
 	}
