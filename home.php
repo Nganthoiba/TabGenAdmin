@@ -34,7 +34,7 @@
 		 var json_arr;
 		 var role_list;
 		 var js_session = sessionStorage.getItem('user_details');
-		if(js_session=="null"){
+		if(js_session=="null" || js_session==""){
 			window.location.assign("index.html");
 		}
 		var user_session = JSON.parse(js_session);
@@ -44,36 +44,37 @@
 				e.preventDefault();
 				$("#wrapper").toggleClass("toggled");
 			});
+			//alert(user_session.token);
+			window.mm_session_token_index =  0 ;
+            $.ajaxSetup({
+                headers: { 'X-MM-TokenIndex': mm_session_token_index,'Authorization':'Bearer '+user_session.token }
+            });
 		});
-		
+		function check_session(){
+			//alert("Hello"); 
+			$.ajax({
+				url: "getUserSession.php",
+				type: "GET",
+				success:function(data){
+					if(data.trim()=="null"){
+						window.location.assign("index.html");
+					}
+					else{
+						//user_session=JSON.parse(data);
+					}
+				},
+				error:function(error_data,y,z){
+					//user_session=null;
+					//alert(error_data+" "+y+" "+z);
+				}
+			});
+		}
 		function removeSession(){
 			sessionStorage.setItem('user_details', "null");
 		}
 		function getSession(){
 			document.getElementById("user_detail_section").innerHTML=user_session.username;
-			setInterval(
-				function(){
-						//alert("Hello"); 
-						$.ajax({
-						url: "getUserSession.php",
-						type: "GET",
-						success:function(data){
-							if(data.trim()=="null"){
-								//user_session=null;
-								//alert("Your session has expired, you have to login again..");
-								//window.location.assign("index.html");
-							}
-							else{
-								//user_session=JSON.parse(data);
-							}
-							//alert("Token: "+user_session.token+" User id: "+user_session.id);
-						},
-						error:function(error_data,y,z){
-							//user_session=null;
-							//alert(error_data+" "+y+" "+z);
-						}
-					});
-				}, 30000);	
+			setInterval(check_session, 30000);	
 		}
 	</script>
 	<style type="text/css">		
@@ -96,28 +97,6 @@
 	</style>	
 </head>
 <body onload="getSession()">
-	<?php
-		/*
-        session_start();
-	
-        if(!isset($_SESSION['user_details']) && !isset($_COOKIE['user_details'])){
-                //echo "<p align='center'>You have to <a href='index.html'>login</a> first<br/>";
-                header('Location: index.html');
-        }
-        else {
-			$user_data = null;
-			if(isset($_SESSION['user_details'])){
-                $user_data = json_decode($_SESSION['user_details']);
-			}
-            else if(isset($_COOKIE['user_details'])){
-				$user_data = json_decode($_COOKIE['user_details']);
-			}
-			if($user_data!=null){
-				$user_role = $user_data->roles;
-				$user_email= $user_data->email;
-				$user_name = $user_data->username;*/
-						
-	?>
     <nav class="navbar navbar-inverse navbar-fixed-top">
 	  <div class="container-fluid">
 		<div class="navbar-header">
@@ -177,10 +156,19 @@
 	  </div>
 	</nav>
 	<div id="wrapper">
-        <!-- Sidebar -->
+        <!-- Sidebar img/user.png-->
         <div id="sidebar-wrapper">
 			<center>
-				<div style="padding-top:10px"><img src="img/user.png" class="circular" alt="No profile Image found"/></div>
+				<div style="padding-top:10px" id="profile_image">
+					<script type="text/Javascript">
+						
+						set_profile(user_session.id,"profile_image");
+						function set_profile(user_id,display_layout_id){	
+							document.getElementById(display_layout_id).innerHTML="<img class='circular'"+
+							"src='http://localhost:8065/api/v1/users/"+user_id+"/image'/>";					
+						}
+					</script>
+				</div>
 			</center>
 			
             <ul class="sidebar-nav" style='height:100%;overflow:hidden;overflow-y:auto'>

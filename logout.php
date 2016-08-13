@@ -26,9 +26,15 @@
 						$_SESSION['user_details']="";
 						unset($_SESSION['user_details']);
 						session_destroy();
-						//setcookie("user_details", "", time() - 3600,'/');
+						
+						setcookie("MMTOKEN", "", time() - (86400 * 30),'/');
+						setcookie("user_details", "", time() - (86400 * 30),'/');
+						setcookie("login_header_response", "", time() - (86400 * 30),'/');
+						unset($_COOKIE['MMTOKEN']);
+						unset($_COOKIE['user_details']);
+						unset($_COOKIE['login_header_response']);
 					}
-					echo "<center><P>You have successfully log out.</P>";
+					echo "You have successfully log out.</P>";
 					echo "<a href='index.html' class='btn btn-link'>Click here to Log in</a></center>";
 				}
 				else{

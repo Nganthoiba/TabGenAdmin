@@ -25,20 +25,24 @@
 						if($conn->httpResponseCode==200){
 							session_start();
 							$_SESSION['user_details'] = $responseJsonData;
-							setcookie("user_details", $$responseJsonData, time() + (86400 * 30), "/");
+							setcookie("user_details", $responseJsonData, time() + (86400 * 30), "/");
 							$_SESSION['login_header_response'] = $conn->httpHeaderResponse;
 							setcookie("login_header_response",$conn->httpHeaderResponse, time() + (86400 * 30), "/");
 							$user_data = json_decode($_SESSION['user_details']);
 							if($user_data!=null){
-								$user_data->token=get_token();//getTokenFromHeader($conn->httpHeaderResponse);
+								$user_data->token=getTokenFromHeader($conn->httpHeaderResponse);
+								$cookie_name = "MMTOKEN";
+								$cookie_value = getTokenFromHeader($conn->httpHeaderResponse);
+								setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 							}
-							if($data->roles =="system_admin" || $data->roles =="admin")
+							if($data->roles =="system_admin" || $data->roles =="admin" && get_token()!=null){
 								//header('Location:home.php');$conn->httpHeaderResponse
 								echo json_encode(array("state"=>"true",
 									"location"=>"home.php",
 									"user_details"=>json_encode($user_data),"headers"=>$conn->httpHeaderResponse));
-							else 
+							}else{ 
 								echo json_encode(array("state"=>"false","message"=>"You are not authorised!"));
+							}
 						}
 						else 
 							echo json_encode(array("state"=>"false","message"=>$data->message));

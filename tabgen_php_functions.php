@@ -422,35 +422,7 @@ function isTabstripExist($conn,$tabstrip_name){
 	}
 }
 
-//function to extract token which was stored in session at the time of login
-function get_token(){
-		session_start();
-		$token=null;
-		if(isset($_SESSION['login_header_response'])){
-			$header = $_SESSION['login_header_response'];
-			$token = getTokenFromHeader($header);			
-		}
-		else if(isset($_COOKIE['login_header_response'])){
-			$header = $_COOKIE['login_header_response'];
-			$token = getTokenFromHeader($header);
-		}
-		else 
-			$token=null;
-											
-		return $token;
-}
 
-function getTokenFromHeader($header){
-	$header_array = http_parse_headers($header); 
-	$token = null;				
-	foreach ($header_array as $name => $value) {
-		if($name=="Token"){
-			$token = $value;
-			break;
-		}
-	}
-	return $token;
-}
 
 function getUserNameById($conn,$user_id){
 	$name=null;
@@ -940,7 +912,36 @@ function http_parse_headers( $header )
 	}
 	return $retVal;
 }
+//function to extract token which was stored in session/cookies at the time of login
+function get_token(){
+		session_start();
+		$token=null;
+		/*if(isset($_SESSION['login_header_response'])){
+			$header = $_SESSION['login_header_response'];
+			$token = getTokenFromHeader($header);			
+		}
+		else */
+		if(isset($_COOKIE['login_header_response'])){
+			$header = $_COOKIE['login_header_response'];
+			$token = getTokenFromHeader($header);
+		}
+		else 
+			$token=null;
+											
+		return $token;
+}
 
+function getTokenFromHeader($header){
+	$header_array = http_parse_headers($header); 
+	$token = null;				
+	foreach ($header_array as $name => $value) {
+		if($name=="Token"){
+			$token = $value;
+			break;
+		}
+	}
+	return $token;
+}
 /*php function to get token / any data from header passed from client side.*/	
 function get_token_from_header(){
 	$request_header=null;

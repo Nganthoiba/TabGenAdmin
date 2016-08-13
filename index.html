@@ -8,10 +8,46 @@
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<title></title>
+	<script src="js/npm.js"></script>
+	<title>HCircle Login</title>
 	<script type="text/JavaScript">
+		isSessionAlive();
+		/*
+		$(document).ready(function(){
+			//alert('Check is session is alive or not....');									
+			$.ajax({
+				url: "getUserSession.php",
+				type: "GET",
+				success: function(data){
+					if(data.trim()!="null"){
+						sessionStorage.setItem('user_details',data);
+						window.location.assign('home.php');	
+					}
+				},
+				error:function(error_data,y,z){
+	
+				}
+			});						
+		});*/
+		
 		function SubmitFrm(){   
 			window.location = "home.html";
+		}
+		
+		function isSessionAlive(){
+			$.ajax({
+				url: "getUserSession.php",
+				type: "GET",
+				success:function(data){
+					if(data.trim()!="null"){
+						sessionStorage.setItem('user_details',data);
+						window.location.assign('home.php');	
+					}
+				},
+				error:function(error_data,y,z){
+	
+				}
+			});
 		}
 	</script>
 	<script type="text/JavaScript">
@@ -75,7 +111,7 @@
 
 
 </head>
-<body class="my_body">
+<body class="my_body" >
 <div id="loader-icon" style="display:none;"><img src="LoaderIcon.gif" /></div>
 	<div class="container">
 		<div class="row">
