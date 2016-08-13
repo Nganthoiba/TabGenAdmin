@@ -44,8 +44,8 @@ function getAttatchment($conn,$article_id){
 	$files_output=array();
 	while($row = $res->fetch(PDO::FETCH_ASSOC)){
 		$row['file_type']=getFileType($row['file_name']);
-		$row['file_name']=substr($row['file_name'],strpos($row['file_name'],"/")+1);
 		$row['attachment_url']="http://".SERVER_IP."/TabGenAdmin/".$row['file_name'];
+		$row['file_name']=substr($row['file_name'],strpos($row['file_name'],"/")+1);
 		$row['caption']=($row['caption']==null)?"":$row['caption'];
 		$files_output[]=$row;
 	}
