@@ -2008,18 +2008,25 @@ $(document).ready(function(){
 	/* Javascript function to get All users */
 	function getAllUsers(display_id){
 		document.getElementById(display_id).innerHTML="<center><p>Wait Please...</p></center>";
+		var token=user_session.token;
 		$.ajax({
 			type: "GET",
 			url: "getAllUsers.php",
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization',token);
+			},
 			success: function(response){
-				if(response.trim()=="error"){
-					document.getElementById(display_id).innerHTML="<p>Oops! something goes wrong, please try again later.";
-				}
-				else if(response.trim()=="null"){
-					document.getElementById(display_id).innerHTML="<center><p>Oops! No record found.</p></center>";
+				var json_resp = JSON.parse(response);
+				if(json_resp.status==false){
+					document.getElementById(display_id).innerHTML="<center><div class='isa_error'>Oops! "+
+					json_resp.message+"</div></center>";
 				}
 				else{
-					displayUsers(display_id,response);	
+					if(json_resp.result!=null)
+						displayUsers(display_id,json_resp.result);	
+					else
+						document.getElementById(display_id).innerHTML="<center><div class='isa_error'>"+
+						"No record found</div></center>";	
 				}
 			},
 			error: function(x,y,z){
@@ -2031,19 +2038,27 @@ $(document).ready(function(){
 	
 	//javascript function to find users
 	function findUsers(display_id,username){
+		var token=user_session.token;
+		document.getElementById(display_id).innerHTML="<center><p>Wait Please...</p></center>";
 		$.ajax({
 			type: "GET",
 			url: "findaUser.php",
 			data: {"user_name":username},
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization',token);
+			},
 			success: function(response){
-				//alert(response);
-				if(response.trim()=="error"){
-					document.getElementById(display_id).innerHTML="<p>Oops! something goes wrong, please try again later.";
-				}else if(response.trim()=="null"){
-					document.getElementById(display_id).innerHTML="<center><p>Oops! No record found.</p></center>";
+				var json_resp = JSON.parse(response);
+				if(json_resp.status==false){
+					document.getElementById(display_id).innerHTML="<center><div class='isa_error'>Oops! "+
+					json_resp.message+"</div></center>";
 				}
 				else{
-					displayUsers(display_id,response);	
+					if(json_resp.result!=null)
+						displayUsers(display_id,json_resp.result);	
+					else
+						document.getElementById(display_id).innerHTML="<center><div class='isa_error'>"+
+						"No record found</div></center>";
 				}
 			},
 			error: function(x,y,z){
@@ -2054,13 +2069,14 @@ $(document).ready(function(){
 	
 	//function to display list of users
 	function displayUsers(display_id,data){
-		user_list = JSON.parse(data);
+		user_list = data;//JSON.parse(data);
 		//alert(user_list.length);
-		if(user_list.length==0){
-			document.getElementById(display_id).innerHTML="<h1 align='center'>No user found</h1>";
+		if(user_list.length==0 || user_list=="null" || user_list==null){
+			document.getElementById(display_id).innerHTML="<div class='isa_info'><h1 align='center'>No user found</h1></div>";
+			return false;
 		}
 		else{
-			var layout="<table class='table' width='100%'"+
+			var layout="<table class='table'"+
 					"style='overflow:hidden;"+
 						"min-width:120px;"+ 
 						"overflow-x:auto;overflow-y:auto;'"+
@@ -2083,11 +2099,30 @@ $(document).ready(function(){
 										"<div class='col-sm-4'>"+yesOrNo(user_list[i].UniversalAccess)+"</div>"+
 									"</div>"+ 
 				*/
+				var tools = ""+
+						"<div>"+
+							"<div class='dropdown' style='float:right'>"+
+							  "<a class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'"+ 
+							  "aria-expanded='false'><span class='glyphicon glyphicon-option-vertical'></span></a>"+
+							  "<ul class='dropdown-menu dropdown-menu-right'>"+
+								"<li><a class='tools'"+
+									"onclick='showDisplayNameResetLayout(\""+i+"\",\""+user_list[i].Id+"\");'>Change Display Name</a></li>"+
+								"<li><a class='tools' "+
+									"onclick='showUsernameResetLayout(\""+i+"\",\""+user_list[i].Id+"\");'>Change Username</a></li>"+
+								"<li><a class='tools' "+
+									"onclick='showPswdResetLayout(\""+i+"\",\""+user_list[i].Id+"\");'>Change Password</a></li>"+
+								/*"<li role='separator' class='divider'></li>"+*/
+								"<li><a class='tools' "+
+									"onclick='showEmailResetLayout(\""+i+"\",\""+user_list[i].Id+"\");'>Change Email</a></li>"+
+							  "</ul>"+
+							"</div>"+
+						"</div>";
+				
 				layout+="<tr>"+
 							"<td width='10%'>"+
 								"<div id='user_profile"+i+"'></div>"+
 							"</td>"+
-							"<td width='60%'>"+
+							"<td width='50%'>"+
 								"<form class='form-horizontal'>"+
 									"<div class='form-group'>"+
 										"<label class='col-sm-4'>Display Name : </label>"+
@@ -2110,43 +2145,18 @@ $(document).ready(function(){
 										"<div class='col-sm-4'>"+user_list[i].Roles+"</div>"+
 									"</div>"+
 								"</form>"+
+								/*
 								"<Button type='button' id='reset_password"+i+"' class='btn btn-success'"+
 									" onclick='showPswdResetLayout(\""+i+"\",\""+user_list[i].Id+"\");'>"+
 									"RESET PASSWORD"+
-								"</Button>"+
-								"<div id='psw_reset_layout"+i+"'></div>"+
+								"</Button>"+*/
 							"</td>"+
-							/*"<td>"+
-								"<div>"+
-								"<Button type='button' onclick='get_popover(\""+i+"\");' id='edit_user"+i+"' data-toggle='popover_edit_user"+i+"' "+
-								"class='btn'>"+
-								"<span class='glyphicon glyphicon-pencil'></span>&nbsp;&nbsp"+
-								"Edit</Button></div>"+
-								"<div class='hide' id='edit_user_popover"+i+"'>"+
-									"<form style='max-width:250px;min-width:200px;max-height:270px'>"+
-										"<div class='form-group'>"+
-											"<label>Display Name: </label>"+
-											"<div><input type='text' id='update_display_name"+i+"' class='form-control' value='"+user_list[i].FirstName+"'/></div>"+
-										"</div>"+
-										"<div class='form-group'>"+
-											"<label>Username : </label>"+
-											"<div><input type='text' id='update_username"+i+"' class='form-control' value='"+user_list[i].Username+"'/></div>"+
-										"</div>"+
-										"<div class='form-group'>"+
-											"<label>Email : </label>"+
-											"<div><input type='email' id='update_email"+i+"' class='form-control' value='"+user_list[i].Email+"'/></div>"+
-										"</div>"+
-										"<div class='form-group'>"+
-											"<center>"+
-											"<Button type='button' class='btn btn-default' onclick='cancel_update_user(\""+i+"\");' id='cancel_update"+i+"'>Close</Button>"+
-											"&nbsp;&nbsp;<Button type='button' class='btn btn-default'"+
-											" id='update_user"+i+"' onclick='update_user(\""+i+"\",\""+user_list[i].Id+"\")'>Update</Button>"+
-											"</center>"+
-										"</div>"+
-										"<center><div class='form-group' style='min-height:20px' id='update_user_resp"+i+"'></div></center>"+
-									"</form>"+
-								"</div>"+
-							"</td>"+*/
+							"<td>"+tools+
+								"<div id='psw_reset_layout"+i+"'></div>"+
+								"<div id='username_reset_layout"+i+"'></div>"+
+								"<div id='displayname_reset_layout"+i+"'></div>"+
+								"<div id='email_reset_layout"+i+"'></div>"+
+							"</td>"+
 						"</tr>";
 			}
 			layout+="</table>";
@@ -2157,32 +2167,20 @@ $(document).ready(function(){
 		}
 	}
 	
-	function get_popover(i){
-		$("#edit_user"+i).popover({
-			html: true,
-			title: "Edit user here:",
-			placement: "bottom", 
-			content: getEditUserContent(i)
-		});
+	function set_profile(user_id,display_layout_id){	
+		document.getElementById(display_layout_id).innerHTML="<img class='img-circle'"+
+							"src='http://"+IP+":8065/api/v1/users/"+user_id+"/image'/>";					
 	}
-	
-	/*function to close popover for editing user*/
-	function cancel_update_user(index){
-		//$("#edit_user"+i).popover("hide");
-		$("[data-toggle='popover_edit_user"+index+"']").popover('hide');
-	}
-	//function to get edit user content
-	function getEditUserContent(index){
-		return $("#edit_user_popover"+index).html();
-	}
-	
+
+	/*For resetting password*/
 	function showPswdResetLayout(index,user_id){
 		//resp_arr is the array that contains user list
 		document.getElementById("psw_reset_layout"+index).innerHTML="<br/>"+
-								"<div class='div_layout'>"+
+								"<div class='div_layout' style='width:350px'>"+
+									"Change Password"+
 									"<button type='button' class='close' "+
 											"onclick='closePswdResetLayout(\""+index+"\");'>&times;</button>"+
-									"<form class='form-horizontal'>"+
+									"<form action='#' class='form-horizontal'>"+
 										"<div class='form-group'>"+
 											"<div class='col-sm-8'>"+
 												"<input type='text' id='update_pswd"+index+
@@ -2208,11 +2206,12 @@ $(document).ready(function(){
 		$("#"+resp_id).html("<p>Wait please...</p>");
 		document.getElementById(resp_id).style.color="black";
 		if(new_password.length==0){
-			$("#"+resp_id).html("<p>Password field is blank.</p>");
+			$("#"+resp_id).html("<div class='isa_error'>Password field is blank.</div>");
 			document.getElementById(resp_id).style.color="red";
 		}
 		else if(new_password.length<8){
-			$("#"+resp_id).html("<p>Please make sure that the password is at least 8 characters length.</p>");
+			$("#"+resp_id).html("<div class='isa_error'>Please make sure that the password is at "+
+			"least 8 characters length.</div>");
 			document.getElementById(resp_id).style.color="red";
 		}
 		else{
@@ -2228,44 +2227,254 @@ $(document).ready(function(){
 						document.getElementById(resp_id).style.color="green";
 					}
 					else{
-						$("#"+resp_id).html("<p><b>"+resp_json.message+"</b></p>");
-						document.getElementById(resp_id).style.color="red";
+						$("#"+resp_id).html("<div class='isa_error'>"+resp_json.message+"</div>");
+						//document.getElementById(resp_id).style.color="red";
 					}
 				},
 				error: function(){
-					$("#"+resp_id).html("<p><b>Sorry, unable to get response from server.</b></p>");
+					$("#"+resp_id).html("<div class='isa_error'>Sorry, unable to get response from server.</div>");
 					document.getElementById(resp_id).style.color="red";
 				}
 			});
 		}
 	}
+	/*******************************************/
 	
-	function update_user(index,user_id){
-		//alert("Index: "+index+" User ID: "+user_id);
-		$("#update_user_resp"+index).html("Wait Please...");
-		var display_name = $("#update_display_name"+index).val();
-		var username = $("#update_username"+index).val();
-		var email = $("#update_email"+index).val();
-		$.ajax({
-			type: "POST",
-			url: "updateUser.php",
-			data: {"user_id":user_id,"display_name":display_name,"username":username,"email":email},
-			success: function(resp){
-				var json_resp = JSON.parse(resp);
-				if(json_resp.state==true){
-					$("#user_display_name"+index).html(display_name);
-					$("#user_name"+index).html(username);
-					$("#user_email"+index).html(email);
-				}
-				$("#update_user_resp"+index).html(json_resp.message);
-				//alert(resp);
-			},
-			error: function(x,y,z){
-				$("#update_user_resp"+index).html("Oops! Something is wrong, pleae try again later.");
-			}
-		});
+	/*Change for Username*/
+	function showUsernameResetLayout(index,user_id){
+		//resp_arr is the array that contains user list
+		document.getElementById("username_reset_layout"+index).innerHTML="<br/>"+
+								"<div class='div_layout' style='width:350px'>"+
+									"Change Username"+
+									"<button type='button' class='close' "+
+											"onclick='closeUsernameResetLayout(\""+index+"\");'>&times;</button>"+
+									"<form action='#' class='form-horizontal'>"+
+										"<div class='form-group'>"+
+											"<div class='col-sm-8'>"+
+												"<input type='text' id='update_username"+index+
+													"' class='form-control' value='' "+
+													"placeholder='Enter the new username'/></div>"+
+											"<div class='col-sm-3'>"+
+												"<Button type='button' class='btn' "+
+													"onclick='update_username(\""+index+"\",\""+user_id+"\");'>Save</Button>"+
+											"</div>"+
+										"</div>"+
+										"<center><div id='username_reset_resp"+index+"'>"+
+											"</div></center>"+
+									"</form>"+
+								"</div>";
 	}
-		
+	function closeUsernameResetLayout(index){
+		document.getElementById("username_reset_layout"+index).innerHTML="";
+	}
+	
+	//function for updating username	
+	function update_username(index,user_id){
+		var token=user_session.token;
+		var new_username=$("#update_username"+index).val();
+		var resp_id = "username_reset_resp"+index;
+		$("#"+resp_id).html("<p>Wait please...</p>");
+		document.getElementById(resp_id).style.color="black";
+		if(new_username.length==0){
+			$("#"+resp_id).html("<div class='isa_error'>Username is blank.</div>");
+		}
+		else if(new_username.length<5){
+			$("#"+resp_id).html("<div class='isa_error'>Please make sure that the username is at "+
+			"least 5 characters length.</div>");
+		}
+		else{
+			$.ajax({
+				url: "updateUser.php",
+				type:"POST",
+				data: {"user_id":user_id,"username":new_username},
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader('Authorization',token);
+				},
+				success: function(resp){
+					var json_resp = JSON.parse(resp);
+					if(json_resp.status==true){
+						document.getElementById("user_name"+index).innerHTML=new_username;
+						$("#"+resp_id).html("<div class='isa_success'>"+json_resp.message+"</div>");
+					}
+					else{
+						$("#"+resp_id).html("<div class='isa_error'>"+json_resp.message+"</div>");
+					}
+				},
+				error: function(x,y,z){
+					$("#"+resp_id).html("<div class='isa_error'>"+
+							"Request could not be fulfilled due to server error or "+
+							"requested resource is not found or not working well."+
+								+"</div>");
+				}
+			});
+		}
+	}
+	/**********************************/
+	
+	
+	
+	/*Change for display name*/
+	function showDisplayNameResetLayout(index,user_id){
+		//resp_arr is the array that contains user list
+		document.getElementById("displayname_reset_layout"+index).innerHTML="<br/>"+
+								"<div class='div_layout' style='width:350px'>"+
+									"Change Display Name"+
+									"<button type='button' class='close' "+
+											"onclick='closeDisplayResetLayout(\""+index+"\");'>&times;</button>"+
+									"<form action='#' class='form-horizontal'>"+
+										"<div class='form-group'>"+
+											"<div class='col-sm-8'>"+
+												"<input type='text' id='update_display_name"+index+
+													"' class='form-control' value='' "+
+													"placeholder='Enter the new display name'/></div>"+
+											"<div class='col-sm-3'>"+
+												"<Button type='button' class='btn' "+
+													" onclick='update_displayname(\""+index+"\",\""+user_id+"\");'>Save</Button>"+
+											"</div>"+
+										"</div>"+
+										"<center><div id='displayname_reset_resp"+index+"'>"+
+											"</div></center>"+
+									"</form>"+
+								"</div>";
+	}
+	function closeDisplayResetLayout(index){
+		document.getElementById("displayname_reset_layout"+index).innerHTML="";
+	}
+	//function for updating display name
+	function update_displayname(index,user_id){
+		var token=user_session.token;
+		var new_display_name=$("#update_display_name"+index).val();
+		var resp_id = "displayname_reset_resp"+index;
+		$("#"+resp_id).html("<p>Wait please...</p>");
+		document.getElementById(resp_id).style.color="black";
+		if(new_display_name.trim().length==0){
+			$("#"+resp_id).html("<div class='isa_error'>User display name is blank.</div>");
+		}
+		else if(new_display_name.length<3){
+			$("#"+resp_id).html("<div class='isa_error'>Please make sure that display name is at least 3 characters length.</div>");
+		}
+		else{
+			$.ajax({
+				url: "updateUser.php",
+				type:"POST",
+				data: {"user_id":user_id,"display_name":new_display_name},
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader('Authorization',token);
+				},
+				success: function(resp){
+					var json_resp = JSON.parse(resp);
+					if(json_resp.status==true){
+						$("#"+resp_id).html("<div class='isa_success'>"+json_resp.message+"</div>");
+						$("#user_display_name"+index).html(new_display_name);
+					}
+					else{
+						$("#"+resp_id).html("<div class='isa_error'>"+json_resp.message+"</div>");
+					}
+				},
+				error: function(x,y,z){
+					$("#"+resp_id).html("<div class='isa_error'>"+
+							"Request could not be fulfilled due to server error or "+
+							"requested resource is not found or not working well."+
+								+"</div>");
+				}
+			});
+		}
+	}
+	/********************************/
+	
+	/*Change for user email*/
+	function showEmailResetLayout(index,user_id){
+		//resp_arr is the array that contains user list
+		document.getElementById("email_reset_layout"+index).innerHTML="<br/>"+
+								"<div class='div_layout' style='width:350px'>"+
+									"Change email"+
+									"<button type='button' class='close' "+
+											"onclick='closeEmailResetLayout(\""+index+"\");'>&times;</button>"+
+									"<form action='#' class='form-horizontal'>"+
+										"<div class='form-group'>"+
+											"<div class='col-sm-8'>"+
+												"<input type='email' id='update_email"+index+
+													"' class='form-control' value='' "+
+													"placeholder='Enter a new email'/></div>"+
+											"<div class='col-sm-3'>"+
+												"<Button type='submit' class='btn' "+
+													" onclick='update_email(\""+index+"\",\""+user_id+"\");return false;'>Save</Button>"+
+											"</div>"+
+										"</div>"+
+										"<center><div id='email_reset_resp"+index+"'>"+
+											"</div></center>"+
+									"</form>"+
+								"</div>";
+	}
+	function closeEmailResetLayout(index){
+		document.getElementById("email_reset_layout"+index).innerHTML="";
+	}
+	//function for updating display name
+	function update_email(index,user_id){
+		var token=user_session.token;
+		var update_email=$("#update_email"+index).val();
+		var resp_id = "email_reset_resp"+index;
+		$("#"+resp_id).html("<p>Wait please...</p>");
+		document.getElementById(resp_id).style.color="black";
+		if(update_email.length==0){
+			$("#"+resp_id).html("<div class='isa_error'>Email is blank.</div>");
+		}
+		else if(isValidateEmail(update_email)){
+			$.ajax({
+				url: "updateUser.php",
+				type:"POST",
+				data: {"user_id":user_id,"email":update_email},
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader('Authorization',token);
+				},
+				success: function(resp){
+					var json_resp = JSON.parse(resp);
+					if(json_resp.status==true){
+						$("#"+resp_id).html("<div class='isa_success'>"+json_resp.message+"</div>");
+						$("#user_email"+index).html(update_email);
+					}
+					else{
+						$("#"+resp_id).html("<div class='isa_error'>"+json_resp.message+"</div>");
+					}
+				},
+				error: function(x,y,z){
+					$("#"+resp_id).html("<div class='isa_error'>"+
+							"Request could not be fulfilled due to server error or "+
+							"requested resource is not found or not working well."+
+								+"</div>");
+				}
+			});
+		}
+		else{
+			$("#"+resp_id).html("<div class='isa_error'>Not a valid email</div>");
+		}
+	}
+	
+	/**********************************/
+
+//to test input of sweet alert
+function test_input(){
+	//swal("Test swal");
+	
+	swal({   
+		title: "An input!",   
+		text: "Write something interesting:",   
+		type: "input",   
+		showCancelButton: true,   
+		closeOnConfirm: false,   
+		animation: "slide-from-top",   
+		inputPlaceholder: "Write something" 
+	}, 
+	function(inputValue){   
+		if (inputValue === false) return false;      
+		if (inputValue === "") {     
+			swal.showInputError("You need to write something!");     
+			return false   
+		}      
+		swal("Nice!", "You wrote: " + inputValue, "success"); 
+	});
+	
+}	
 	//function to return yes/no according to 0 and 1
 	function yesOrNo(val){
 		if(parseInt(val)==0)
@@ -2362,7 +2571,10 @@ $(document).ready(function(){
 						return flag;
 					}
 
-	
+function isValidateEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
 	
 	
 

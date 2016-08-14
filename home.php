@@ -15,7 +15,6 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/npm.js"></script>
-	
 	<!-- This is what you need for sweet alert -->
 	<script src="dist/sweetalert-dev.js"></script>
 	<link rel="stylesheet" href="dist/sweetalert.css">
@@ -23,23 +22,25 @@
 	
 	<script type="text/JavaScript" src="homepage.js"></script>
 	<script type="text/JavaScript">
+		
 		/*
 		 * global variables
 		 * */
-		 var IP="128.199.111.18";
-		 var arr; /*array for tab template association*/
-		 var prev_tab_name = [];/*Global array for tab name*/
-		 var templates_arr=""; /*list of templates*/
-		 var tabs=[];
-		 var json_arr;
-		 var role_list;
-		 var js_session = sessionStorage.getItem('user_details');
+		var IP="128.199.111.18";
+		var arr; /*array for tab template association*/
+		var prev_tab_name = [];/*Global array for tab name*/
+		var templates_arr=""; /*list of templates*/
+		var tabs=[];
+		var json_arr;
+		var role_list;
+		var js_session = sessionStorage.getItem('user_details');
 		if(js_session=="null" || js_session==""){
 			window.location.assign("index.html");
 		}
 		var user_session = JSON.parse(js_session);
 		
 		$(document).ready(function(){
+			//test_input();
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
 				$("#wrapper").toggleClass("toggled");
@@ -161,18 +162,15 @@
 			<center>
 				<div style="padding-top:10px" id="profile_image">
 					<script type="text/Javascript">
-						
 						set_profile(user_session.id,"profile_image");
-						function set_profile(user_id,display_layout_id){	
-							document.getElementById(display_layout_id).innerHTML="<img class='circular'"+
-							"src='http://"+IP+":8065/api/v1/users/"+user_id+"/image'/>";					
-						}
 					</script>
 				</div>
 			</center>
 			
             <ul class="sidebar-nav" style='height:100%;overflow:hidden;overflow-y:auto'>
-				<br/><br/><br/>
+				<br/>
+				<li class="sidebar-brand">
+				</li>
 				<li class="sidebar-brand">
 				</li>
 				<li class="sidebar-brand">
@@ -1179,7 +1177,7 @@
 
 <!-- Modal for displaying Users-->
 <div class="modal fade" id="displayUsers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document" style="width:90%;min-height:60%;overflow-x:auto">
+	<div class="modal-dialog modal-lg" role="document" style="min-height:60%;overflow-x:auto;min-width:70%">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="myModalLabel">List of Users Created:
@@ -1220,7 +1218,7 @@
 								var user_name = $("#search_user").val();
 								if(user_name.length==0)
 								{
-									$("#user_display_content").html("<center><p>Type a username</p></center>");
+									$("#user_display_content").html("<center><div class='isa_warning'>Type a username</div></center>");
 								}
 								else {
 									findUsers("user_display_content",user_name);

@@ -1,8 +1,8 @@
 /*toggle function for dropdown menu*/
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function myFunction(i) {
-    document.getElementById("myDropdown"+i).classList.toggle("show");
+function myFunction(index) {
+    document.getElementById("myDropdown"+index).classList.toggle("show");
 }
 
 // Close the dropdown if the user clicks outside of it

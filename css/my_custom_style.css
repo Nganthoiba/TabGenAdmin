@@ -280,15 +280,15 @@ a:hover + .preview_link,.preview_link:hover{
 .div_layout {
     float: left;
     margin: 5px;
-    width: 350px;
+    width: 400px;
     padding:10px;
     border-radius:3px;
     border: 1px solid #D8D8D8;
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    background-color:#FFFFFF;
-    color:#7D8080
+    background-color:#f2f2f2;
+    color:#A9ACAB
 }
 .headLine{
 	color:#2E9AF5;
@@ -332,16 +332,16 @@ a:hover + .preview_link,.preview_link:hover{
    height: 300px;
    border: 1px solid black;
 }
-.circular {
-					width: 100px;
-					height: 100px;
-					border-radius: 150px;
-					-webkit-border-radius: 150px;
-					-moz-border-radius: 150px;
-					box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-					-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-					-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-		}
+.circular{
+		width: 100px;
+		height: 100px;
+		border-radius: 150px;
+		-webkit-border-radius: 150px;
+		-moz-border-radius: 150px;
+		box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+		-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+		-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
 .small_circular_image {
 	width: 30px;
 	height: 30px;
@@ -433,7 +433,7 @@ a:hover + .preview_link,.preview_link:hover{
 }
 .isa_info, .isa_success, .isa_warning, .isa_error {
     margin: 10px 0px;
-    padding:12px;
+    padding:5px;
 }
 .isa_info {
     color: #00529B;
