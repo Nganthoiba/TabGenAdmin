@@ -14,7 +14,6 @@ include('ConnectAPI.php');
 		$ou_name = $_POST['ou_name'];
 		
 		if($template_name=="Chat Template"){
-			//$token_id = get_token($ou_name,"thoiba","admin");
 			
 			$token_id = get_token();
 			/*echo json_encode(array("index"=>"".$index,

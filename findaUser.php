@@ -1,7 +1,7 @@
 <?php
 	include('connect_db.php');
 	include('tabgen_php_functions.php');// all the function/ methodes are in this php file
-$token = get_token_from_header();
+$token = get_token_from_header();//for security point of view
 if($token==null){
 	echo json_encode(array("status"=>false,"message"=>"Your request is unauthorized."));
 }
