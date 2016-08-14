@@ -90,12 +90,13 @@
 							sessionStorage.setItem('user_details', jarr.user_details);
 						}
 						else{
-							document.getElementById("login_response").innerHTML="<p align='center' style='color:red'>"+jarr.message+"</P>";
+							document.getElementById("login_response").innerHTML=""+
+							"<div class='isa_error' align='center'>"+jarr.message+"</div>";
 						}
 					},
 					error: function(x,y,z){
 						//alert(z);
-						document.getElementById("login_response").innerHTML="<p align='center' style='color:red'>Oops! An unknown problem occurs, try again later</P>";
+						document.getElementById("login_response").innerHTML="<div class='isa_error' align='center'>Oops! An unknown problem occurs, try again later</P>";
 					}
 				});
 			}
@@ -126,7 +127,7 @@
 							<!-- class="form-horizontal formlogin"
 							style="background-image:url(img/bg_screen_small.png)"-->
 							<div class="form-group">
-								<label for="inputEmail3">Username</label>
+								<label for="inputEmail3">Username or Email</label>
 								<input type="text" name="username" id="uname" class="form-control" 
 									style="background-color:#f7f7f7">
 								<center><span id="emailErrorMsg"></span></center>

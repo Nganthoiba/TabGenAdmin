@@ -14,8 +14,10 @@
 					if($team_id!=null){*/
 				$team_name = "organisation";//getTeamName($conn,$team_id);
 				if($team_name!=null){
-							
-					$data = array("name"=>$team_name,"username"=>$username,"password"=>$password);
+					//if(filter_var($email, FILTER_VALIDATE_EMAIL)){		
+					$data = filter_var($username, FILTER_VALIDATE_EMAIL)==false?
+						array("name"=>$team_name,"username"=>$username,"password"=>$password):
+						array("name"=>$team_name,"email"=>$username,"password"=>$password);
 					$url_send ="http://".IP.":8065/api/v1/users/login";
 					$str_data = json_encode($data);
 					$conn = new ConnectAPI();

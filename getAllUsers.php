@@ -12,13 +12,6 @@ else{
 				where Users.Id=User_OU_Mapping.user_id
 				and User_OU_Mapping.OU_id=OrganisationUnit.Id
                 and Users.DeleteAt=0";
-        /*$query = "select * from Users where Username='thoiba'";*/
-		/*$query = "select Users.*,OrganisationUnit,Organisation,UniversalAccess 
-				from Users,User_OU_Mapping,OrganisationUnit,UserUniversalAccessibility
-				where Users.Id=User_OU_Mapping.user_id
-				and Users.DeleteAt=0
-				and User_OU_Mapping.OU_id=OrganisationUnit.Id
-                and Users.Id=UserUniversalAccessibility.UserId";*/
 		$res = $conn->query($query);
 		$output=null;
 		if($res){
