@@ -26,7 +26,7 @@
 		/*
 		 * global variables
 		 * */
-		var IP="localhost";//"128.199.111.18";
+		var IP="128.199.111.18";
 		var arr; /*array for tab template association*/
 		var prev_tab_name = [];/*Global array for tab name*/
 		var templates_arr=""; /*list of templates*/
@@ -38,7 +38,6 @@
 			window.location.assign("index.html");
 		}
 		var user_session = JSON.parse(js_session);
-		document.getElementById("user_detail_section").innerHTML=user_session.username;
 		$(document).ready(function(){
 			//test_input();
 			$("#menu-toggle").click(function(e) {
