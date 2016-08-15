@@ -95,7 +95,7 @@
 		td {vertical-align:middle;font-size:13px}
 	</style>	
 </head>
-<body onload="check_session()">
+<body onload="check_session();">
     <nav class="navbar navbar-inverse navbar-fixed-top">
 	  <div class="container-fluid">
 		<div class="navbar-header">
