@@ -26,7 +26,7 @@
 		/*
 		 * global variables
 		 * */
-		var IP="128.199.111.18";
+		var IP="localhost";//"128.199.111.18";
 		var arr; /*array for tab template association*/
 		var prev_tab_name = [];/*Global array for tab name*/
 		var templates_arr=""; /*list of templates*/
@@ -38,7 +38,7 @@
 			window.location.assign("index.html");
 		}
 		var user_session = JSON.parse(js_session);
-		
+		document.getElementById("user_detail_section").innerHTML=user_session.username;
 		$(document).ready(function(){
 			//test_input();
 			$("#menu-toggle").click(function(e) {
@@ -52,13 +52,13 @@
             });
 		});
 		function check_session(){
-			//alert("Hello"); 
 			$.ajax({
 				url: "getUserSession.php",
 				type: "GET",
 				success:function(data){
 					if(data.trim()=="null"){
 						window.location.assign("index.html");
+						removeSession();//removing session
 					}
 					else{
 						//user_session=JSON.parse(data);
@@ -74,8 +74,7 @@
 			sessionStorage.setItem('user_details', "null");
 		}
 		function getSession(){
-			document.getElementById("user_detail_section").innerHTML=user_session.username;
-			setInterval(check_session, 30000);	
+			setInterval(check_session, 10000);	
 		}
 	</script>
 	<style type="text/css">		
@@ -97,7 +96,7 @@
 		td {vertical-align:middle;font-size:13px}
 	</style>	
 </head>
-<body onload="getSession()">
+<body onload="check_session()">
     <nav class="navbar navbar-inverse navbar-fixed-top">
 	  <div class="container-fluid">
 		<div class="navbar-header">
@@ -162,7 +161,7 @@
 			<center>
 				<div style="padding-top:10px" id="profile_image">
 					<script type="text/Javascript">
-						set_profile(user_session.id,"profile_image");
+						set_profile(user_session.id,"profile_image");	
 					</script>
 				</div>
 			</center>
@@ -176,6 +175,11 @@
 				<li class="sidebar-brand">
 					<div style="color:#f7f7f7;background-color:#5061DC;width:100%; 
 						padding-left:5px;padding-right:5px;" id="user_detail_section">
+						<script type="text/javascript">
+							$(document).ready(function(){
+								$("#user_detail_section").html(user_session.username);
+							});
+						</script>
 					</div>
 				</li>
                 <li>

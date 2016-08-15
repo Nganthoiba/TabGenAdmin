@@ -12,42 +12,32 @@
 	<title>HCircle Login</title>
 	<script type="text/JavaScript">
 		isSessionAlive();
-		/*
-		$(document).ready(function(){
-			//alert('Check is session is alive or not....');									
-			$.ajax({
-				url: "getUserSession.php",
-				type: "GET",
-				success: function(data){
-					if(data.trim()!="null"){
-						sessionStorage.setItem('user_details',data);
-						window.location.assign('home.php');	
-					}
-				},
-				error:function(error_data,y,z){
-	
-				}
-			});						
-		});*/
+		
 		
 		function SubmitFrm(){   
 			window.location = "home.php";
 		}
 		
 		function isSessionAlive(){
-			$.ajax({
-				url: "getUserSession.php",
-				type: "GET",
-				success:function(data){
-					if(data.trim()!="null"){
-						sessionStorage.setItem('user_details',data);
-						window.location.assign('home.php');	
+			var js_session = sessionStorage.getItem('user_details');
+			if(js_session!="null" && js_session!=""){
+				window.location.assign("home.php");
+			}
+			else{
+				$.ajax({
+					url: "getUserSession.php",
+					type: "GET",
+					success:function(data){
+						if(data.trim()!="null"){
+							sessionStorage.setItem('user_details',data);
+							window.location.assign('home.php');	
+						}
+					},
+					error:function(error_data,y,z){
+		
 					}
-				},
-				error:function(error_data,y,z){
-	
-				}
-			});
+				});
+			}
 		}
 	</script>
 	<script type="text/JavaScript">
@@ -57,7 +47,7 @@
 		function validate(){
 			var state=true;
 			if(login_email.length==0){
-				document.getElementById("emailErrorMsg").innerHTML="Please fill up your username";
+				document.getElementById("emailErrorMsg").innerHTML="Please fill up your username or email";
 				document.getElementById("emailErrorMsg").style.color="red";
 				state=false;
 			}else{
