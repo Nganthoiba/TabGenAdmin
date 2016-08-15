@@ -1437,7 +1437,7 @@ $(document).ready(function(){
 				//document.getElementById(id).innerHTML="<p><center>No OU exists for the selected Organisation!</center></p>";
 				return false;
 			}
-			if(role_name.length==0){
+			if(role_name==null || role_name.length==0){
 				document.getElementById(id).innerHTML="<p><h1 align='center'>Sorry,No role exists for the selected OU.</h1></p>";
 				document.getElementById(id).style.color="#A4A4A4";
 				return false;
@@ -1538,9 +1538,7 @@ $(document).ready(function(){
 		});
 	}
 	
-	function getAllTabs(id){
-		
-		document.getElementById(id).style.color="#A4A4A4";		
+	function getAllTabs(id){		
 		$.ajax({
 			url:"getAllTabs.php",
 			type:"GET",

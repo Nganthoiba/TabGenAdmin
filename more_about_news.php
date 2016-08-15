@@ -394,8 +394,9 @@
 					function edit_news_headline(i){
 						var edit_layout="<div class='edit_headline'><label for='news_headline_id"+i+"'>News Headline:</label>"+
 						"<button onclick='cancel_edit_headline(\""+i+"\");' class='close'>&times;</button>"+
-						"<input type='text' placeholder='Put your news headline here' class='form-control' id='news_headline_id"+i+"' "+
-						"value='"+output[i].headline+"'/><br/>"+
+						/*"<input type='text' placeholder='Put your news headline here' class='form-control' id='news_headline_id"+i+"' "+
+						"value='"+output[i].headline+"'/><br/>"+*/
+						"<textarea class='textarea_bg' id='news_headline_id"+i+"'>"+output[i].headline+"</textarea><br/>"+
 						"<center><button onclick='save_edit_headline(\""+i+"\");' class='btn'>Save</button></center>"+
 						"</div><br/><br/>";
 						document.getElementById("headline_layout"+i).innerHTML=edit_layout;		
@@ -412,7 +413,7 @@
 						//alert(news_headline);
 						var trim=news_headline.trim();
 						if(trim.length==0)
-						alert("No input");
+						swal("No input!", "Please write something for headline", "error");
 						$.ajax({
 							url: "update_article.php",
 							type:"POST",

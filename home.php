@@ -26,7 +26,7 @@
 		/*
 		 * global variables
 		 * */
-		var IP="128.199.111.18";
+		var IP="localhost";//"128.199.111.18";
 		var arr; /*array for tab template association*/
 		var prev_tab_name = [];/*Global array for tab name*/
 		var templates_arr=""; /*list of templates*/
@@ -487,7 +487,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
-					<div class="panel panel-info">
+					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="form-group">
 								<label for="displayname" class="col-sm-4  control-label">Full Name</label>
@@ -556,7 +556,7 @@
 						<div class="panel-footer clearfix">
 							<center><label id="error4" class="col-sm-offset-2 col-sm-8"></label></center>
 							<div class="pull-right">
-									<button type="submit" class="btn btn-info" id="CreateUser">Create </button>
+									<button type="submit" class="btn btn-info" id="CreateUser">Create</button>
 							</div>
 						</div>
 					</div>
@@ -793,23 +793,6 @@
 	</div>
 </div>
 
-<!--popup dialog header for editing role -->
-<div class='hide' id="edit_role_header">
-	Edit role here:
-	<div class="pull-right">
-		<button type="button" class="close" id="close_edit_role">
-			<span aria-hidden="true">&times;</span>
-			<script type="text/JavaScript">
-				$(document).ready({
-					//$("#close_edit_role").popover("hide");
-					$("#close_edit_role").click(function(){
-							alert("Hi");
-					});
-				});
-			</script>
-		</button>
-	</div>
-</div>
 <!-- Modal for Associating Tabs to role (a simple design)-->
 <div class="modal fade" id="associate_tabs_to_role" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document" style="width:70%; min-height:50%">

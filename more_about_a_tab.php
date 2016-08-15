@@ -622,11 +622,11 @@
 						var content = output[i].Textual_content;//document.getElementById("edit_text"+i).value;
 						//content = content.replace("%","'");
 						//alert(content);
-						document.getElementById("textual_content"+i).innerHTML="<div class='textarea_bg'>"+
+						document.getElementById("textual_content"+i).innerHTML="<div class='div_bg'>"+
 							"<div class=''><label for='edited_text"+i+"'>Edit the content:</label>"+
 							"<textarea class='form-control' rows='10' cols='50' id='edited_text"+i+"'>"+content+"</textarea>"+
 							"</div></div>"+
-							"<div class='textarea_bg' style='float:right'><input type='button' value='CANCEL' class='btn' "+
+							"<div class='' style='float:right'><input type='button' value='CANCEL' class='btn' "+
 								"onclick='cancel_edit(\""+i+"\");'/>&nbsp;"+
 							"<input type='button' value='DONE' class='btn' onclick='done_edit(\""+i+"\");'/></div><br/><br/>";
 					}

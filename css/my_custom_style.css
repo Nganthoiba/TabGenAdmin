@@ -84,14 +84,19 @@ label {color:#848484; font-weight:normal}
 .textarea_bg
 {
     padding: 10px 5px 10px 5px;
-    background-color: #ffffff;
-	border-radius:0px
+    width:100%;
+    -webkit-box-shadow: inset 2px 2px 2px 0px #dddddd;
+	-moz-box-shadow: inset 2px 2px 2px 0px #dddddd;
+	box-shadow: inset 2px 2px 2px 0px #dddddd;
+	border-radius:2px;
+	border: 1px solid #D8D8D8;
+	background: transparent;
 }
 
 .div_bg
 {
     padding: 5px 5px 5px 5px;
-    background-color: #f7f7f7;
+    background-color: #f7f7f7; 
     border-radius:5px
 }
 .attachment_bg
@@ -209,12 +214,14 @@ body{
     width: 100%;
     overflow:hidden;
     overflow-y:auto;
-    border-radius:5px;
+    border-radius:1px;
     border: 0px solid #FFFFFF;
-    background-color:#FFFFFF;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    /*background-color:#FFFFFF;
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3)
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3)*/
 }
 .preview_link{
 	display: block;
@@ -287,7 +294,7 @@ a:hover + .preview_link,.preview_link:hover{
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    background-color:#f2f2f2;
+    background-color:#F0F7F5;
     color:#A9ACAB
 }
 .headLine{
@@ -429,7 +436,7 @@ a:hover + .preview_link,.preview_link:hover{
     filter: alpha(opacity=0);
 }
 .container{
-	background-color:#F7F8F9;
+	background-color:transparent;
 }
 .isa_info, .isa_success, .isa_warning, .isa_error {
     margin: 10px 0px;

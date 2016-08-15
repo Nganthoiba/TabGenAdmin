@@ -102,20 +102,16 @@
 
 
 </head>
-<body class="my_body" >
-<div id="loader-icon" style="display:none;"><img src="LoaderIcon.gif" /></div>
+<body class="my_body">
 	<div class="container">
 		<div class="row">
 			<br/>
 			<div class="col-md-6 col-md-4 col-md-offset-4">	
-				<div class="panel panel-default">
+				<div class="box">
 					<div class="panel-body">
 						<img src="img/logo_h_circle.png" class="profile-img" style="background-color:#f7f7f7;"/>
-						<!--h2 class="sitename"><font color="#2E9AFE">H-Circle</font></h2-->
 						<form name="forms" action="authenticate.php"  method="POST" class="form-signin"
 							background="img/bg_screen_small.png">
-							<!-- class="form-horizontal formlogin"
-							style="background-image:url(img/bg_screen_small.png)"-->
 							<div class="form-group">
 								<label for="inputEmail3">Username or Email</label>
 								<input type="text" name="username" id="uname" class="form-control" 
@@ -124,7 +120,8 @@
 							</div>
 							<div class="form-group">
 								<label for="inputPassword3">Password</label>
-								<input type="password" name="password" id="password" class="form-control" style="background-color:#f7f7f7">
+								<input type="password" name="password" id="password" class="form-control"
+								 style="background-color:#f7f7f7">
 								<center><span id="passwdErrorMsg"></span></center>
 							</div>
 
@@ -134,6 +131,7 @@
 								<a href="#" class="text-right new-account">Need help signing in?</a>
 							</div>
 						</form>
+						<div id="loader-icon" style="display:none;"><img src="LoaderIcon.gif" /></div>
 						<div class="response_body" id="login_response"></div>
 					</div>
 				</div>
