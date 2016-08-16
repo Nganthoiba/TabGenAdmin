@@ -137,7 +137,6 @@
 	<script type="text/JavaScript">
 		
 		function getSession(){
-			document.getElementById("user_detail_section").innerHTML=user_session.username;
 			setInterval(
 				function(){
 						//alert("Hello"); 
