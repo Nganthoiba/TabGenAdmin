@@ -30,7 +30,7 @@ function setTemplateList(id){
 		url: "TemplateList.php",
 		success: function(templates_arr) {
 			if(templates_arr=="error" || templates_arr=="false"){
-				document.getElementById(id).innerHTML=" ";
+				document.getElementById(id).innerHTML="";
 			}else{
 				var layout="";
 				var json_arr = jQuery.parseJSON(templates_arr);
