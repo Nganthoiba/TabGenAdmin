@@ -1,6 +1,5 @@
 <?php 
 	/*php code to update articles and news articles*/
-	header('Content-Type: application/json');
 	include('tabgen_php_functions.php');
 	include('connect_db.php');
 	$token = get_token_from_header();
