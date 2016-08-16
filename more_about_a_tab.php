@@ -54,7 +54,6 @@
 			$("#wrapper").toggleClass("toggled");
 		}
 		function getSession(){
-			document.getElementById("user_detail_section").innerHTML=user_session.username;
 			setInterval(
 				function(){
 						//alert("Hello"); 
@@ -230,9 +229,8 @@
 								xhr.setRequestHeader('Authorization',user_session.token);
 							},
 							success: function(resp){
-								//alert(resp);
 								var result = JSON.parse(resp);
-								if(result.state==true){
+								if(result.status==true){
 									output = result.output;
 									template_type=result.template_type;
 									if(template_type=="CME Template"){

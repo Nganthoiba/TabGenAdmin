@@ -151,26 +151,7 @@ function updateTemplate(i,tab_id,org_unit){
 		}
 	});
 }
-/*Automatic display for tab to template association when any of the folling event occurs*/
-/*$(document).ready(function (){
-	$('#getTabsTemplate').click(function() {
-		setTabTemplateLayout();
-		return false;
-	});
-	$('#roleSelect').change(function(){
-		setTabTemplateLayout();
-		return false;
-	});	
-	$("#sel_org_unit_role_tab").change(function(){
-		getRoles("sel_roles",$("#sel_org_unit_role_tab").val());
-	});
-});*/
-/*$(document).ready(function(){
-		
-		$("#orgUnitSelect").change(function(){
-			getRoles("roleSelect",$("#orgUnitSelect").val());
-		});
-});*/
+
 //refresh function
 function refresh_all_entries(){
 	/*refershing entries for creating organisation*/
@@ -291,31 +272,6 @@ function createTab(){
 							}
 						}
 			});
-		/*}
-		else {	
-				$.ajax({
-						type: "POST",
-						url: "createTab.php",
-						data: {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name},
-						success: function(resp){
-							//alert("Response: "+resp);
-							var resp_arr = JSON.parse(resp);
-							if(resp_arr.status==true){
-								document.getElementById("createTabResponse").innerHTML="<center><b>"+
-									resp_arr.message+"</b></center>";
-								document.getElementById("createTabResponse").style.color="green";
-								var  ou_spec=document.getElementById("ou_specific_tab_yes").checked;
-								getTabs("list_of_tabs",ou_spec);
-								getAssociatedTabs("associated_tabs");
-								getAllTabs("get_all_tabs");
-							}
-							else{
-								document.getElementById("createTabResponse").innerHTML="<center>"+resp_arr.message+"</center>";
-								document.getElementById("createTabResponse").style.color="red";
-							}
-						}
-				});
-		}*/
 	return false;
 }
 
@@ -685,25 +641,6 @@ function isValidUrl(url){
 								var updated_date = new Date(json_arr[i].update_at);
 								view+='<tr><td><div class="">'+json_arr[i].organisation_unit+'</div></td>'+
 								'</tr>';
-								/*
-								 *
-								'<td>'+json_arr[i].organisation+'</td>'+ 
-								 * 
-								'<td>Date: '+created_date.getDate()+'/'+(created_date.getMonth()+1)+'/'+
-									created_date.getFullYear()+
-									"<br/>Time: "+getHumanReadableTime(created_date)+
-								'</td>'+
-								'<td align="right">'+
-								'<Button type="button" class="btn btn-default"'+
-								' onclick="setDelAction4OrgUnit(\''+json_arr[i].id+'\',\''+json_arr[i].organisation_unit+'\')" id="del_org_unit'+i+'">'+
-								'<span class="glyphicon glyphicon-trash"></span></Button></td></tr>';
-								
-								 * 
-								'<td>Date: '+updated_date.getDate()+'/'+(updated_date.getMonth()+1)+'/'+
-									updated_date.getFullYear()+
-									'<br/>Time: '+getHumanReadableTime(updated_date)+
-								'</td>'+
-								 * */
 							}
 							if(i==0)
 								view="<h3 align='center' style='color:#FE642E'>"+
@@ -716,7 +653,7 @@ function isValidUrl(url){
 							}
 						}
 					}
-					document.getElementById(id).innerHTML=view;
+					document.getElementById(id).innerHTML=(view==null)?"":view;
 				},
 				error: function(x,y,z){
 					if(method=="list"){

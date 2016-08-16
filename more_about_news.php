@@ -160,7 +160,7 @@
 				}, 30000);	
 		}
 	</script>
-	<body onload='getSession();getNewsArticles(tab_id,"first_time_load");'>
+	<body onload='getSession();'>
 		
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
@@ -191,9 +191,11 @@
 							queryString[key] = value;
 							//alert(key);
 						}
-					}	
+					}
+					
 					var tab_id=queryString['tab_id'];
 					getNewsArticles(tab_id,'first_time_load');
+					//alert(tab_id);	
 					
 					function getFiles(i){
 						var file_list=files_path[i];
@@ -510,8 +512,6 @@
 			}
 			else{
 				link_layout="<br/><a href='"+url+"' target='_blank'>"+url+"</a><br/>";
-								/*"<center><div class='preview_link'><iframe height='500' width='460'"+
-								" src='"+Link+"'></iframe></div></center>";*/
 			}
 		}
 		return link_layout;
@@ -537,9 +537,8 @@
 				xhr.setRequestHeader('Authorization',user_session.token);
 			},
 			success: function(resp){
-				//alert(resp);
 				var result = JSON.parse(resp);
-				if(result.state==true){
+				if(result.status==true){
 					output = result.output;
 					if(output==null){
 						if(loading_mode=="first_time_load"){
@@ -675,7 +674,7 @@
 					document.getElementById("tab_contents").innerHTML="<center>"+result.message+"</center>";
 				}
 			},
-			error: function(){
+			error: function(x,y,z){
 				swal("Server unreachable!", "Sorry, we are unable to reach server,"+
 				" please check your connection or try again later.", "error");
 			}
