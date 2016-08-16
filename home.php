@@ -60,7 +60,7 @@
 						removeSession();//removing session
 					}
 					else{
-						//user_session=JSON.parse(data);
+						user_session=JSON.parse(data);
 					}
 				},
 				error:function(error_data,y,z){
