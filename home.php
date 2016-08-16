@@ -21,8 +21,7 @@
 	<!--.......................-->
 	
 	<script type="text/JavaScript" src="homepage.js"></script>
-	<script type="text/JavaScript">
-		
+	<script type="text/JavaScript">	
 		/*
 		 * global variables
 		 * */
@@ -34,6 +33,7 @@
 		var json_arr;
 		var role_list;
 		var user_session;
+		
 		var js_session = sessionStorage.getItem('user_details');
 		user_session = JSON.parse(js_session);
 		//check_session();
