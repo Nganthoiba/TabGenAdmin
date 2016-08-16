@@ -13,14 +13,14 @@
 	<script type="text/JavaScript">
 		isSessionAlive();
 		
-		
 		function SubmitFrm(){   
 			window.location = "home.php";
 		}
 		
 		function isSessionAlive(){
 			var js_session = sessionStorage.getItem('user_details');
-			if(js_session!="null" && js_session!=""){
+			if(js_session!="null" && js_session!="" && js_session!=null){
+				//alert("Session not null: "+js_session);
 				window.location.assign("home.php");
 			}
 			else{
@@ -28,6 +28,7 @@
 					url: "getUserSession.php",
 					type: "GET",
 					success:function(data){
+						//alert(data);//displaying alert
 						if(data.trim()!="null"){
 							sessionStorage.setItem('user_details',data);
 							window.location.assign('home.php');	

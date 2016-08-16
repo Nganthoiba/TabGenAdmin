@@ -33,12 +33,11 @@
 		var tabs=[];
 		var json_arr;
 		var role_list;
-		check_session();
+		var user_session;
 		var js_session = sessionStorage.getItem('user_details');
-		if(js_session=="null" || js_session==""){
-			window.location.assign("index.html");
-		}
-		var user_session = JSON.parse(js_session);
+		user_session = JSON.parse(js_session);
+		//check_session();
+		
 		$(document).ready(function(){
 			//test_input();
 			$("#menu-toggle").click(function(e) {
@@ -51,24 +50,32 @@
                 headers: { 'X-MM-TokenIndex': mm_session_token_index,'Authorization':'Bearer '+user_session.token }
             });
 		});
+		
 		function check_session(){
-			$.ajax({
-				url: "getUserSession.php",
-				type: "GET",
-				success:function(data){
-					if(data.trim()=="null"){
+			var js_session = sessionStorage.getItem('user_details');
+			if(js_session=="null" || js_session==""){
+				//window.location.assign("index.html");
+				$.ajax({
+					url: "getUserSession.php",
+					type: "GET",
+					success:function(data){
+						if(data.trim()=="null"){
+							window.location.assign("index.html");
+							removeSession();//removing session
+						}
+						else{
+							sessionStorage.setItem('user_details',data);
+							user_session=JSON.parse(data);
+						}
+					},
+					error:function(error_data,y,z){
 						window.location.assign("index.html");
-						removeSession();//removing session
+						//user_session=null;
+						//alert(error_data+" "+y+" "+z);
 					}
-					else{
-						user_session=JSON.parse(data);
-					}
-				},
-				error:function(error_data,y,z){
-					//user_session=null;
-					//alert(error_data+" "+y+" "+z);
-				}
-			});
+				});
+			}
+			else user_session = JSON.parse(js_session);	
 		}
 		function removeSession(){
 			sessionStorage.setItem('user_details', "null");
