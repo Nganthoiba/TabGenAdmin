@@ -227,6 +227,7 @@
 							type: "GET",
 							beforeSend: function (xhr) {
 								xhr.setRequestHeader('Authorization',user_session.token);
+								//xhr.setRequestHeader('Content-Type', 'application/json');
 							},
 							success: function(resp){
 								var result = JSON.parse(resp);
