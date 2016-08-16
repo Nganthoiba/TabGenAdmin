@@ -33,10 +33,10 @@
 		var json_arr;
 		var role_list;
 		var user_session;
-		
+		/*
 		var js_session = sessionStorage.getItem('user_details');
-		user_session = JSON.parse(js_session);
-		//check_session();
+		user_session = JSON.parse(js_session);*/
+		check_session();
 		
 		$(document).ready(function(){
 			//test_input();
@@ -53,7 +53,7 @@
 		
 		function check_session(){
 			var js_session = sessionStorage.getItem('user_details');
-			if(js_session=="null" || js_session==""){
+			if(js_session=="null" || js_session=="" || js_session==null){
 				//window.location.assign("index.html");
 				$.ajax({
 					url: "getUserSession.php",
@@ -65,7 +65,7 @@
 						}
 						else{
 							sessionStorage.setItem('user_details',data);
-							user_session=JSON.parse(data);
+							js_session = sessionStorage.getItem('user_details');
 						}
 					},
 					error:function(error_data,y,z){
