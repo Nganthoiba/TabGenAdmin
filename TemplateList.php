@@ -2,11 +2,11 @@
 <?php	
 	include('server_IP.php');		
 	session_start();
-	if(!isset($_SESSION['user_details'])){
+	if(!isset($_COOKIE['user_details'])){
          echo "error";
     }
     else {
-        $user_data = json_decode($_SESSION['user_details']);
+        $user_data = json_decode($_COOKIE['user_details']);
 		$user_name = $user_data->username;
 		include ('ConnectAPI.php');
 		echo getTemplateList($user_name);
