@@ -14,19 +14,16 @@
 			$token=$_POST['token'];
 			$getOut = new ConnectAPI();
 			$data = "";
-			$result = $getOut->sendPostDataWithToken($url,$data,$token);
-			
-			
+			$result = $getOut->sendPostDataWithToken($url,$data,$token);	
 			if($result!=null){
 				if($getOut->httpResponseCode==200){
-					session_start();
-					if(isset($_SESSION['user_details'])){
-						$user_data = json_decode($_SESSION['user_details']);
+					
+					if(isset($_COOKIE['user_details'])){
+						$user_data = json_decode($_COOKIE['user_details']);
 						echo "<center><P class='alert alert-error'>".$user_data->username.", ";
-						$_SESSION['user_details']="";
-						unset($_SESSION['user_details']);
-						session_destroy();
-						
+						$_COOKIE['user_details']="";
+						unset($_COOKIE['user_details']);
+						/*destroying cookies*/
 						setcookie("MMTOKEN", "", time() - (86400 * 30),'/');
 						setcookie("user_details", "", time() - (86400 * 30),'/');
 						setcookie("login_header_response", "", time() - (86400 * 30),'/');
