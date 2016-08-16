@@ -2,6 +2,7 @@
 /*php file for geting news articles*/
 include('tabgen_php_functions.php');
 include('connect_db.php');
+header('Content-Type: application/json');
 $token = get_token_from_header();
 if($token==null){
 	echo json_encode(array("status"=>false,"message"=>"Your request is unauthorized, please login and try again."));
