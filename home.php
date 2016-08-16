@@ -37,8 +37,8 @@
 		var js_session = sessionStorage.getItem('user_details');
 		user_session = JSON.parse(js_session);*/
 		check_session();
-		
 		$(document).ready(function(){
+			setTemplateList("choose_templates");
 			//test_input();
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
@@ -632,7 +632,7 @@
 						<div class="form-group">
 							<label class="col-sm-4  control-label">Choose a Template:</label>
 							<div class="col-sm-8">
-								<select class="form-control" id="choose_templates" >
+								<select class="form-control" id="choose_templates">
 									<script type="text/JavaScript">
 										$(document).ready(function(){
 											setTemplateList("choose_templates");
