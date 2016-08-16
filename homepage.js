@@ -2494,6 +2494,7 @@ function test_input(){
 							case "rtf":
 							case "mp4":
 							case "jpg":
+							case "ppt":
 							case "jpeg":
 							case "docx":
 							case "pptx":
