@@ -660,7 +660,6 @@ function getUserNameById($conn,$user_id){
 		$res = $conn->query($query);
 		$output=null;
 		while($row = $res->fetch(PDO::FETCH_ASSOC)){
-			//$output[]=$row;
 			$output->order[]=$row['Id'];
 			$output->posts->$row['Id']->id=$row['Id'];
 			$output->posts->$row['Id']->create_at=(double)$row['CreateAt'];

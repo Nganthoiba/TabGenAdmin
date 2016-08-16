@@ -534,6 +534,9 @@
 		$.ajax({
 			url: "getNewsArticle.php?"+data,
 			type: "GET",
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization',user_session.token);
+			},
 			success: function(resp){
 				//alert(resp);
 				var result = JSON.parse(resp);

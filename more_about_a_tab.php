@@ -226,6 +226,9 @@
 						$.ajax({
 							url: "getArticles.php?"+data,
 							type: "GET",
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader('Authorization',user_session.token);
+							},
 							success: function(resp){
 								//alert(resp);
 								var result = JSON.parse(resp);
@@ -408,6 +411,9 @@
 						$.ajax({
 							url: "activateOrDeactivateArticle.php",
 							type: "POST",
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader('Authorization',user_session.token);
+							},
 							data: {"article_id":article_id,"status":status,"type":"article"},
 							success: function(resp){
 								var json_resp = JSON.parse(resp);
@@ -472,43 +478,6 @@
         <div id="page-content-wrapper">
 			
 			<div class="container-fluid">
-				<!--
-				<p id="p1"><a href="http://cnet.com">Cnet</a></p>
-				<p id="p2"><a href="http://codegena.com">Codegena</a></p>
-				<p id="p3"><a href="http://apple.com">Apple</a></p>
-
-				<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-				  <link href="http://codegena.com/assets/css/image-preview-for-link.css" rel="stylesheet">     
-				  <script type="text/javascript">
-					$(function() {
-								$('#p1 a').miniPreview({ prefetch: 'pageload' });
-								$('#p2 a').miniPreview({ prefetch: 'parenthover' });
-								$('#p3 a').miniPreview({ prefetch: 'none' });
-							});
-				  </script> <script src="http://codegena.com/assets/js/image-preview-for-link.js"></script>
-				
-				<object width="425" height="344">
-					<embed src="http://www.youtube.com/v/F9Bo89m2f6g&hl=en&fs=1"
-						type="application/x-shockwave-flash" allowfullscreen="true" width="425" height="344">
-					</embed>
-				</object>
-				<video width="420" height="315" controls>
-				  <source src="uploaded_file/movie.mp4" type="video/mp4">
-				  <source src="uploaded_file/movie.ogg" type="video/ogg">
-					Your browser does not support the video tag.
-				</video>
-				<video width="420" height="315" controls>
-				  <source src="https://youtu.be/kGIftVM8b1o">
-					Your browser does not support the video tag.
-				</video>
-				<iframe width="420" height="315"
-				src="https://www.youtube.com/embed/pYSvk18d-48?autoplay=0">
-				
-				</iframe>-->
-				<!--
-				https://www.youtube.com/watch?v=kGIftVM8b1o
-				video url: https://youtu.be/kGIftVM8b1o
-				video url at current time: https://youtu.be/kGIftVM8b1o?t=14-->
             <div class="" id="tab_contents">
 				<div id="left_column" class="column"></div>	
 				<div id="right_column" class="column"></div>
