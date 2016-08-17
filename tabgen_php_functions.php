@@ -422,16 +422,15 @@ function isTabstripExist($conn,$tabstrip_name){
 	}
 }
 
-
-
 function getUserNameById($conn,$user_id){
 	$name=null;
 	$query = "select * from Users where Id='$user_id'";
 	$res = $conn->query($query);
 	$row = $res->fetch(PDO::FETCH_ASSOC);
-	if($row['FirstName']!=null)
+	/*if($row['FirstName']!=null)
 		$name=$row['FirstName'];
-	else if($row['Username']!=null)
+	else */
+	if($row['Username']!=null)
 		$name=$row['Username'];
 	return $name;
 }

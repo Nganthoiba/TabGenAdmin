@@ -253,7 +253,9 @@ function createTab(){
 						url: "createTab.php",
 						data: {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name,
 						"ou_name":ou_name,"role_name":role_name,"role_id":role_id,"token":token},
-						
+						beforeSend: function (xhr) {
+							xhr.setRequestHeader('Authorization',user_session.token);
+						},
 						success: function(resp){
 							
 							var resp_arr = JSON.parse(resp);
@@ -1579,6 +1581,7 @@ $(document).ready(function(){
 									"<div class='tab_bg'>"+see_more+
 										"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 										"<div><strong>Organisation:</strong> "+ORG+
+											"<br/><strong>Organisation Unit:</strong> "+OU+
 											"<br/><strong>Template:</strong> "+json_arr[i].Template_Name+
 											"<br/><strong>OU Specific:</strong> "+yesOrNo(json_arr[i].OU_Specific)+
 										"</div>"+
