@@ -19,7 +19,6 @@ if(!empty($news_id)){
 		<script type="text/javascript" src="js/toast.js"></script>
 		<!-- ********************************************** -->
 		
-		
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
 		<!-- This is what you need for sweet alert -->

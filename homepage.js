@@ -1529,18 +1529,20 @@ $(document).ready(function(){
 								see_more="";
 						}
 						else if(json_arr[i].Template_Name=="Latest News Template"){
-							see_more="<a href='more_about_news.php?tab_id="+json_arr[i].Id+"' class='btn btn-info'>See More</a>";
+							see_more="<a href='more_about_news.php?tab_id="+json_arr[i].Id+
+							"' class='btn btn-info'>See More</a>";
 						}
 						else{
 							see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
 											"' class='btn btn-info'>See More</a>";
 						}
+						
 						if(parseInt(json_arr[i].OU_Specific) == 0){
 							//btn_class="btn btn-warning";
 							ou_specific="No";
 							layout+= "<tr>"+
-								"<td>"+
-									"<div class='col-sm-6'>"+
+								"<td width='60%'>"+
+									"<div class='col-sm-10'>"+
 										"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 										"<div><b>Organisation:</b> "+ORG+
 											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
@@ -1549,7 +1551,7 @@ $(document).ready(function(){
 									"</div>"+
 								"</td>"+
 								"<td align='right'>"+
-										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
+										"<Button type='button' style='height: 40px;' class='close' "+
 										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
 										"<span class='glyphicon glyphicon-remove'></span></Button><br/><br/>"+
 										see_more+
@@ -1572,8 +1574,8 @@ $(document).ready(function(){
 							//btn_class="btn btn-success";
 							ou_specific="Yes";
 							layout+= "<tr>"+
-								"<td>"+
-									"<div class='col-sm-4'>"+
+								"<td width='60%'>"+
+									"<div class='col-sm-10'>"+
 									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 									"<div><b>OU:</b> "+OU+
 									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
@@ -1583,7 +1585,7 @@ $(document).ready(function(){
 								"</td>"+
 								
 								"<td align='right'>"+	
-										"<Button type='button' style='height: 40px;' class='btn btn-link' "+
+										"<Button type='button' style='height: 40px;' class='close' "+
 										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
 										"<span class='glyphicon glyphicon-remove'></span></Button><br/><br/>"+
 										see_more+

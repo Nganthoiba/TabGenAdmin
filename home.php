@@ -1248,7 +1248,7 @@
 
 <!-- Modal for displaying tabs -->
 <div class="modal fade" id="display_tab_layout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" style="width:60%" role="document">
+	<div class="modal-dialog"  role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1256,7 +1256,7 @@
 				</button>
 				<h4 class="modal-title" id="myModalLabel">List of Tabs created:</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" style="height:650px;overflow:hidden;overflow-y:auto">
 				<table class='table' id="get_all_tabs">
 					<script type="text/JavaScript">
 						$(document).ready(function(){
