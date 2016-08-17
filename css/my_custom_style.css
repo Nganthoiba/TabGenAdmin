@@ -463,7 +463,7 @@ a:hover + .preview_link,.preview_link:hover{
     color: #D8000C;
     background-color: #FFBABA;
 }
-a:hover {font-size:14px;cursor:pointer}
+a:hover {font-size:14px;cursor:pointer;color:#7A7D7B}
 .tools{
 	font-size:14px;
 	cursor:pointer;

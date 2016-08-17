@@ -252,7 +252,8 @@
 							id="showOrgsList" border='0' style="padding-top:20px">
 							<script>
 								$(document).ready(function(){									
-									document.getElementById("showOrgsList").innerHTML="<br/><br/><center><img src='img/loading_data.gif'/></center>";
+									document.getElementById("showOrgsList").innerHTML="<br/><br/><center>"+
+									"<img src='img/loading.gif'/></center>";
 									viewOrgs("list","showOrgsList","all");
 								});
 							</script>	
@@ -279,7 +280,8 @@
 						id="showOrgUnits" border="0" style="padding-top:20px">
 						<script>
 								$(document).ready(function(){
-									document.getElementById("showOrgUnits").innerHTML="<br/><br/><center><img src='img/loading_data.gif'/></center>";
+									document.getElementById("showOrgUnits").innerHTML="<br/><br/><center>"+
+									"<img src='img/loading.gif'/></center>";
 									viewOrgUnits("list","showOrgUnits","all");
 								});					
 						</script>	
@@ -1176,28 +1178,16 @@
 			<div class="modal-header">
 				<h4 class="modal-title" id="myModalLabel">List of Users Created:
 					<div class="pull-right">
-						<form method="GET">
-						<table width="100%">
-							<tr>
-								<td><h4>Find a user: &nbsp;</h4></td>
-								<td>
-									<input type="text" class="form-control" id="search_user" onkeyup="find()" 
-										placeholder="Type a Username Here"/>
-								</td>
-								<td>
-									<button type="submit" class="btn btn-default" id="findUser">
-									<span class="glyphicon glyphicon-search"></span>
-									</button>
-								</td>
-								<td>&nbsp;&nbsp;&nbsp;</td>
-								<td>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span class="glyphicon glyphicon-remove"></span>
-									</button>
-								</td>
-							</tr>
-						</table>
+						<form class="navbar-form navbar-left" method="GET">
+							<input type="text" id="search_user" onkeyup="find()" 
+									class="form-control" placeholder="Search a user">
+							<button type="submit" class="btn btn-default" id="findUser">
+								 <span class="glyphicon glyphicon-search"></span>
+							</button>
 						</form>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
 					</div>
 				</h4>
 			</div>

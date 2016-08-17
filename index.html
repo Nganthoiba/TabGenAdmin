@@ -67,7 +67,7 @@
 			login_email = document.getElementById("uname").value;
 			login_password = document.getElementById("password").value;	
 			if(validate()==true){
-				document.getElementById("login_response").innerHTML="<p align='center'><img src='img/loader_img.gif'/> Wait please...</P>";
+				document.getElementById("login_response").innerHTML="<p align='center'><img src='img/loading.gif'/> Wait please...</P>";
 				//document.forms.submit();
 				$.ajax({
 					type: "POST",
