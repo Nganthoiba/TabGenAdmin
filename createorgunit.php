@@ -1,32 +1,22 @@
 <?php
-session_start();
-if(isset($_SESSION['user_details'])){
-	$user_details = json_decode($_SESSION['user_details']);
+
+if(isset($_COOKIE['user_details'])){
+	$user_details = json_decode($_COOKIE['user_details']);
 
 include ('ConnectAPI.php');
 //include ('server_IP.php');
 include('connect_db.php');
 include('tabgen_php_functions.php');
 $orgunit = $_POST['orgunit'];
-//$displaynameunit = $_POST['displaynameunit'];
 $orgnamesel = $_POST['orgnamesel'];
 	if($orgunit!='' && $orgnamesel!=''){
-		//setting data for creating organistion unit
-		//"name"=>$displaynameunit,
+
 		$data = array(
 		"email"=>$user_details->email,
 		"organisation" => $orgnamesel,
 		"organisation_unit" => $orgunit,
 		"createdBy"=>$user_details->username);
 		
-		//setting data for creating a team
-		/*$arrayTeam = array(
-			"display_name"=>$displaynameunit,
-			"email"=>$user_details->email,
-			"name"=>$orgunit,
-			"type"=>"O"
-			);*/
-
 		$url_send ="http://".IP.":8065/api/v1/organisationUnit/create";
 		$str_data = json_encode($data);
 		//$str_createTeamData = json_encode($arrayTeam);
