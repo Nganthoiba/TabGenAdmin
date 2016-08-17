@@ -6,7 +6,6 @@
 	$role_id = $_POST['role_id'];
 	
 	if($conn){
-		//$role_id = findRoleId($conn,$ou_name,$role_name);
 					
 		$query="select Tab.*,TabTemplate.Name as Template_Name 
 				from RoleTabAsson,Tab,TabTemplate 

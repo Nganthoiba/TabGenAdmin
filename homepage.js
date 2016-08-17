@@ -253,8 +253,9 @@ function createTab(){
 						url: "createTab.php",
 						data: {"tab_name":tab_name,"template_name":template_name,"ou_specific":ou_specific,"org_name":org_name,
 						"ou_name":ou_name,"role_name":role_name,"role_id":role_id,"token":token},
+						
 						success: function(resp){
-							//alert("Response: "+resp);
+							
 							var resp_arr = JSON.parse(resp);
 							if(resp_arr.status==true){
 								getAllTabs("get_all_tabs");
@@ -1691,7 +1692,6 @@ $(document).ready(function(){
 	}
 	
 	function associate(tab_id){
-		//var ou_right = document.getElementById("choose_ou2").value;
 		
 		var ou_name = $("#choose_ou").val();
 		var role_name = $("#choose_role").val();
@@ -1708,8 +1708,6 @@ $(document).ready(function(){
 			alert("Invalid role, role id does not exists, choose another role");
 			return;
 		}
-		//alert("Tab Id: "+tab_id);
-		//alert(role_id);
 		
 		$.ajax({
 			type: "POST",
@@ -1718,6 +1716,9 @@ $(document).ready(function(){
 					"role_name":role_name,
 					"role_id":role_id,
 					"tab_id":tab_id},
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization',user_session.token);
+			},
 			success: function(resp){
 				//alert(resp);
 				var resp_json = JSON.parse(resp);
@@ -1865,18 +1866,16 @@ $(document).ready(function(){
 		//alert(tab_id);
 		var confirmation = true;//confirm("Are you sure to drop this tab?");
 		if(confirmation==true){
-			//var ou_name = $("#choose_ou").val();
 			var role_name = $("#choose_role").val();
 			var role_id = getRoleId(role_name,role_list);
-			//alert("Tab Id: "+tab_id+"Role Id: "+role_id);
-			/*if(role_id==null){
-				alert("Invalid role, role id does not exists, choose another role");
-				return;
-			}*/
+
 			$.ajax({
 					type: "POST",
 					url: "deleteAssociatedTab.php",
 					data: {"tab_id":tab_id,"role_id":role_id},
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader('Authorization',user_session.token);
+					},
 					success: function(response){
 						var resp_arr = JSON.parse(response);
 						if(resp_arr.status==true){

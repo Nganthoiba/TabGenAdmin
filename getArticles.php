@@ -12,6 +12,7 @@ else{
 		echo json_encode(array("status"=>false,"message"=>"Invalid token!, please login and try again."));
 	}
 	else{
+		
 		if(isAdmin($conn,$user_id)){//check if the user is admin or not
 			$tab_id = $_GET['tab_id'];
 			if($conn){
