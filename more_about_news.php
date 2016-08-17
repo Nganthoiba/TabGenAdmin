@@ -543,8 +543,6 @@
 					if(output==null){
 						if(loading_mode=="first_time_load"){
 							document.getElementById("left_column").innerHTML="<br/><center>"+
-							"<img src='img/empty_article_box.jpg' class='img-circle' alt='No Article'"+
-							" height='50%' width='60%'/>"+
 							"<br/><div class='well'>No news article found, create a new one.</div></center>";
 						}
 						else if(loading_mode=="before"){
