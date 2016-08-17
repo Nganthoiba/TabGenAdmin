@@ -4,9 +4,7 @@
 	$ou_name = $_POST['ou_name'];
 	$role_name = $_POST['role_name'];
 	$role_id = $_POST['role_id'];
-	
-	if($conn){
-					
+	if($conn){				
 		$query="select Tab.*,TabTemplate.Name as Template_Name 
 				from RoleTabAsson,Tab,TabTemplate 
 				where Tab.Id=TabId and

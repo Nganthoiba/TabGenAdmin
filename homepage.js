@@ -1527,85 +1527,63 @@ $(document).ready(function(){
 										"<br/><span id='upadate_tab_resp"+i+"'></span>"+
 									"</div>"+
 								"</form>";*/
-								see_more="";
+							see_more = ""+
+							"<div style='float:right' class='dropdown'>"+
+							  "<a class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'"+ 
+							  "aria-expanded='false'><span class='glyphicon glyphicon-option-vertical'></span></a>"+
+							  "<ul class='dropdown-menu dropdown-menu-right'>"+
+								"<li><a class='tools'"+
+									"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+									"Delete Tab</a></li>"+
+							  "</ul>"+
+							"</div>";
 						}
 						else if(json_arr[i].Template_Name=="Latest News Template"){
-							see_more="<a href='more_about_news.php?tab_id="+json_arr[i].Id+
-							"' class='btn btn-info'>See More</a>";
+							see_more = ""+
+							"<div style='float:right' class='dropdown'>"+
+							  "<a class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'"+ 
+							  "aria-expanded='false'><span class='glyphicon glyphicon-option-vertical'></span></a>"+
+							  "<ul class='dropdown-menu dropdown-menu-right'>"+
+								"<li>"+
+									"<a class='tools'"+
+										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+										"Delete Tab</a>"+
+								"</li>"+
+								"<li>"+
+									"<a class='tools' href='more_about_news.php?tab_id="+json_arr[i].Id+"'>"+
+									"See More</a>"+
+								"</li>"+
+							  "</ul>"+
+							"</div>";
 						}
 						else{
-							see_more="<a href='more_about_a_tab.php?tab_id="+json_arr[i].Id+
-											"' class='btn btn-info'>See More</a>";
-						}
-						
-						if(parseInt(json_arr[i].OU_Specific) == 0){
-							//btn_class="btn btn-warning";
-							ou_specific="No";
-							layout+= "<tr>"+
-								"<td width='60%'>"+
-									"<div class='col-sm-10'>"+
+							see_more = ""+
+							"<div style='float:right' class='dropdown'>"+
+							  "<a class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'"+ 
+							  "aria-expanded='false'><span class='glyphicon glyphicon-option-vertical'></span></a>"+
+							  "<ul class='dropdown-menu dropdown-menu-right'>"+
+								"<li>"+
+									"<a class='tools'"+
+										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
+										"Delete Tab</a>"+
+								"</li>"+
+								"<li>"+
+									"<a class='tools' href='more_about_a_tab.php?tab_id="+json_arr[i].Id+"'>"+
+									"See More</a>"+
+								"</li>"+
+							  "</ul>"+
+							"</div>";
+						}		
+						layout+= "<tr>"+
+								"<td width='100%'>"+
+									"<div class='tab_bg'>"+see_more+
 										"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-										"<div><b>Organisation:</b> "+ORG+
-											"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-											"<br/><b>OU Specific:</b> "+ou_specific+
+										"<div><strong>Organisation:</strong> "+ORG+
+											"<br/><strong>Template:</strong> "+json_arr[i].Template_Name+
+											"<br/><strong>OU Specific:</strong> "+yesOrNo(json_arr[i].OU_Specific)+
 										"</div>"+
 									"</div>"+
-								"</td>"+
-								"<td align='right'>"+
-										"<Button type='button' style='height: 40px;' class='close' "+
-										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-										"<span class='glyphicon glyphicon-remove'></span></Button><br/><br/>"+
-										see_more+
-								"</td>"+
-								"</tr>";
-								/*
-									"<td align='right'>"+
-									"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+
-									"' type='button' id='edit_tab"+i+"'>"+
-									"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
-									"<div class='container' style='width:20px'>"+
-										"<div class='hide' style='max-width:300px;min-width:250px' id='popover-content"+i+"'>"+
-											popup_content_form+
-										"</div>"+
-									"</div>"+
-								"</td>"+
-								*/
-						}	
-						else{
-							//btn_class="btn btn-success";
-							ou_specific="Yes";
-							layout+= "<tr>"+
-								"<td width='60%'>"+
-									"<div class='col-sm-10'>"+
-									"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
-									"<div><b>OU:</b> "+OU+
-									"<br/><b>Template:</b> "+json_arr[i].Template_Name+
-									"<br/><b>OU Specific:</b> "+ou_specific+
-									"</div>"+
-									"</div>"+
-								"</td>"+
-								
-								"<td align='right'>"+	
-										"<Button type='button' style='height: 40px;' class='close' "+
-										"onclick='deleteTab(\""+json_arr[i].Id+"\")'>"+
-										"<span class='glyphicon glyphicon-remove'></span></Button><br/><br/>"+
-										see_more+
-								"</td>"+
-								"</tr>";
-								/* 
-								 "<td align='right'>"+
-									"<Button class='btn btn-link' style='height: 40px;' data-toggle='popover"+i+
-									"' type='button' id='edit_tab"+i+"'>"+
-									"<span class='glyphicon glyphicon-pencil'></span></Button>"+			  		
-									"<div class='container' style='width:20px'>"+
-										"<div class='hide' style='max-width:300px;min-width:250px' id='popover-content"+i+"'>"+
-											popup_content_form+
-										"</div>"+
-									"</div>"+
-								"</td>"+ 
-								*/
-						}
-						
+								"</td></tr>";
 					}
 											
 					document.getElementById(id).innerHTML=layout;

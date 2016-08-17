@@ -1,10 +1,11 @@
 <?php
 include('connect_db.php');
 include('tabgen_php_functions.php');
-session_start();
-	$ou_specific_tab=$_GET['ou_specific_tab'];
-	$org=$_GET['org'];
-	$role_id = $_GET['role_id'];
+
+$ou_specific_tab=$_GET['ou_specific_tab'];
+$org=$_GET['org'];
+$role_id = $_GET['role_id'];
+
 if(!empty($_GET['role_id'])){
 	$flag = $ou_specific_tab=="true"?1:0;
 	$query=null;

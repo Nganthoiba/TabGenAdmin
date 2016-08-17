@@ -1,5 +1,5 @@
 .my_body {
-	background: #F2F2F2;	
+	background: #E3E7E5;	
 }
 .tab_name{
 	overflow: hidden;overflow-x: auto;padding-top:10px; height: 40px;min-width:120px;max-width:220px
@@ -97,7 +97,12 @@ label {color:#848484; font-weight:normal}
 {
     padding: 5px 5px 5px 5px;
     background-color: #f7f7f7; 
-    border-radius:5px
+    border-radius:5px;
+}
+.tab_bg
+{
+    padding: 5px 5px 5px 5px;
+    color: #767E79; 
 }
 .attachment_bg
 {
@@ -461,7 +466,8 @@ a:hover + .preview_link,.preview_link:hover{
 a:hover {font-size:14px;cursor:pointer}
 .tools{
 	font-size:14px;
-	cursor:pointer
+	cursor:pointer;
+	color:#6C6E6D
 }
 .dropbtn {
     background-color: #ffffff;
