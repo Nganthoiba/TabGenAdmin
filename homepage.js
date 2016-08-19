@@ -2061,12 +2061,11 @@ $(document).ready(function(){
 										"<label class='col-sm-4'>Role : </label>"+
 										"<div class='col-sm-4'>"+user_list[i].Roles+"</div>"+
 									"</div>"+
+									"<div class='form-group'>"+
+										"<label class='col-sm-4'>Access across all other OU : </label>"+
+										"<div class='col-sm-4'>"+yesOrNo(user_list[i].UniversalAccess)+"</div>"+
+									"</div>"+
 								"</form>"+
-								/*
-								"<Button type='button' id='reset_password"+i+"' class='btn btn-success'"+
-									" onclick='showPswdResetLayout(\""+i+"\",\""+user_list[i].Id+"\");'>"+
-									"RESET PASSWORD"+
-								"</Button>"+*/
 							"</td>"+
 							"<td>"+tools+
 								"<div id='psw_reset_layout"+i+"'></div>"+

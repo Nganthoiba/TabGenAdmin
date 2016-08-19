@@ -181,13 +181,7 @@ label {color:#848484; font-weight:normal}
 {
 	cursor: pointer
 }
-/*
- * Base structure cdacaca
- */
 
-/* Move down content because we have a fixed navbar that is 50px tall
- * 
- * background-color:#FAFAFA; */
 body{
 	background-color:#E9EDEB;
 	font-family: Arial, Helvetica, sans-serif, calibri;
