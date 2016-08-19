@@ -1,6 +1,6 @@
 <?php
 /* php code for getting list of channels along with IDs associated with the particular teams which the particular user belongs to */
-
+header('Content-Type: application/json');
 if(!empty($_GET['user_id'])){
 	$user_id = $_GET['user_id'];
 	include('connect_db.php');
@@ -11,8 +11,7 @@ if(!empty($_GET['user_id'])){
 		$output=null;
 		$query=null;
 		$role_id = findRoleIdByUser_id($conn,$user_id);
-		$role_name = getRoleByUserId($conn,$user_id);
-		
+		//$role_name = getRoleByUserId($conn,$user_id);
 		$accessible_teams=null;
 		
 		for($i=0;$i<sizeof($teams);$i++){//finding all the possible channels for a team
