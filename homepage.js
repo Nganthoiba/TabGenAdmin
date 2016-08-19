@@ -2062,7 +2062,7 @@ $(document).ready(function(){
 										"<div class='col-sm-4'>"+user_list[i].Roles+"</div>"+
 									"</div>"+
 									"<div class='form-group'>"+
-										"<label class='col-sm-4'>Access across all other OU : </label>"+
+										"<label class='col-sm-4'>Access across other OUs : </label>"+
 										"<div class='col-sm-4'>"+yesOrNo(user_list[i].UniversalAccess)+"</div>"+
 									"</div>"+
 								"</form>"+
