@@ -1579,7 +1579,7 @@ $(document).ready(function(){
 						layout+= "<tr>"+
 								"<td width='100%'>"+
 									"<div class='tab_bg'>"+see_more+
-										"<div id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
+										"<div class='tab_name' id='tabname"+i+"'>"+json_arr[i].Name+"</div>"+
 										"<div><strong>Organisation:</strong> "+ORG+
 											"<br/><strong>Organisation Unit:</strong> "+OU+
 											"<br/><strong>Template:</strong> "+json_arr[i].Template_Name+

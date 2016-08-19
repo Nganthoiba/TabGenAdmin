@@ -1,13 +1,6 @@
 .my_body {
 	background: #E3E7E5;	
 }
-.tab_name{
-	overflow: hidden;overflow-x: auto;padding-top:10px; height: 40px;min-width:120px;max-width:220px
-}
-.tab_name:hover{
-	cursor:pointer;
-	text-decoration:underline
-}
 .response_body{
 	padding-left:15px;
 	padding-bottom:5px;
@@ -96,13 +89,30 @@ label {color:#848484; font-weight:normal}
 .div_bg
 {
     padding: 5px 5px 5px 5px;
-    background-color: #f7f7f7; 
+    background-color: #FFFFFF; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
     border-radius:5px;
 }
 .tab_bg
 {
     padding: 5px 5px 5px 5px;
+    margin:10px;
     color: #767E79; 
+    border: 1px #6E6E6E;
+    border-radius:5px;
+    background-color:#FFFFFF;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.tab_bg:hover
+{
+    padding: 5px 5px 5px 5px;
+    margin:10px;
+    color: #767E79; 
+    border: 1px #6E6E6E;
+    border-radius:5px;
+    background-color:#FCF2E2;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 .attachment_bg
 {
@@ -314,6 +324,17 @@ a:hover + .preview_link,.preview_link:hover{
 	padding-bottom:10px;
 	border-radius:0px;
 }
+.tab_name{
+	color:#F59502;
+	background-color:transparent;
+	font-size:14pt;
+	padding-top:10px;
+	padding-left:5px;
+	padding-right:5px;
+	padding-bottom:10px;
+	border-radius:0px;
+}
+
 .footerLine{
 	color:#f7f7f7;
 	background-color:#04B431;

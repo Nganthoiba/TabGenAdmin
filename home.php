@@ -25,7 +25,7 @@
 		/*
 		 * global variables
 		 * */
-		var IP="128.199.111.18";
+		var IP="localhost";//"128.199.111.18";
 		var arr; /*array for tab template association*/
 		var prev_tab_name = [];/*Global array for tab name*/
 		var templates_arr=""; /*list of templates*/
@@ -33,9 +33,6 @@
 		var json_arr;
 		var role_list;
 		var user_session;
-		/*
-		var js_session = sessionStorage.getItem('user_details');
-		user_session = JSON.parse(js_session);*/
 		check_session();
 		$(document).ready(function(){
 			setTemplateList("choose_templates");
@@ -54,7 +51,6 @@
 		function check_session(){
 			var js_session = sessionStorage.getItem('user_details');
 			if(js_session=="null" || js_session=="" || js_session==null){
-				//window.location.assign("index.html");
 				$.ajax({
 					url: "getUserSession.php",
 					type: "GET",
@@ -70,8 +66,6 @@
 					},
 					error:function(error_data,y,z){
 						window.location.assign("index.html");
-						//user_session=null;
-						//alert(error_data+" "+y+" "+z);
 					}
 				});
 			}
@@ -136,17 +130,6 @@
 			  </ul>
 			</li>-->
 		  </ul>
-		  <!--<form class="navbar-form navbar-left" role="search">
-			<div class="form-group">
-			  <input type="text" class="form-control" placeholder="Search">
-			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
-		  </form>
-		  <ul class="nav navbar-nav">
-				  <li class="active"><a href="#">Home</a></li>
-				  <li><a href="#">Page 1</a></li>
-				  <li><a href="#">Page 2</a></li> 
-		  </ul>-->
 		  <ul class="nav navbar-nav navbar-right">
 			<li>
 				<a href="#">
@@ -205,7 +188,7 @@
 					<a href="#" data-toggle="modal" data-target="#create_tab_modal"
 						onclick='refresh_all_entries();
 								getOUandRole("choose_org","ou_selector","role_selector","createTabResponse");'>
-						Create a tab</a><!--getRoles("role_selector",$("#ou_selector").val(),"createTabResponse");-->
+						Create a tab</a>
 				</li>
 					
 				<li>
@@ -225,7 +208,7 @@
 				
 				<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role">
 					Associate Tabs to Role</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>
+				<!--<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>-->
 				<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">&nbsp;</a></li>
             </ul>
         </div>
@@ -236,16 +219,7 @@
 			<div class="container-fluid">
             <div class="box">	
 				<div class="headLine">
-							Organisations
-							<!--
-							style="max-height: 550px;min-height:300px;overflow: hidden;overflow-y: auto;
-											-webkit-align-content: center; align-content: center;padding-top:0px"
-							<form class="navbar-form navbar-right">
-								<input type="text" class="form-control" placeholder="Search...">
-								<button type="button" class="btn btn-default">
-									 <span class="glyphicon glyphicon-search"></span>
-								</button>
-							</form>-->
+					Organisations
 				</div>
 				<div>
 					<table  class='table table-striped' cellspacing="20" 
@@ -258,21 +232,11 @@
 								});
 							</script>	
 					</table>
-				</div>
-					<!--<div class="pull-right">
-						<Button type="button" id="viewAllOrgLists" class="btn btn-link">VIEW ALL</Button>
-					</div>	-->	
-					<div> &nbsp; </div>			
+				</div>	
+				<div> &nbsp; </div>			
 			</div>
 			<div class="box">
 				<div class="headLine">Organisation Units
-							<!--
-							<form class="navbar-form navbar-right">
-								<input type="text" class="form-control" placeholder="Search...">
-								<button type="button" class="btn btn-default">
-								  <span class="glyphicon glyphicon-search"></span>
-								</button>
-							</form>-->
 				</div>
 				<div>		
 					<table  class='table table-striped' cellspacing="20" 
@@ -287,9 +251,6 @@
 						</script>	
 					</table>
 				</div>			
-					<!--<div class="pull-right">
-						<Button type="button" id="viewAllOrgUnitLists" class="btn btn-link">VIEW ALL</Button>
-					</div>-->
 				<div> &nbsp; </div>	
 			</div>
 			</div>
@@ -320,12 +281,6 @@
 									<input type="text" class="form-control" value="" name="orgname" id="orgname" placeholder="Organization name">
 								</div>
 							</div>
-							<!--<div class="form-group">
-								<label for="display_name" class="col-sm-4  control-label">Display Name</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control" value="" placeholder="Display Name" name="display_name" id="display_name">
-								</div>
-							</div>-->
 						</div>
 						<div class="panel-footer clearfix">
 							<label id="error1" class="col-sm-offset-2 col-sm-8"></label>
@@ -355,12 +310,6 @@
 									<input type="text" class="form-control" value="" id="orgunit" name="orgunit" placeholder="Organization name" required>
 								</div>
 							</div>
-							<!--<div class="form-group">
-								<label for="displaynameunit" class="col-sm-4  control-label">Display Name</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control" value="" id="displaynameunit"  placeholder="Display Name" required>
-								</div>
-							</div>-->
 							<div class="form-group">
 								<label class="col-sm-6  control-label">Organization</label>
 								<div class="col-sm-6">
@@ -407,11 +356,6 @@
 					<div id="role_lists">
 						
 					</div>
-					<!--<h3 align="center"> 
-					<a href="#" data-toggle="collapse" class='btn btn-link' data-target="#create_role_collapsible">
-					<span class="glyphicon glyphicon-plus"></span> Click here to create a new role</a></h3>-->
-					
-					<!--<div id="create_role_collapsible" class="collapse">-->
 						<div class="panel panel-default">
 							<div class="panel-body">
 								<div class="form-group">
@@ -681,8 +625,6 @@
 													"<div class='col-sm-8'>"+
 														"<select class='form-control' id='role_selector'></select>"+
 													"</div>";
-								/*var org = $("#choose_org").val();
-								getOUlists(org,"ou_selector");*/
 								
 							}
 							function hide_ou_role_selector_region(){
@@ -776,9 +718,11 @@
 							<label class="col-sm-4  control-label">OU Specific:</label>
 							<div class="col-sm-8">
 								<label class="radio-inline"><input type="radio" name="optradio" 
-									id="tabstrip_ou_specific_yes" checked>Yes</label><!--onclick="disp_ou_role_selector_region();" -->
+									id="tabstrip_ou_specific_yes" checked>Yes</label>
+									<!--onclick="disp_ou_role_selector_region();" -->
 								<label class="radio-inline"><input type="radio" name="optradio" 
-									id="tabstrip_ou_specific_no">No</label><!--onclick="hide_ou_role_selector_region();"-->
+									id="tabstrip_ou_specific_no">No</label>
+									<!--onclick="hide_ou_role_selector_region();"-->
 							</div>
 						</div>
 					</div>	
@@ -1070,7 +1014,6 @@
 									else{
 										document.getElementById(resp_layout).innerHTML="<center></center>";
 									}
-									//alert("OU name: "+ou_name);
 								}
 								$.ajax({
 									type: "POST",
@@ -1176,19 +1119,21 @@
 	<div class="modal-dialog modal-lg" role="document" style="min-height:60%;overflow-x:auto;min-width:70%">
 		<div class="modal-content">
 			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
 				<h4 class="modal-title" id="myModalLabel">List of Users Created:
-					<div class="pull-right">
-						<form class="navbar-form navbar-left" method="GET">
+				<div class="pull-right">
+					<form class="navbar-form navbar-left" method="GET">
+						<div class="div_bg">
 							<input type="text" id="search_user" onkeyup="find()" 
 									class="form-control" placeholder="Search a user">
 							<button type="submit" class="btn btn-default" id="findUser">
 								 <span class="glyphicon glyphicon-search"></span>
 							</button>
-						</form>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span class="glyphicon glyphicon-remove"></span>
-						</button>
-					</div>
+						</div>	
+					</form>	
+				</div>	
 				</h4>
 			</div>
 			<div class="modal-body"
@@ -1207,8 +1152,8 @@
 								else {
 									findUsers("user_display_content",user_name);
 								}
-								$("#view_all_users_display").html("<Button class='btn btn-default' "+
-										"id='view_all_users' onclick='getAll()';>VIEW ALL</Button>");
+								$("#view_all_users_display").html("<Button class='btn btn-success' "+
+										"id='view_all_users' onclick='getAll()';>VIEW ALL USERS</Button>");
 							}
 							$(document).ready(function(){
 								getAllUsers("user_display_content");
@@ -1246,8 +1191,8 @@
 				</button>
 				<h4 class="modal-title" id="myModalLabel">List of Tabs created:</h4>
 			</div>
-			<div class="modal-body" style="height:650px;overflow:hidden;overflow-y:auto">
-				<table class='table' id="get_all_tabs">
+			<div class="modal-body" style="height:650px;overflow:hidden;overflow-y:auto;background-color:#FAFAFA">
+				<table style='width:100%;' id="get_all_tabs">
 					<script type="text/JavaScript">
 						$(document).ready(function(){
 							getAllTabs("get_all_tabs");
@@ -1276,12 +1221,11 @@
 					</script>
 					<form name='logout_form' method='POST' action='logout.php'>
 						<span id='token_span'></span>
-						<button type="button" style='width:45%' class="btn btn-default" data-dismiss="modal" aria-label="Close">No</button>
+						<button type="button" style='width:45%' class="btn btn-default" data-dismiss="modal" 
+						aria-label="Close">NO</button>
 						&nbsp;&nbsp;
 						<button type="submit" style='width:45%' onclick="removeSession();"
-						class="btn btn-default" id="YesLogout">Yes</button>
-						<!--<a href="logout.php"  style='width:45%' class="btn btn-default" onclick="removeSession();"
-						style="width:20%" id="YesLogout">Yes</a>-->
+						class="btn btn-default" id="YesLogout">YES</button>
 					</form>
 				</center>
 			</div>	
