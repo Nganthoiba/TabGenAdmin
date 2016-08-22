@@ -1,7 +1,6 @@
 <?php
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
-	include('fcm_services.php');
 		
 	$post_id = $_POST['post_id'];
 	$user_id = $_POST['user_id'];
