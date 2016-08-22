@@ -1,5 +1,6 @@
 <?php
 include('connect_db.php');
+include('tabgen_php_functions.php');
 $res = $conn->query("select token_id from FCM_Users");
 $tokens = array();
 while($row = $res->fetch(PDO::FETCH_ASSOC)){
