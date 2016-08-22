@@ -25,7 +25,7 @@
 		/*
 		 * global variables
 		 * */
-		var IP="localhost";//"128.199.111.18";
+		var IP="128.199.111.18";
 		var arr; /*array for tab template association*/
 		var prev_tab_name = [];/*Global array for tab name*/
 		var templates_arr=""; /*list of templates*/
