@@ -4,11 +4,12 @@ include('tabgen_php_functions.php');
 $res = $conn->query("select token_id from FCM_Users");
 $tokens = array();
 while($row = $res->fetch(PDO::FETCH_ASSOC)){
-	$tokens[]=$row['token_id'];
+	//$tokens[]=$row['token_id'];
+	array_push($tokens,$row['token_id']);
 }
 
 $message = array("message"=>"FCM Push notification test");
-$tokens = array_push($tokens,$tokens);
+//$tokens = array_push($tokens,$tokens);
 $msg_result = sendFirebasedCloudMessage($tokens,$message);
 
 echo $msg_result;
