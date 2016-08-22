@@ -1054,15 +1054,6 @@ function sendFirebasedCloudMessage($fcm_token, $message) {
 		die('Curl failed: '.curl_error($ch));
 	}
 	return $result;
-    /*
-    if (curl_errno($ch)) {
-        header("location:notification.php");
-    }
-   
-	
-	$_SESSION['Error'] = "Notifiation Sent";
-	header("location:notification.php");
-	curl_close($ch);
-	*/
+    
 }
 ?>
