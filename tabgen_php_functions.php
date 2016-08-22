@@ -1029,7 +1029,7 @@ function get_notification_tokens_for_chat_tabs($conn,$post_id,$user_id){
 function sendFirebasedCloudMessage($fcm_token, $message) {
 	/*fcm_token is a list of tokens*/
 	
-    $apiKey = 'AIzaSyAnnGIii3XM3HfV5n8WsFatXluNr8bAiSo';
+    $apiKey = 'AIzaSyBXuHwQiXttNBAlQO5sf8899OGK8ZPHbQ4';//'AIzaSyAnnGIii3XM3HfV5n8WsFatXluNr8bAiSo';
     //'AIzaSyBXuHwQiXttNBAlQO5sf8899OGK8ZPHbQ4';//'AIzaSyAczj4Or2XXcPX53zc9K2GREP-j9lV3zC8';
     $url = 'https://fcm.googleapis.com/fcm/send';
 	 //'https://android.googleapis.com/gcm/send';
