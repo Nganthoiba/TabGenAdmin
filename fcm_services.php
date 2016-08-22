@@ -1,5 +1,19 @@
 <?php
+include('connect_db.php');
+$res = $conn->query("select token_id from FCM_Users");
+$tokens = array();
+while($row = $res->fetch(PDO::FETCH_ASSOC)){
+	$tokens[]=$row['token_id'];
+}
+
+$message = array("message"=>"FCM Push notification test");
+
+$msg_result = sendFirebasedCloudMessage($tokens,$message);
+
+echo $msg_result;
+
 /*FCM Services in php*/
+
 function sendFirebasedCloudMessage($fcm_token, $message) {
 	/*fcm_token is a list of tokens*/
 	
