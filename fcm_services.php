@@ -12,7 +12,7 @@ $msg_result = sendFirebasedCloudMessage($tokens,$message);
 
 echo $msg_result;
 
-echo json_encode($tokens);
+//echo json_encode($tokens);
 
 /*FCM Services in php*/
 

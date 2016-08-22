@@ -435,6 +435,18 @@ function getUserNameById($conn,$user_id){
 	return $name;
 }
 
+function getUserDisplayNameById($conn,$user_id){
+	$name=null;
+	$query = "select * from Users where Id='$user_id'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	if($row['FirstName']!=null)
+		$name=$row['FirstName'];
+	else if($row['Username']!=null)
+		$name=$row['Username'];
+	return $name;
+}
+
 //function to check if the tab is already associated to the specific role
 	function isTabAlreadyAssociated($conn,$role_id,$tab_id){
 		$query = "select count(*) as count from RoleTabAsson where RoleId='$role_id' and TabId='$tab_id'";
@@ -991,5 +1003,24 @@ function getYouTubeID($youtube_url){
 function is_youtube_url($youtube_url){
 	$valid = preg_match("/((http\:\/\/){0,}(www\.){0,}(youtube\.com){1} || (youtu\.be){1}(\/watch\?v\=[^\s]){1})/", $youtube_url);
 	return $valid;	
+}
+
+function get_notification_tokens_for_chat_tabs($conn,$post_id,$user_id){
+	/*
+	  select user_id  from User_OU_Mapping where RoleId in (select RoleId from RoleTabAsson where TabId = (select Id from Tab where Name=(Select DisplayName from Channels,Posts where Channels.Id=ChannelId and Posts.Id='g5tc6rimwid7jkotknmzx3g86o')));
+	*/
+	$query="select token_id from FCM_Users
+	  where user_id in (select user_id from User_OU_Mapping 
+	  where RoleId in (select RoleId from RoleTabAsson 
+	  where TabId = (select Id from Tab where Name=(Select DisplayName from Channels,Posts 
+	  where Channels.Id=ChannelId and Posts.Id='$post_id')))) 
+	  and user_id !='$user_id'";
+	  
+	$res = $conn->query($query);
+	$tokens = array();
+	while($row = $res->fetch(PDO::FETCH_ASSOC)){
+		$tokens[]=$row['token_id'];
+	}
+	return $tokens;
 }
 ?>
