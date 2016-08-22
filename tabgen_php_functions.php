@@ -1009,17 +1009,17 @@ function get_notification_tokens_for_chat_tabs($conn,$post_id,$user_id){
 	/*
 	  select user_id  from User_OU_Mapping where RoleId in (select RoleId from RoleTabAsson where TabId = (select Id from Tab where Name=(Select DisplayName from Channels,Posts where Channels.Id=ChannelId and Posts.Id='g5tc6rimwid7jkotknmzx3g86o')));
 	*/
-	$query="select token_id from FCM_Users
+	$query="select token_id, user_id from FCM_Users
 	  where user_id in (select user_id from User_OU_Mapping 
 	  where RoleId in (select RoleId from RoleTabAsson 
 	  where TabId = (select Id from Tab where Name=(Select DisplayName from Channels,Posts 
-	  where Channels.Id=ChannelId and Posts.Id='$post_id')))) 
-	  and user_id !='$user_id'";
+	  where Channels.Id=ChannelId and Posts.Id='$post_id'))))";
 	  
 	$res = $conn->query($query);
 	$tokens = array();
 	while($row = $res->fetch(PDO::FETCH_ASSOC)){
-		$tokens[]=$row['token_id'];
+		if($row['user_id']!=$user_id)
+			$tokens[]=$row['token_id'];
 	}
 	return $tokens;
 }
