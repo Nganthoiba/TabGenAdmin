@@ -1,6 +1,8 @@
 <?php
-/*GCM Services in php*/
+/*FCM Services in php*/
 function sendFirebasedCloudMessage($fcm_token, $message) {
+	/*fcm_token is a list of tokens*/
+	
     $apiKey = 'key-AIzaSyAvs3D3fvlWo9tGl-cWt3a5BXRfCgd8nQo';
     //'AIzaSyBXuHwQiXttNBAlQO5sf8899OGK8ZPHbQ4';//'AIzaSyAczj4Or2XXcPX53zc9K2GREP-j9lV3zC8';
     $url = 'https://fcm.googleapis.com/fcm/send';

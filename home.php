@@ -25,7 +25,7 @@
 		/*
 		 * global variables
 		 * */
-		var IP="128.199.111.18";
+		var IP="localhost";//"128.199.111.18";
 		var arr; /*array for tab template association*/
 		var prev_tab_name = [];/*Global array for tab name*/
 		var templates_arr=""; /*list of templates*/
@@ -1125,13 +1125,11 @@
 				<h4 class="modal-title" id="myModalLabel">List of Users Created:
 				<div class="pull-right">
 					<form class="navbar-form navbar-left" method="GET">
-						<div class="div_bg">
-							<input type="text" id="search_user" onkeyup="find()" 
+						<input type="text" id="search_user" onkeyup="find()" 
 									class="form-control" placeholder="Search a user">
-							<button type="submit" class="btn btn-default" id="findUser">
-								 <span class="glyphicon glyphicon-search"></span>
-							</button>
-						</div>	
+						<button type="submit" class="btn btn-default" id="findUser">
+							 <span class="glyphicon glyphicon-search"></span> Search 
+						</button>	
 					</form>	
 				</div>	
 				</h4>
@@ -1158,7 +1156,6 @@
 							$(document).ready(function(){
 								getAllUsers("user_display_content");
 								$("#findUser").click(function(){
-									$("#user_display_content").html("<center><p>Wait Please...</p></center>");
 									find();
 									return false;
 								});
@@ -1171,7 +1168,7 @@
 							}
 						</script>
 					<div id="user_display_content" style="max-width:100%; min-height:50%; overflow:hidden;overflow-x:auto">
-								Content goes here....
+						Content goes here....
 					</div>	
 			</div>
 			<div class='modal-footer'>

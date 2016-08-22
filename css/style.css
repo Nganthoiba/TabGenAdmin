@@ -76,3 +76,12 @@
 	overflow-x:auto;overflow-y:auto;
 	border-radius:1px
 }
+
+.custom_close{
+	position:relative;
+	top:-2px;
+	right:-21px;
+	color:inherit
+}
+
+

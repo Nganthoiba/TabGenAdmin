@@ -2085,7 +2085,7 @@ $(document).ready(function(){
 	
 	function set_profile(user_id,display_layout_id){	
 		document.getElementById(display_layout_id).innerHTML="<img class='img-circle'"+
-							"src='http://"+IP+":8065/api/v1/users/"+user_id+"/image'/>";					
+							"src='http://"+IP+":8065/api/v1/users/"+user_id+"/image' alt='No Profile Image'/>";					
 	}
 
 	/*For resetting password*/

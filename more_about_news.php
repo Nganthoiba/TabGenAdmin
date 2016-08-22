@@ -331,8 +331,8 @@
 						var edit_layout="<br/>Edit content below:"+
 						"<button onclick='cancel_edit_content(\""+i+"\");' class='close'>&times</button>&nbsp;"+
 						"<textarea class='form-control' id='news_details_id"+i+"'>"+output[i].Details+"</textarea>"+
-						"<div class='pull-right'>"+
-						"<button onclick='save_edit_content(\""+i+"\");' class='btn btn-default'>Save</button>"+
+						"<br/><div class='pull-right'>"+
+						"<button onclick='save_edit_content(\""+i+"\");' class='btn'>Save</button>"+
 						"</div>";
 						document.getElementById("textual_content_layout"+i).innerHTML=edit_layout;
 						
@@ -393,13 +393,13 @@
 					}
 					
 					function edit_news_headline(i){
-						var edit_layout="<div class='edit_headline'><label for='news_headline_id"+i+"'>News Headline:</label>"+
+						/*edit_headline*/
+						var edit_layout="<div class=''>"+
 						"<button onclick='cancel_edit_headline(\""+i+"\");' class='close'>&times;</button>"+
-						/*"<input type='text' placeholder='Put your news headline here' class='form-control' id='news_headline_id"+i+"' "+
-						"value='"+output[i].headline+"'/><br/>"+*/
-						"<textarea class='textarea_bg' id='news_headline_id"+i+"'>"+output[i].headline+"</textarea><br/>"+
-						"<center><button onclick='save_edit_headline(\""+i+"\");' class='btn'>Save</button></center>"+
-						"</div><br/><br/>";
+						"<textarea class='textarea_bg' id='news_headline_id"+i+"'>"+output[i].headline+"</textarea>"+
+						"<div class='pull-right'>"+
+						"<button onclick='save_edit_headline(\""+i+"\");' class='btn'>SAVE</button></div>"+
+						"</div><br/>";
 						document.getElementById("headline_layout"+i).innerHTML=edit_layout;		
 					}
 					function cancel_edit_headline(i){			
