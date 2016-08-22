@@ -8,9 +8,11 @@ while($row = $res->fetch(PDO::FETCH_ASSOC)){
 
 $message = array("message"=>"FCM Push notification test");
 
-$msg_result = sendFirebasedCloudMessage($tokens,$message);
+/*$msg_result = sendFirebasedCloudMessage($tokens,$message);
 
-echo $msg_result;
+echo $msg_result;*/
+
+echo json_encode($tokens);
 
 /*FCM Services in php*/
 
