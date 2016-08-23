@@ -11,7 +11,7 @@ else{
 				from Users,User_OU_Mapping,OrganisationUnit
 				where Users.Id=User_OU_Mapping.user_id
 				and User_OU_Mapping.OU_id=OrganisationUnit.Id
-                and Users.DeleteAt=0";
+                and Users.DeleteAt=0 order by Users.Username";
 		$res = $conn->query($query);
 		$output=null;
 		if($res){
