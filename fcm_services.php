@@ -8,7 +8,7 @@ while($row = $res->fetch(PDO::FETCH_ASSOC)){
 	array_push($tokens,$row['token_id']);
 }
 
-$message = array("message"=>"FCM Push notification test","type"=>"test");
+$message = array("message"=>"Hi! This is FCM Push notification test");
 //$tokens = array_push($tokens,$tokens);
 $msg_result = sendFirebasedCloudMessage($tokens,$message);
 

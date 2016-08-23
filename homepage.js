@@ -1205,33 +1205,6 @@ $(document).ready(function(){
 						}
 						roleList+="</table></div>";
 						document.getElementById(id).innerHTML=roleList;
-						/*
-						 "<div class='pull-right'>"+
-								"<Button type='button' data-toggle='editRolePopup"+i+"' id='editRole"+i+"' class='btn btn-link'>"+
-									"<span class='glyphicon glyphicon-pencil'></span>"+
-								"</Button>"+
-									"<div class='container' style='width:2px'>"+
-										"<div class='hide' id='edit_role_popover"+i+"'>"+
-											"<form class='form-horizontal' role='form'>"+	
-												"<label for='rolename"+i+"'>Role Name</label>"+
-												"<input type='text' class='form-control'"+
-																	" id='rolename"+i+"' value='"+arr[i].RoleName+"'/>"+
-												"<div class='pull-right' style='padding:10px'>"+
-													"<button type='button' class='btn btn-info'"+
-													" id='save_role"+i+"'>Save</button></div><br/>"+
-												"<center><span id='updateRoleResp"+i+"'></span></center>"+
-											"</form>"+	
-										"</div>"+
-									"</div></div>"+
-						 * 
-						 * for(var j=0;j<arr.length;j++){
-							$("#editRole"+j).popover({
-								html: true,
-								title: "Edit Role here",
-								placement: "left", 
-								content: getEditRolePopupContent(j)
-							});
-						}*/
 					}
 				},
 				error: function(x,y,z){
