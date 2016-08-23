@@ -21,6 +21,8 @@
 			$message = array("message"=>array("liker_id"=>$user_id,
 											"liker_name"=>getUserDisplayNameById($conn,$user_id),
 											"liked_post_id"=>$post_id,
+											"ChannelId"=>getChannelIdByPost_id($conn,$post_id),
+											"ChannelName"=>getChannelNameById($conn,getChannelIdByPost_id($conn,$post_id)),
 											"notification_type"=>"like"));
 			sendFirebasedCloudMessage($fcm_tokens, $message);//notifying message to other app
 			echo json_encode(array("post_id"=>$post_id,"liked_status"=>"liked","message"=>"You have liked the post.",

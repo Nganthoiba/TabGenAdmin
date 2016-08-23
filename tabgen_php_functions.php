@@ -710,6 +710,13 @@ function getUserDisplayNameById($conn,$user_id){
 		return $row['ChannelId'];
 	}
 	
+	function getChannelNameById($conn,$channel_id){
+		$query="select DisplayName from Channels where Id='$channel_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return $row['DisplayName'];
+	}
+	
 	//function to get OU by role
 	function getOUbyRole($conn,$role_id){
 		$query = "select Role.Id,Role.RoleName,OrganisationUnit.OrganisationUnit as OU,Organisation
