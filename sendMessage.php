@@ -16,12 +16,12 @@
 	
 	$data = !empty($_POST['filenames'])?json_encode(
 			array(	"channel_id"=>$channel_id,
-					"Message"=>$Message,
+					"message"=>$Message,
 					"root_id"=>$root_id,
 					"parent_id"=>$parent_id,
 					"filenames"=>$filenames)):json_encode(
 			array(	"channel_id"=>$channel_id,
-					"Message"=>$Message,
+					"message"=>$Message,
 					"root_id"=>$root_id,
 					"parent_id"=>$parent_id));
 	
