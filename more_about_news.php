@@ -225,9 +225,9 @@
 									"</div></center></div>";
 						}
 						else{
-							layout="<br/><div id='image_layout"+i+"'>"+
+							layout="<div class='col-sm-12' id='image_layout"+i+"'>"+
 								"<center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
-										"height='350px' width='80%'/><br/>"+
+										"height='360px' width='100%'/><br/>"+
 									"<div id='image_upload_layout"+i+"'>"+
 									"</div></center></div>";
 						}
