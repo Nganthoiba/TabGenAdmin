@@ -225,11 +225,11 @@
 									"</div></center></div>";
 						}
 						else{
-							layout="<div class='col-sm-12' id='image_layout"+i+"'>"+
-								"<center><img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
+							layout="<div style='width:100%' id='image_layout"+i+"'>"+
+								"<img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
 										"height='360px' width='100%'/><br/>"+
 									"<div id='image_upload_layout"+i+"'>"+
-									"</div></center></div>";
+									"</div></div>";
 						}
 						return layout;
 					}
@@ -613,7 +613,7 @@
 							article_left+=""+
 							"<div class='news_article'>"+tools+
 								"<div id='article_title"+i+"'>"+
-									"<h2 class='headLine'>"+output[i].title+"</h2>"+
+									/*"<h2 class='headLine'>"+output[i].title+"</h2>"+*/
 									"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 								"</div>"+
 								"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
@@ -640,7 +640,7 @@
 							article_right+=""+
 							"<div class='news_article'>"+tools+
 								"<div id='article_title"+i+"'>"+
-								"<h2 class='headLine'>"+output[i].title+"</h2>"+
+									/*"<h2 class='headLine'>"+output[i].title+"</h2>"+*/
 									"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 								"</div>"+
 								"<div id='headline_layout"+i+"'>"+get_headline(i)+"</div>"+
