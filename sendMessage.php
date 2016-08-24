@@ -44,6 +44,6 @@
 		echo json_encode($decoded_res);
 		$fcm_tokens = get_notification_tokens_for_chat_tabs($conn,$decoded_res->id,$decoded_res->user_id);
 		$decoded_res->notification_type=$root_id==""?"new_post":"comment";
-		sendFirebasedCloudMessage($fcm_tokens, $decoded_res);//notifying message to other app
+		sendFirebasedCloudMessage($fcm_tokens, array("message"=>$decoded_res));//notifying message to other app
 	}
 ?>
