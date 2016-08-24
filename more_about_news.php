@@ -608,7 +608,7 @@
 								"<li role='separator' class='divider'></li>"+
 								"<li><a class='tools' onclick='attachFile(\""+i+"\");'>Attach file</a></li>"+
 							  "</ul>"+
-							"</div>";
+							"</div><br/>";
 						if(i%2==0){
 							article_left+=""+
 							"<div class='news_article'>"+tools+
