@@ -292,6 +292,13 @@ function getOU_Byuser_Id($conn,$user_id){
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	return $row['OrganisationUnit'];
 }
+//function to get OU name by tab name
+function getOU_by_tab_Name($conn,$tab_name){
+	$query = "select OrganisationUnit from Tab where Name='$tab_name'";
+	$res = $conn->query($query);
+	$row = $res->fetch(PDO::FETCH_ASSOC);
+	return $row['OrganisationUnit'];
+}
 //function to get OU name by providing OU id
 function getOrg_Byuser_Id($conn,$user_id){
 	$query = "SELECT Organisation

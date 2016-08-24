@@ -17,10 +17,12 @@
 	if($sendPosts->httpResponseCode==200){
 		$decoded_res = json_decode($result);
 		$decoded_res->sender_name=getUserNameById($conn,$decoded_res->user_id);
-		echo json_encode($decoded_res);
+		$channel_name = getChannelNameById($conn,$channel_id);
 		$fcm_tokens = get_notification_tokens_for_chat_tabs($conn,$decoded_res->id,$decoded_res->user_id);
 		$decoded_res->notification_type=$root_id==""?"new_post":"comment";
-		$decoded_res->ChannelName=getChannelNameById($conn,$channel_id);
+		$decoded_res->ChannelName=$channel_name;
+		$decoded_res->TeamName=getOU_by_tab_Name($conn,$channel_name);
+		echo json_encode($decoded_res);
 		sendFirebasedCloudMessage($fcm_tokens, array("message"=>$decoded_res));//notifying message to other devises using the apps
 	}
 	else echo $result;
