@@ -1,29 +1,14 @@
 <?php 
 	//php code for sending post messages
+	
 	header('Content-Type: application/json');
 	include('connect_db.php');
 	include('ConnectAPI.php');
 	include('tabgen_php_functions.php');
-	
-	
-	$channel_id = $_POST['channel_id'];
-	$token = $_POST['token'];
-	$user_id = $_POST['user_id'];
-	$Message = empty($_POST['Message'])?"":$_POST['Message'];
-	$root_id = empty($_POST['root_id'])?"":$_POST['root_id'];
-	$parent_id = empty($_POST['parent_id'])?"":$_POST['parent_id'];
-	$filenames = empty($_POST['filenames'])?"":array($_POST['filenames']);
-	
-	$data = !empty($_POST['filenames'])?json_encode(
-			array(	"channel_id"=>$channel_id,
-					"message"=>$Message,
-					"root_id"=>$root_id,
-					"parent_id"=>$parent_id,
-					"filenames"=>$filenames)):json_encode(
-			array(	"channel_id"=>$channel_id,
-					"message"=>$Message,
-					"root_id"=>$root_id,
-					"parent_id"=>$parent_id));
+					
+	$data = file_get_contents("php://input");
+	$channel_id = json_decode($data)->channel_id;
+	$token = str_replace(' ','',str_replace('Bearer','',get_token_from_header()));
 	
 	$url = "http://".IP.":8065/api/v1/channels/".$channel_id."/create";
 	$sendPosts = new ConnectAPI();
@@ -38,4 +23,5 @@
 		sendFirebasedCloudMessage($fcm_tokens, array("message"=>$decoded_res));//notifying message to other app
 	}
 	else echo $result;
+	
 ?>
