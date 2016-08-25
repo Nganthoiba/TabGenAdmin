@@ -20,7 +20,6 @@ include('tabgen_php_functions.php');
 						"news_details"=>$news_details,
 						"Org"=>$row['Organisation'],
 						"OU"=>$row['OrganisationUnit']);
-						//"OU"=>getOUbyRole($conn,$row['RoleId']));
 				}
 				else{
 					$output[]=array("Id"=>$row['Id'],"CreateAt"=>$row['CreateAt'],"UpdateAt"=>$row['UpdateAt'],
@@ -31,9 +30,7 @@ include('tabgen_php_functions.php');
 					"news_details"=>" ",
 					"Org"=>$row['Organisation'],
 					"OU"=>$row['OrganisationUnit']);
-					//"OU"=>getOUbyRole($conn,$row['RoleId']));
 				}
-				//$row;''
 			}
 			if(sizeof($output)==0)
 				echo "null";
