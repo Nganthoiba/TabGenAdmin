@@ -54,7 +54,7 @@
 		}
 		else{
 			echo json_encode(array("status"=>false,
-							"message"=>"<P align='center' class='alert alert-error'> Please send a valid token.</P>"));
+							"message"=>"Please send a valid token."));
 		}
 		
 		function delete_fcm_token($conn,$fcm_token){
