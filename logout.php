@@ -1,7 +1,7 @@
 
 		<?php 
 		include('ConnectAPI.php');
-		include('server_IP.php');
+		include('connect_db.php');
 		//echo $_POST['token'];
 		if(!empty($_POST['token'])){
 			//echo IP;
