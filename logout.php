@@ -53,15 +53,17 @@
 				}
 			}
 			else{
-				echo "<br/> result is null";
+				echo json_encode(array("status"=>false,
+							"message"=>"Sorry, we have an internal problem in logging out, unable to connect api."));
 			}
 		}
 		else{
-			echo "<P align='center' class='alert alert-error'> Please send a valid token.</P>";
+			echo json_encode(array("status"=>false,
+							"message"=>"<P align='center' class='alert alert-error'> Please send a valid token.</P>"));
 		}
 		
 		function delete_fcm_token($conn,$fcm_token){
-			$query = "delete from FCM_Users where fcm_token='$fcm_token'";
+			$query = "delete from FCM_Users where token_id='$fcm_token'";
 			return $conn->query($query);
 		}
 		
