@@ -4,7 +4,7 @@ session_start();
 include('connect_db.php');
 include('tabgen_php_functions.php');// all the function/ methodes are in this php file
 include('ConnectAPI.php');
-//$ou_specific = $_POST['ou_specific'];
+
 $token = get_token_from_header();
 if($token!=null){
 	//$user_details = json_decode($_SESSION['user_details']);
@@ -15,7 +15,7 @@ if($token!=null){
 				if(isAdmin($conn,$user_id)){
 					$ou_specific = $_POST['ou_specific'];
 					$tab_name = $_POST['tab_name'];
-					$createdBy = getUserNameById($conn,$user_id);//$user_details->username;
+					$createdBy = getUserNameById($conn,$user_id);
 					$template_name = $_POST['template_name'];
 					//if database is successfully connected
 					if(!isTabExist($conn,$tab_name)){

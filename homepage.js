@@ -2465,6 +2465,28 @@ function isValidateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 }
+
+/*Javascript to upload profile image*/
+function uploadProfileImage(imageData, success, error) {
+    $.ajax({
+        url: "http://"+IP+":8065/api/v1/users/newimage",
+        type: 'POST',
+        data: imageData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: success,
+        error: function onError(xhr, status, err) {
+            var e = handleError('uploadProfileImage', xhr, status, err);
+            error(e);
+        }
+    });
+}
+
+function editProfileLayout(layout_id){
+	var layout = "<form method='POST' action='http://"+IP+":8065/api/v1/users/newimage'></form>";
+}
+
 	
 	
 
