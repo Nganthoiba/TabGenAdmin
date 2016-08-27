@@ -1,9 +1,4 @@
-<html>
-	<head>
-		<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css" />
-	</head>
-	<body>
+
 		<?php 
 		include('ConnectAPI.php');
 		include('server_IP.php');
@@ -69,5 +64,3 @@
 		
 ?>
 
-	</body>
-</html>
