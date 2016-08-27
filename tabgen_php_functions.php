@@ -1042,7 +1042,6 @@ function get_notification_tokens_for_chat_tabs($conn,$post_id,$user_id){
 
 function sendFirebasedCloudMessage($fcm_token, $message) {
 	/*fcm_token is a list of tokens*/
-	
     $apiKey = 'AIzaSyAnnGIii3XM3HfV5n8WsFatXluNr8bAiSo';
     
     $url = 'https://fcm.googleapis.com/fcm/send';
