@@ -588,7 +588,7 @@
 						//content = content.replace("%","'");
 						//alert(content);
 						document.getElementById("textual_content"+i).innerHTML="<div class='div_bg'>"+
-							"<div class=''><label for='edited_text"+i+"'>Edit the content:</label>"+
+							"<div class=''>"+
 							"<textarea class='form-control' rows='10' cols='50' id='edited_text"+i+"'>"+content+"</textarea>"+
 							"</div></div><br/>"+
 							"<div class='' style='float:right'><input type='button' value='CANCEL' class='btn' "+
