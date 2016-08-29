@@ -14,11 +14,6 @@
 		<!-- ********************************************** -->	
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<!-- This is what you need for sweet alert -->
-		<script src="dist/sweetalert-dev.js"></script>
-		<link rel="stylesheet" href="dist/sweetalert.css">
-		<!--.......................-->
-		
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/npm.js"></script>
@@ -41,11 +36,12 @@
 				$id = $_GET['article_id'];
 				if($conn){
 					$output=null;
-					$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links as external_link_url,Active 
-						from Article where Id='$id'";
+					$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,
+					Links as external_link_url,Active from Article where Id='$id'";
 					$res=$conn->query($query);
 					if($res){
-						while($row=$res->fetch(PDO::FETCH_ASSOC)){
+						//while($row=$res->fetch(PDO::FETCH_ASSOC)){
+							$row=$res->fetch(PDO::FETCH_ASSOC)
 							$row['CreateAt']=(double)$row['CreateAt'];
 							$row['DeleteAt']=(double)$row['DeleteAt'];
 							$row['UpdateAt']=(double)$row['UpdateAt'];
@@ -69,7 +65,8 @@
 								}
 								else{
 									//echo curl($link);//"<a href='$link'>".$link."</a><br/>";
-									header('Location: '.$link);
+									//header('Location: '.$link);
+									echo "Link: ".$link;
 								}
 							}
 							$row['Filenames']=getAttatchment($conn,$row['Id']);
@@ -80,12 +77,12 @@
 								echo "<div class='col-sm-4'><a href='".$attachment[$i]['attachment_url']."' 
 								target='_blank' download>".$attachment[$i]['file_name']."</a></div>";
 							}
-							//$output[] = $row;
-						}
-						//echo json_encode(array("status"=>true,"response"=>$output));
+							
+						//}
+						
 					}
 					else {
-						//echo json_encode(array("status"=>false,"message"=>"Sorry, unable to get result."));
+						
 						echo "Sorry, unable to get result.";
 					}
 					
