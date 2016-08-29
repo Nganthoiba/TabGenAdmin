@@ -69,13 +69,14 @@
 								}
 							}
 							$row['Filenames']=getAttatchment($conn,$row['Id']);
+							/*
 							$attachment=getAttatchment($conn,$row['Id']);
 							if(sizeof($attachment)>0)
 								echo sizeof($attachment)>1?sizeof($attachment)." attachments:<br/>":sizeof($attachment)." attachment:<br/>";
 							for($i=0;$i<sizeof($attachment);$i++){
 								echo "<div class='col-sm-4'><a href='".$attachment[$i]['attachment_url']."' 
 								target='_blank' download>".$attachment[$i]['file_name']."</a></div>";
-							}
+							}*/
 							
 						}
 						
