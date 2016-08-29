@@ -24,7 +24,7 @@ else{
 				"http://".SERVER_IP."/TabGenAdmin/".$row['Images'];
 				$row['Filenames']=getAttatchment($conn,$row['Id']);
 				/*external link*/
-				$row['external_link_url'] = "http://".SERVER_IP."/TabGenAdmin/getAnArticleWebView.php?article_id=".$row['Id'];
+				$row['external_link_url'] = "http://".SERVER_IP."/TabGenAdmin/getAnArticleWebView.php?article_id=".$id;
 				$output[] = $row;
 			}
 			echo json_encode(array("status"=>true,
