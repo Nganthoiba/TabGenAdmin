@@ -50,7 +50,7 @@
 							$row['Images']=($row['Images']==null)?"":$row['Images'];
 							$row['images_url']=($row['Images']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
 							"http://".SERVER_IP."/TabGenAdmin/".$row['Images'];
-							if($row['Images']!=null){
+							if($row['Images']!=null && $row['Images']!=""){
 								echo "<center><img class='img-thumbnail' src='".$row['Images']."'/></center>";
 							}
 							echo $row['Textual_content']."</br>";
