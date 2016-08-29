@@ -4,7 +4,7 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-		<!--<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">-->
+		<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		
