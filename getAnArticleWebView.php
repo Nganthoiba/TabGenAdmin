@@ -65,8 +65,7 @@
 								}
 								else{
 									//echo curl($link);//"<a href='$link'>".$link."</a><br/>";
-									//header('Location: '.$link);
-									echo "Link: ".$link;
+									header('Location: '.$link);
 								}
 							}
 							$row['Filenames']=getAttatchment($conn,$row['Id']);
