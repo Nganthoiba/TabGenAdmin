@@ -75,7 +75,7 @@
 				}
 				$outer_arr[]=array("item_count"=>$j,"items"=>$inner_arr);
 			}
-			$response=array("response"=>$outer_arr);
+			$response=array("status"=>true,"response"=>$outer_arr);
 			print json_encode($response);	
 		}
 	}
