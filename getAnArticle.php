@@ -23,6 +23,8 @@ else{
 				$row['images_url']=($row['Images']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
 				"http://".SERVER_IP."/TabGenAdmin/".$row['Images'];
 				$row['Filenames']=getAttatchment($conn,$row['Id']);
+				/*external link*/
+				$row['external_link_url'] = "http://".SERVER_IP."/TabGenAdmin/getAnArticleWebView.php?article_id=".$row['Id'];
 				$output[] = $row;
 			}
 			echo json_encode(array("status"=>true,
