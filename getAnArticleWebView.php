@@ -40,7 +40,7 @@
 					Links as external_link_url,Active from Article where Id='$id'";
 					$res=$conn->query($query);
 					if($res){
-						//while($row=$res->fetch(PDO::FETCH_ASSOC)){
+						while($row=$res->fetch(PDO::FETCH_ASSOC)){
 							$row=$res->fetch(PDO::FETCH_ASSOC)
 							$row['CreateAt']=(double)$row['CreateAt'];
 							$row['DeleteAt']=(double)$row['DeleteAt'];
@@ -78,7 +78,7 @@
 								target='_blank' download>".$attachment[$i]['file_name']."</a></div>";
 							}
 							
-						//}
+						}
 						
 					}
 					else {
