@@ -41,7 +41,7 @@
 					$res=$conn->query($query);
 					if($res){
 						while($row=$res->fetch(PDO::FETCH_ASSOC)){
-							$row=$res->fetch(PDO::FETCH_ASSOC)
+							//$row=$res->fetch(PDO::FETCH_ASSOC)
 							$row['CreateAt']=(double)$row['CreateAt'];
 							$row['DeleteAt']=(double)$row['DeleteAt'];
 							$row['UpdateAt']=(double)$row['UpdateAt'];
