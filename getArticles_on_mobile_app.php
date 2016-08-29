@@ -15,7 +15,7 @@
 		}
 		else{
 			$output=null;
-			$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links as external_link_url,Active 
+			$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links as external_link_url 
 			from Article where TabId='$tab_id' and DeleteAt=0 and Active='true' order by CreateAt desc";
 			
 			$item=null;
