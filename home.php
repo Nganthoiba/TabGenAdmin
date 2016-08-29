@@ -131,12 +131,13 @@
 			</li>-->
 		  </ul>
 		  <ul class="nav navbar-nav navbar-right">
+			  <!--
 			<li>
 				<a href="#">
 					  <span class="glyphicon glyphicon-user"></span>
 					   Edit Profiles
 				</a>
-			</li>
+			</li>-->
 			<li>
 				<a href="#" data-toggle="modal" data-target="#logoutConfirmation" >
 					  <span class="glyphicon glyphicon-log-out"></span>&nbsp;logout</a>
