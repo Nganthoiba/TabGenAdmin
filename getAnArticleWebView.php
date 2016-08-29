@@ -65,11 +65,11 @@
 								}
 								else{
 									//echo curl($link);//"<a href='$link'>".$link."</a><br/>";
-									header('Location: '.$link);
+									//header('Location: '.$link);
 								}
 							}
-							$row['Filenames']=getAttatchment($conn,$row['Id']);
 							/*
+							$row['Filenames']=getAttatchment($conn,$row['Id']);
 							$attachment=getAttatchment($conn,$row['Id']);
 							if(sizeof($attachment)>0)
 								echo sizeof($attachment)>1?sizeof($attachment)." attachments:<br/>":sizeof($attachment)." attachment:<br/>";
