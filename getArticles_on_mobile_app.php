@@ -64,8 +64,6 @@
 			}
 			else if($count==0){
 				$outer_arr=null;
-				$response=array("status"=>false,"response"=>$outer_arr);
-				print json_encode($response);
 			}
 			else{
 				$j=0;
@@ -74,6 +72,14 @@
 					$j++;
 				}
 				$outer_arr[]=array("item_count"=>$j,"items"=>$inner_arr);
+			}
+			/*Response in json*/
+			if($count==0){
+				$response=array("status"=>false,"response"=>$outer_arr);
+				print json_encode($response);
+			}
+			else{
+				
 				$response=array("status"=>true,"response"=>$outer_arr);
 				print json_encode($response);
 			}
