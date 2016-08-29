@@ -74,6 +74,7 @@
 				$outer_arr[]=array("item_count"=>$j,"items"=>$inner_arr);
 			}
 			/*Response in json*/
+			/*
 			if($count==0){
 				$response=array("status"=>false,"message"=>"No article has been added for this tab","response"=>$outer_arr);
 				print json_encode($response);
@@ -81,7 +82,10 @@
 			else{	
 				$response=array("status"=>true,"response"=>$outer_arr);
 				print json_encode($response);
-			}
+			}*/
+			
+			$response=array("response"=>$outer_arr);
+			print json_encode($response);
 				
 		}
 	}
