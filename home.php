@@ -836,8 +836,42 @@
 												viewOrgUnits("dropdown","choose_ou","all");
 												//getAssociatedTabs("associated_tabs");
 												$("#choose_ou").change(function(){
-													getRoles("choose_role",$("#choose_ou").val(),"associated_tabs");
-													validate_and_get_tabs();
+													/*getRoles("choose_role",$("#choose_ou").val(),"associated_tabs");
+													validate_and_get_tabs();*/
+													var org_name=($("#org_lists").val()).trim();
+													var orgunit=($("#choose_ou").val()).trim();
+													$.ajax({
+														type:"GET",
+														url: "getRoles.php",
+														data: "org="+org_name+"&org_unit="+orgunit+"&only_ou_roles=no",
+														success: function(data){
+															if(data.trim()=="false"){
+																document.getElementById("choose_role").innerHTML="<option></option>";
+																document.getElementById("associated_tabs").innerHTML="<center>No role exists.</center>";
+																document.getElementById("associated_tabs").style.color="red";
+															}
+															else{
+																document.getElementById("associated_tabs").innerHTML=" ";
+																var arr = JSON.parse(data);
+																role_list = JSON.parse(data);
+																var roleList=" ";
+																var i;
+																var count=0;
+																for(i=0;i<arr.length;i++){
+																	roleList+="<option>"+arr[i].RoleName+"</option>";
+																	count++;
+																}
+																document.getElementById("choose_role").innerHTML=roleList;
+																validate_and_get_tabs();
+																getAssociatedTabs("associated_tabs");
+															}
+														},
+														error: function(x,y,z){
+															document.getElementById("choose_role").innerHTML="<option></option>";
+															document.getElementById("associated_tabs").innerHTML="<center>Sorry! Unable to get server.</center>";
+															document.getElementById("associated_tabs").style.color="red";
+														}
+													});
 												});
 											});
 										</script>
