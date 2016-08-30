@@ -886,7 +886,8 @@
 												<tr>
 													<td><h1 class="panel-title">Associated Tabs</h1></td>
 													<td align="right">
-														<Button type="button" class="btn btn-info" id="refresh_ass_tab">REFRESH
+														<Button type="button" class="btn btn-info" id="refresh_ass_tab">
+															RELOAD
 															<span class="glyphicon glyphicon-refresh"></span>
 														</Button>
 													</td>
@@ -953,7 +954,8 @@
 													<td><h1 class="panel-title">Available Tabs</h1></td>
 													<td align="right">
 														<div class="pull-right">
-															<Button type="button" class="btn btn-info" id="refresh_tab_list">REFRESH
+															<Button type="button" class="btn btn-info" 
+															id="refresh_tab_list">RELOAD
 															<span class="glyphicon glyphicon-refresh"></span></Button>
 														</div>
 													</td>
