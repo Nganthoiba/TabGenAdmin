@@ -67,6 +67,7 @@
 								else{
 									//echo curl($link);//"<a href='$link'>".$link."</a><br/>";
 									//header('Location: '.$link);
+									echo "<br/><a href='$link'>Click here to see more</a>";
 								}
 							}
 							/*
