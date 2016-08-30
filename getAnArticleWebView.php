@@ -60,8 +60,9 @@
 							if($link!="" && $link!=null){
 								if(getYouTubeID($link)!=null){
 									$video_id=getYouTubeID($link);
-									echo "<iframe height='315' width='480' 
-									allowfullscreen='true' src='https://www.youtube.com/embed/".$video_id."?autoplay=0'></iframe>";
+									echo "<div class='videoWrapper'><iframe height='315' width='480' 
+									allowfullscreen='true' src='https://www.youtube.com/embed/".$video_id."?autoplay=0'>
+									</iframe></div>";
 								}
 								else{
 									//echo curl($link);//"<a href='$link'>".$link."</a><br/>";
