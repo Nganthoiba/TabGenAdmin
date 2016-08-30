@@ -25,7 +25,7 @@ if(!empty($_GET['tab_id'])){
 			//str_replace("''","'",$row['Details']);
 			$row['Image']=$row['Image']==null?"":$row['Image'];
 			$row['image_url']=$row['Image']==null?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":"http://128.199.111.18/TabGenAdmin/".$row['Image'];
-			//$row['Attachments']=getFiles($conn,$row['Id']);
+			$row['Attachments']=getAttatchment($conn,$row['Id']);
 			$item[]=$row; 
 			$count++;		
 		}

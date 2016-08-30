@@ -40,44 +40,5 @@ else{
 		echo json_encode(array("status"=>false,"message"=>"Sorry, unable to connect database."));
 	}
 }
-function getAttatchment($conn,$article_id){
-	$query = "select Id,caption,file_name from ArticleFiles where article_id='$article_id'";
-	$res = $conn->query($query);
-	$files_output=array();
-	while($row = $res->fetch(PDO::FETCH_ASSOC)){
-		$row['file_type']=getFileType($row['file_name']);
-		$row['attachment_url']="http://".SERVER_IP."/TabGenAdmin/".$row['file_name'];
-		$row['file_name']=substr($row['file_name'],strripos($row['file_name'],"/")+1);
-		$row['caption']=($row['caption']==null)?"":$row['caption'];
-		$files_output[]=$row;
-	}
-	return $files_output;
-}
 
-function getFileType($filename){
-	$ext = pathinfo($filename, PATHINFO_EXTENSION);
-	$file_type="";
-	switch($ext){
-		case "gif": 
-		case "jpeg":
-		case "png":	
-		case "bmp":
-		case "jpg":	$file_type="image";
-					break;
-		case "pdf": $file_type="pdf";
-					break;
-		case "docx":
-		case "doc":	$file_type="word";
-					break;
-		case "pptx":
-		case "ppt":	$file_type="power_point";
-					break;	
-		case "mkv":
-		case "mpeg":
-		case "mp4":	$file_type="video";
-					break;
-		default: 	$file_type="others";	
-	}
-	return $file_type;
-}
 ?>
