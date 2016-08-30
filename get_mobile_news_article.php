@@ -51,8 +51,8 @@ if(!empty($news_id)){
 				if($link!=null && $link!=""){			
 					if(getYouTubeID($link)!=null){
 						$video_id=getYouTubeID($link);
-						echo "<iframe class='embed-responsive-item' 
-								allowfullscreen='true' src='https://www.youtube.com/embed/".$video_id."?autoplay=0'></iframe>";
+						echo "<div class='videoWrapper'><iframe allowfullscreen='true' 
+						src='https://www.youtube.com/embed/".$video_id."?autoplay=0'></iframe></div>";
 					}
 					else{
 						//echo curl($link);
