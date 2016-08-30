@@ -113,7 +113,7 @@
 	<script>
 		var before_timestamp;
 		var after_timestamp;
-		
+		/*This will embed text editing tools and features in the textarea*/
 		function embed_text_editor(){
 			tinymce.init({ 
 				selector:'textarea',
@@ -189,13 +189,11 @@
 							var key = params[i].split('=')[0];
 							var value = decodeURIComponent(params[i].split('=')[1]);
 							queryString[key] = value;
-							//alert(key);
 						}
 					}
 					
 					var tab_id=queryString['tab_id'];
 					getNewsArticles(tab_id,'first_time_load');
-					//alert(tab_id);	
 					
 					function getFiles(i){
 						var file_list=files_path[i];
@@ -411,7 +409,7 @@
 					function save_edit_headline(i){
 						var news_headline = document.getElementById('news_headline_id'+i).value;//tinyMCE.get('news_headline_id'+i).getContent();
 						var article_id = document.getElementById("article_id"+i).value;
-						//alert(news_headline);
+						
 						var trim=news_headline.trim();
 						if(trim.length==0)
 						swal("No input!", "Please write something for headline", "error");
@@ -441,7 +439,7 @@
 						});
 						
 					}
-	
+	/*function to update link*/
 	function update_link(i){
 		var article_id = output[i].Id;
 		swal({
@@ -679,6 +677,8 @@
 		});
 	}
 	/*end of getNewsArticles()*/
+	
+	
 					/*js for activating and deactivating news article*/
 					function activateOrDeactivateArticle(i){
 						var article_id = document.getElementById("article_id"+i).value;
