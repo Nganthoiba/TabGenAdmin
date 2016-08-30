@@ -60,7 +60,7 @@
 							if($link!="" && $link!=null){
 								if(getYouTubeID($link)!=null){
 									$video_id=getYouTubeID($link);
-									echo "<div class='videoWrapper'><iframe height='315' width='480' 
+									echo "<div class='videoWrapper'><iframe 
 									allowfullscreen='true' src='https://www.youtube.com/embed/".$video_id."?autoplay=0'>
 									</iframe></div>";
 								}
