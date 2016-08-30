@@ -25,29 +25,27 @@
 		/*
 		 * global variables
 		 * */
-		var IP="128.199.111.18";
+		
 		var arr; /*array for tab template association*/
 		var prev_tab_name = [];/*Global array for tab name*/
 		var templates_arr=""; /*list of templates*/
-		var tabs=[];
-		var json_arr;
-		var role_list;
-		var user_session;
-		check_session();
+		var tabs=[];//list of tabs
+		//var json_arr;
+		var role_list;//list of roles
+		var user_session;//user details from server
+		
 		$(document).ready(function(){
+			//getting template lists from server
 			setTemplateList("choose_templates");
-			//test_input();
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
 				$("#wrapper").toggleClass("toggled");
 			});
-			//alert(user_session.token);
-			window.mm_session_token_index =  0 ;
-            $.ajaxSetup({
-                headers: { 'X-MM-TokenIndex': mm_session_token_index,'Authorization':'Bearer '+user_session.token }
-            });
 		});
-		
+		check_session();//checks for user sesion
+		/*function to check whether the session is alive or not, which 
+		means if user's token is still valid, he/she will be able to do/access tasks. 
+		The token will exist or remains valid untill and unless the user voluntarily logs out.*/
 		function check_session(){
 			var js_session = sessionStorage.getItem('user_details');
 			if(js_session=="null" || js_session=="" || js_session==null){
@@ -69,14 +67,13 @@
 					}
 				});
 			}
-			else user_session = JSON.parse(js_session);	
+			else  user_session = JSON.parse(js_session);	
 		}
+		//function to remove user details when the user click logout button
 		function removeSession(){
 			sessionStorage.setItem('user_details', "null");
 		}
-		function getSession(){
-			setInterval(check_session, 10000);	
-		}
+		
 	</script>
 	<style type="text/css">		
 		
@@ -113,31 +110,8 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		  <ul class="nav navbar-nav">
-			  <!--
-			<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-			<li><a href="#">Link</a></li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
-			  role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-			  <ul class="dropdown-menu">
-				<li><a href="#">Action</a></li>
-				<li><a href="#">Another action</a></li>
-				<li><a href="#">Something else here</a></li>
-				<li role="separator" class="divider"></li>
-				<li><a href="#">Separated link</a></li>
-				<li role="separator" class="divider"></li>
-				<li><a href="#">One more separated link</a></li>
-			  </ul>
-			</li>-->
 		  </ul>
 		  <ul class="nav navbar-nav navbar-right">
-			  <!--
-			<li>
-				<a href="#">
-					  <span class="glyphicon glyphicon-user"></span>
-					   Edit Profiles
-				</a>
-			</li>-->
 			<li>
 				<a href="#" data-toggle="modal" data-target="#logoutConfirmation" >
 					  <span class="glyphicon glyphicon-log-out"></span>&nbsp;logout</a>
@@ -209,7 +183,6 @@
 				
 				<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role">
 					Associate Tabs to Role</a></li>
-				<!--<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">Create Tabs template</a></li>-->
 				<li><a href="#" data-toggle="modal" data-target="#createTemplateDialog">&nbsp;</a></li>
             </ul>
         </div>
@@ -256,10 +229,7 @@
 			</div>
 			</div>
         </div>
-        <!-- /#page-content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
+     </div>
 
 <!--- popup start for each one -->
 <!-- Modal for create Organization -->
@@ -609,9 +579,9 @@
 							<label class="col-sm-4  control-label">OU Specific:</label>
 							<div class="col-sm-8">
 								<label class="radio-inline"><input type="radio" name="optradio" 
-									id="ou_specific_yes" checked>Yes</label><!--onclick="disp_ou_role_selector_region();" -->
+									id="ou_specific_yes" checked>Yes</label>
 								<label class="radio-inline"><input type="radio" name="optradio" 
-									id="ou_specific_no">No</label><!--onclick="hide_ou_role_selector_region();"-->
+									id="ou_specific_no">No</label>
 							</div>
 						</div>
 						<script type="text/JavaScript">
@@ -720,10 +690,8 @@
 							<div class="col-sm-8">
 								<label class="radio-inline"><input type="radio" name="optradio" 
 									id="tabstrip_ou_specific_yes" checked>Yes</label>
-									<!--onclick="disp_ou_role_selector_region();" -->
 								<label class="radio-inline"><input type="radio" name="optradio" 
 									id="tabstrip_ou_specific_no">No</label>
-									<!--onclick="hide_ou_role_selector_region();"-->
 							</div>
 						</div>
 					</div>	
@@ -765,8 +733,8 @@
 									<select class="form-control" id="org_lists">
 										<script type="text/JavaScript">
 											$(document).ready(function(){
-												//viewOrgs("dropdown","org_lists","all");
 												viewOrgListWithOUsRoles("org_lists","choose_ou","choose_role","associated_tabs");
+												/*onchange effect of the dropdown Organisation list items*/
 												$("#org_lists").change(function(){
 													var org_name=($("#org_lists").val()).trim();
 													$.ajax({
@@ -940,7 +908,7 @@
 														getAssociatedTabs("associated_tabs");
 													}
 													return false;
-													//alert("Hi");
+													
 												});
 											});
 										</script>
@@ -1069,7 +1037,7 @@
 											var layout="";
 											for(var i=0;i<output.length;i++){
 												var tabstrip_id = output[i].Id;
-												//var tabs_to_be_added = "tabs_to_be_added";
+												
 												layout+="<tr><td><button class='btnSubmit' onclick='getUnaddedTab(\""+org_name+
 												"\",\""+ou_name+"\",\""+ou_specific+"\",\""+tabstrip_id+"\",\""+
 												"tabs_to_be_added"+"\");getAddedTab(\""+org_name+
@@ -1081,10 +1049,12 @@
 									}
 								});
 							}
+							
+							/*effect on tabstrip layout*/
 							function onChangeOU(){
 								var org = document.getElementById("myorgselect").value;
 								var ou = document.getElementById("myouselect").value;
-								//alert(ou);
+								
 								getTabStrips(org,ou,"tabstrip_lists","result_for_add_tab_to_tabstrip");
 								document.getElementById("tabs_to_be_added").innerHTML="<div><center></center></div>";
 								document.getElementById("tabs_added").innerHTML="<div><center></center></div>";
