@@ -897,6 +897,7 @@ function isValidUrl(url){
 										document.getElementById(roleListingId).innerHTML=roleList;
 										var  ou_specific=document.getElementById("ou_specific_tab_yes").checked;
 										getTabs("list_of_tabs",ou_specific);
+										getAssociatedTabs("associated_tabs");
 									}
 								},
 								error: function(x,y,z){
