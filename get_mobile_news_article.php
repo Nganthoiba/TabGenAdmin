@@ -59,13 +59,6 @@ if(!empty($news_id)){
 						header('Location: '.$link);
 					}
 				}
-				/*
-				$attachment=getFiles($conn,$row['Id']);
-				for($i=0;$i<sizeof($attachment);$i++){
-					echo "<div class='col-sm-4'><a href='".$attachment[$i]['attachment_url']."' target='_blank' download>
-					<img height='50px' width='50px' src='".$attachment[$i]['file_icon']."'/>
-					".substr($attachment[$i]['file_name'],strripos($attachment[$i]['file_name'],"/")+1)."</a></div>";
-				}*/
 			}
 		?>
 		</div>

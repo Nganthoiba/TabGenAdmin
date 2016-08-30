@@ -7,11 +7,11 @@
 	
 	if(isAlreadyLiked($conn,$post_id,$user_id)){
 		if(dislikeAPost($conn,$post_id,$user_id)){
-			echo json_encode(array("post_id"=>$post_id,"liked_status"=>"unliked","message"=>"You have unliked the post.",
+			echo json_encode(array("post_id"=>$post_id,"liked_status"=>"unliked","message"=>"You have disliked the post.",
 			"no_of_likes"=>getNoOfLikes($conn,$post_id)));
 		}
 		else{
-			echo json_encode(array("post_id"=>$post_id,"liked_status"=>"liked","message"=>"Sorry, unable unlike the post.",
+			echo json_encode(array("post_id"=>$post_id,"liked_status"=>"liked","message"=>"Sorry, unable to dislike the post.",
 			"no_of_likes"=>getNoOfLikes($conn,$post_id)));
 		}	
 	}
