@@ -7,7 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-	<!--<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
 	<!--Toast package-->
 	<link href="css/toast.css" rel="stylesheet" media="screen">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -25,7 +24,7 @@
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<!-- This is what you need for sweet alert -->
+	<!-- This is for sweet alert -->
 	<script src="dist/sweetalert-dev.js"></script>
 	<link rel="stylesheet" href="dist/sweetalert.css">
 	<!--.......................-->
@@ -36,7 +35,7 @@
 	<script src="homepage.js"></script>
 	<script type="text/JavaScript">
 		var js_session = sessionStorage.getItem('user_details');
-		var output;
+		var output;//stores list of articles
 		var template_type;
 		if(js_session=="null"){
 			window.location.assign("index.html");
@@ -50,49 +49,26 @@
 			});
 		});
 		function toggle(){
-			//alert("Hi");
 			$("#wrapper").toggleClass("toggled");
 		}
-		function getSession(){
+		function getSession(){//checking user session
 			setInterval(
-				function(){
-						//alert("Hello"); 
+				function(){ 
 						$.ajax({
 						url: "getUserSession.php",
 						type: "GET",
 						success:function(data){
 							if(data.trim()=="null"){
-								//user_session=null;
-								window.location.assign("index.html");
-							}
-							else{
-								//user_session=JSON.parse(data);
+								window.location.assign("index.html");//go for login again
 							}
 						},
 						error:function(error_data,y,z){
-							//user_session=null;
-							//alert(error_data+" "+y+" "+z);
+							
 						}
 					});
 				}, 30000);	
 		}
 		
-		function test_token(){
-			var js_session = sessionStorage.getItem('user_details');
-			var user_session = JSON.parse(js_session);
-			//alert(js_session);
-			$.ajax({
-				url: "test.php",
-				type: "POST",
-				beforeSend: function (xhr) {			
-					//xhr.setRequestHeader('X-AUTHENTICATION-TOKEN', user_session.token);
-					xhr.setRequestHeader('Authorization',user_session.token);
-				},
-				success: function(resp){
-					alert(resp);
-				}
-			});
-		}
 	</script>
 	<body onload='getSession();'>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -120,33 +96,26 @@
 						
 					?> <span class="sr-only">(current)</span></a>
 				</li>
-				<li>
-					<!--
-					<a>
-						<button class='btn' onclick="test_token();">
-							<span class="glyphicon glyphicon-repeat"></span> Get Token
-						</button>
-					</a>-->
-					
-				</li>
+				
 				<script type="text/JavaScript">
 					var before_timestamp;//for pagination
 					var after_timestamp;//for pagination
-					var indicator;
+					var indicator;//an index of an article
 					var image_path=[];
 					var files_path=[];
 					var queryString = new Array();
+					
+					/*getting tab id from the url*/
 					if (window.location.search.split('?').length > 1) {
 						var params = window.location.search.split('?')[1].split('&');
 						for (var i = 0; i < params.length; i++) {
 							var key = params[i].split('=')[0];
 							var value = decodeURIComponent(params[i].split('=')[1]);
 							queryString[key] = value;
-							//alert(key);
 						}
 					}	
 					var tab_id=queryString['tab_id'];
-					getArticles(tab_id,"first_time_load");
+					getArticles(tab_id,"first_time_load");//getting the first 10 articles for the first time load
 					
 					function getFiles(i){
 						var file_list=files_path[i];
@@ -210,8 +179,9 @@
 						});	
 					}
 					
+					/*getting list of articles*/
 					function getArticles(tab_id,loading_mode){
-						//alert(tab_id);
+						
 						var data;
 						if(loading_mode=="first_time_load"){
 							data="tab_id="+tab_id+"&loading_mode="+loading_mode;
@@ -242,16 +212,14 @@
 											"<br/><div class='well'>No article found, create a new one.</div></center>";
 										}
 										else if(loading_mode=="before"){
-											//do nothing
 											swal("No more article!");
 										}
 										else if(loading_mode=="after"){
 											//do nothing
-											//swal("No more news article!");
 										}
 										return false;
 									}
-									//var article_layout="";
+									
 									var article_left="";
 									var article_right="";
 									for(var i=0;i<output.length;i++){
@@ -294,16 +262,7 @@
 													"</label>"+
 												"</div>";
 										}
-										
-										/*		//button for deleting article
-													"<button type='button' style='float:right;'"+ 
-														"onclick='deleteArticle(\""+i+"\");'"+
-														"class='close' aria-label='Close' id='deleteArticle"+i+"'>"+
-														"<span class='glyphicon glyphicon-remove'></span>"+
-													"</button>"+
-													"<div><input type='hidden' id='edit_text"+i+
-														"' value='"+textual_content+"'/></div>"+
-													*/
+
 										var created_at = new Date(output[i].CreateAt);	
 										/*left and right adjustment*/		
 										if(i%2==0){
@@ -366,9 +325,8 @@
 												"</div>"+
 											"</div>";
 											document.getElementById("right_column").innerHTML=article_right;
-										}
-										//document.getElementById("tab_contents").innerHTML=article_layout;										
-										refreshFileLayout(i);									
+										}										
+										refreshFileLayout(i);//refreshing list of files									
 									}
 									before_timestamp=output[output.length-1].CreateAt;
 									after_timestamp=output[0].CreateAt;
@@ -384,6 +342,7 @@
 						});
 					}
 					
+					/*function to activate or deactivate article, deactivated articles will not be seen on apps*/
 					function activateOrDeactivateArticle(i){
 						var article_id = document.getElementById("article_id"+i).value;
 						var status = document.getElementById("myonoffswitch"+i).checked;
@@ -478,9 +437,8 @@
 				<div id="left_column" class="column"></div>	
 				<div id="right_column" class="column"></div>
 				<script type='text/JavaScript'>
-					//youtube_parser("https://youtu.be/kGIftVM8b1o?t=14");
 					
-					
+					/*edit link layout*/
 					function editLink(i,article_link){
 						indicator=i;
 						var article_id = document.getElementById("article_id"+i).value;
@@ -495,6 +453,8 @@
 						document.getElementById("article_ID").value=article_id;
 						document.getElementById("editLinkResponse").innerHTML="";
 					}
+					
+					/*function to get link of an article if exists*/
 					function get_link(i){
 						if(template_type=="CME Template"){
 								return "";
@@ -515,8 +475,6 @@
 								}
 								else{
 									link_layout="<br/><a href='"+Link+"' target='_blank'>"+Link+"</a><br/>";
-									/*"<center><div class='preview_link'><iframe height='500' width='460'"+
-									" src='"+Link+"'></iframe></div></center>";*/
 								}				
 							}
 							return link_layout;
@@ -543,8 +501,10 @@
 						}
 						return btn_layout;
 					}
+					
+					/*function to update or enter link or an article*/
 					function edit_link_done(){
-						//alert(indicator);
+						
 						var article_id = document.getElementById("article_ID").value;
 						var new_link=document.getElementById("article_link").value;
 						var re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
@@ -580,13 +540,11 @@
 							}
 						});	
 					}
-					function edit_link_cancel(){
-						
-					}
+					
+					/*setting a layout for editing article content*/
 					function editArticle(i){
-						var content = output[i].Textual_content;//document.getElementById("edit_text"+i).value;
-						//content = content.replace("%","'");
-						//alert(content);
+						var content = output[i].Textual_content;
+						
 						document.getElementById("textual_content"+i).innerHTML="<div class='div_bg'>"+
 							"<div class=''>"+
 							"<textarea class='form-control' rows='10' cols='50' id='edited_text"+i+"'>"+content+"</textarea>"+
@@ -595,20 +553,20 @@
 								"onclick='cancel_edit(\""+i+"\");'/>&nbsp;"+
 							"<input type='button' value='DONE' class='btn' onclick='done_edit(\""+i+"\");'/></div><br/>";
 					}
-					
+					/*edit cancellation function*/
 					function cancel_edit(i){
-						//alert(i);
-						var content = output[i].Textual_content;//document.getElementById("edit_text"+i).value;
-						//content = content.replace("%","'");
+						
+						var content = output[i].Textual_content;
+						
 						document.getElementById("textual_content"+i).innerHTML=content+
 							"<button class='close' onclick='editArticle(\""+i+"\");'>"+
 								"<span class='glyphicon glyphicon-pencil'></span></button>";
 					}
-					
+					/*saving the new article content in server*/
 					function done_edit(i){
-						//alert(i);
+						
 						var content = document.getElementById("edited_text"+i).value;
-						//content = content.replace("%","'");
+						
 						var article_id = document.getElementById("article_id"+i).value;
 						$.ajax({
 							url: "update_article.php",
@@ -624,7 +582,6 @@
 									document.getElementById("textual_content"+i).innerHTML=content+
 										"<button class='close' onclick='editArticle(\""+i+"\");'>"+
 											"<span class='glyphicon glyphicon-pencil'></span></button>";
-									//document.getElementById("edit_text"+i).value=content;
 								}
 								else{
 									alert(resp_json.message);
@@ -637,10 +594,10 @@
 						});
 						
 					}
-					
+					/*This will create a new article*/
 					function createArticle(){
 						var tab_id = queryString['tab_id'];
-						//alert("Tab Id: "+tab_id);
+						
 						var name = document.getElementById("title").value;
 						var textual_content = document.getElementById("textual_content").value;
 						var link_site = (template_type=="CME Template")?"":document.getElementById("link").value;
@@ -716,7 +673,7 @@
 								"</center>"+
 							"</div>";
 						document.getElementById("file_attachment_layout"+i).innerHTML=file_upload_layout;
-						//document.getElementById("files_content"+i).innerHTML=file_upload_layout;
+						
 						$("#uploadFileForm"+i).submit(function(e) {	
 							var path = $("#userFile"+i).val();	
 							var path_length = $('#userFile'+i).val().trim().length;
@@ -752,7 +709,6 @@
 										$("#file_progress-bar"+i).html('<div id="file_progress-status'+i+'">' + percentComplete +' %</div>');
 									},
 									success:function (resp){
-										//alert(resp);
 										$("#file_loader-icon"+i).hide();
 										var json_resp = JSON.parse(resp);
 										if(json_resp.status==true){
@@ -855,7 +811,7 @@
 					
 					function closeImageUpload(i){
 						var image = image_path[i];
-						//alert(image);
+						
 						if(image==null || image=="") {
 							document.getElementById("image_content"+i).innerHTML="";	
 						}
@@ -896,23 +852,20 @@
 										if(json_resp.status==true){
 											swal("Deleted!", json_resp.message, "success"); 
 											getArticles(tab_id);
-											//Toast.success(json_resp.message, ' ', {displayDuration: 3000});
 										}
 										else{
 											swal("Failed!", json_resp.message, "error");
-											//Toast.error(json_resp.message, ' ');
 										}
 									}
 								});  
 							} else {     
-								//swal(" ", "Your article is safe now.", "error"); 
+								
 								swal({   
 									title: "Deletion Cancelled!",  
 									text: "Your article is safe now.",   
 									timer: 1000,   
 									showConfirmButton: false 
-								});  
-								//Toast.success("Your article is not deleted, it is safe now.", ' ', {displayDuration: 3000});
+								});  	
 							} 
 						});
 					}
@@ -949,27 +902,7 @@
 		
     </div>
     <!-- /#wrapper -->
-    <!-- Toast Examples
-					<ul class="list">
-					  <li><a href="#" onclick="Toast.success('Message')">Success</a></li>
-					  <li><a href="#" onclick="Toast.success('Message', 'Title', {displayDuration: 0})">Sticky success
-						with title</a></li>
-					  <li><a href="#" onclick="Toast.info('Message', '', {displayDuration: 0})">Sticky info</a></li>
-					  <li><a href="#"
-							 onclick="Toast.defaults.displayDuration=500; Toast.info('Default displayDuration 500ms', 'Title')">Info:
-						Change displayDuration to 200ms</a></li>
-					  <li><a href="#"
-							 onclick="Toast.defaults.displayDuration=2000; Toast.warning('Default displayDuration 2000ms')">Warning:
-						Change displayDuration to 2000ms</a></li>
-					  <li><a href="#" onclick="Toast.warning('Message', 'Title')">Warning with title</a></li>
-					  <li><a href="#" onclick="Toast.error('Message')">Error</a></li>
-					  <li><a href="#" onclick="Toast.error('Message', 'Title')">Error with title</a></li>
-					  <li><a href="#" onclick="Toast.defaults.width='600px'; Toast.info('Message', 'Title')">Info with
-						title: Changed default width to 600px</a></li>
-					  <li><a href="#" onclick="Toast.defaults.width='200px'; Toast.info('Message', 'Title')">Info with
-						title: Changed default width to 200px</a></li>
-					</ul>
-	-->
+   
 	</body>
 	<!-- Modal for creating article -->
 	<div class="modal fade" id="createArticle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
