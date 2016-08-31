@@ -8,7 +8,6 @@ function create_tab($conn,$tab_name,$template_id,$createdBy,$ou_specific){
 	$org_name=$_POST['org_name'];
 	$ou_name = $_POST['ou_name'];
 	$role_name = $_POST['role_name'];
-	//$role_id = findRoleId($conn,$ou_name,$role_name);
 	$role_id = $_POST['role_id'];
 	$flag = $ou_specific == "true"?1:0;
 		
@@ -167,11 +166,6 @@ function getParentOuId($conn,$ou_id){
 }
 // function to get OU Id (which the user belong) by providing user Id
 function getOuIdByUserId($conn,$user_id){
-	/*$query="select Users.Id as user_id,Users.Username,Teams.Id as Team_id,Teams.Name as team_name,OrganisationUnit.Id as org_unit_id,OrganisationUnit.OrganisationUnit
-			from Users,Teams,OrganisationUnit
-			where Teams.Id=Users.TeamId 
-			and Teams.Name=OrganisationUnit.OrganisationUnit
-			and Users.Id='$user_id'";*/
 	$query = "select * from User_OU_Mapping where user_id='$user_id'";
 	$res = $conn->query($query);
 	$row = $res->fetch(PDO::FETCH_ASSOC);
@@ -187,13 +181,6 @@ function getRoleByUserId($conn,$user_id){
 
 //function to find role id by user id
 function findRoleIdByUser_id($conn,$user_id){
-	/*$query="select Role.Id as role_id,Roles,OrganisationUnit.OrganisationUnit
-	from Users,User_OU_Mapping,OrganisationUnit,Role
-	where Users.Id=User_OU_Mapping.user_id and
-		OrganisationUnit.Id=User_OU_Mapping.OU_id and
-		Role.RoleName=Roles and
-		Role.OrganisationUnit=OrganisationUnit.OrganisationUnit and 
-		Users.Id='$user_id'";*/
 	$query = "select * from User_OU_Mapping where user_id='$user_id'";
 	$res = $conn->query($query);
 	if($res){
@@ -909,7 +896,7 @@ function isNewsTitleExists($conn,$title){
 			return false;
 	}
 }
-
+/*check if the user is admin or not*/
 function isAdmin($conn,$user_id){
 	$query = "select * from Users where Id='$user_id'";
 	$res = $conn->query($query);
@@ -989,7 +976,7 @@ function get_token(){
 											
 		return $token;
 }
-
+/*parse for token*/
 function getTokenFromHeader($header){
 	$header_array = http_parse_headers($header); 
 	$token = null;				
@@ -1019,7 +1006,7 @@ function get_token_from_header(){
 		else return null;
 	}
 }
-
+/*getting user id from token*/
 function getUserIdByToken($conn,$token){
 	$query = "select UserId from Sessions where Token='$token'";
 	$res = $conn->query($query);
@@ -1033,7 +1020,6 @@ function getUserIdByToken($conn,$token){
 function getYouTubeID($youtube_url){
 	if(is_youtube_url($youtube_url)){
 	$regex = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?(\S+)?/";
-					/*'![?&]{1}v=([^&]+)!'*/
 	$YouTubeCheck = preg_match($regex, $youtube_url, $Data);
 		If($YouTubeCheck){
 			$VideoID = $Data[4];
@@ -1073,7 +1059,7 @@ function get_notification_tokens_for_chat_tabs($conn,$post_id,$user_id){
 	return $tokens;
 }
 
-/*FCM Services in php*/
+/*FCM Services for sending messages to GOOGLE seerver in php*/
 
 function sendFirebasedCloudMessage($fcm_token, $message) {
 	/*fcm_token is a list of tokens*/

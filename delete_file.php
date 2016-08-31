@@ -1,4 +1,5 @@
 <?php
+/*deleting a file*/
 include('tabgen_php_functions.php');
 include('connect_db.php');
 
