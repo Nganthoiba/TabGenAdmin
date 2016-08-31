@@ -800,10 +800,9 @@
 										<script type="text/JavaScript">
 											$(document).ready(function(){
 												viewOrgUnits("dropdown","choose_ou","all");
-												//getAssociatedTabs("associated_tabs");
+												
 												$("#choose_ou").change(function(){
-													/*getRoles("choose_role",$("#choose_ou").val(),"associated_tabs");
-													validate_and_get_tabs();*/
+													
 													var org_name=($("#org_lists").val()).trim();
 													var orgunit=($("#choose_ou").val()).trim();
 													$.ajax({
@@ -851,12 +850,12 @@
 											<table width="100%">
 												<tr>
 													<td><h1 class="panel-title">Associated Tabs</h1></td>
-													<td align="right">
+													<!--<td align="right">
 														<Button type="button" class="btn btn-info" id="refresh_ass_tab">
 															RELOAD
 															<span class="glyphicon glyphicon-refresh"></span>
 														</Button>
-													</td>
+													</td>-->
 												</tr>
 											</table>		
 										</div>
@@ -918,13 +917,14 @@
 											<table width="100%">
 												<tr>
 													<td><h1 class="panel-title">Available Tabs</h1></td>
+													<!--
 													<td align="right">
 														<div class="pull-right">
 															<Button type="button" class="btn btn-info" 
 															id="refresh_tab_list">RELOAD
 															<span class="glyphicon glyphicon-refresh"></span></Button>
 														</div>
-													</td>
+													</td>-->
 												</tr>
 											</table>		
 										</div>
@@ -952,13 +952,12 @@
 											<table class="table table-striped" id="list_of_tabs">
 											<script type="text/JavaScript">
 												$(document).ready(function(){
-													//getTabs("list_of_tabs");
+													
 													$("#list_of_tabs").html("<h3 align='center'>Click Refresh button "+
 													"<br/>"+
 													" to display all the list of tabs</h3>");
 													$("#list_of_tabs").css('color','#A4A4A4');
-													$("#refresh_tab_list").click(function(){
-														//getTabs("list_of_tabs");
+													$("#refresh_tab_list").click(function(){	
 														validate_and_get_tabs();
 													});
 												});
@@ -1005,7 +1004,7 @@
 							}
 							function getTabStrips(org_name,ou_name,target_layout_id,resp_layout){
 								var ou_specific = document.getElementById("ou_specific_tabstrip_yes").checked;
-								//alert("OU Name: "+ou_name+" OU_specific: "+ou_specific);
+								
 								if(ou_specific==true){
 									var ou_trim = ou_name.trim();
 									if(ou_trim.length==0 || ou_name==null){
