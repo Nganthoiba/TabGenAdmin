@@ -7,8 +7,7 @@
 		$old_tab_name = $_POST['old_tab_name'];
 		$new_tab_name = $_POST['new_tab_name'];
 		$template_name = $_POST['template_name'];
-		//echo "Hi";
-		//echo $tab_id." ".$new_tab_name." ".$template_name." ".$old_tab_name;
+		
 		if($conn){
 			if($template_name=="Latest News Template" || $template_name=="News Template"){
 				$details=$_POST['news_details'];
