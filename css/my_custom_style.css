@@ -118,11 +118,11 @@ label {color:#848484; font-weight:normal}
 {
     padding: 5px 5px 5px 5px;
     margin:10px;
-    color: #767E79; 
-    border: 1px #6E6E6E;
-    border-radius:5px;
+    color: #6E6E6E; 
+    border: 1px solid #DADDDD;
+    border-radius:3px;
     background-color:#FFFFFF;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
 }
 
 .tab_bg:hover
@@ -130,16 +130,14 @@ label {color:#848484; font-weight:normal}
     padding: 5px 5px 5px 5px;
     margin:10px;
     color: #767E79; 
-    border: 1px #6E6E6E;
+    border: 1px solid #9FCAE8;
     border-radius:5px;
-    background-color:#F5FDFE;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color:#FFFFFF;
+    /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
 }
 .attachment_bg
 {
     padding: 2px 5px 2px 5px;
-    background-color: #ffffff;
-    border: 1px solid #D8D8D8;
     border-radius:0px
 }
 .select_img_bg

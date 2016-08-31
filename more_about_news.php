@@ -109,7 +109,7 @@
 	<!-- text editing features -->
 	<script src="tinymce/js/tinymce/tinymce.min.js"></script>
 	<script src="tinymce/js/tinymce/jquery.tinymce.min.js"></script>
-	<!--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>-->
+	
 	<script>
 		var before_timestamp;
 		var after_timestamp;
@@ -133,35 +133,7 @@
 		
 	</script>
 	
-	
-	<script type="text/JavaScript">
-		
-		function getSession(){
-			setInterval(
-				function(){
-						//alert("Hello"); 
-						$.ajax({
-						url: "getUserSession.php",
-						type: "GET",
-						success:function(data){
-							if(data.trim()=="null"){
-								//user_session=null;
-								//window.location.assign("index.html");
-							}
-							else{
-								//user_session=JSON.parse(data);
-							}
-						},
-						error:function(error_data,y,z){
-							//user_session=null;
-							//alert(error_data+" "+y+" "+z);
-						}
-					});
-				}, 30000);	
-		}
-	</script>
-	<body onload='getSession();'>
-		
+	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 			<div class="navbar-header">
@@ -179,7 +151,7 @@
 			</div>
 			
 			<script type="text/JavaScript">
-					var output;//contains list of articles, global variable
+					var output;
 					var files_path=[];
 					
 					var queryString = new Array();
@@ -195,6 +167,7 @@
 					var tab_id=queryString['tab_id'];
 					getNewsArticles(tab_id,'first_time_load');
 					
+					/*Function for displaying list of attached files*/
 					function getFiles(i){
 						var file_list=files_path[i];
 						var files_layout="";
@@ -294,7 +267,7 @@
 									success:function (resp){
 										$("#image_loader_icon"+i).hide();
 										var json_resp = JSON.parse(resp);
-										//alert(json_resp.image_path);
+										
 										if(json_resp.status==true){
 											$("image_label"+i).html("Replace the picture");
 											closeImageUpload(i,json_resp.image_path);	
@@ -333,8 +306,6 @@
 						"<button onclick='save_edit_content(\""+i+"\");' class='btn'>Save</button>"+
 						"</div>";
 						document.getElementById("textual_content_layout"+i).innerHTML=edit_layout;
-						
-						/*"#news_details_id"+i*/
 						embed_text_editor();
 					}
 					
@@ -348,7 +319,7 @@
 					function save_edit_content(i){
 						var news_details = tinyMCE.get('news_details_id'+i).getContent();
 						var article_id = document.getElementById("article_id"+i).value;
-						//$("#textual_content_layout"+i).html("<center>Wait please...</center>");
+						
 						$.ajax({
 							url: "update_article.php",
 							type:"POST",
@@ -364,7 +335,6 @@
 								});
 							},
 							success: function(resp){
-								//alert(resp);
 								var json_resp = JSON.parse(resp);
 								if(json_resp.status==true){
 									swal("Update Successful!", json_resp.message, "success");
@@ -389,9 +359,8 @@
 									"</div><br/>";
 						return layout;
 					}
-					
+					/*function for displaying layout for editing news headline */
 					function edit_news_headline(i){
-						/*edit_headline*/
 						var edit_layout="<div class=''>"+
 						"<button onclick='cancel_edit_headline(\""+i+"\");' class='close'>&times;</button>"+
 						"<textarea class='textarea_bg' id='news_headline_id"+i+"'>"+output[i].headline+"</textarea>"+
@@ -400,6 +369,7 @@
 						"</div><br/>";
 						document.getElementById("headline_layout"+i).innerHTML=edit_layout;		
 					}
+					/*to cancel edit*/
 					function cancel_edit_headline(i){			
 						var layout=get_headline(i);
 						$("#headline_layout"+i).html(layout);
@@ -421,7 +391,6 @@
 								xhr.setRequestHeader('Authorization',user_session.token);
 							},
 							success: function(resp){
-								//alert(resp);
 								var json_resp = JSON.parse(resp);
 								if(json_resp.status==true){
 									swal("Update Successful!", json_resp.message, "success");
@@ -487,9 +456,9 @@
 							"requested resource is not found or not working well.", "error");
 						}
 				});
-				//swal("Ajax request finished!");		
+						
 			  }, 3000);
-			  //swal("Nice!", "You wrote: " + article_id, "success");
+			  
 		  }
 		});
 	}
@@ -527,7 +496,7 @@
 		else if(loading_mode=="after"){
 			data="tab_id="+tab_id+"&loading_mode="+loading_mode+"&timestamp="+after_timestamp;
 		}
-		//$("#tab_contents").html("<center><p>Loading...</p></center>");
+		
 		$.ajax({
 			url: "getNewsArticle.php?"+data,
 			type: "GET",
@@ -549,7 +518,6 @@
 						}
 						else if(loading_mode=="after"){
 							//do nothing
-							//swal("No more news article!");
 						}
 						return false;
 					}
@@ -626,11 +594,7 @@
 								"<div id='file_attachment_layout"+i+"'></div>"+
 								"<div>"+status_layout+"</div>"+
 								"<span style='font-size:8pt;float:right'>"+
-								getHumanReadableDate(created_at)+"</span>"+
-								/*"<button class='btn btn-success' style='padding:5px;float:right"+
-									"' onclick='attachFile(\""+i+"\");'>"+
-									"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
-								"</button>"+*/	
+								getHumanReadableDate(created_at)+"</span>"+	
 							"</div>";
 							document.getElementById("left_column").innerHTML=article_left;
 						}
@@ -653,11 +617,7 @@
 								"<div id='file_attachment_layout"+i+"'></div>"+
 								"<div>"+status_layout+"</div>"+
 								"<span style='font-size:8pt;float:right'>"+
-								getHumanReadableDate(created_at)+"</span>"+
-								/*"<button class='btn btn-success' style='padding:5px;float:right"+
-									"' onclick='attachFile(\""+i+"\");'>"+
-									"<span class='glyphicon glyphicon-paperclip'></span>&nbsp;Attach a file"+
-								"</button>"+*/	
+								getHumanReadableDate(created_at)+"</span>"+	
 							"</div>";
 							document.getElementById("right_column").innerHTML=article_right;
 						}
@@ -677,9 +637,8 @@
 		});
 	}
 	/*end of getNewsArticles()*/
-	
-	
-					/*js for activating and deactivating news article*/
+					
+	/*js for activating and deactivating news article*/
 					function activateOrDeactivateArticle(i){
 						var article_id = document.getElementById("article_id"+i).value;
 						var status = document.getElementById("myonoffswitch"+i).checked;
@@ -757,10 +716,10 @@
 								"</center>"+
 							"</div></center>";
 						document.getElementById("file_attachment_layout"+i).innerHTML=file_upload_layout;
-						//document.getElementById("files_content"+i).innerHTML=file_upload_layout;
+						
 						$("#uploadFileForm"+i).submit(function(e) {	
 							var path = $("#userFile"+i).val();
-							//var Extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
+							
 							var path_length = $('#userFile'+i).val().trim().length;
 							
 							if(path==null || path_length==0){
@@ -898,12 +857,6 @@
 					?> <span class="sr-only">(current)</span></a>
 				</li>
 				<li>
-					<!--
-					<a>
-						<button class='btn' onclick="getNewsArticles(tab_id,'first_time_load');">
-							<span class="glyphicon glyphicon-repeat"></span> Reload
-						</button>
-					</a>-->
 				</li>	
 			  </ul>
 			  <ul class="nav navbar-nav navbar-right">	 
@@ -1003,9 +956,7 @@
 									<label class="col-sm-2  control-label" for="news_details">News Details:</label>
 									<div class="col-sm-10">
 										<div id="news_in_details">
-											<!--<textarea name='news_details' id='news_details' class='form-control'
-											placeholder='Write something in details here...'
-											onclick='display_editor();'></textarea>-->
+											
 										</div>
 										<div id="details_validate"></div>
 									</div>
@@ -1034,7 +985,7 @@
 													e.stopImmediatePropagation();
 												}
 											});
-											
+											/*display editor for writing text*/
 											function display_editor(){
 												var edit_news_detail_layout=""+
 												"<textarea class='form-control' name='news_details' id='news_details'>"+ 
@@ -1070,7 +1021,7 @@
 												var news_headline = document.getElementById("news_headline").value;
 												var news_details = tinyMCE.get('news_details').getContent();
 												var ext_link = document.getElementById("external_link").value;
-												//alert(news_details);
+												
 												if(validateNews()){
 													$('#publishNewsResponse').css('color', 'black');
 													$('#publishNewsResponse').html("<center><strong>Wait Please...</strong></center>");
@@ -1092,7 +1043,7 @@
 															if(j_resp.status==true){
 																$('#publishNewsResponse').html("<div class='isa_success'><center>"+
 																j_resp.message+"</center></div>");
-																//$("#publishNewsResponse").css('color', 'green');
+																
 																getNewsArticles(tab_id,'first_time_load');
 															}
 															else{
@@ -1119,7 +1070,7 @@
 												if(isEmpty(news_title.trim())){
 													$('#title_validate').html("<div class='isa_warning'>"+
 													"Put title of the news.</div>");
-													//$("#title_validate").css('color', 'red');
+													
 													flag=false;
 												}
 												else{

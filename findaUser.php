@@ -14,7 +14,7 @@ else{
 					where Users.Id=User_OU_Mapping.user_id
 					and User_OU_Mapping.OU_id=OrganisationUnit.Id
 					and Users.DeleteAt=0
-					and Username like '%$user_name%'";
+					and Username like '%$user_name%' order by Username";
 			$res = $conn->query($query);
 			$output=null;
 			if($res){

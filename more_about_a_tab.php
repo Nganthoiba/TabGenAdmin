@@ -480,7 +480,7 @@
 							return link_layout;
 						}
 					}
-					
+					/*button layout*/
 					function get_button_layout(i){
 						var btn_layout="";
 						if(template_type=="CME Template"){

@@ -654,7 +654,6 @@
 								<select class="form-control" id="choose_org_tabstrip">
 									<script type="text/JavaScript">
 										$(document).ready(function(){
-											//viewOrgs("dropdown","choose_org_tabstrip","all");
 											viewOrgListWithOUsRoles("choose_org_tabstrip","tabstrip_ou_selector",
 											"tabstrip_role_selector","createTabstripResponse");
 											$("#choose_org_tabstrip").change(function(){
@@ -1195,7 +1194,7 @@
 				</button>
 				<h4 class="modal-title" id="myModalLabel">List of Tabs created:</h4>
 			</div>
-			<div class="modal-body" style="height:650px;overflow:hidden;overflow-y:auto;background-color:#FAFAFA">
+			<div class="modal-body" style="height:650px;overflow:hidden;overflow-y:auto;">
 				<table style='width:100%;' id="get_all_tabs">
 					<script type="text/JavaScript">
 						$(document).ready(function(){

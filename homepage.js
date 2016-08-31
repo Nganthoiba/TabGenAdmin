@@ -1225,6 +1225,7 @@ $(document).ready(function(){
 		});
 	}
 	
+	/*function to get all tabs in details*/
 	function getAllTabs(id){		
 		$.ajax({
 			url:"getAllTabs.php",
@@ -1315,18 +1316,8 @@ $(document).ready(function(){
 										"</div>"+
 									"</div>"+
 								"</td></tr>";
-					}
-											
+					}						
 					document.getElementById(id).innerHTML=layout;
-					
-					for(var i=0;i<json_arr.length;i++){
-						$("[data-toggle='popover"+i+"']").popover({
-							html: true,
-							title: "Edit tab here:",
-							placement: "left", 
-							content: getPopupContent(i)	
-						});
-					}
 				}
 			},
 			error:function(err_data){
