@@ -1,4 +1,5 @@
 <?php
+/*code for deleting a tab*/
 	include('connect_db.php');
 	include('tabgen_php_functions.php');// all the function/ methodes are in this php file
 	include('ConnectAPI.php');
@@ -10,8 +11,7 @@
 		}
 		else{
 			echo json_encode(array("state"=>false,"message"=>"Failed to Connect Database"));
-		}
-		
+		}		
 	}
 	else{
 		echo json_encode(array("state"=>false,"message"=>"Invalid Request"));

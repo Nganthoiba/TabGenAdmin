@@ -1,4 +1,5 @@
 <?php
+	/*code for getting roles*/
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
 	$org_unit = empty($_GET['org_unit']) || $_GET['org_unit']==' '?'null':$_GET['org_unit'];
@@ -6,7 +7,7 @@
 	$organisation=$_GET['org'];
 	if(empty($organisation)) 
 		$organisation=getOrgbyOU($conn,$org_unit);
-	if(empty($only_ou_roles) || $only_ou_roles=="no")
+	if(empty($only_ou_roles) || $only_ou_roles=="no")//getting not ou specific roles
 	{
 		$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0 
 				union 
@@ -29,7 +30,7 @@
 			}
 		}
 	}
-	else if($only_ou_roles=="yes"){
+	else if($only_ou_roles=="yes"){//getting OU specific roles
 		$query="select * from Role where OrganisationUnit='$org_unit' and DeleteAt=0 order by RoleName";
 		if($conn){
 			$res = $conn->query($query);					

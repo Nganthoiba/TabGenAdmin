@@ -979,13 +979,7 @@ function http_parse_headers( $header )
 }
 //function to extract token which was stored in session/cookies at the time of login
 function get_token(){
-		session_start();
 		$token=null;
-		/*if(isset($_SESSION['login_header_response'])){
-			$header = $_SESSION['login_header_response'];
-			$token = getTokenFromHeader($header);			
-		}
-		else */
 		if(isset($_COOKIE['login_header_response'])){
 			$header = $_COOKIE['login_header_response'];
 			$token = getTokenFromHeader($header);
