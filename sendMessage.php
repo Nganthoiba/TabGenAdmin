@@ -1,5 +1,5 @@
 <?php 
-	//php code for sending post messages
+	//Mobile app api: php code for sending messages
 	
 	header('Content-Type: application/json');
 	include('connect_db.php');
@@ -24,7 +24,7 @@
 		$decoded_res->ChannelName=$channel_name;
 		$decoded_res->TeamName=getOU_by_tab_Name($conn,$channel_name);
 		echo json_encode($decoded_res);
-		sendFirebasedCloudMessage($fcm_tokens, array("message"=>$decoded_res));//notifying message to other devises using the apps
+		sendFirebasedCloudMessage($fcm_tokens, array("message"=>$decoded_res));//notifying message to other devices using the apps
 	}
 	else echo $result;
 ?>
