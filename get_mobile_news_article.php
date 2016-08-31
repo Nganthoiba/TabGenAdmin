@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+/*mobile responsive web view of a particular news article. Only for mobile app*/
 $news_id = $_GET['news_id'];
 if(!empty($news_id)){
 		include('connect_db.php');
@@ -20,11 +21,7 @@ if(!empty($news_id)){
 		<!-- ********************************************** -->
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<!-- This is what you need for sweet alert -->
-		<script src="dist/sweetalert-dev.js"></script>
-		<link rel="stylesheet" href="dist/sweetalert.css">
-		<!--.......................-->
+
 		
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

@@ -1,4 +1,5 @@
 <?php
+/*Updating user data*/
 include('connect_db.php');
 include('tabgen_php_functions.php');
 $token = get_token_from_header();

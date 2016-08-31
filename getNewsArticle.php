@@ -1,5 +1,5 @@
 <?php 
-/*php file for geting news articles*/
+/*php file for geting news articles for admin on web*/
 include('tabgen_php_functions.php');
 include('connect_db.php');
 $token = get_token_from_header();

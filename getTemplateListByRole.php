@@ -1,19 +1,12 @@
 <?php 
+	/*php code get list of templates*/
 	$role = $_GET['Role'];
 	$org_unit = $_GET['org_unit'];
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
-	//$query="select TabTemplate.Name as Template_Name,TABS.Name as Tab_Name,RoleName from TabTemplate,TABS where RoleName='$role' AND Tab.TabTemplate=TabTemplate.Id";
 			
 	if($conn){
-		/*if(isUniversalRole($conn,$role,$org_unit)){
-			$temporaryQuery="select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit 
-					from TabTemplate,Tab,OrganisationUnit 
-					where Tab.TabTemplate=TabTemplate.Id 
-						and OrganisationUnit.Id=Tab.OUId
-					order by Tab.Name";*/
-			
-		//}else{
+		
 			$temporaryQuery="select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit 
 					from TabTemplate,Tab,OrganisationUnit 
 					where Tab.TabTemplate=TabTemplate.Id 
@@ -30,7 +23,7 @@
 											select Id from Role where OrganisationUnit='$org_unit' and RoleName='$role')
 					order by Tab.Name";
 					
-		//}
+		
 		$res = $conn->query($temporaryQuery);	
 			if($res){
 				while($row=$res->fetch(PDO::FETCH_ASSOC)){

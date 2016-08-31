@@ -1,5 +1,5 @@
 <?php 
-	//php code for getting post messages
+	//php code for getting the first 60 post messages
 	$channel_id = $_GET['channel_id'];
 	$token = $_GET['token'];
 	$user_id = $_GET['user_id'];

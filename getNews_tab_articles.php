@@ -1,5 +1,5 @@
 <?php
-/* php code for getting list of news*/
+/* php code for getting list of news articles in 3,2,1 format*/
 
 if(!empty($_GET['tab_id'])){
 	$tab_id = $_GET['tab_id'];

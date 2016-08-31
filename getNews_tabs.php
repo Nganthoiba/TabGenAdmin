@@ -1,5 +1,5 @@
 <?php
-
+/*this will get list of news tabs under respective OUs in json*/
 if(!empty($_GET['user_id'])){
 	$user_id = $_GET['user_id'];
 	include('connect_db.php');
@@ -9,7 +9,7 @@ if(!empty($_GET['user_id'])){
 		$output=null;
 		$query=null;
 		
-		//echo "hi Size: ".sizeof($teams);
+		
 		$role_id = findRoleIdByUser_id($conn,$user_id);
 		$role_name = getRoleByUserId($conn,$user_id);
 		$accessible_teams=null;

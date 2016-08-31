@@ -1,5 +1,5 @@
 <?php
-
+/*Mobile app api: for getting list of CME Tabs under respective OUs*/
 if(!empty($_GET['user_id'])){
 	$user_id = $_GET['user_id'];
 	include('connect_db.php');
@@ -9,7 +9,6 @@ if(!empty($_GET['user_id'])){
 		$output=null;
 		$query=null;
 		
-		//echo "hi Size: ".sizeof($teams);
 		$role_id = findRoleIdByUser_id($conn,$user_id);
 		$role_name = getRoleByUserId($conn,$user_id);
 		$accessible_teams=null;
@@ -41,7 +40,7 @@ if(!empty($_GET['user_id'])){
 					}
 				}			
 		}
-		//$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
+		
 		print json_encode($output);
 	}	
 }

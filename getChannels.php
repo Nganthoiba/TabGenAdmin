@@ -1,23 +1,22 @@
 <?php
-/* php code for getting list of channels along with IDs associated with the particular teams which the particular user belongs to */
+/*Mobile app api: php code for getting list of channels along with IDs associated with the particular teams which the particular user belongs to */
 header('Content-Type: application/json');
 if(!empty($_GET['user_id'])){
 	$user_id = $_GET['user_id'];
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
 	if($conn){
-		//echo "Hi ".$user_id;
+		
 		$teams=getOUs($conn,$user_id);//getting a list of user accessible OUs
 		$output=null;
 		$query=null;
 		$role_id = findRoleIdByUser_id($conn,$user_id);
-		//$role_name = getRoleByUserId($conn,$user_id);
+		
 		$accessible_teams=null;
 		
 		for($i=0;$i<sizeof($teams);$i++){//finding all the possible channels for a team
 			$team_name = $teams[$i]['team_name'];
-			//echo $team_name."<br/>";
-				//Getting OU specific channels
+			
 				$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
 							from Channels,ChannelMembers
 							where Channels.DisplayName in 
@@ -30,23 +29,7 @@ if(!empty($_GET['user_id'])){
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
 							group by Channels.Id";
-							//and Tab.RoleId =Role.Id
-				//and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
-				/*
-				 * 		
-							union
-							
-						select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
-							from Channels,ChannelMembers
-							where Channels.DisplayName in (select Tab.Name from Tab 
-															where RoleId = (select Id from Role 
-																where OrganisationUnit='$team_name'
-																and RoleName='$role_name')
-															and Tab.DeleteAt=0)								
-							and Channels.DeleteAt=0
-							and Channels.Id=ChannelId
-							group by Channels.Id
-				 * */
+				
 				$res = $conn->query($query);
 				if($res){
 					$count=0;
@@ -75,17 +58,7 @@ if(!empty($_GET['user_id'])){
 		}
 		$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
 		print json_encode($final_array);
-		/*
-		$others = getOtherChannels($conn,$user_id,$role_id);
-		if($others!=null){
-			$final_array = array("team_list"=>concate_array(array("Others"),$accessible_teams),
-			"channels"=>concate_array($others,$output));
-			print json_encode($final_array);
-		}
-		else{
-			$final_array = array("team_list"=>$accessible_teams,"channels"=>$output);
-			print json_encode($final_array);
-		}*/	
+			
 	}
 }
 
@@ -93,9 +66,7 @@ if(!empty($_GET['user_id'])){
 function getOtherChannels($conn,$user_id,$role_id){
 	$channels=null;
 	$org_unit=getOU_Byuser_Id($conn,$user_id);
-	//$role_name = getRoleByUserId($conn,$user_id);
-	//echo $role_id;
-	//echo $org_unit."\n";
+	
 	$query = "select Channels.Id as Channel_ID, Channels.DisplayName as Channel_name,count(*) as members_count 
 							from Channels,ChannelMembers
 							where Channels.DisplayName in (SELECT Tab.Name
@@ -109,12 +80,10 @@ function getOtherChannels($conn,$user_id,$role_id){
 							and Channels.DeleteAt=0
 							and Channels.Id=ChannelId
 							group by Channels.Id";	
-			//and Channels.Id in (select ChannelId from ChannelMembers where UserId='$user_id')
 	$res = $conn->query($query);
 	if($res){
 		while($row=$res->fetch(PDO::FETCH_ASSOC)){
 			if($row['Channel_name']!=""){
-				//$channels[]=$row;
 				$channels[]=array("Channel_ID"=>$row['Channel_ID'],"Channel_name"=>$row['Channel_name'],
 				"members_count"=>getMembersCount($conn,$row['Channel_ID']));
 			}else{

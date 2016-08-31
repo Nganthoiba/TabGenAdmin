@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- This is a responsive mobile web view for displaying an article-->
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -29,7 +30,6 @@
 			include('connect_db.php');
 
 			if(empty($_GET['article_id'])){
-				//echo json_encode(array("status"=>false,"message"=>"Please send article ID"));
 				echo "Please send article ID...";
 			}
 			else{
@@ -71,15 +71,6 @@
 									Click here to see more</a></center>";
 								}
 							}
-							/*
-							$row['Filenames']=getAttatchment($conn,$row['Id']);
-							$attachment=getAttatchment($conn,$row['Id']);
-							if(sizeof($attachment)>0)
-								echo sizeof($attachment)>1?sizeof($attachment)." attachments:<br/>":sizeof($attachment)." attachment:<br/>";
-							for($i=0;$i<sizeof($attachment);$i++){
-								echo "<div class='col-sm-4'><a href='".$attachment[$i]['attachment_url']."' 
-								target='_blank' download>".$attachment[$i]['file_name']."</a></div>";
-							}*/
 							
 						}
 						
@@ -91,7 +82,6 @@
 					
 				}
 				else{
-					//echo json_encode(array("status"=>false,"message"=>"Sorry, unable to connect database."));
 					echo "Sorry, unable to connect database.";
 				}
 			}

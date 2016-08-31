@@ -1,5 +1,5 @@
 <?php 
-	//php code for getting post messages
+	/*php code for getting list of post messages that have already been sent before a message*/
 	$channel_id = $_GET['channel_id'];
 	$token = $_GET['token'];
 	$user_id = $_GET['user_id'];
@@ -21,5 +21,5 @@
 		$decoded_res->posts->$post_id->isBookmarkedByYou=isAlreadyBookmarked($conn,$post_id,$user_id);
 	}
 	echo json_encode($decoded_res);
-	//http://128.199.111.18:8065/api/v1/channels/6qiw4zhjdjnabgwsfw1axkijrc/post/f6bda3nx1ifd5noixi1qyhffrc/before/4/10
+	
 ?>

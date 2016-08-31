@@ -1,7 +1,6 @@
 
 <?php 
-	
-	/*getArticles_on_mobile_app.php: php file for listing out article*/
+	/*this web service is only for  mobile app: getArticles_on_mobile_app.php: php file for listing out article for CME and Reference tabs in 3,2,1 format.*/
 	header('Content-Type: application/json');
 	include('tabgen_php_functions.php');
 	include('connect_db.php');

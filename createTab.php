@@ -1,13 +1,13 @@
 <?php
 session_start();
-//include('server_IP.php');
+/*php code to create a tab*/
 include('connect_db.php');
 include('tabgen_php_functions.php');// all the function/ methodes are in this php file
 include('ConnectAPI.php');
 
 $token = get_token_from_header();
 if($token!=null){
-	//$user_details = json_decode($_SESSION['user_details']);
+	
 	if(!empty($_POST['ou_specific'])){
 		if($conn){
 			$user_id = getUserIdByToken($conn,$token);

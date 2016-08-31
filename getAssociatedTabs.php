@@ -1,4 +1,5 @@
 <?php 
+	/*php code to get list of tabs associated to an input role id*/
 	include('connect_db.php');
 	include('tabgen_php_functions.php');// all the function/ methodes are in this php file
 	$ou_name = $_POST['ou_name'];
@@ -22,7 +23,6 @@
 				"Template_Name"=>$row['Template_Name'],
 				"Org"=>$row['Organisation'],
 				"OU"=>$row['OrganisationUnit']);
-				//"OU"=>getOUbyRole($conn,$row['RoleId']));
 				$count++;
 			}
 			if($count>0)
