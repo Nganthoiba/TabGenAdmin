@@ -15,9 +15,8 @@
 					if(empty($_POST['fcm_token'])){
 						if(isset($_COOKIE['user_details'])){
 							$user_data = json_decode($_COOKIE['user_details']);
-							echo "<center><P class='alert alert-error'>".$user_data->username.", ";
 							$_COOKIE['user_details']="";
-							unset($_COOKIE['user_details']);
+														
 							/*destroying cookies*/
 							setcookie("MMTOKEN", "", time() - (86400 * 30),'/');
 							setcookie("user_details", "", time() - (86400 * 30),'/');
@@ -26,8 +25,7 @@
 							unset($_COOKIE['user_details']);
 							unset($_COOKIE['login_header_response']);
 						}
-						echo "You have successfully log out.</P>";
-						echo "<a href='index.html' class='btn btn-link'>Click here to Log in</a></center>";
+						header('Location:http://localhost/TabGenAdmin/');
 					}
 					else{
 						$fcm_token = $_POST['fcm_token'];

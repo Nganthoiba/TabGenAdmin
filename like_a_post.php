@@ -1,11 +1,12 @@
 <?php
+/*Mobile app api: code for like and dislike of a post*/
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
 		
 	$post_id = $_POST['post_id'];
 	$user_id = $_POST['user_id'];
 	
-	if(isAlreadyLiked($conn,$post_id,$user_id)){
+	if(isAlreadyLiked($conn,$post_id,$user_id)){//checks if the user has already liked the post. If so then dislike the post
 		if(dislikeAPost($conn,$post_id,$user_id)){
 			echo json_encode(array("post_id"=>$post_id,"liked_status"=>"unliked","message"=>"You have disliked the post.",
 			"no_of_likes"=>getNoOfLikes($conn,$post_id)));
@@ -15,7 +16,7 @@
 			"no_of_likes"=>getNoOfLikes($conn,$post_id)));
 		}	
 	}
-	else{
+	else{//otherwise like the post
 		if(likeAPost($conn,$post_id,$user_id)){
 			$fcm_tokens = get_notification_tokens_for_chat_tabs($conn,$post_id,$user_id);
 			$channel_name = getChannelNameById($conn,getChannelIdByPost_id($conn,$post_id));
