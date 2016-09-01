@@ -197,8 +197,8 @@
 						}
 						else{
 							layout="<div style='width:100%' id='image_layout"+i+"'>"+
-								"<img class='img-thumbnail' src='"+img_src+"' alt='No Image' "+
-										"height='360px' width='100%'/><br/>"+
+								"<img src='"+img_src+"' alt='No Image' "+
+										"height='80%' width='100%'/><br/>"+
 									"<div id='image_upload_layout"+i+"'>"+
 									"</div></div>";
 						}
@@ -363,7 +363,7 @@
 					function edit_news_headline(i){
 						var edit_layout="<div class=''>"+
 						"<button onclick='cancel_edit_headline(\""+i+"\");' class='close'>&times;</button>"+
-						"<textarea class='textarea_bg' id='news_headline_id"+i+"'>"+output[i].headline+"</textarea>"+
+						"<textarea class='heading' id='news_headline_id"+i+"'>"+output[i].headline+"</textarea>"+
 						"<div class='pull-right'>"+
 						"<button onclick='save_edit_headline(\""+i+"\");' class='btn'>SAVE</button></div>"+
 						"</div><br/>";

@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
 	<!--Toast package-->
 	<link href="css/toast.css" rel="stylesheet" media="screen">
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<!--<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>-->
 	<script type="text/javascript" src="js/toast.js"></script>
 	<!-- ********************************************** -->
 	<link rel="stylesheet" type="text/css" href="css/style.css" />

@@ -13,6 +13,7 @@
 	font-size:15pt;
 	font-weight:bold;
 	color: #1A922E;
+	border: 2px solid #4F57F9;
 	padding:10px;
 	border-radius:1px;*/
 	padding: 5px 10px 5px 10px;
@@ -20,10 +21,10 @@
 	font-size:15pt;
 	font-weight:bold;
 	border-radius:2px;
-	border: 2px #4F57F9;
-	background-color:#1A922E;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
-	color:#f2f2f2
+	border: 2px solid #f2f2f2;
+	background-color:transparent;
+	/*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);*/
+	color:#1A922E
 }
 
 label {color:#848484; font-weight:normal}
@@ -91,7 +92,7 @@ label {color:#848484; font-weight:normal}
 	font-size:15pt;
 	font-weight:bold;
 	border-radius:2px;
-	border: 2px #4F57F9;
+	border: 2px solid #4F57F9;
 	background-color:#1A922E;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
 	color:#f2f2f2
@@ -275,23 +276,22 @@ a:hover + .preview_link,.preview_link:hover{
     height: auto !important;
     overflow:hidden;
     overflow-y:auto;
-    padding:2px;
     border-radius:2px;
     border: 1px solid #D8D8D8;
     -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
     background-color: #ffffff;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    color:#7D8080
+    color:#7D8080;
 }
 .news_article {
 	float: left;
+	padding-top:5px;
     margin: 10px;
     max-width:95%;
     min-width: 500px;
     height: auto !important;
     overflow:hidden;
     overflow-y:auto;
-    padding:5px;
     border-radius:2px;
     border: 1px solid #D8D8D8;
     background-color: #ffffff;
