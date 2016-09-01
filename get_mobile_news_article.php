@@ -41,7 +41,7 @@ if(!empty($news_id)){
 				$row=$res->fetch(PDO::FETCH_ASSOC);
 				echo "<div class='headline'><h1>".$row['headline']."</h1></div>";
 				if($row['Image']!=null){
-					echo "<center><img width='100' height='80%' src='".$row['Image']."'/></center>";
+					echo "<center><img width='100%' height='80%' src='".$row['Image']."'/></center>";
 				}
 				echo $row['Details'];
 				$link=$row['Link'];
