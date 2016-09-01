@@ -27,9 +27,7 @@ if(validateUserDetails()==true){
 	$org_unit_name = $_POST['org_unit'];
 	try{
 		if($conn){
-			//$res = $conn->query("SELECT Id,Name from Teams where Name='$org_unit_name'");
-			
-			//$id = $user_details->team_id;
+			if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 				$data = array(
 				   "team_id" => $id,
 					"email" => $_POST['email'],
@@ -77,6 +75,10 @@ if(validateUserDetails()==true){
 				}
 				else 
 					echo "Oops! There may be a problem at the server. Try again later.";
+			}
+			else{
+				echo "Please enter a valid email";
+			}
 			/*session_start();
 			$user_details=null;
 			
