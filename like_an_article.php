@@ -2,11 +2,11 @@
 /*Mobile app api: code for liking and disliking an article*/
 include('connect_db.php');
 include('tabgen_php_functions.php');
-/*Client must send token id over http header such that the key should be Authorization and the value must be token*/
+/*Client must send token id over http request header such that the key should be Authorization and the value must be token*/
 $token = get_token_from_header();//getting token from header
 
 if($token==null){
-	echo json_encode(array("status"=>false,"message"=>"You have to pass your token id over http header."));
+	echo json_encode(array("status"=>false,"message"=>"You have to pass your token id over http request header."));
 }
 else{
 	$user_id = getUserIdByToken($conn,$token);
