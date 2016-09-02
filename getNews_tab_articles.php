@@ -22,10 +22,10 @@ if(!empty($_GET['tab_id'])){
 			$row['headline']=str_replace("''","'",$row['headline']);
 			//$row['snippet']=$row['Details']==""||$row['Details']==null?"":substr($row['Details'],0,160)."...";
 			$row['Details']="http://".SERVER_IP."/TabGenAdmin/get_mobile_news_article.php?news_id=".$row['Id'];
-			//str_replace("''","'",$row['Details']);
 			$row['Image']=$row['Image']==null?"":$row['Image'];
-			$row['image_url']=$row['Image']==null?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":"http://128.199.111.18/TabGenAdmin/".$row['Image'];
+			$row['image_url']=$row['Image']==null?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":"http://".SERVER_IP."/TabGenAdmin/".$row['Image'];
 			$row['Attachments']=getAttatchment($conn,$row['Id']);
+			$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
 			$item[]=$row; 
 			$count++;		
 		}

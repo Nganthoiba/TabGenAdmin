@@ -2,7 +2,7 @@
 	/*php code to update articles and news articles*/
 	include('tabgen_php_functions.php');
 	include('connect_db.php');
-	$token = get_token_from_header();
+	$token = get_token_from_header();//getting token from header
 	if($token==null){
 		echo json_encode(array("status"=>false,"message"=>"Your request is unauthorized."));
 	}

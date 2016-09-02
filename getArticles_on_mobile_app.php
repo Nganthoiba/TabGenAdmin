@@ -1,4 +1,3 @@
-
 <?php 
 	/*this web service is only for  mobile app: getArticles_on_mobile_app.php: php file for listing out article for CME and Reference tabs in 3,2,1 format.*/
 	header('Content-Type: application/json');
@@ -29,11 +28,11 @@
 				$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
 				$row['short_description']=substr($row['Textual_content'],0,80)."...";
 				$row['Images']=($row['Images']==null)?"":$row['Images'];
-				//$row['Filenames']=($row['Filenames']==null)?"":$row['Filenames'];
-				$row['images_url']=($row['Images']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":"http://128.199.111.18/TabGenAdmin/".$row['Images'];
-				//$row['Filenames']=getFiles($conn,$row['Id']);
+				$row['images_url']=($row['Images']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
+				"http://".SERVER_IP."/TabGenAdmin/".$row['Images'];
 				$row['detail_url']="http://".SERVER_IP."/TabGenAdmin/getAnArticle.php?article_id=".$row['Id'];
 				$row['external_link_url'] =  "http://".SERVER_IP."/TabGenAdmin/getAnArticleWebView.php?article_id=".$row['Id'];
+				$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
 				$item[]=$row; 
 				$count++;		
 			}

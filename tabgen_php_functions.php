@@ -219,10 +219,7 @@ function getTeams($conn,$user_id){
 	}
 	else{		
 		$ou_id = getOuIdByUserId($conn,$user_id);
-		$my_team = getTeamByOUId($conn,$ou_id);	
-		/*,array("team_name"=>$parent_team)
-		$parent_ou_id=getParentOuId($conn,$ou_id);
-		$parent_team =getTeamByOUId($conn,$parent_ou_id);*/	
+		$my_team = getTeamByOUId($conn,$ou_id);		
 		$output= array(array("team_name"=>$my_team));
 	}
 	return $output;
@@ -263,8 +260,6 @@ function getOUs($conn,$user_id){
 			}
 		}
 	}
-	//$output= array(array("team_name"=>$my_ou));
-	//echo "OU: ".$my_ou;
 	return $output;
 }
 
@@ -501,7 +496,7 @@ function getUserDisplayNameById($conn,$user_id){
 					
 				}
 				else{
-						return json_encode(array("status"=>false,"message"=>"Token not found. Login again."));
+					return json_encode(array("status"=>false,"message"=>"Token not found. Login again."));
 				}
 						
 			}
@@ -542,8 +537,6 @@ function getUserDisplayNameById($conn,$user_id){
 				$query="delete from OrganisationUnit where OrganisationUnit.Id='$org_unit_id'";
 				$res3 = $conn->query($query);					
 				if($res3){	
-					/*$conn->query("update Tab set DeleteAt='$time' 
-								where RoleId in (select Id from Role where OrganisationUnit='$ou_name')");*/
 					$result=$conn->query("select Id from Tab where RoleId in 
 					(select Id from Role where OrganisationUnit='$ou_name')");
 					if($result){	
@@ -581,6 +574,81 @@ function getUserDisplayNameById($conn,$user_id){
 		return (int)$row['no_of_replies'];
 	}
 	
+	/*****************************LIKE FUNCTIONALITIES OF AN ARTICLE**************************************/
+	
+	//function to check whether the user has already liked the article or not
+	function isArticleAlreadyLiked($conn,$article_id,$user_id){
+		$query = "select count(*) as count from LikeArticle where article_id='$article_id' and user_id='$user_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		if((int)$row['count']>0)//checks for existence of row
+			return true;
+		else
+			return false;
+	}
+	//function to dislike an article
+	function dislikeAnArticle($conn,$article_id,$user_id){
+		$query = "delete from LikeArticle where article_id='$article_id' and user_id='$user_id'";
+		$res = $conn->query($query);
+		return $res;
+	}
+
+	//function to like an article
+	function likeAnArticle($conn,$article_id,$user_id){
+		$query = "insert into LikeArticle values('$article_id','$user_id')";
+		$res = $conn->query($query);
+		return $res;
+	}
+	//function to count the number of likes for a particular article
+	function getNoOfLikesOfArticle($conn,$article_id){
+		$query = "select count(*) as count from LikeArticle where article_id='$article_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		return (int)$row['count'];
+	}
+	/***********************END OF LIKE FUNCTIONALITIES OF AN ARTICLE**************************/
+	
+	
+	/****************************BOOKMARK FUNCTIONALITIES OF AN ARTICLE************************/
+	//function to bookmark an article
+	function bookmarkAnArticle($conn,$article_id,$user_id){
+		if(isArticleAlreadyBookmarked($conn,$article_id,$user_id)){
+			return true;//in case if the article has already been bookmarked
+		}
+		else{
+			$query = "insert into BookmarkArticle values('$article_id','$user_id')";
+			$res = $conn->query($query);
+			return $res;
+		}
+	}
+	//function to check whether an article has already been bookmarked by a user or not
+	function isArticleAlreadyBookmarked($conn,$article_id,$user_id){
+		$query="select count(*) as count from BookmarkArticle where article_id='$article_id' and user_id='$user_id'";
+		$res = $conn->query($query);
+		$row = $res->fetch(PDO::FETCH_ASSOC);
+		if((int)$row['count']>0)//check for existence of row
+			return true;//in case if row exists
+		else
+			return false;//in case if row does not exist
+	}
+	
+	//function to unbookmark an article
+	function unbookmarkAnArticle($conn,$article_id,$user_id){
+		if(isArticleAlreadyBookmarked($conn,$article_id,$user_id)){
+			//in case if the article has already been bookmarked, then remove the article from the bookmarked list of the user
+			$query = "delete from BookmarkArticle where article_id='$article_id' and user_id='$user_id'";
+			$res = $conn->query($query);
+			return $res;
+		}
+		else{
+			return true;
+		}
+	}
+	/***********************END OF BOOKMARK FUNCTIONALITIES OF AN ARTICLE**********************/
+	
+	
+	/*****************************LIKE FUNCTIONALITIES OF A POST**************************************/
+	
 	//function to check whether the user has already liked the post or not
 	function isAlreadyLiked($conn,$post_id,$user_id){
 		$query = "select count(*) as count from Likes where post_id='$post_id' and user_id='$user_id'";
@@ -592,7 +660,7 @@ function getUserDisplayNameById($conn,$user_id){
 			return false;
 	}
 
-	//function to unlike a post
+	//function to dislike a post
 	function dislikeAPost($conn,$post_id,$user_id){
 		$query = "delete from Likes where post_id='$post_id' and user_id='$user_id'";
 		$res = $conn->query($query);
@@ -614,12 +682,15 @@ function getUserDisplayNameById($conn,$user_id){
 		return (int)$row['count'];
 	}
 	
+	/***********************END OF LIKE FUNCTIONALITIES OF A POST**************************/
+	
+	
+	/***********************BOOKMARK FUNCTIONALITIES OF A POST******************************/
 	//function to add bookmark
 	function addBookmark($conn,$post_id,$user_id){
 		//check if the post has already been bookmarked or not
 		if(!isAlreadyBookmarked($conn,$post_id,$user_id)){
 			//in case if the post has not already been bookmarked
-			//$title = $_POST['title'];//title of the bookmark
 			$time = time()*1000;
 			$id = randId(26);
 			$query="insert into Bookmark(Id,PostId,UserId,BookmarkAt) 
@@ -656,7 +727,8 @@ function getUserDisplayNameById($conn,$user_id){
 		else
 			return false;//in case if row does not exist
 	}
-	//function to get a list of bookmarks
+	
+	//function to get a list of bookmarked post
 	function getBookmarks($conn,$user_id){
 		$query="select Posts.* from Bookmark,Posts 
 				where Posts.Id=Bookmark.PostId
@@ -687,6 +759,8 @@ function getUserDisplayNameById($conn,$user_id){
 		}
 		return json_encode($output);
 	}
+	
+	/***********************END OF BOOKMARK FUNCTIONALITIES OF A POST**************************/
 	
 	//function to find the number of members in a particular channel
 	function getMembersCount($conn,$channel_id){
@@ -909,7 +983,7 @@ function isAdmin($conn,$user_id){
 
 /*php function to check whether the user is a valid user or not.*/
 function isValidUser($conn,$user_id){
-	$query = "select count(*) as count from Users where Id='$user_id'";
+	$query = "select count(*) as count from Users where Id='$user_id' and DeleteAt=0";
 	$res = $conn->query($query);
 	$row = $res->fetch(PDO::FETCH_ASSOC);
 	if((int)$row['count']>0){
@@ -936,7 +1010,7 @@ function delete_a_file($file_name){
 	}
 }
 
-/*getting the whole contents a website*/
+/*getting the whole contents of a website*/
 function curl($url) {
         $ch = curl_init();  // Initialising cURL
         curl_setopt($ch, CURLOPT_URL, $url);    // Setting cURL's URL option with the $url variable passed into the function

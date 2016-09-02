@@ -12,22 +12,20 @@
 ?>
 <?php
 include('ConnectAPI.php');
-//include('server_IP.php');
 include('connect_db.php');
 include('tabgen_php_functions.php');
 $user_displayname = $_POST['user_displayname'];
 $role=$_POST['Role'];
 $role_id=$_POST['role_id'];
 $type = $_POST['type']=="true"?1:0;
-//echo "Has access other OU: ".$type;
-//echo "Role: ".$role." Id: ".$role_id;
+
 
 if(validateUserDetails()==true){
 	$id=$_POST['team_id'];
 	$org_unit_name = $_POST['org_unit'];
 	try{
 		if($conn){
-			if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+			
 				$data = array(
 				   "team_id" => $id,
 					"email" => $_POST['email'],
@@ -75,26 +73,6 @@ if(validateUserDetails()==true){
 				}
 				else 
 					echo "Oops! There may be a problem at the server. Try again later.";
-			}
-			else{
-				echo "Please enter a valid email";
-			}
-			/*session_start();
-			$user_details=null;
-			
-			if(isset($_SESSION['user_details'])){
-				$user_details = json_decode($_SESSION['user_details']);
-			}
-			else if(isset($_COOKIE['user_details'])){
-				$user_details = json_decode($_COOKIE['user_details']);
-			}
-			if($user_details!=null){	
-				
-			}
-			else{
-				 echo "Session expired, please login again.";
-				  //header('Location: index.html');
-			}*/
 		}
 	}
 	catch(Exception $e){
@@ -115,6 +93,10 @@ function validateUserDetails(){
 	}
 	else if(empty($_POST['email'])){
 		echo "Email is blank";
+		return false;
+	}
+	else if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+		echo "Please enter a valid email.";
 		return false;
 	}
 	else if(empty($_POST['org_unit'])){
