@@ -32,7 +32,7 @@
 				"http://".SERVER_IP."/TabGenAdmin/".$row['Images'];
 				$row['detail_url']="http://".SERVER_IP."/TabGenAdmin/getAnArticle.php?article_id=".$row['Id'];
 				$row['external_link_url'] =  "http://".SERVER_IP."/TabGenAdmin/getAnArticleWebView.php?article_id=".$row['Id'];
-				//$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
+				$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
 				$item[]=$row; 
 				$count++;		
 			}

@@ -25,7 +25,7 @@ if(!empty($_GET['tab_id'])){
 			$row['Image']=$row['Image']==null?"":$row['Image'];
 			$row['image_url']=$row['Image']==null?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":"http://".SERVER_IP."/TabGenAdmin/".$row['Image'];
 			$row['Attachments']=getAttatchment($conn,$row['Id']);
-			//$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
+			$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
 			$item[]=$row; 
 			$count++;		
 		}
