@@ -24,7 +24,7 @@ else{
 				/*Then unbookmark the article*/
 				if(unbookmarkAnArticle($conn,$article_id,$user_id)){
 					echo json_encode(array("status"=>true,"article_id"=>$article_id,"bookmark_status"=>"unbookmarked",
-					"message"=>"You have bookmarked the article."));
+					"message"=>"You have removed the article from your bookmarked list."));
 				}
 				else{
 					echo json_encode(array("status"=>false,"message"=>"Sorry, your request culd not be fulfilled. Try later."));
@@ -33,7 +33,7 @@ else{
 			else{//otherwise bookmark the article
 				if(bookmarkAnArticle($conn,$article_id,$user_id)){
 					echo json_encode(array("status"=>true,"article_id"=>$article_id,"bookmark_status"=>"bookmarked",
-					"message"=>"You have removed the article from your bookmarked list."));
+					"message"=>"You have bookmarked the article."));
 				}
 				else{
 					echo json_encode(array("status"=>false,"message"=>"Sorry, your request culd not be fulfilled. Try later."));
