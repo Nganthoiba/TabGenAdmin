@@ -6,7 +6,9 @@ if(!empty($_GET['tab_id'])){
 	include('connect_db.php');
 	include('tabgen_php_functions.php');
 	if($conn){
-		$role_id = findRoleIdByUser_id($conn,$user_id);
+		//$role_id = findRoleIdByUser_id($conn,$user_id);
+		$token = $_GET['token'];
+		$user_id = getUserIdByToken($conn,$token);
 		
 		$query = "select Id,CreateAt,title,headline,Details,Image from News where tab_id='$tab_id' and Active='true'
 						order by CreateAt desc ";
@@ -26,6 +28,8 @@ if(!empty($_GET['tab_id'])){
 			$row['image_url']=$row['Image']==null?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":"http://".SERVER_IP."/TabGenAdmin/".$row['Image'];
 			$row['Attachments']=getAttatchment($conn,$row['Id']);
 			$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
+			$row['is_liked_by_you']=isArticleAlreadyLiked($conn,$row['Id'],$user_id);
+			$row['is_bookmarked_by_you']=isArticleAlreadyBookmarked($conn,$row['Id'],$user_id);
 			$item[]=$row; 
 			$count++;		
 		}
