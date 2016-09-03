@@ -304,7 +304,7 @@
 						"<textarea class='form-control' id='news_details_id"+i+"'>"+output[i].Details+"</textarea>"+
 						"<br/><div class='pull-right'>"+
 						"<button onclick='save_edit_content(\""+i+"\");' class='btn'>Save</button>"+
-						"</div>";
+						"</div><br/><hr/>";
 						document.getElementById("textual_content_layout"+i).innerHTML=edit_layout;
 						embed_text_editor();
 					}
@@ -431,8 +431,7 @@
 			return false
 		  }
 		  else{
-			  setTimeout(function () {
-				
+			  setTimeout(function () {	
 				$.ajax({
 						url: "update_article.php",
 						type:"POST",
@@ -463,22 +462,61 @@
 		});
 	}
 	
+	/*function to remove link of an article*/
+	function remove_link(i){
+		
+		var article_id = output[i].Id;
+		
+		$.ajax({
+			url: "update_article.php",
+			type:"POST",
+			data:{"article_id":article_id,"news_link":"null"},
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization',user_session.token);
+			},
+			success: function(resp){	
+				var json_resp = JSON.parse(resp);
+				if(json_resp.status==true){
+					swal("Link removed", "Link has been removed", "success");
+						output[i].Link="";
+						$("#link_layout"+i).html(get_News_link(i));
+				}
+				else{
+					swal("Update Failed!", json_resp.message, "error");
+				}
+			},
+			error: function(x,y,z){
+				swal(z+"!", "Request could not be fulfilled due to server error or "+
+							"requested resource is not found or not working well.", "error");
+			}
+		});
+	}
+	
+	/*function to get and display news link*/
 	function get_News_link(i){
 		var link_layout="";
 		var url = output[i].Link;
-		if(url.trim().length==0){
+		if(url.trim().length==0 || url==null){
 			link_layout="";
+			$("#link_label"+i).html("Add a link");
 		}
 		else{
+			$("#link_label"+i).html("Edit the link");
 			if(youtube_parser(url)!=null){
 				var video_id = youtube_parser(url);
 				link_layout=""+
-					"<center><iframe height='310' width='460' allowfullscreen='true'"+
+					"<div style='float:right;padding-right:23px'><button class='btn-remove'"+
+					" onclick='remove_link(\""+i+"\");'>X</button></div><br/>"+
+					"<div class='videoWrapper'>"+
+						"<iframe allowfullscreen='true'"+
 							" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
-							"</iframe></center>";
+						"</iframe>"+
+					"</div>";
 			}
 			else{
-				link_layout="<br/><a href='"+url+"' target='_blank'>"+url+"</a><br/>";
+				link_layout="<br/><div style='padding:5px'><a href='"+url+"' target='_blank'>"+url+"</a>"+
+				"&nbsp;<button class='btn btn-warning' onclick='remove_link(\""+i+"\");'>Remove link</button>"+
+				"</div><br/>";
 			}
 		}
 		return link_layout;
@@ -570,7 +608,7 @@
 								"<li><a class='tools' onclick='edit_content(\""+i+"\");'>Edit Content</a></li>"+
 								"<li><a class='tools' onclick='upload_news_image(\""+i+"\",\""+output[i].Image+"\");'>"+
 								"<span id='image_label"+i+"'>"+image_label+"</span></a></li>"+
-								"<li><a class='tools' onclick='update_link(\""+i+"\");'>"+link_label+"</a></li>"+
+								"<li><a class='tools' id='link_label"+i+"' onclick='update_link(\""+i+"\");'>"+link_label+"</a></li>"+
 								"<li role='separator' class='divider'></li>"+
 								"<li><a class='tools' onclick='attachFile(\""+i+"\");'>Attach file</a></li>"+
 							  "</ul>"+
@@ -587,13 +625,13 @@
 								"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
 									"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
 								"</div>"+
-								"<div id='link_layout"+i+"' style='padding:10px'>"+get_News_link(i)+"</div>"+
-								"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:10px' "+
+								"<div id='link_layout"+i+"'>"+get_News_link(i)+"</div><br/>"+
+								"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:5px;padding-right:5px' "+
 										"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 								"<br/><hr/>"+
 								"<div id='file_attachment_layout"+i+"'></div>"+
 								"<div>"+status_layout+"</div>"+
-								"<span style='font-size:8pt;float:right'>"+
+								"<span style='font-size:8pt;float:right;padding:5px'>"+
 								getHumanReadableDate(created_at)+"</span>"+	
 							"</div>";
 							document.getElementById("left_column").innerHTML=article_left;
@@ -610,13 +648,13 @@
 								"<div id='textual_content_layout"+i+"' style='padding:10px'>"+
 									"<div id='textual_content"+i+"'>"+output[i].Details+"</div>"+
 								"</div>"+
-								"<div id='link_layout"+i+"' style='padding:10px'>"+get_News_link(i)+"</div>"+
-								"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:10px' "+
+								"<div id='link_layout"+i+"'>"+get_News_link(i)+"</div><br/>"+
+								"<div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:5px;padding-right:5px' "+
 										"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 								"<br/><hr/>"+
 								"<div id='file_attachment_layout"+i+"'></div>"+
 								"<div>"+status_layout+"</div>"+
-								"<span style='font-size:8pt;float:right'>"+
+								"<span style='font-size:8pt;float:right;padding:5px'>"+
 								getHumanReadableDate(created_at)+"</span>"+	
 							"</div>";
 							document.getElementById("right_column").innerHTML=article_right;

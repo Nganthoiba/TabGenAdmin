@@ -22,6 +22,7 @@
 					$id = $_POST['article_id'];//it can be article id/new article Id
 					$article_id=$_POST['article_id'];
 					$time=time()*1000;
+					/*For articles of cme and reference*/
 					if(!empty($_POST['textual_content'])){
 						$text = $_POST['textual_content'];
 						$text = str_replace ("'","''", $text);
@@ -68,7 +69,7 @@
 						}
 					}
 					else if(!empty($_POST['news_link'])){
-						$news_link = $_POST['news_link'];
+						$news_link = $_POST['news_link']=="null"?null:$_POST['news_link'];
 						$query = "update News set Link='$news_link', UpdateAt=$time where Id='$id'";
 						if($conn->query($query)){
 							echo json_encode(array("status"=>true,"message"=>"Successfully updated..."));

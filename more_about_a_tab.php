@@ -272,15 +272,14 @@
 													output[i].Name+
 													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 												"</div>"+
-												"<div style='height:70%;padding:10px'>"+
+												"<div>"+
 													"<div id='image_content"+i+"'>"+image_layout+"</div><br/>"+
-													"<div id='textual_content"+i+"'>"+output[i].Textual_content+
+													"<div class='textual_content' id='textual_content"+i+"'>"+output[i].Textual_content+
 														"<button class='close' onclick='editArticle(\""+i+"\");'>"+
 														"<span class='glyphicon glyphicon-pencil'></span></button>"+
 													"</div>"+
 													"<br/>"+
-													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
-														"id='link_content"+i+"'>"+link_layout+"</div>"+
+													"<div id='link_content"+i+"'>"+link_layout+"</div><br/>"+
 													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
 														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 													"<div id='file_attachment_layout"+i+"'></div>"+	
@@ -303,15 +302,14 @@
 													output[i].Name+
 													"<input type='hidden' id='article_id"+i+"' value='"+output[i].Id+"'/>"+	
 												"</div>"+
-												"<div style='height:70%;padding:10px'>"+
+												"<div>"+
 													"<div id='image_content"+i+"'>"+image_layout+"</div><br/>"+
-													"<div id='textual_content"+i+"'>"+output[i].Textual_content+
+													"<div class='textual_content' id='textual_content"+i+"'>"+output[i].Textual_content+
 														"<button class='close' onclick='editArticle(\""+i+"\");'>"+
 														"<span class='glyphicon glyphicon-pencil'></span></button>"+
 													"</div>"+
 													"<br/>"+
-													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
-														"id='link_content"+i+"'>"+link_layout+"</div>"+
+													"<div id='link_content"+i+"'>"+link_layout+"</div><br/>"+
 													"<div style='width:98%;overflow:hidden;overflow-x:auto' "+
 														"id='files_content"+i+"'>"+getFiles(i)+"</div>"+
 													"<div id='file_attachment_layout"+i+"'></div>"+	
@@ -469,12 +467,14 @@
 								if(youtube_parser(Link)!=null){
 									var video_id = youtube_parser(Link);
 									link_layout=""+
-									"<center><iframe height='310' width='460' allowfullscreen='true'"+
+									"<div class='videoWrapper'><iframe allowfullscreen='true'"+
 										" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
-									"</iframe></center>";
+									"</iframe></div>";
 								}
 								else{
-									link_layout="<br/><a href='"+Link+"' target='_blank'>"+Link+"</a><br/>";
+									link_layout="<br/><div style='width:98%;overflow:hidden;overflow-x:auto'>"+
+									"<a href='"+Link+"' target='_blank'>"+Link+"</a>"+
+									"</div><br/>";
 								}				
 							}
 							return link_layout;
