@@ -503,7 +503,7 @@
 									"</iframe></div>";
 								}
 								else{
-									link_layout="<br/><div style='width:98%;overflow:hidden;overflow-x:auto'>"+
+									link_layout="<br/><div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:5px;padding-right:5px'>"+
 									"<a href='"+Link+"' target='_blank'>"+Link+"</a>"+
 									"&nbsp;<button class='btn btn-warning' onclick='remove_link(\""+i+"\");'>Remove link</button>"+
 									"</div><br/>";
