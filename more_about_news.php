@@ -505,7 +505,7 @@
 			if(youtube_parser(url)!=null){
 				var video_id = youtube_parser(url);
 				link_layout=""+
-					"<div style='float:right;padding-right:23px'><button class='btn-remove'"+
+					"<div style='float:right;padding-right:28px'><button class='btn-remove'"+
 					" onclick='remove_link(\""+i+"\");'>X</button></div><br/>"+
 					"<div class='videoWrapper'>"+
 						"<iframe allowfullscreen='true'"+
