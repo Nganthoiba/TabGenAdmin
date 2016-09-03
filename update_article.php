@@ -35,7 +35,7 @@
 						}
 					}
 					else if(!empty($_POST['Links'])){
-						$links = $_POST['Links'];
+						$links = $_POST['Links']=="null"?null:$_POST['Links'];
 						$query = "update Article set Links='$links', UpdateAt=$time where Id='$id'";
 						if($conn->query($query)){
 							echo json_encode(array("status"=>true,"message"=>"Successfully updated...","link"=>$links));

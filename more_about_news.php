@@ -462,7 +462,7 @@
 		});
 	}
 	
-	/*function to remove link of an article*/
+	/*function to remove link of a news article*/
 	function remove_link(i){
 		
 		var article_id = output[i].Id;

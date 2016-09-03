@@ -452,6 +452,35 @@
 						document.getElementById("editLinkResponse").innerHTML="";
 					}
 					
+					/*function to remove link of a news article*/
+					function remove_link(i){
+						var article_id = output[i].Id;
+						$.ajax({
+							url: "update_article.php",
+							type:"POST",
+							data:{"article_id":article_id,"Links":"null"},
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader('Authorization',user_session.token);
+							},
+							success: function(resp){	
+								var json_resp = JSON.parse(resp);
+								if(json_resp.status==true){
+									swal("Link removed", "Link has been removed", "success");
+									output[i].Links="";
+									$("#link_content"+i).html(get_link(i));
+									document.getElementById("btn_group"+i).innerHTML=get_button_layout(i);
+								}
+								else{
+									swal("Update Failed!", json_resp.message, "error");
+								}
+							},
+							error: function(x,y,z){
+								swal(z+"!", "Request could not be fulfilled due to server error or "+
+											"requested resource is not found or not working well.", "error");
+							}
+						});
+					}
+					
 					/*function to get link of an article if exists*/
 					function get_link(i){
 						if(template_type=="CME Template"){
@@ -460,13 +489,15 @@
 						else{
 							var Link=output[i].Links;
 							var link_layout="";
-							if(Link.trim()==0){
+							if(Link.trim()==0 || Link==null){
 								link_layout="";
 							}
 							else{
 								if(youtube_parser(Link)!=null){
 									var video_id = youtube_parser(Link);
 									link_layout=""+
+									"<div style='float:right;padding-right:23px'><button class='btn-remove'"+
+									" onclick='remove_link(\""+i+"\");'>X</button></div><br/>"+
 									"<div class='videoWrapper'><iframe allowfullscreen='true'"+
 										" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
 									"</iframe></div>";
@@ -474,6 +505,7 @@
 								else{
 									link_layout="<br/><div style='width:98%;overflow:hidden;overflow-x:auto'>"+
 									"<a href='"+Link+"' target='_blank'>"+Link+"</a>"+
+									"&nbsp;<button class='btn btn-warning' onclick='remove_link(\""+i+"\");'>Remove link</button>"+
 									"</div><br/>";
 								}				
 							}
