@@ -757,8 +757,10 @@
 						
 						$("#uploadFileForm"+i).submit(function(e) {	
 							var path = $("#userFile"+i).val();
-							
 							var path_length = $('#userFile'+i).val().trim().length;
+							
+							var file_input = document.getElementById("userFile"+i);
+							var file = file_input.files[0];
 							
 							if(path==null || path_length==0){
 								$("#file_attachment_layout"+i).html("<center><br/><div class='select_file_bg'>"+
@@ -773,6 +775,15 @@
 									"Unsupported file type, please select one of the supported files as listed below:<br/>"+
 									"<p><strong>PDF, MS Word Document,PNG, CSV, SVG, Power Point(pptx), text file(txt), "+
 									"JPEG, Rich text(rtf), html, Spreadsheet MS Excel(xlsx), JSON file, MP4 video file </strong></p>"+
+									"<center><button type='button' class='btn' "+
+									"onclick='attachFile(\""+i+"\");'>OK</button></center>"+
+									"</div>");
+								return false;
+							}
+							else if(file.size>1024*1024*80){
+								$("#file_attachment_layout"+i).html("<br/><div class='isa_warning'>"+
+									"<p><strong>Large file size:</strong> "+
+									"File size must not exceed 80 MB</p>"+
 									"<center><button type='button' class='btn' "+
 									"onclick='attachFile(\""+i+"\");'>OK</button></center>"+
 									"</div>");
