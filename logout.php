@@ -25,7 +25,7 @@
 							unset($_COOKIE['user_details']);
 							unset($_COOKIE['login_header_response']);
 						}
-						header('Location:http://localhost/TabGenAdmin/');
+						header('Location:http://'.IP.'/TabGenAdmin/');
 					}
 					else{
 						$fcm_token = $_POST['fcm_token'];
