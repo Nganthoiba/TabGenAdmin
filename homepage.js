@@ -294,7 +294,7 @@ $(document).ready(function (){
 			var access =document.getElementById("access_yes").checked;
 			var org_name = $("#select_org_for_role").val();
 			//var access =$("#access_yes").val();
-			var ousel="";
+			var ousel=$("#select_ou_4_role").val();
 			var post_data="";
 			var role_type=$("#roletype").val();
 			if(rolaname.trim().length==0){
@@ -302,14 +302,18 @@ $(document).ready(function (){
 				$("#error3").html("<center>Please fill up role name.</center>");
 				return false;
 			}
-			if(access==true)
-			{
-				ousel =$("#select_ou_4_role").val();
-				post_data = "rolaname="+rolaname+"&ousel="+ousel+"&role_type="+role_type+"&ou_specific="+access+"&org_name="+org_name;
+			if(ousel.trim().length==0){
+				$("#error3").css('color','red');
+				$("#error3").html("<center>It seems no OU exists for the selected Organisation. Create it first.</center>");
+				return false;
 			}
+			/*if(access==true)
+			{*/
+				post_data = "role_name="+rolaname+"&ousel="+ousel+"&role_type="+role_type+"&ou_specific="+access+"&org_name="+org_name;
+			/*}
 			else{
-				post_data = "rolaname="+rolaname+"&role_type="+role_type+"&ou_specific="+access+"&org_name="+org_name;
-			}
+				post_data = "role_name="+rolaname+"&role_type="+role_type+"&ou_specific="+access+"&org_name="+org_name;
+			}*/
 			$("#error3").html("<center><img src='img/loading.gif'/></center>");
 			$("#error3").css('color','black');
 			$.ajax({
@@ -566,6 +570,35 @@ function isValidUrl(url){
 		});										
 	}
 	
+	/*javascript function to get list of OUs dropdown*/
+	function get_list_of_OUs(org_name,target_id,error_display){
+		/* target_id is the id of layout (html tags) like div, span, select where the list is going to be displayed*/
+		$.ajax({
+			type: "GET",
+			url: "orgUnitList.php",
+			data: {"org_name":org_name},
+			success: function(data){
+				if(data.trim()!="null"){
+					var ou_list = JSON.parse(data);
+					var list=" ";
+					for(var i=0;i<ou_list.length;i++){
+						list+="<option>"+ou_list[i].OrganisationUnit+"</option>";
+					}
+					document.getElementById(target_id).innerHTML=list;
+					document.getElementById(error_display).innerHTML="";
+					$("#error3").css('color','black');
+				}
+				else{
+					document.getElementById(target_id).innerHTML="<option></option>";
+					document.getElementById(error_display).innerHTML="<center>It seems no OU exists for the selected Organisation."+
+					" Create it first.</center>";
+					$("#error3").css('color','red');
+				}
+				onChangeOU();// update the changes in tabstrip layout
+			} 
+		});										
+	}
+	
 	//javascript function to get human readable time
 	function getHumanReadableTime(date){
 		var hour;
@@ -812,6 +845,8 @@ function isValidUrl(url){
 								}
 								else{
 									document.getElementById(ouListingId).innerHTML="<option></option>";
+									document.getElementById(resultDisplayId).innerHTML="<p>No OU exists.</p>";
+									alert("No OU exists.");
 								}
 								onChangeOU();
 							}

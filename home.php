@@ -350,11 +350,11 @@
 										<select class="form-control" id="select_org_for_role">
 											<script type="text/javaScript">
 												$(document).ready(function(){
-													viewOrgs("dropdown","select_org_for_role","all");
-													
+													//viewOrgs("dropdown","select_org_for_role","all");
+													viewOrgListWithOUs("select_org_for_role","select_ou_4_role","error3");
 													$("#select_org_for_role").change(function(){
 														var org = $("#select_org_for_role").val();
-														getOUlists(org,"select_ou_4_role");
+														get_list_of_OUs(org,"select_ou_4_role","error3");
 													});
 												});
 											</script>
@@ -365,26 +365,16 @@
 									<label class="col-sm-4  control-label">OU Specific</label>
 									<div class="col-sm-4">
 										<label class="radio-inline"><input type="radio" name="optradio" 
-											onclick="disp_ou_selector();" id="access_yes">Yes</label>
+											 id="access_yes" checked>Yes</label>
 										<label class="radio-inline"><input type="radio" name="optradio" 
-											onclick="hide_ou_selector();" id="access_no">No</label>
-										<script type="text/JavaScript">
-											function disp_ou_selector(){
-												document.getElementById("ou_section_for_creating_role").innerHTML=""+
-												"<label class='col-sm-4 control-label'>Select an OU:</label>"+
-												"<div class='col-sm-8'>"+
-													"<select class='form-control' id='select_ou_4_role'></select>"+
-												"</div>";
-												var org = $("#select_org_for_role").val();
-												getOUlists(org,"select_ou_4_role");
-											}
-											function hide_ou_selector(){
-												document.getElementById("ou_section_for_creating_role").innerHTML=" ";
-											}	
-										</script>
+											 id="access_no">No</label>
 									</div>
 								</div>
 								<div class="form-group" id="ou_section_for_creating_role">
+									<label class='col-sm-4 control-label'>Select an OU:</label>
+									<div class='col-sm-8'>
+										<select class='form-control' id='select_ou_4_role'></select>
+									</div>
 								</div>
 							</div>
 							<div class="panel-footer clearfix">
