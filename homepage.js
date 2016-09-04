@@ -2,7 +2,7 @@
 var modalVerticalCenterClass = ".modal";
 var user_list; //list of users
 var IP="128.199.111.18";//server IP
-
+/*displaying modals vertically center*/
 function centerModals($element) {
     var $modals;
     if ($element.length) {
@@ -103,6 +103,7 @@ $(document).ready(function(){
 			createTab();
 		});
 });
+/*function to create a tab*/
 function createTab(){
 			document.getElementById("createTabResponse").innerHTML="<center>Wait please....</center>";
 			document.getElementById("createTabResponse").style.color="black";

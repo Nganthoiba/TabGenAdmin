@@ -64,7 +64,7 @@ function randId($length){
 	}
 	return $rand;
 }
-	/* function to find number of tabs of a particular role*/
+/* function to find number of tabs of a particular role*/
 function existingNoOfTabs($roleName,$org_unit,$conn){
 	$res = $conn->query("SELECT COUNT(*) AS NO_OF_TABS 
 							FROM Tab,Role 
@@ -465,7 +465,6 @@ function getUserDisplayNameById($conn,$user_id){
 	function deleteATab($conn,$tab_id,$token_id){
 		$tab_details = getTabWithTemplate($conn,$tab_id);
 			if($tab_details['Template_Name']=="Chat Template"){
-				//echo json_encode(array("status"=>false,"message"=>$token_id));
 				if($token_id!=null){
 					/*getting channel details for the channel having same name as the earlier tab name*/
 					$tab_name=$tab_details['Name'];
@@ -508,7 +507,9 @@ function getUserDisplayNameById($conn,$user_id){
 	//this function will delete a tab from the table in database
 	function deleteTab($conn, $tab_id){
 		$time = time()*1000;
+		/*delete all the tuples from the role and tab association where tab id is $tab_id*/
 		$query1 = "delete from RoleTabAsson where TabId='$tab_id'";
+		/*setting DeleteAt time of a tab*/
 		$query2 = "update Tab set DeleteAt='$time' where Id='$tab_id'";
 		if($conn->query($query1) && $conn->query($query2)){	
 			return json_encode(array("status"=>true,"message"=>"Successfully deleted"));
@@ -518,49 +519,13 @@ function getUserDisplayNameById($conn,$user_id){
 		}		
 	}
 	
-	//function to delete an organisation unit
-	
-	function deleteOU($conn,$org_unit_id){
-		$ou_name=getOUNameByOuId($conn,$org_unit_id);
-		$time = time()*1000;
-		$res1=$conn->query("update Users set DeleteAt='$time' where Id in (select user_id 
-							from User_OU_Mapping where OU_id='$org_unit_id')");
-		if($res1){
-			$res2=$conn->query("delete from User_OU_Mapping where OU_id = '$org_unit_id'");
-			if($res2){
-				$query="delete from OrganisationUnit where OrganisationUnit.Id='$org_unit_id'";
-				$res3 = $conn->query($query);					
-				if($res3){	
-					$result=$conn->query("select Id from Tab where RoleId in 
-					(select Id from Role where OrganisationUnit='$ou_name')");
-					if($result){	
-						while($row=$result->fetch(PDO::FETCH_ASSOC)){
-							deleteATab($conn,$row['Id']);
-						}	
-					}			
-					$conn->query("Update Role set DeleteAt='$time' where OrganisationUnit='$ou_name'");
-					
-					$conn->query("delete from RoleTabAsson 
-									where TabId in (select Id from Tab where DeleteAt!=0)
-									OR RoleId in (select Id from Role where DeleteAt!=0)");
-					return true;
-				}
-				else return false;
-			}
-			else{ 
-				return false;
-			}
-		}
-		else return false;
-	}
-	
 	//function to update first name (display name)
 	function updateUserFirstName($conn,$user_id,$display_name){
 		$query = "update Users set FirstName='$display_name' where Id='$user_id'";
 		$conn->query($query);
 	}
 	
-	//function to get number of replies
+	//function to get number of replies of a message
 	function getNoOfReplies($conn,$post_id){
 		$query = "select count(*) as no_of_replies from Posts where RootId='$post_id'";
 		$res=$conn->query($query);

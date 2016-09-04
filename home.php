@@ -855,7 +855,6 @@
 													<select id="choose_role" class="form-control">
 															<script type="text/JavaScript">
 																$(document).ready(function(){
-																	//getRoles("choose_role",$("#choose_ou").val());
 																	$("#choose_role").change(function(){
 																		getAssociatedTabs("associated_tabs");
 																		validate_and_get_tabs();
@@ -873,7 +872,6 @@
 										</div>
 										<script type="text/JavaScript">
 											$(document).ready(function(){
-												//getAssociatedTabs("associated_tabs");
 												$("#associated_tabs").html("<h3 align='center'>Click Refresh button "+
 												"<br/> to display all the associated tabs</h3>");
 																								
@@ -1182,7 +1180,7 @@
 				</button>
 				<h4 class="modal-title" id="myModalLabel">List of Tabs created:</h4>
 			</div>
-			<div class="modal-body" style="height:650px;overflow:hidden;overflow-y:auto;">
+			<div class="modal-body" style="height:600px;overflow:hidden;overflow-y:auto;">
 				<table style='width:100%;' id="get_all_tabs">
 					<script type="text/JavaScript">
 						$(document).ready(function(){
