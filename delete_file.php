@@ -2,12 +2,16 @@
 /*deleting a file*/
 include('tabgen_php_functions.php');
 include('connect_db.php');
-
-	if(empty($_POST['user_id'])){
-		echo json_encode(array("status"=>false,"message"=>"Please pass user id"));
+$token = get_token_from_header();//getting token from header
+if($token==null){
+	echo json_encode(array("status"=>false,"message"=>"Your request is unauthorized."));
+}
+else{
+	$user_id = getUserIdByToken($conn,$token);
+	if($user_id==null){
+		echo json_encode(array("status"=>false,"message"=>"Invalid token"));
 	}
 	else{
-		$user_id = $_POST['user_id'];
 		if(isValidUser($conn,$user_id)){
 			if(isAdmin($conn,$user_id)){
 				if(!empty($_POST['file_id'])){
@@ -45,4 +49,5 @@ include('connect_db.php');
 			echo json_encode(array("status"=>false,"message"=>"Sorry, the user id does not exist."));
 		}
 	}
+}
 ?>

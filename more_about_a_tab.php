@@ -156,7 +156,10 @@
 								$.ajax({
 									url: "delete_file.php",
 									type: "POST",
-									data: {"user_id":user_session.id,"file_id":file_id,"article_id":article_id},
+									data: {"file_id":file_id,"article_id":article_id},
+									beforeSend: function (xhr) {
+										xhr.setRequestHeader('Authorization',user_session.token);
+									},
 									success: function(resp){
 										var json_resp = JSON.parse(resp);
 										if(json_resp.status==true){
