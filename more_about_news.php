@@ -515,7 +515,7 @@
 			}
 			else{
 				link_layout="<br/><div style='padding:5px'><a href='"+url+"' target='_blank'>"+url+"</a>"+
-				"&nbsp;<button class='btn btn-warning' onclick='remove_link(\""+i+"\");'>Remove link</button>"+
+				"&nbsp;<button class='btn-remove' onclick='remove_link(\""+i+"\");'>X</button>"+
 				"</div><br/>";
 			}
 		}
@@ -798,7 +798,7 @@
 											refreshFileLayout(i);
 										}
 										else{
-											$("#file_attachment_layout"+i).html("<center><br/><div class=''>"+
+											$("#file_attachment_layout"+i).html("<center><br/><div class='isa_error'>"+
 												json_resp.message+
 												"<button type='button' class='close' "+
 													"onclick='attachFile(\""+i+"\");'>&times;</button>"+

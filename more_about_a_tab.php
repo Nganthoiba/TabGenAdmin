@@ -134,7 +134,7 @@
 												extractFileName(files)+"</a>"+
 												"</div>";
 						}
-						files_layout=j>0?"<div><h5>Attached files:</h5></div>"+files_layout:"";
+						files_layout=j>0?"<div style='padding-left:5px;padding-right:5px'><h5>Attached files:</h5></div>"+files_layout:"";
 						return files_layout;
 					}
 					/*js function to delete a file*/
@@ -505,7 +505,7 @@
 								else{
 									link_layout="<br/><div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:5px;padding-right:5px'>"+
 									"<a href='"+Link+"' target='_blank'>"+Link+"</a>"+
-									"&nbsp;<button class='btn btn-warning' onclick='remove_link(\""+i+"\");'>Remove link</button>"+
+									"&nbsp;<button class='btn-remove' onclick='remove_link(\""+i+"\");'>X</button>"+
 									"</div><br/>";
 								}				
 							}
@@ -677,11 +677,11 @@
 						}
 						return false;
 					}
-					/*js for uploading any file*/
+					/*js for uploading any file for an article*/
 					function attachFile(i){
 						var article_id = document.getElementById("article_id"+i).value;
 						var file_upload_layout=""+
-							"<div style='padding-right:20px'>"+
+							"<div style='padding-left:5px;padding-right:10px'>"+
 								"<form id='uploadFileForm"+i+"' action='upload.php' method='post'>"+
 									"<div id='FileAttachtargetLayer"+i+"'></div>"+
 									"<button type='button' class='close' "+
@@ -748,7 +748,7 @@
 											refreshFileLayout(i);
 										}
 										else{
-											$("#file_attachment_layout"+i).html("<center><br/><div class=''>"+
+											$("#file_attachment_layout"+i).html("<center><br/><div class='isa_error'>"+
 												json_resp.message+
 												"<button type='button' class='close' "+
 													"onclick='attachFile(\""+i+"\");'>&times;</button>"+
@@ -762,7 +762,7 @@
 						});
 					}
 										
-					/*js for uploading image file*/
+					/*js for uploading image file for an article*/
 					function uploadImage(i){
 						var article_id = document.getElementById("article_id"+i).value;
 						

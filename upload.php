@@ -4,8 +4,10 @@ include('connect_db.php');
 include('tabgen_php_functions.php');
 
 /*setting file upload size configuration programatically*/
-ini_set('upload_max_filesize', '1000M');
-ini_set('post_max_size', '16M');
+ini_set('upload_max_filesize','256M');
+ini_set('post_max_size','257M');
+ini_set('max_input_time', 1300);
+ini_set('max_execution_time', 1300);
 /*********************************************************/
 
 if(!empty($_FILES)) {
@@ -17,12 +19,11 @@ if(!empty($_FILES)) {
             mkdir($new_path , 0777);
         }
 		$targetPath = $new_path.$_FILES['userImage']['name'];
-		if(move_uploaded_file($sourcePath,$targetPath)) {
-			 //echo "Target: ".$targetPath;
+		if(move_uploaded_file($sourcePath,$targetPath)) {//saving file
 			if($conn){
 				$time=time()*1000;
 				$query = "Update Article set Images='$targetPath', UpdateAt=$time where Id='$article_id'";
-				if($conn->query($query)){
+				if($conn->query($query)){//updating db
 					echo json_encode(array("status"=>true,"message"=>"Successfully uploaded..","image_path"=>$targetPath));
 				}
 				else{
@@ -54,7 +55,6 @@ if(!empty($_FILES)) {
         }
         $targetPath = $new_path.$_FILES['userFile']['name'];
 		if(move_uploaded_file($sourcePath,$targetPath)) {
-			 //echo "Target: ".$targetPath;
 			if($conn){
 				if(isFileAlreadyExist($conn,$article_id,$targetPath)){
 					echo json_encode(array("status"=>false,"message"=>"File already exists."));
