@@ -729,10 +729,9 @@
 									"</div>");
 								return false;
 							}
-							else if(file.size>1024*1024*80){
+							else if(file.size>1024*1024*20){
 								$("#file_attachment_layout"+i).html("<br/><div class='isa_warning'>"+
-									"<p><strong>Large file size:</strong> "+
-									"File size must not exceed 80 MB</p>"+
+									"<p>File size must not exceed 20 MB.</p>"+
 									"<center><button type='button' class='btn' "+
 									"onclick='attachFile(\""+i+"\");'>OK</button></center>"+
 									"</div>");
