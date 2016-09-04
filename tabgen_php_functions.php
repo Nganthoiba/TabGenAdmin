@@ -462,10 +462,9 @@ function getUserDisplayNameById($conn,$user_id){
 	}
 	
 	//function to delete a tab along with channels 
-	function deleteATab($conn,$tab_id){
+	function deleteATab($conn,$tab_id,$token_id){
 		$tab_details = getTabWithTemplate($conn,$tab_id);
 			if($tab_details['Template_Name']=="Chat Template"){
-				$token_id = get_token();
 				//echo json_encode(array("status"=>false,"message"=>$token_id));
 				if($token_id!=null){
 					/*getting channel details for the channel having same name as the earlier tab name*/
@@ -500,18 +499,13 @@ function getUserDisplayNameById($conn,$user_id){
 				}
 						
 			}
-			else if($tab_details['Template_Name']=="Latest News Template"){
-				$query = "delete from News where title=(select Name from Tab where Id='$tab_id')";
-				if($conn->query($query)){
-					return deleteTab($conn,$tab_id);
-				}
-			}else{
+			else{
 				//deleting Tabs which is not chat template
 				return deleteTab($conn,$tab_id);
 			}
 		
 	}
-	//this function will modify tabs in Table
+	//this function will delete a tab from the table in database
 	function deleteTab($conn, $tab_id){
 		$time = time()*1000;
 		$query1 = "delete from RoleTabAsson where TabId='$tab_id'";

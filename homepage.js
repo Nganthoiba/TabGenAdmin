@@ -1265,21 +1265,21 @@ $(document).ready(function(){
 		$.ajax({
 			url:"getAllTabs.php",
 			type:"GET",
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization',user_session.token);
+			},
 			success: function(resp){
-				if(resp.trim()=="false"){
-					document.getElementById(id).innerHTML="<h1>Unable to connect database<h1>";
-				}
-				else if(resp.trim()=="sesssion_expired!"){
-					document.getElementById(id).innerHTML="<h1>Oops! Session expired, Please Login again.</h1>";
-				}
-				else if(resp.trim()=="null"){
+				var result = JSON.parse(resp);
+				if(result.status==false){
+					/*for any negative response from server*/
 					document.getElementById(id).innerHTML="<br/><div>"+
-					"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
-					"<br/>No tab exists for this role</h1></div>";
+						"<h1 align='center'><span class='glyphicon glyphicon-alert' style='height:80px;width:80px'></span>"+
+						"<br/>"+result.message+"</h1></div>";
 					document.getElementById(id).style.color="#FE642E";
 				}
 				else{
-					var json_arr = JSON.parse(resp);
+					/*for positive response from server*/
+					var json_arr = result.tabs_resp;
 					var layout="";
 					var popup_content_form=" ";
 					var see_more="";
@@ -1550,7 +1550,7 @@ $(document).ready(function(){
 						var resp_arr = JSON.parse(response);
 						if(resp_arr.status==true){
 							getAssociatedTabs("associated_tabs");
-							validate_and_get_tabs();
+							validate_and_get_tabs();//this will display a list of tabs which are not associated to the selected role
 						}
 						else {
 							alert(resp_arr.message);
@@ -1582,6 +1582,9 @@ $(document).ready(function(){
 					type: "POST",
 					url: "delete_a_tab.php",
 					data: {"tab_id":tab_id},
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader('Authorization',user_session.token);
+					},
 					success:function(resp){
 						var json_resp=JSON.parse(resp);
 						if(json_resp.status==true){
