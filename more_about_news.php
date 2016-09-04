@@ -257,6 +257,9 @@
 								$("#image_progress_div"+i).show();
 								$(this).ajaxSubmit({
 									url: "upload.php", 
+									beforeSend: function (xhr) {
+										xhr.setRequestHeader('Authorization',user_session.token);
+									},
 									beforeSubmit: function() {
 									  $("#progress-bar"+i).width('0%');
 									},
@@ -795,6 +798,9 @@
 								$(this).ajaxSubmit({ 
 									beforeSubmit: function() {
 									  $("#file_progress-bar"+i).width('0%');
+									},
+									beforeSend: function (xhr) {
+										xhr.setRequestHeader('Authorization',user_session.token);
 									},
 									uploadProgress: function (event, position, total, percentComplete){	
 										$("#file_progress-bar"+i).width(percentComplete + '%');

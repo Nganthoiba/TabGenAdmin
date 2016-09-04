@@ -299,8 +299,7 @@ a:hover + .preview_link,.preview_link:hover{
 .article {
 	float: left;
     margin: 10px;
-	max-width:95%;
-    min-width: 500px;
+	width: 500px;
     height: auto !important;
     overflow:hidden;
     overflow-y:auto;
@@ -315,8 +314,7 @@ a:hover + .preview_link,.preview_link:hover{
 	float: left;
 	padding-top:5px;
     margin: 10px;
-    max-width:95%;
-    min-width: 500px;
+    width: 500px;
     height: auto !important;
     overflow:hidden;
     overflow-y:auto;

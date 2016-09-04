@@ -741,7 +741,10 @@
 								e.preventDefault();
 								$("#file_loader-icon"+i).show();
 								$("#file_progress-div"+i).show();
-								$(this).ajaxSubmit({ 
+								$(this).ajaxSubmit({
+									beforeSend: function (xhr) {
+										xhr.setRequestHeader('Authorization',user_session.token);
+									}, 
 									beforeSubmit: function() {
 									  $("#file_progress-bar"+i).width('0%');
 									},
@@ -825,6 +828,9 @@
 								$("#progress-div"+i).show();
 								$(this).ajaxSubmit({
 									url: "upload.php", 
+									beforeSend: function (xhr) {
+										xhr.setRequestHeader('Authorization',user_session.token);
+									},
 									beforeSubmit: function() {
 									  $("#progress-bar"+i).width('0%');
 									},
