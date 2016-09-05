@@ -580,6 +580,7 @@ function getUserDisplayNameById($conn,$user_id){
 			return $res;
 		}
 	}
+	
 	//function to check whether an article has already been bookmarked by a user or not
 	function isArticleAlreadyBookmarked($conn,$article_id,$user_id){
 		$query="select count(*) as count from BookmarkArticle where article_id='$article_id' and user_id='$user_id'";

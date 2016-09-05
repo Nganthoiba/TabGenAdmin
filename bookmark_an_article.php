@@ -19,6 +19,8 @@ else{
 			echo json_encode(array("status"=>false,"message"=>"You have to send the article id."));
 		}
 		else{
+			
+			
 			/*checks if the article is already bookmarked by the user*/
 			if(isArticleAlreadyBookmarked($conn,$article_id,$user_id)){
 				/*Then unbookmark the article*/
@@ -39,6 +41,9 @@ else{
 					echo json_encode(array("status"=>false,"message"=>"Sorry, your request culd not be fulfilled. Try later."));
 				}
 			}
+			
+			
+				
 		}
 	}
 	else{
