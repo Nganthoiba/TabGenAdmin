@@ -35,8 +35,8 @@
 				$row['detail_url']="http://".SERVER_IP."/TabGenAdmin/getAnArticle.php?article_id=".$row['Id'];
 				$row['external_link_url'] =  "http://".SERVER_IP."/TabGenAdmin/getAnArticleWebView.php?article_id=".$row['Id'];
 				$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
-				$row['is_liked_by_you']=isArticleAlreadyLiked($conn,$row['Id'],$user_id);
 				$row['is_bookmarked_by_you']=isArticleAlreadyBookmarked($conn,$row['Id'],$user_id);
+				$row['is_liked_by_you']=isArticleAlreadyLiked($conn,$row['Id'],$user_id);	
 				$item[]=$row; 
 				$count++;		
 			}
