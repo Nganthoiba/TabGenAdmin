@@ -9,12 +9,10 @@
 		$password = $_POST['password'];
 		if($username!='' && $password!=''){
 			try{
-				//if($conn){
-					/*$team_id = getTeamIdByUsername($conn,$username);
-					if($team_id!=null){*/
-				$team_name = "organisation";//getTeamName($conn,$team_id);
+				
+				$team_name = "organisation";
 				if($team_name!=null){
-					//if(filter_var($email, FILTER_VALIDATE_EMAIL)){		
+							
 					$data = filter_var($username, FILTER_VALIDATE_EMAIL)==false?
 						array("name"=>$team_name,"username"=>$username,"password"=>$password):
 						array("name"=>$team_name,"email"=>$username,"password"=>$password);
@@ -38,7 +36,6 @@
 								setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 							}
 							if($data->roles =="system_admin" || $data->roles =="admin" && get_token()!=null){
-								//header('Location:home.php');$conn->httpHeaderResponse
 								echo json_encode(array("state"=>"true",
 									"location"=>"home.php",
 									"user_details"=>json_encode($user_data),"headers"=>$conn->httpHeaderResponse));
@@ -52,11 +49,7 @@
 							else echo json_encode(array("state"=>"false","message"=>"Unable to connect API, or API is down...."));		
 				}
 				else 
-					echo json_encode(array("state"=>"false","message"=>"Team does not exist"));
-					/*}
-					else echo json_encode(array("state"=>"false","message"=>"Username does not exist."));*/ 
-				/*}
-				else json_encode(array("state"=>"false","message"=>"Unable to connect database!"));*/ 
+					echo json_encode(array("state"=>"false","message"=>"Team does not exist")); 
 			}catch(Exception $e){
 				echo json_encode(array("state"=>"false","message"=>$e->getMessage()));
 			}
@@ -66,6 +59,6 @@
 		}
 	}
 	else {
-		echo "Invalid Request "."<a href='index.html'>Login Again</a>";
+		echo json_encode(array("state"=>"false","message"=>"Invalid Request "."<a href='index.html'>Login Again</a>"));
 	}?>
 
