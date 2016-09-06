@@ -37,7 +37,7 @@
 				$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
 				$row['is_bookmarked_by_you']=isArticleAlreadyBookmarked($conn,$row['Id'],$user_id);
 				$row['is_liked_by_you']=isArticleAlreadyLiked($conn,$row['Id'],$user_id);
-				$row['liked_by_you']=isArticleAlreadyLiked($conn,$row['Id'],$user_id);	
+				$row['liked_by_you']=true;	
 				$item[]=$row; 
 				$count++;		
 			}
