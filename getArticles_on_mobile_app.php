@@ -93,7 +93,7 @@
 			}
 		}
 		else{
-			echo json_encode(array("status"=>false,"message"=>"Sorry, you have passed invalid or expired token."));
+			echo json_encode(array("status"=>false,"message"=>"Sorry, you have passed invalid or expired token.","token"=>$token));
 		}
 	}
 	else{
