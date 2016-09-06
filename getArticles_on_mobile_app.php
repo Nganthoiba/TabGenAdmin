@@ -86,7 +86,7 @@
 					print json_encode($response);
 				}
 				else{	
-					$response=array("status"=>true,"response"=>$outer_arr);
+					$response=array("status"=>true,"user_id"=>$user_id,"response"=>$outer_arr);
 					print json_encode($response);
 				}
 					
