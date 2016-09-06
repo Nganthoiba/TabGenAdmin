@@ -92,10 +92,11 @@
 			}
 		}
 		else{
-			echo json_encode(array("status"=>false,"message"=>"Sorry, you have passed invalid or expired token.","token"=>$token));
+			echo json_encode(array("status"=>false,"response"=>null,
+			"message"=>"Sorry, you have passed invalid or expired token.","token"=>$token));
 		}
 	}
 	else{
-		echo json_encode(array("status"=>false,"message"=>"Sorry, unable to connect database."));
+		echo json_encode(array("status"=>false,"response"=>null,"message"=>"Sorry, unable to connect database."));
 	}
 ?>
