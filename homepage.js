@@ -1,7 +1,7 @@
 /*code for displaying modals verically centered*/
 var modalVerticalCenterClass = ".modal";
 var user_list; //list of users
-var IP="128.199.111.18";//server IP
+var IP="localhost";//server IP
 /*displaying modals vertically center*/
 function centerModals($element) {
     var $modals;
@@ -1761,7 +1761,7 @@ $(document).ready(function(){
 	//js function to set user profile image
 	function set_profile(user_id,display_layout_id){	
 		document.getElementById(display_layout_id).innerHTML="<img class='img-circle'"+
-							"src='http://"+IP+":8065/api/v1/users/"+user_id+"/image' alt='No Profile Image'/>";					
+				"src='http://"+IP+":8065/api/v1/users/"+user_id+"/image' alt='No Profile Image'/>";					
 	}
 
 	/*For resetting password*/
