@@ -1,5 +1,5 @@
 <?php 
-	/*this web service is only for  mobile app: getArticles_on_mobile_app.php: php file for listing out article for CME and Reference tabs in 3,2,1 format.*/
+	/*this web service is only for  mobile app: getting bookmarked articles*/
 	header('Content-Type: application/json');
 	include('tabgen_php_functions.php');
 	include('connect_db.php');
@@ -9,16 +9,52 @@
 		$user_id = getUserIdByToken($conn,$token);
 		
 		if($user_id!=null){
-			
-				
-				$type = $_GET['type'];/*this will tell which type of article, i.e. News or Reference or CME*/
+			$query = "select Id,Name,Textual_content as article_detail,Images as Image 
+							from Article where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
+							and DeleteAt=0 and Active='true' 
+						union
+					 select Id,title as Name,headline as article_detail,Image from News
+							where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
+							and Active='true' 
+					order by CreateAt desc";
+			$item=null;
+			$res=$conn->query($query);
+			$count=0;//counter
+			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$row['Name']=str_replace("''","'",$row['Name']);
+				$row['article_detail']=str_replace("''","'",$row['article_detail']);
+				$row['Image']=($row['Image']==null)?"":$row['Image'];
+				$row['images_url']=($row['Image']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
+								"http://".SERVER_IP."/TabGenAdmin/".$row['Image'];
+				$row['detail_url'] =  "http://".SERVER_IP."/TabGenAdmin/getAnArticleWebView.php?article_id=".$row['Id'];
+				//$row['Filenames']=getAttatchment($conn,$row['Id']);
+				$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
+				$row['is_bookmarked_by_you']=isArticleAlreadyBookmarked($conn,$row['Id'],$user_id);
+				$row['is_liked_by_you']=isArticleAlreadyLiked($conn,$row['Id'],$user_id);	
+				$item[]=$row; 
+				$count++;		
+			}
+							
+						
+			if($count==0){
+				$response=array("status"=>false,
+								"message"=>"You have not bookmarked any article.",
+								"response"=>$item);
+				print json_encode($response);
+			}
+			else{	
+				$response=array("status"=>true,"response"=>$item);
+				print json_encode($response);
+			}
+				/*
+				$type = $_GET['type'];
 				
 				if(!empty($type)){
 					$template_name=getTemplate($type);
 					if($template_name!=null){
 						if($template_name=="CME Template" || $template_name=="Reference Template"){
-							/*This query is for cme and reference*/
-							$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links as external_link_url 
+							
+							$query = "select Id,Name,Textual_content,Images as Image,Links as external_link_url 
 							from Article where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
 							and DeleteAt=0 and Active='true' 
 							and TabId in (select Tab.Id from Tab,TabTemplate where Tab.TabTemplate=TabTemplate.Id 
@@ -28,15 +64,12 @@
 							$res=$conn->query($query);
 							$count=0;//counter
 							while($row=$res->fetch(PDO::FETCH_ASSOC)){
-								$row['CreateAt']=(double)$row['CreateAt'];
-								$row['DeleteAt']=(double)$row['DeleteAt'];
-								$row['UpdateAt']=(double)$row['UpdateAt'];
 								$row['Name']=str_replace("''","'",$row['Name']);
 								$row['Textual_content']=str_replace("''","'",$row['Textual_content']);
 								$row['short_description']=substr($row['Textual_content'],0,80)."...";
-								$row['Images']=($row['Images']==null)?"":$row['Images'];
-								$row['images_url']=($row['Images']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
-								"http://".SERVER_IP."/TabGenAdmin/".$row['Images'];
+								$row['Image']=($row['Image']==null)?"":$row['Image'];
+								$row['images_url']=($row['Image']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
+								"http://".SERVER_IP."/TabGenAdmin/".$row['Image'];
 								$row['detail_url']="http://".SERVER_IP."/TabGenAdmin/getAnArticle.php?article_id=".$row['Id'];
 								$row['external_link_url'] =  "http://".SERVER_IP."/TabGenAdmin/getAnArticleWebView.php?article_id=".$row['Id'];
 								$row['Filenames']=getAttatchment($conn,$row['Id']);
@@ -46,7 +79,7 @@
 								$item[]=$row; 
 								$count++;		
 							}
-							/*Response in json*/
+							
 						
 							if($count==0){
 								$response=array("status"=>false,
@@ -60,8 +93,8 @@
 							}
 						}
 						else{
-							/*for news aticles*/
-							$query = "select Id,CreateAt,title,headline,Details as detail_url,Image from News
+							
+							$query = "select Id,title,headline,Details as detail_url,Image from News
 							where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
 							and Active='true' order by CreateAt desc";
 							$item=null;
@@ -82,7 +115,7 @@
 								$item[]=$row; 
 								$count++;		
 							}
-							/*Response in json*/
+							
 						
 							if($count==0){
 								$response=array("status"=>false,
@@ -106,7 +139,7 @@
 					$response=array("status"=>false,
 					"message"=>"You have to pass a parameter called 'type', which the value should be either News or Reference or CME","response"=>null);
 					print json_encode($response);
-				}
+				}*/
 				
 		}
 		else{
