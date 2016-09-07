@@ -38,50 +38,14 @@
 					$count++;		
 				}
 				
-				$outer_arr=null;
-				$inner_arr=null;
-				/*program for grouping items in 3,2,1 format*/
-				if($count>3){
-					$i=0;
-					while($i<=2){
-						$inner_arr[$i]=$item[$i];
-						$i++;
-					}
-					$outer_arr[]=array("item_count"=>$i,"items"=>$inner_arr);
-					$j=$i;
-					while($j<$count){
-						$k=0;
-						$grp_arr=null;
-						$lim=($count-$j>=2)?2:$count-$j;
-						for($k=0;$k<$lim;$k++){
-							if($k>0)
-								$grp_arr[$k]=$item[$j+1];
-							else
-								$grp_arr[$k]=$item[$j];
-						}
-						$outer_arr[]=array("item_count"=>$k,"items"=>$grp_arr);
-						$j=$j+$lim;
-					}	
-				}
-				else if($count==0){
-					$outer_arr=null;
-				}
-				else{
-					$j=0;
-					while($j<$count){
-						$inner_arr[$j]=$item[$j];
-						$j++;
-					}
-					$outer_arr[]=array("item_count"=>$j,"items"=>$inner_arr);
-				}
 				/*Response in json*/
 				
 				if($count==0){
-					$response=array("status"=>false,"message"=>"No article has been added for this tab","response"=>$outer_arr);
+					$response=array("status"=>false,"message"=>"No article has been added for this tab","response"=>$item);
 					print json_encode($response);
 				}
 				else{	
-					$response=array("status"=>true,"user_id"=>$user_id,"response"=>$outer_arr);
+					$response=array("status"=>true,"user_id"=>$user_id,"response"=>$item);
 					print json_encode($response);
 				}
 		}
