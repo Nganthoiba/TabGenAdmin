@@ -11,12 +11,12 @@
 		if($user_id!=null){
 			$query = "select Id,Name,Textual_content as article_detail,Images as Image 
 							from Article where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
-							and DeleteAt=0 and Active='true' ";
-						/*union
+							and Active='true'
+						union
 					 select Id,title as Name,headline as article_detail,Image from News
 							where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
 							and Active='true' 
-					order by CreateAt desc";*/
+					order by CreateAt desc";
 			$item=null;
 			$res=$conn->query($query);
 			$count=0;//counter
