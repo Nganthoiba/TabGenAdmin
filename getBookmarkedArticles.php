@@ -14,7 +14,7 @@
 				$type = $_GET['type'];/*this will tell which type of article, i.e. News or Reference or CME*/
 				$count=0;//counter
 				if(!empty($type)){
-					$template_name=getTemplateName($type);
+					$template_name=getTemplate($type);
 					if($template_name!=null){
 						if($template_name=="CME Template" || $template_name=="Reference Template"){
 							$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links as external_link_url 
@@ -109,16 +109,16 @@
 				
 		}
 		else{
+			$message = $token==null?"You have not passed token":"Sorry, you have passed invalid or expired token.";
 			echo json_encode(array("status"=>false,"response"=>null,
-			"message"=>"Sorry, you have passed invalid or expired token.","token"=>$token));
+			"message"=>$message,"token"=>$token));
 		}
 	}
 	else{
 		echo json_encode(array("status"=>false,"response"=>null,"message"=>"Sorry, unable to connect database."));
 	}
-	
 	/*function to get template name*/
-	function getTemplateName($type){
+	function getTemplate($type){
 		$template_name=null;
 		switch($type){
 			case "CME": 
