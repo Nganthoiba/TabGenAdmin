@@ -3,22 +3,17 @@
 	header('Content-Type: application/json');
 	include('tabgen_php_functions.php');
 	include('connect_db.php');
-	$tab_id = $_GET['tab_id'];
+	
 	if($conn){
 		$token = $_GET['token'];//getting token
 		$user_id = getUserIdByToken($conn,$token);
 		
 		if($user_id!=null){
-			if(empty($tab_id)){
-				echo json_encode(array("status"=>false,"message"=>"Sorry, you have not passed the tab ID."));
-			}
-			else if(!isTabExistById($conn,$tab_id)){
-				echo json_encode(array("status"=>false,"message"=>"Sorry, the tab does not exists, you have passed an invalid tab ID."));
-			}
-			else{
+			
 				$output=null;
 				$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links as external_link_url 
-				from Article where TabId='$tab_id' and DeleteAt=0 and Active='true' order by CreateAt desc";
+				from Article where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
+				and DeleteAt=0 and Active='true' order by CreateAt desc";
 				
 				$item=null;
 				$res=$conn->query($query);
@@ -89,8 +84,6 @@
 					$response=array("status"=>true,"user_id"=>$user_id,"response"=>$outer_arr);
 					print json_encode($response);
 				}
-					
-			}
 		}
 		else{
 			echo json_encode(array("status"=>false,"response"=>null,
