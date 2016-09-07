@@ -53,7 +53,7 @@
 								print json_encode($response);
 							}
 							else{	
-								$response=array("status"=>true,"user_id"=>$user_id,"response"=>$item);
+								$response=array("status"=>true,"response"=>$item);
 								print json_encode($response);
 							}
 						}
@@ -89,7 +89,7 @@
 								print json_encode($response);
 							}
 							else{	
-								$response=array("status"=>true,"user_id"=>$user_id,"response"=>$item);
+								$response=array("status"=>true,"response"=>$item);
 								print json_encode($response);
 							}
 						}
