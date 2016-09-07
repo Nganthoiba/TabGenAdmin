@@ -68,11 +68,10 @@
 							$item=null;
 							$res=$conn->query($query);
 							$count=0;//counter
-							while($row=$res->fetch(PDO::FETCH_ASSOC)){
+							/*while($row=$res->fetch(PDO::FETCH_ASSOC)){
 								$row['CreateAt']=(double)$row['CreateAt'];
 								$row['title']=str_replace("''","'",$row['title']);
 								$row['headline']=str_replace("''","'",$row['headline']);
-								//$row['snippet']=$row['Details']==""||$row['Details']==null?"":substr($row['Details'],0,160)."...";
 								$row['Details']="http://".SERVER_IP."/TabGenAdmin/get_mobile_news_article.php?news_id=".$row['Id'];
 								$row['Image']=$row['Image']==null?"":$row['Image'];
 								$row['image_url']=$row['Image']==null?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":"http://".SERVER_IP."/TabGenAdmin/".$row['Image'];
@@ -82,7 +81,7 @@
 								$row['is_bookmarked_by_you']=isArticleAlreadyBookmarked($conn,$row['Id'],$user_id);
 								$item[]=$row; 
 								$count++;		
-							}
+							}*/
 							/*Response in json*/
 						
 							if($count==0){
