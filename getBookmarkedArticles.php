@@ -10,9 +10,9 @@
 		
 		if($user_id!=null){
 			
-				$item=null;
+				
 				$type = $_GET['type'];/*this will tell which type of article, i.e. News or Reference or CME*/
-				$count=0;//counter
+				
 				if(!empty($type)){
 					$template_name=getTemplate($type);
 					if($template_name!=null){
@@ -23,9 +23,9 @@
 							and TabId in (select Tab.Id from Tab,TabTemplate where Tab.TabTemplate=TabTemplate.Id 
 											and TabTemplate.Name='$template_name')
 							order by CreateAt desc";
-							
+							$item=null;
 							$res=$conn->query($query);
-							
+							$count=0;//counter
 							while($row=$res->fetch(PDO::FETCH_ASSOC)){
 								$row['CreateAt']=(double)$row['CreateAt'];
 								$row['DeleteAt']=(double)$row['DeleteAt'];
@@ -47,7 +47,9 @@
 							/*Response in json*/
 						
 							if($count==0){
-								$response=array("status"=>false,"message"=>"No article has been added for this tab","response"=>$item);
+								$response=array("status"=>false,
+								"message"=>"You have not bookmarked any article.",
+								"response"=>$item);
 								print json_encode($response);
 							}
 							else{	
@@ -63,9 +65,9 @@
 							and tab_id in (select Tab.Id from Tab,TabTemplate where Tab.TabTemplate=TabTemplate.Id 
 											and TabTemplate.Name='$template_name')
 							order by CreateAt desc";
-							
+							$item=null;
 							$res=$conn->query($query);
-							
+							$count=0;//counter
 							while($row=$res->fetch(PDO::FETCH_ASSOC)){
 								$row['CreateAt']=(double)$row['CreateAt'];
 								$row['title']=str_replace("''","'",$row['title']);
@@ -85,8 +87,8 @@
 						
 							if($count==0){
 								$response=array("status"=>false,
-								"message"=>"No article has been added for this tab",
-								"response"=>$item);
+								"message"=>"You have not bookmarked any news article.",
+								"response"=>null);
 								print json_encode($response);
 							}
 							else{	
