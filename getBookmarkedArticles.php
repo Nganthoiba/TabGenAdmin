@@ -9,14 +9,14 @@
 		$user_id = getUserIdByToken($conn,$token);
 		
 		if($user_id!=null){
+			$item=null;
+			$count=0;//counter
+			
+			/*getting articles of cme and references*/
 			$query = "select Id,CreateAt,Name,Textual_content as article_detail,Images as Image from Article 
 						where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
 						and Active='true' order by CreateAt desc";
 												//union
-			
-			$item=null;
-			$count=0;//counter
-			
 			$res=$conn->query($query);
 			
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
