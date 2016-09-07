@@ -61,10 +61,7 @@
 							/*for news aticles*/
 							$query = "Id,CreateAt,title,headline,Details,Image from News
 							where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
-							and Active='true' 
-							and tab_id in (select Tab.Id from Tab,TabTemplate where Tab.TabTemplate=TabTemplate.Id 
-											and TabTemplate.Name='$template_name')
-							order by CreateAt desc";
+							and Active='true' order by CreateAt desc";
 							$item=null;
 							$res=$conn->query($query);
 							$count=0;//counter
