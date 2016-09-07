@@ -56,6 +56,7 @@
 							}
 						}
 						else{
+							/*for news aticles*/
 							$query = "Id,CreateAt,title,headline,Details,Image from News
 							where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
 							and Active='true' 
@@ -115,16 +116,22 @@
 	else{
 		echo json_encode(array("status"=>false,"response"=>null,"message"=>"Sorry, unable to connect database."));
 	}
+	
 	/*function to get template name*/
 	function getTemplateName($type){
+		$template_name=null;
 		switch($type){
 			case "CME": 
-			case "cme": return "CME Template";
+			case "cme": $template_name = "CME Template";
+						break;
 			case "Reference":
-			case "reference": return "Reference Template";
+			case "reference": $template_name = "Reference Template";
+						break;
 			case "News": 
-			case "news": return "Latest News Template";
-			default: return null;
+			case "news": $template_name = "Latest News Template";
+						break;
+			default: $template_name = null;
 		}
+		return $template_name;
 	}
 ?>
