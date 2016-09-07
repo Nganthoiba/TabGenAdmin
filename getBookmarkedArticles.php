@@ -20,6 +20,7 @@
 			$res=$conn->query($query);
 			
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$row['CreateAt']=(double)$row['CreateAt'];
 				$row['Name']=str_replace("''","'",$row['Name']);
 				$row['article_detail']=str_replace("''","'",$row['article_detail']);
 				$row['Image']=($row['Image']==null)?"":$row['Image'];
@@ -41,6 +42,7 @@
 			$res=$conn->query($query);
 			
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$row['CreateAt']=(double)$row['CreateAt'];
 				$row['Name']=str_replace("''","'",$row['Name']);
 				$row['article_detail']=str_replace("''","'",$row['article_detail']);
 				$row['Image']=($row['Image']==null)?"":$row['Image'];
@@ -120,7 +122,7 @@
 							$res=$conn->query($query);
 							$count=0;//counter
 							while($row=$res->fetch(PDO::FETCH_ASSOC)){
-								$row['CreateAt']=(double)$row['CreateAt'];
+								
 								$row['title']=str_replace("''","'",$row['title']);
 								$row['headline']=str_replace("''","'",$row['headline']);
 								$row['detail_url']="http://".SERVER_IP."/TabGenAdmin/get_mobile_news_article.php?news_id=".$row['Id'];
