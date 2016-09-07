@@ -9,14 +9,15 @@
 		$user_id = getUserIdByToken($conn,$token);
 		
 		if($user_id!=null){
-			$query = "select Id,Name,Textual_content as article_detail,Images as Image 
-							from Article where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
-							and Active='true'
-						union
-					 select Id,title as Name,headline as article_detail,Image from News
-							where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
-							and Active='true' 
-					order by CreateAt desc";
+			$query = "select Id,CreateAt,Name,Textual_content as article_detail,Images as Image from Article 
+						where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
+						and Active='true'
+												union
+						select Id,CreateAt,title as Name,headline as article_detail,Image from News
+						where Id in (select article_id from BookmarkArticle where user_id='$user_id')
+						and Active='true'
+
+						order by CreateAt desc";
 			$item=null;
 			$res=$conn->query($query);
 			$count=0;//counter
