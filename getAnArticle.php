@@ -1,4 +1,5 @@
 <?php
+/*mobile app api: getting a particular article*/
 include('tabgen_php_functions.php');
 include('connect_db.php');
 

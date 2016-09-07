@@ -17,6 +17,7 @@
 					$template_name=getTemplate($type);
 					if($template_name!=null){
 						if($template_name=="CME Template" || $template_name=="Reference Template"){
+							/*This query is for cme and reference*/
 							$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links as external_link_url 
 							from Article where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
 							and DeleteAt=0 and Active='true' 
@@ -38,6 +39,7 @@
 								"http://".SERVER_IP."/TabGenAdmin/".$row['Images'];
 								$row['detail_url']="http://".SERVER_IP."/TabGenAdmin/getAnArticle.php?article_id=".$row['Id'];
 								$row['external_link_url'] =  "http://".SERVER_IP."/TabGenAdmin/getAnArticleWebView.php?article_id=".$row['Id'];
+								$row['Filenames']=getAttatchment($conn,$row['Id']);
 								$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
 								$row['is_bookmarked_by_you']=isArticleAlreadyBookmarked($conn,$row['Id'],$user_id);
 								$row['is_liked_by_you']=isArticleAlreadyLiked($conn,$row['Id'],$user_id);	
@@ -59,7 +61,7 @@
 						}
 						else{
 							/*for news aticles*/
-							$query = "select Id,CreateAt,title,headline,Details,Image from News
+							$query = "select Id,CreateAt,title,headline,Details as detail_url,Image from News
 							where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
 							and Active='true' order by CreateAt desc";
 							$item=null;
@@ -69,7 +71,7 @@
 								$row['CreateAt']=(double)$row['CreateAt'];
 								$row['title']=str_replace("''","'",$row['title']);
 								$row['headline']=str_replace("''","'",$row['headline']);
-								$row['Details']="http://".SERVER_IP."/TabGenAdmin/get_mobile_news_article.php?news_id=".$row['Id'];
+								$row['detail_url']="http://".SERVER_IP."/TabGenAdmin/get_mobile_news_article.php?news_id=".$row['Id'];
 								$row['Image']=$row['Image']==null?"":$row['Image'];
 								$row['image_url']=$row['Image']==null?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
 								"http://".SERVER_IP."/TabGenAdmin/".$row['Image'];
