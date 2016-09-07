@@ -11,16 +11,14 @@
 		if($user_id!=null){
 			$query = "select Id,CreateAt,Name,Textual_content as article_detail,Images as Image from Article 
 						where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
-						and Active='true'
-												union
-						select Id,CreateAt,title as Name,headline as article_detail,Image from News
-						where Id in (select article_id from BookmarkArticle where user_id='$user_id')
-						and Active='true'
-
-						order by CreateAt desc";
+						and Active='true' order by CreateAt desc";
+												//union
+			
 			$item=null;
-			$res=$conn->query($query);
 			$count=0;//counter
+			
+			$res=$conn->query($query);
+			
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
 				$row['Name']=str_replace("''","'",$row['Name']);
 				$row['article_detail']=str_replace("''","'",$row['article_detail']);
@@ -35,7 +33,27 @@
 				$item[]=$row; 
 				$count++;		
 			}
-							
+			
+			/*getting news articles*/
+			$query = "select Id,CreateAt,title as Name,headline as article_detail,Image from News
+						where Id in (select article_id from BookmarkArticle where user_id='$user_id')
+						and Active='true' order by CreateAt desc";	
+			$res=$conn->query($query);
+			
+			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$row['Name']=str_replace("''","'",$row['Name']);
+				$row['article_detail']=str_replace("''","'",$row['article_detail']);
+				$row['Image']=($row['Image']==null)?"":$row['Image'];
+				$row['images_url']=($row['Image']==null)?"http://".SERVER_IP."/TabGenAdmin/img/noimage.jpg":
+								"http://".SERVER_IP."/TabGenAdmin/".$row['Image'];
+				$row['detail_url'] =  "http://".SERVER_IP."/TabGenAdmin/get_mobile_news_article.php?news_id=".$row['Id'];
+				//$row['Filenames']=getAttatchment($conn,$row['Id']);
+				$row['no_of_likes'] = getNoOfLikesOfArticle($conn,$row['Id']);
+				$row['is_bookmarked_by_you']=isArticleAlreadyBookmarked($conn,$row['Id'],$user_id);
+				$row['is_liked_by_you']=isArticleAlreadyLiked($conn,$row['Id'],$user_id);	
+				$item[]=$row; 
+				$count++;		
+			}			
 						
 			if($count==0){
 				$response=array("status"=>false,
