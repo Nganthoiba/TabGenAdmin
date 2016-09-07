@@ -13,7 +13,10 @@
 				$output=null;
 				$query = "select Id,CreateAt,DeleteAt,UpdateAt,Name,Textual_content,Images,Links as external_link_url 
 				from Article where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
-				and DeleteAt=0 and Active='true' order by CreateAt desc";
+				and DeleteAt=0 and Active='true' 
+				and TabId in (select Tab.Id from Tab,TabTemplate where Tab.TabTemplate=TabTemplate.Id 
+								and TabTemplate.Name='CME Template')
+				order by CreateAt desc";
 				
 				$item=null;
 				$res=$conn->query($query);
