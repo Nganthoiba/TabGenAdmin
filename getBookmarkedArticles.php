@@ -16,7 +16,7 @@
 			$query = "select Id,CreateAt,Name,Textual_content as article_detail,Images as Image from Article 
 						where Id in (select article_id from BookmarkArticle where user_id='$user_id') 
 						and Active='true' order by CreateAt desc";
-												//union
+												
 			$res=$conn->query($query);
 			
 			while($row=$res->fetch(PDO::FETCH_ASSOC)){
@@ -173,6 +173,7 @@
 		echo json_encode(array("status"=>false,"response"=>null,"message"=>"Sorry, unable to connect database."));
 	}
 	/*function to get template name*/
+	/*
 	function getTemplate($type){
 		$template_name=null;
 		switch($type){
@@ -188,5 +189,5 @@
 			default: $template_name = null;
 		}
 		return $template_name;
-	}
+	}*/
 ?>
