@@ -499,8 +499,8 @@
 								if(youtube_parser(Link)!=null){
 									var video_id = youtube_parser(Link);
 									link_layout=""+
-									"<div style='float:right;padding-right:28px'><button class='btn-remove'"+
-									" onclick='remove_link(\""+i+"\");'>X</button></div><br/>"+
+									"<div style='float:right;padding-right:28px;width:100%'><button class='btn-remove'"+
+									" onclick='remove_link(\""+i+"\");'>X</button></div><br/><br/>"+
 									"<div class='videoWrapper'><iframe allowfullscreen='true'"+
 										" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
 									"</iframe></div>";

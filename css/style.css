@@ -88,6 +88,7 @@
 	position:relative;
 	padding-bottom:56.25%;
 	padding-top:25px;
+	border:1px solid #f7f7f7;
 	height:0
 }
 
@@ -96,6 +97,8 @@
 	top:0;
 	left:0;
 	width:100%;
+	border:2px solid #f2f2f2;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	height:100%;
 }
 

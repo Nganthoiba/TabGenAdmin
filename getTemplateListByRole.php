@@ -7,7 +7,7 @@
 			
 	if($conn){
 		
-			$temporaryQuery="select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit 
+		$temporaryQuery="select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,RoleName,OrganisationUnit 
 					from TabTemplate,Tab,OrganisationUnit 
 					where Tab.TabTemplate=TabTemplate.Id 
 						and OrganisationUnit.Id=Tab.OUId 
@@ -23,14 +23,13 @@
 											select Id from Role where OrganisationUnit='$org_unit' and RoleName='$role')
 					order by Tab.Name";
 					
-		
 		$res = $conn->query($temporaryQuery);	
-			if($res){
-				while($row=$res->fetch(PDO::FETCH_ASSOC)){
-					$output[]=$row;
-				}
-				print(json_encode($output));
+		if($res){
+			while($row=$res->fetch(PDO::FETCH_ASSOC)){
+				$output[]=$row;
 			}
+			print(json_encode($output));
+		}
 	}
 	
 

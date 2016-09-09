@@ -508,17 +508,18 @@
 			if(youtube_parser(url)!=null){
 				var video_id = youtube_parser(url);
 				link_layout=""+
-					"<div style='float:right;padding-right:28px'><button class='btn-remove'"+
-					" onclick='remove_link(\""+i+"\");'>X</button></div><br/>"+
-					"<div class='videoWrapper'>"+
-						"<iframe allowfullscreen='true'"+
-							" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
-						"</iframe>"+
-					"</div>";
+						"<div class='videoWrapper'>"+
+							"<iframe allowfullscreen='true'"+
+								" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
+							"</iframe>"+
+						"</div>"+
+						"<div style='background-color:#f7f7f7;padding:5px;width:100%'>"+
+						"<button style='float:right' class='btn-remove'"+
+							" onclick='remove_link(\""+i+"\");'>Remove Link</button></div>";
 			}
 			else{
-				link_layout="<br/><div style='padding:5px'><a href='"+url+"' target='_blank'>"+url+"</a>"+
-				"&nbsp;<button class='btn-remove' onclick='remove_link(\""+i+"\");'>X</button>"+
+				link_layout="<br/><div class='link_bg'><a href='"+url+"' target='_blank'>"+url+"</a>"+
+				"&nbsp;<button class='close' onclick='remove_link(\""+i+"\");'>&times;</button>"+
 				"</div><br/>";
 			}
 		}

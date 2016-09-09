@@ -57,7 +57,8 @@ function findAssociatedTabsByRoleId($conn,$role_id){
 			  from TabTemplate,Tab,RoleTabAsson
 			  where Tab.TabTemplate=TabTemplate.Id
               and Tab.Id=RoleTabAsson.TabId
-              and RoleTabAsson.RoleId='$role_id'";
+              and RoleTabAsson.RoleId='$role_id'
+              and Tab.DeleteAt=0";
 	
     $output = null;
 	$res = $conn->query($query);
@@ -73,7 +74,7 @@ function findAssociatedTabsByRoleId($conn,$role_id){
 function findAllTabs($conn){
 	$query = "select TabTemplate.Name as Template_Name,Tab.Name as Tab_Name,Tab.RoleName,OrganisationUnit
 			  from TabTemplate,Tab
-			  where Tab.TabTemplate=TabTemplate.Id";
+			  where Tab.TabTemplate=TabTemplate.Id and Tab.DeleteAt=0";
 	
     $output = null;
 	$res = $conn->query($query);
