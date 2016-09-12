@@ -22,6 +22,7 @@
 	border-radius:1px;*/
 	padding: 5px 10px 5px 10px;
 	outline:none;
+	border-radius:3px;
     width:100%;
 	font-size:15pt;
 	font-weight:bold;
@@ -30,7 +31,8 @@
 	color:#1A922E
 }
 .heading:focus{
-	outline: 1px green;
+	border:1px solid #6E6E6E;
+	border-radius:3px;
 }
 .btn-remove{
 	border-radius:5px;
@@ -424,6 +426,9 @@ a:hover + .preview_link,.preview_link:hover{
    width: 300px;
    height: 300px;
    border: 1px solid black;
+}
+.normal_div{
+	padding:5px;
 }
 .circular{
 		width: 100px;

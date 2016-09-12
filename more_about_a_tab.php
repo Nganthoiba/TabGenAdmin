@@ -499,16 +499,17 @@
 								if(youtube_parser(Link)!=null){
 									var video_id = youtube_parser(Link);
 									link_layout=""+
-									"<div style='float:right;padding-right:28px;width:100%'><button class='btn-remove'"+
-									" onclick='remove_link(\""+i+"\");'>X</button></div><br/><br/>"+
 									"<div class='videoWrapper'><iframe allowfullscreen='true'"+
 										" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
-									"</iframe></div>";
+									"</iframe></div>"+
+									"<div style='padding:5px;'><button class='btn-remove'"+
+									" onclick='remove_link(\""+i+"\");'>Remove Link</button></div><br/>";
+									
 								}
 								else{
-									link_layout="<br/><div style='width:98%;overflow:hidden;overflow-x:auto;padding-left:5px;padding-right:5px'>"+
+									link_layout="<br/><div class='link_bg'>"+
 									"<a href='"+Link+"' target='_blank'>"+Link+"</a>"+
-									"&nbsp;<button class='btn-remove' onclick='remove_link(\""+i+"\");'>X</button>"+
+									"&nbsp;<button class='close' onclick='remove_link(\""+i+"\");'>&times;</button>"+
 									"</div><br/>";
 								}				
 							}

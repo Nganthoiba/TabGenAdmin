@@ -306,7 +306,7 @@
 						"<button onclick='cancel_edit_content(\""+i+"\");' class='close'>&times</button>&nbsp;"+
 						"<textarea class='form-control' id='news_details_id"+i+"'>"+output[i].Details+"</textarea>"+
 						"<br/><div class='pull-right'>"+
-						"<button onclick='save_edit_content(\""+i+"\");' class='btn'>Save</button>"+
+						"<button onclick='save_edit_content(\""+i+"\");' class='btn btn-primary'>Save</button>"+
 						"</div><br/><hr/>";
 						document.getElementById("textual_content_layout"+i).innerHTML=edit_layout;
 						embed_text_editor();
@@ -364,12 +364,11 @@
 					}
 					/*function for displaying layout for editing news headline */
 					function edit_news_headline(i){
-						var edit_layout="<div class=''>"+
+						var edit_layout="<div class='normal_div'>"+
 						"<button onclick='cancel_edit_headline(\""+i+"\");' class='close'>&times;</button>"+
 						"<textarea class='heading' id='news_headline_id"+i+"'>"+output[i].headline+"</textarea>"+
-						"<div class='pull-right'>"+
-						"<button onclick='save_edit_headline(\""+i+"\");' class='btn'>SAVE</button></div>"+
-						"</div><br/>";
+						"<button onclick='save_edit_headline(\""+i+"\");' style='float:right' class='btn btn-primary'>SAVE</button>"+
+						"</div><br/><br/>";
 						document.getElementById("headline_layout"+i).innerHTML=edit_layout;		
 					}
 					/*to cancel edit*/
@@ -513,7 +512,7 @@
 								" src='https://www.youtube.com/embed/"+video_id+"?autoplay=0'>"+
 							"</iframe>"+
 						"</div>"+
-						"<div style='background-color:#f7f7f7;padding:5px;width:100%'>"+
+						"<div style='padding:5px;width:100%'>"+
 						"<button style='float:right' class='btn-remove'"+
 							" onclick='remove_link(\""+i+"\");'>Remove Link</button></div>";
 			}
