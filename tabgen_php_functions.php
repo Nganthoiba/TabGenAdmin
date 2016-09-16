@@ -469,9 +469,7 @@ function getUserDisplayNameById($conn,$user_id){
 					/*getting channel details for the channel having same name as the earlier tab name*/
 					$tab_name=$tab_details['Name'];
 					$channel_details = getChannelByName($conn,$tab_name);//this returns null of the channel does not exists
-					if($channel_details!=null){
-						/* it means a channel already exists with the same name as tab name, so we are going to delete that channel name
-						with the new tab name.	*/		
+					if($channel_details!=null){			
 						
 						$delete_channel_data = null;
 											
@@ -491,7 +489,6 @@ function getUserDisplayNameById($conn,$user_id){
 					}else{
 						return json_encode(array("status"=>false,"message"=>"No channel exists with the earlier tab name"));
 					}
-					
 				}
 				else{
 					return json_encode(array("status"=>false,"message"=>"Token not found. Login again."));

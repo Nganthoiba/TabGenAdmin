@@ -1600,7 +1600,7 @@ $(document).ready(function(){
 						}
 					},
 					error: function(x,y,z){
-						swal("Failed!", "Something goes wrong...", "error");
+						swal("Failed!", "Something goes wrong... "+z, "error");
 					}
 				});  
 			} else {  
