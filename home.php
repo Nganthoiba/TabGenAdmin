@@ -131,7 +131,7 @@
 				</div>
 			</center>
 			
-            <ul class="sidebar-nav" style='height:100%;overflow:hidden;overflow-y:auto'>
+            <ul class="sidebar-nav" style='overflow:hidden;overflow-y:auto'>
 				<br/>
 				<li class="sidebar-brand">
 				</li>
