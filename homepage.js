@@ -1,7 +1,8 @@
 /*code for displaying modals verically centered*/
 var modalVerticalCenterClass = ".modal";
 var user_list; //list of users
-var IP="139.162.59.30";//server IP
+var IP="139.162.61.60";
+//"139.162.59.30";//server IP
 /*displaying modals vertically center*/
 function centerModals($element) {
     var $modals;
