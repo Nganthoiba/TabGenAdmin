@@ -23,7 +23,7 @@ if($token!=null){
 						$template_id=findTemplateId($conn,$template_name);
 						if($template_id!=null){
 							if($template_name=="Chat Template"){
-								$user_details = json_decode($_SESSION['user_details']);
+								$user_details = json_decode($_COOKIE['user_details']);
 								$team_id = $user_details->team_id;
 								$channel_array = array("display_name"=>$tab_name,
 															"name"=>strtolower(str_replace(' ','_',$tab_name)),
