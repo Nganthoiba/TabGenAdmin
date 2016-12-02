@@ -1223,7 +1223,7 @@ form.submit();
                                     <button type="submit" class="btn btn-info" id="hisconnect" onClick="Confirm(this.form)">Create</button>
 								</div>
                                 <div class="pull-left">
-                                    <button type="" class="btn btn-info" id="test_conection">TEST Connection</button>
+                                    <button type="button" class="btn btn-info" id="test_conection">TEST Connection</button>
 								</div>                                   
 							</div>
 						</div>
