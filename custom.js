@@ -18,7 +18,7 @@ $( document ).ready(function() {
 				url: "check.php",
 				data: dataString,
 				success: function(result){
-					
+					$("#his_connectivity_resp").html("<b>"+result+"</b>");
 				}
 			});
 		}
