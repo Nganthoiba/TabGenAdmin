@@ -4,7 +4,7 @@ $( document ).ready(function() {
 		var add = $("#ipadd").val();
 		var user = $("#datusr").val();
 		var pass = $("#datpass").val();
-
+		/*
 		var dataString = 'or='+ org + '&ipadd='+ add + '&datusr='+ user + '&datpass='+ pass;
 		alert(dataString);
 		if(org==''||add==''||user==''||pass=='')
@@ -21,7 +21,7 @@ $( document ).ready(function() {
 					$("#his_connectivity_resp").html("<b>"+result+"</b>");
 				}
 			});
-		}
+		}*/
 		return false;
 	});
 });
