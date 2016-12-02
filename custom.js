@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-  $("#test_conection").click(function(){
+  $("#test_connection").click(function(){
 		var org = $("#choose_org_for_hisconnectivity").val();
 		var add = $("#ipadd").val();
 		var user = $("#datusr").val();
