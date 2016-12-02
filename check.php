@@ -3,10 +3,10 @@ include('connect_db.php');//connecting database here
 include('tabgen_php_functions.php');
 
 
-$or = mysqli_real_escape_string($_POST['or']);  
-$ipadd = mysqli_real_escape_string($_POST['ipadd']);
-$datusr = mysqli_real_escape_string($_POST['datusr']);
-$datpass = mysqli_real_escape_string($_POST['datpass']);
+$or = $_POST['or'];  
+$ipadd = $_POST['ipadd'];
+$datusr = $_POST['datusr'];
+$datpass = $_POST['datpass'];
 
 if($conn){
 	$query = "select count(*) as count from HISConnectivity 
