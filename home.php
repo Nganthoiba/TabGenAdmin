@@ -13,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="js/jquery.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="custom.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/npm.js"></script>
 	<!-- This is what you need for sweet alert -->
