@@ -5,7 +5,7 @@ $( document ).ready(function() {
 		var user = $("#datusr").val();
 		var pass = $("#datpass").val();
 
-		var dataString = 'org1='+ org + '&add1='+ add + '&user1='+ user + '&pass1='+ pass;
+		var dataString = 'or='+ org + '&ipadd='+ add + '&datusr='+ user + '&datpass='+ pass;
 		//alert(dataString);
 		if(choose_org_tabstrip==''||ipadd==''||datusr==''||datpass=='')
 		{
