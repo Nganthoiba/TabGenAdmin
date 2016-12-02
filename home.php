@@ -1218,7 +1218,8 @@ form.submit();
                                 <div class="pull-right">   
                                     <button type="submit" class="btn btn-info" id="hisconnect" onClick="Confirm(this.form)">Create</button>
 								</div> 
-								<div id="his_connectivity_resp" class="col-sm-offset-2 col-sm-8"></div>
+								<br/>
+								<center><div id="his_connectivity_resp" class="col-sm-offset-2 col-sm-8"></div></center>
 							</div>
 						</div>
 					<!--</div>-->
