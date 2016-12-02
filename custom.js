@@ -7,7 +7,7 @@ $(document).ready(function() {
 		//alert("Hello World!");
 		
 		var dataString = 'or='+ org + '&ipadd='+ add + '&datusr='+ user + '&datpass='+ pass;
-		alert(dataString);
+		//alert(dataString);
 		if(org==''||add==''||user==''||pass=='')
 		{
 			alert("Please Fill All Fields");
