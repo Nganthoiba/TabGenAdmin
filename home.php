@@ -1154,28 +1154,23 @@ form.submit();
 					</div>
 						<div class="panel panel-default">
 							<div class="panel-body">
-                                                             <div class="form-group">
-								<label class="col-sm-4  control-label">Organization</label>
-								<div class="col-sm-8">
-									<select class="form-control" name="or" id="choose_org_tabstrip">
-									<script type="text/JavaScript">
-										$(document).ready(function(){
-											viewOrgListWithOUsRoles("choose_org_tabstrip","tabstrip_ou_selector",
-											"tabstrip_role_selector","createTabstripResponse");
-											$("#choose_org_tabstrip").change(function(){
-												getOUandRole("choose_org_tabstrip","tabstrip_ou_selector",
-												"tabstrip_role_selector","createTabstripResponse");
+                                <div class="form-group">
+									<label class="col-sm-4  control-label">Organization</label>
+									<div class="col-sm-8">
+										<select class="form-control" name="or" id="choose_org_for_hisconnectivity">
+										<script type="text/JavaScript">
+											$(document).ready(function(){
+												viewOrgs("dropdown","choose_org_for_hisconnectivity","all");
 											});
-										});
-									</script>
-                                                                        </select>
-								</div>
-                                                            </div>
+										</script>
+										</select>
+									</div>
+                                </div>
                                                            
 								<div class="form-group">
 									<label for="ipadd" class="col-sm-4  control-label">Database Server IP address</label>
 									<div class="col-sm-8">
-                                                                            <input type="text" class="form-control" name="ipadd" id="ipadd" placeholder="Database Server IP address">
+                                        <input type="text" class="form-control" name="ipadd" id="ipadd" placeholder="Database Server IP address">
 									</div>
 								</div>
                                                             
@@ -1218,7 +1213,7 @@ form.submit();
 								
                                                                 
 							<div class="panel-footer clearfix">
-								<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
+								<div id="his_connectivity_resp" class="col-sm-offset-2 col-sm-8"></div>
                                 <div class="pull-right">                            
                                     <button type="submit" class="btn btn-info" id="hisconnect" onClick="Confirm(this.form)">Create</button>
 								</div>
