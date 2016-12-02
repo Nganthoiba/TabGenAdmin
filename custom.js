@@ -10,7 +10,7 @@ $(document).ready(function() {
 		//alert(dataString);
 		if(org==''||add==''||user==''||pass=='')
 		{
-			alert("Please Fill All Fields");
+			$("#his_connectivity_resp").html("<center>Please Fill All Fields</center>");
 		}
 		else
 		{
