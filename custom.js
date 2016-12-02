@@ -6,8 +6,8 @@ $( document ).ready(function() {
 		var pass = $("#datpass").val();
 
 		var dataString = 'or='+ org + '&ipadd='+ add + '&datusr='+ user + '&datpass='+ pass;
-		//alert(dataString);
-		if(choose_org_tabstrip==''||ipadd==''||datusr==''||datpass=='')
+		alert(dataString);
+		if(org==''||add==''||user==''||pass=='')
 		{
 			alert("Please Fill All Fields");
 		}
