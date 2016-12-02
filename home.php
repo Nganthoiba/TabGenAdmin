@@ -1159,7 +1159,7 @@ form.submit();
 										<select class="form-control" name="or" id="choose_org_for_hisconnectivity">
 										<script type="text/JavaScript">
 											$(document).ready(function(){
-												//viewOrgs("dropdown","choose_org_for_hisconnectivity","all");
+												viewOrgs("dropdown","choose_org_for_hisconnectivity","all");
 											});
 										</script>
 										</select>
