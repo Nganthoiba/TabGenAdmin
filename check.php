@@ -1,0 +1,23 @@
+<?php
+include('connect_db.php');//connecting database here
+include('tabgen_php_functions.php');
+
+
+$or = mysqli_real_escape_string($_POST['or']);  
+$ipadd = mysqli_real_escape_string($_POST['ipadd']);
+$datusr = mysqli_real_escape_string($_POST['datusr']);
+$datpass = mysqli_real_escape_string($_POST['datpass']);
+
+
+$result = mysqli_query('select OrganisationName,DataServerIPAdd,DatabaseUsername,DatabasePassword from HISConnectivity where values = "'. $or .','. $ipadd .','. $datusr .','. $datpass .'"');  
+  
+
+if(mysqli_num_rows($result)>0){  
+    
+    echo "tested ok";  
+}else{  
+   
+  
+    echo "error";  
+}  
+?>

@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="css/my_custom_style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="js/jquery.min.js"></script>
+    <script src="js/custom.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/npm.js"></script>
 	<!-- This is what you need for sweet alert -->
@@ -75,6 +76,34 @@
 		}
 		
 	</script>
+         <script type="text/javascript">
+jQuery(document).ready(function($){
+    $('.my-form .add-box').click(function(){
+        var n = $('.text-box').length + 1;
+        var box_html = $('<p class="text-box"><label for="box' + n + '">Query <span class="box-number">' + n + '</span></label> <textarea class="form-control" type="text" name="boxes[]"  id="box">' + n + '</textarea> <a href="#" class="remove-box">Remove</a></p>');
+        box_html.hide();                                                                                                                            
+        $('.my-form p.text-box:last').after(box_html);
+        box_html.fadeIn('slow');
+        return false;
+    });
+    $('.my-form').on('click', '.remove-box', function(){
+    $(this).parent().css( 'background-color', '#FF6C6C' );
+    $(this).parent().fadeOut("slow", function() {
+        $(this).remove();
+        $('.box-number').each(function(index){
+            $(this).text( index + 1 );
+        });
+    });
+    return false;
+});
+});
+</script>
+<script type="text/javascript">
+function Confirm(form){
+alert("Record insert successfully!"); 
+form.submit();
+}
+</script>
 	<style type="text/css">		
 		
 		.my_background {
@@ -131,7 +160,7 @@
 				</div>
 			</center>
 			
-            <ul class="sidebar-nav" style='overflow:hidden;overflow-y:auto'>
+            <ul class="sidebar-nav" style='overflow:scroll;overflow-y:scroll'>
 				<br/>
 				<li class="sidebar-brand">
 				</li>
@@ -183,6 +212,8 @@
 				
 				<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role">
 					Associate Tabs to Role</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#hisconnect">
+					HIS Connectivity</a></li>  
 				<li><a></a></li>
 				<li><a></a></li>
             </ul>
@@ -642,13 +673,13 @@
 						<div class="form-group">
 							<label class="col-sm-4  control-label">Organisation:</label>
 							<div class="col-sm-8">
-								<select class="form-control" id="choose_org_tabstrip">
+								<select class="form-control" id="choose_org_tabstrips">
 									<script type="text/JavaScript">
 										$(document).ready(function(){
-											viewOrgListWithOUsRoles("choose_org_tabstrip","tabstrip_ou_selector",
+											viewOrgListWithOUsRoles("choose_org_tabstrips","tabstrip_ou_selector",
 											"tabstrip_role_selector","createTabstripResponse");
-											$("#choose_org_tabstrip").change(function(){
-												getOUandRole("choose_org_tabstrip","tabstrip_ou_selector",
+											$("#choose_org_tabstrips").change(function(){
+												getOUandRole("choose_org_tabstrips","tabstrip_ou_selectors",
 												"tabstrip_role_selector","createTabstripResponse");
 											});
 										});
@@ -657,13 +688,13 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class='col-sm-4  control-label' for='tabstrip_ou_selector'>Select an OU:</label>
+							<label class='col-sm-4  control-label' for='tabstrip_ou_selectors'>Select an OU:</label>
 							<div class='col-sm-8'>
-								<select id='tabstrip_ou_selector' class='form-control'>
+								<select id='tabstrip_ou_selectors' class='form-control'>
 									<script type="text/JavaScript">
 										$(document).ready(function(){
-											$("#tabstrip_ou_selector").change(function(){
-												var orgunit=($("#tabstrip_ou_selector").val()).trim();
+											$("#tabstrip_ou_selectors").change(function(){
+												var orgunit=($("#tabstrip_ou_selectors").val()).trim();
 												getRoles("tabstrip_role_selector",orgunit,"createTabstripResponse");
 											});
 										});
@@ -1107,7 +1138,101 @@
 		</div>
 	</div>
 </div>
-
+<div class="modal fade" id="hisconnect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+				<h4 class="modal-title" id="myModalLabel">HIS Connectivity</h4>
+			</div>
+			<div class="modal-body">
+                            <form class="form-horizontal" action="hisconnect.php" method="post">
+					
+					<div id="role_lists">
+                                            
+						
+					</div>
+						<div class="panel panel-default">
+							<div class="panel-body">
+                                                             <div class="form-group">
+								<label class="col-sm-4  control-label">Organization</label>
+								<div class="col-sm-8">
+									<select class="form-control" name="or" id="choose_org_tabstrip">
+									<script type="text/JavaScript">
+										$(document).ready(function(){
+											viewOrgListWithOUsRoles("choose_org_tabstrip","tabstrip_ou_selector",
+											"tabstrip_role_selector","createTabstripResponse");
+											$("#choose_org_tabstrip").change(function(){
+												getOUandRole("choose_org_tabstrip","tabstrip_ou_selector",
+												"tabstrip_role_selector","createTabstripResponse");
+											});
+										});
+									</script>
+                                                                        </select>
+								</div>
+                                                            </div>
+                                                           
+								<div class="form-group">
+									<label for="ipadd" class="col-sm-4  control-label">Database Server IP address</label>
+									<div class="col-sm-8">
+                                                                            <input type="text" class="form-control" name="ipadd" id="ipadd" placeholder="Database Server IP address">
+									</div>
+								</div>
+                                                            
+                                                                <div class="form-group">
+									<label for="datusr" class="col-sm-4  control-label">Database Username</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  name="datusr" id="datusr" placeholder="Database Username">
+									</div>
+								</div>
+							
+								<div class="form-group">
+									<label for="datpass" class="col-sm-4  control-label">Database Password</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  name="datpass" id="datpass" placeholder="Database Password">
+									</div>
+								</div>
+								
+                                                                <div class="form-group">
+                                                                        <label for="message-text" class="col-sm-4 control-label" id="">Queries</label>
+                                                                       
+                                                                        <div class="col-sm-8">
+                                                                                <div class="my-form">
+    
+                                                                                    <p class="text-box">
+                                                                                    <label for="box1">Query <span class="box-number">1</span></label>
+                                                                                   
+                                                                                    <textarea class="form-control"  value="" name="boxes[]" id="box1"></textarea>
+                                                                                    <button class="add-box" href="#">Add More</a></button>
+                                                                                    </p>
+                                                                                    
+    
+                                                                                </div>
+                                                                            
+                                                                        </div>
+                                                                        
+                                                                </div>
+                                                            
+                                                            
+                                                        </div>
+								
+                                                                
+							<div class="panel-footer clearfix">
+								<div id="error3" class="col-sm-offset-2 col-sm-8"></div>
+                                <div class="pull-right">                            
+                                    <button type="submit" class="btn btn-info" id="hisconnect" onClick="Confirm(this.form)">Create</button>
+								</div>
+                                <div class="pull-left">
+                                    <button type="" class="btn btn-info" id="test_conection">TEST Connection</button>
+								</div>                                   
+							</div>
+						</div>
+					<!--</div>-->
+				</form>
+			</div>	
+		</div>
+	</div>
+</div>
 <!-- Modal for displaying Users-->
 <div class="modal fade" id="displayUsers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document" style="min-height:60%;overflow-x:auto;min-width:70%">
