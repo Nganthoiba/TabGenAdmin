@@ -4,6 +4,7 @@ $( document ).ready(function() {
 		var add = $("#ipadd").val();
 		var user = $("#datusr").val();
 		var pass = $("#datpass").val();
+		alert("Hello World!");
 		/*
 		var dataString = 'or='+ org + '&ipadd='+ add + '&datusr='+ user + '&datpass='+ pass;
 		alert(dataString);

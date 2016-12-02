@@ -212,7 +212,7 @@ form.submit();
 				
 				<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role">
 					Associate Tabs to Role</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#hisconnect">
+                <li><a href="#" data-toggle="modal" data-target="#hisconnect">
 					HIS Connectivity</a></li>  
 				<li><a></a></li>
 				<li><a></a></li>
@@ -1160,7 +1160,7 @@ form.submit();
 										<select class="form-control" name="or" id="choose_org_for_hisconnectivity">
 										<script type="text/JavaScript">
 											$(document).ready(function(){
-												viewOrgs("dropdown","choose_org_for_hisconnectivity","all");
+												//viewOrgs("dropdown","choose_org_for_hisconnectivity","all");
 											});
 										</script>
 										</select>
