@@ -212,8 +212,7 @@ form.submit();
 				
 				<li><a href="#" data-toggle="modal" data-target="#associate_tabs_to_role">
 					Associate Tabs to Role</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#hisconnect">
-					HIS Connectivity</a></li>  
+                <li><a href="#" data-toggle="modal" data-target="#hisconnect">HIS Connectivity</a></li>  
 				<li><a></a></li>
 				<li><a></a></li>
             </ul>
