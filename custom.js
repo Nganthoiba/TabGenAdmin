@@ -1,5 +1,6 @@
 $(document).ready(function() {
   $("#test_connection").click(function(){
+		$("#his_connectivity_resp").html("<center>Wait Please...</center>");
 		var org = $("#choose_org_for_hisconnectivity").val();
 		var add = $("#ipadd").val();
 		var user = $("#datusr").val();
