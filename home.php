@@ -1212,14 +1212,13 @@ form.submit();
 								
                                                                 
 							<div class="panel-footer clearfix">
-                                <div class="pull-right">                            
-                                    <button type="submit" class="btn btn-info" id="hisconnect" onClick="Confirm(this.form)">Create</button>
-								</div>
-								
-                                <div class="pull-left">
+								<div class="pull-left">
                                     <button type="button" class="btn btn-info" id="test_connection">TEST Connection</button>
-								</div>   
-								<div id="his_connectivity_resp" class="col-sm-offset-2 col-sm-8"></div>
+								</div>
+                                <div class="pull-right">   
+									<div id="his_connectivity_resp" class="col-sm-offset-2 col-sm-8"></div>
+                                    <button type="submit" class="btn btn-info" id="hisconnect" onClick="Confirm(this.form)">Create</button>
+								</div> 
 							</div>
 						</div>
 					<!--</div>-->
